@@ -22,7 +22,7 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 
 /* stage: 1920×1080 canvas scaled to fit the window */
 .viewport{position:fixed;inset:0;overflow:hidden}
-.deck{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;transform:translate(-50%,-50%)}
+.deck{position:absolute;left:50%;top:calc(50% - 10px);width:1920px;height:1080px;transform-origin:center;transform:translate(-50%,-50%)}
 .slide{position:absolute;inset:0;background:var(--stage);border-radius:28px;overflow:hidden;padding:96px 120px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility .45s}
 .slide.on{opacity:1;visibility:visible;transform:none}
 .slide.prev{transform:translateX(-40px)}
@@ -30,12 +30,51 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 .slide>*{position:relative}
 
 /* chrome */
-.ui{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:rgba(28,28,30,.85);backdrop-filter:blur(16px);border:1px solid var(--line);z-index:10;transition:opacity .3s}
-.ui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--text-2)}
-.ui button:hover{background:var(--raised);color:var(--text)}
-.ui .count{font-size:13px;font-weight:600;color:var(--text-2);font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
-.progress{position:fixed;left:0;top:0;height:3px;background:var(--accent);z-index:10;transition:width .4s cubic-bezier(.2,.8,.2,1)}
-body.idle .ui{opacity:0}
+.ui{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:4px;padding:6px;border-radius:999px;background:rgba(28,28,30,.9);backdrop-filter:blur(16px);border:1px solid var(--line);z-index:10;transition:opacity .3s;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.ui button{height:40px;min-width:40px;border-radius:999px;display:flex;align-items:center;justify-content:center;gap:8px;color:var(--text-2);font-size:13px;font-weight:600}
+.ui button:hover:not(:disabled){background:var(--raised);color:var(--text)}
+.ui button:disabled{opacity:.3;cursor:default}
+.ui .sep{width:1px;height:24px;background:var(--line);margin:0 4px}
+.ui .count{padding:0 14px;color:var(--text);min-width:300px;justify-content:flex-start}
+.ui .count b{font-size:15px;font-variant-numeric:tabular-nums}
+.ui .count .of{color:var(--text-3);font-variant-numeric:tabular-nums}
+.ui .count .t{color:var(--text-2);font-weight:500;max-width:220px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ui .wide{padding:0 14px}
+.ui kbd{font:600 11px 'Inter';color:var(--text-3);border:1px solid var(--line);border-radius:6px;padding:1px 5px}
+body.idle.fs .ui,body.idle.fs .rail{opacity:0}
+
+/* top rail: one tick per slide, grouped by section */
+.rail{position:fixed;left:24px;right:24px;top:10px;display:flex;gap:14px;z-index:10;transition:opacity .3s}
+.rail .grp{display:flex;flex-direction:column;gap:6px;min-width:84px}
+.rail .lbl{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s}
+.rail .grp.on .lbl{color:var(--text)}
+.rail .ticks{display:flex;gap:3px}
+.rail .tick{flex:1;height:5px;border-radius:3px;background:var(--raised);cursor:pointer;position:relative;transition:background .3s,transform .2s}
+.rail .tick::before{content:"";position:absolute;inset:-8px 0}
+.rail .tick:hover{transform:scaleY(1.8)}
+.rail .tick.done{background:rgba(215,244,91,.4)}
+.rail .tick.cur{background:var(--accent)}
+
+/* overview */
+.ov{position:fixed;inset:0;z-index:20;background:rgba(10,10,11,.88);backdrop-filter:blur(20px);display:flex;flex-direction:column;padding:48px 64px;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s;overflow-y:auto}
+.ov.open{opacity:1;visibility:visible}
+.ov-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+.ov-head h3{font-size:28px}
+.ov-head span{font-size:14px;color:var(--text-2)}
+.ov-head button{width:44px;height:44px;border-radius:50%;background:var(--raised);display:grid;place-items:center}
+#ovBody{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;align-items:start}
+.ov-sec{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.ov-grid{display:flex;flex-direction:column;gap:8px}
+.ov-card{text-align:left;padding:12px 14px;border-radius:14px;background:var(--card);border:1.5px solid var(--line);display:flex;align-items:flex-start;gap:12px;transition:border-color .2s,transform .2s}
+.ov-card:hover{border-color:rgba(255,255,255,.25);transform:translateX(2px)}
+.ov-card.cur{border-color:var(--accent);background:linear-gradient(90deg,rgba(215,244,91,.1),transparent),var(--card)}
+.ov-card b{font-size:15px;font-weight:800;color:var(--text-3);font-variant-numeric:tabular-nums;width:22px;flex:none;line-height:20px}
+.ov-card.cur b{color:var(--accent)}
+.ov-card span{font-size:15px;font-weight:600;line-height:20px}
+
+/* page number on every slide */
+.pg{font-variant-numeric:tabular-nums;color:var(--text-2)}
+.pg b{color:var(--text);font-weight:700}
 
 /* type */
 .eyebrow{font-size:22px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);display:flex;align-items:center;gap:14px}
@@ -184,18 +223,21 @@ th.c,td.c{text-align:center}
   .viewport{position:static;display:block}
   .deck{position:static;transform:none!important;width:1920px;height:auto}
   .slide{position:relative;opacity:1;visibility:visible;transform:none;border-radius:0;width:1920px;height:1080px;page-break-after:always;transition:none}
-  .ui,.progress{display:none}
+  .ui,.rail,.ov{display:none}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
 }
 </style>
 </head>
 <body>
-<div class="progress" id="progress"></div>
+<div class="rail" id="rail"></div>
+<div class="ov" id="ov"><div class="ov-head"><div><h3>All slides</h3><span>Click a slide to jump · Esc to close</span></div><button id="ovClose" title="Close (Esc)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg></button></div><div id="ovBody"></div></div>
 <div class="viewport"><div class="deck" id="deck"></div></div>
 <div class="ui">
   <button id="prev" title="Previous (←)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-  <span class="count" id="count">1 / 1</span>
+  <button class="count" id="count" title="All slides (G)"></button>
   <button id="next" title="Next (→)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <span class="sep"></span>
+  <button class="wide" id="grid" title="All slides (G)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1.5"/><rect width="7" height="7" x="14" y="3" rx="1.5"/><rect width="7" height="7" x="14" y="14" rx="1.5"/><rect width="7" height="7" x="3" y="14" rx="1.5"/></svg>All slides <kbd>G</kbd></button>
   <button id="fs" title="Fullscreen (F)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
 </div>
 
@@ -296,7 +338,8 @@ const foot = (label) => `<div class="foot"><span class="brand"><i>${icon('logo',
    SLIDES
    ========================================================= */
 const SLIDES = [];
-const add = (html, cls = '') => SLIDES.push({ html, cls });
+let SEC = 'Overview';
+const add = (html, cls = '') => SLIDES.push({ html, cls, sec: SEC });
 
 /* 1 · Cover */
 add(`<div class="glow"></div>
@@ -352,6 +395,7 @@ add(`<div class="eyebrow"><span class="dot"></span>Method</div>
   <p class="lead" style="font-size:26px;margin-top:40px">We sell to gyms, but members decide whether the app gets used. Priority weighs both value scores against effort, and accounts for dependencies.</p>
   ${foot('Method')}`);
 
+SEC = 'Summary';
 /* 5 · Value vs effort matrix */
 (function(){
   const W = 1080, H = 700, pl = 80, pr = 30, pt = 30, pb = 80;
@@ -400,6 +444,7 @@ add(`<div class="eyebrow"><span class="dot"></span>Method</div>
       <tr><td class="n">—</td><td class="f" style="color:var(--text-2)">${NOT_PLANNED.name}</td><td class="c">${vbar(NOT_PLANNED.m)}</td><td class="c">${vbar(NOT_PLANNED.g, 'gym')}</td><td class="c e">L</td><td><span class="pill np" style="height:30px;font-size:14px;padding:0 12px">Not planned</span></td></tr></table></div>`);
 })();
 
+SEC = 'P0 · Now';
 /* 7 · P0 section divider */
 add(`<div class="glow"></div><div style="margin:auto 0">
   <span class="pill p0" style="height:52px;font-size:24px;padding:0 24px">P0 · Now</span>
@@ -422,6 +467,7 @@ F.filter(f => f.p === 0).forEach(f => {
       </div></div>${foot(`P0 · ${f.n} of 7`)}`);
 });
 
+SEC = 'P1 · Next';
 /* P1 + P2 card grids */
 const fcard = (f, np = false) => `<div class="fcard ${np ? 'np' : ''}"><div class="top"><span class="num">${np ? '—' : '#' + f.n}</span>${np ? '<span class="pill np" style="height:32px;font-size:15px">Not planned</span>' : `<span class="pill ghost" style="height:32px;font-size:15px">Phase ${f.ph}</span>`}</div>
   <h4>${f.name}</h4><p>${f.d}</p>
@@ -435,11 +481,13 @@ add(`<div class="eyebrow"><span class="dot" style="background:var(--p1)"></span>
   <h2 style="font-size:60px">AI and new revenue</h2>
   <div class="fgrid">${p1.filter(f => f.ph === 3).map(f => fcard(f)).join('')}
     <div class="fcard" style="background:transparent;border-style:dashed;justify-content:center"><p style="font-size:22px">The heavier AI and shop work waits until the nutrition tracker, memberships and payments it depends on are live.</p></div></div>${foot('P1 · 2 of 2')}`);
+SEC = 'P2 · Later';
 add(`<div class="eyebrow"><span class="dot" style="background:var(--p2)"></span>P2 · Later · Phase 4</div>
   <h2 style="font-size:60px">Extras, once the core is proven</h2>
   <div class="fgrid" style="grid-template-columns:repeat(3,1fr)">${F.filter(f => f.p === 2).map(f => fcard(f)).join('')}${fcard(NOT_PLANNED, true)}
     <div class="fcard" style="background:transparent;border-style:dashed;justify-content:center"><p style="font-size:22px">Lower differentiation or high ongoing cost. Their value mostly comes from features built earlier.</p></div></div>${foot('P2')}`);
 
+SEC = 'Plan';
 /* Phases */
 (function(){
   const meta = [
@@ -507,22 +555,53 @@ add(`<div class="glow"></div><div style="margin:auto 0">
 const deck = document.getElementById('deck');
 deck.innerHTML = SLIDES.map((s, i) => `<section class="slide ${s.cls}" data-i="${i}">${s.html}</section>`).join('');
 const els = [...deck.children];
+const N = els.length, pad = (n) => String(n).padStart(2, '0');
+// slide titles come from each slide's main heading
+const TITLES = els.map(el => { const h = el.querySelector('h1, h2'); return h ? h.innerHTML.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim() : 'Slide'; });
+// page number on every slide (bottom-right)
+els.forEach((el, i) => {
+  const pg = `<span class="pg"><b>${pad(i + 1)}</b> / ${N}</span>`;
+  const f = el.querySelector('.foot');
+  if (f) f.lastElementChild.innerHTML = `${f.lastElementChild.innerHTML} &nbsp;·&nbsp; ${pg}`;
+  else el.insertAdjacentHTML('beforeend', `<div class="foot"><span></span>${pg}</div>`);
+});
+// top rail grouped by section
+const groups = [];
+SLIDES.forEach((s, i) => { const g = groups[groups.length - 1]; if (g && g.sec === s.sec) g.idx.push(i); else groups.push({ sec: s.sec, idx: [i] }); });
+document.getElementById('rail').innerHTML = groups.map(g => `<div class="grp" data-sec="${g.sec}" style="flex:${g.idx.length}"><span class="lbl">${g.sec}</span><div class="ticks">${g.idx.map(i => `<i class="tick" data-go="${i}" title="${pad(i + 1)} · ${TITLES[i]}"></i>`).join('')}</div></div>`).join('');
+// overview
+document.getElementById('ovBody').innerHTML = groups.map(g => `<div><div class="ov-sec">${g.sec}</div><div class="ov-grid">${g.idx.map(i => `<button class="ov-card" data-go="${i}"><b>${pad(i + 1)}</b><span>${TITLES[i]}</span></button>`).join('')}</div></div>`).join('');
+const ov = document.getElementById('ov');
+const openOv = (on) => ov.classList.toggle('open', on);
+document.addEventListener('click', e => { const t = e.target.closest('[data-go]'); if (t){ go(+t.dataset.go); openOv(false); } });
+document.getElementById('ovClose').onclick = () => openOv(false);
+
 let cur = 0;
 function go(i){
-  cur = Math.max(0, Math.min(els.length - 1, i));
+  cur = Math.max(0, Math.min(N - 1, i));
   els.forEach((el, j) => { el.classList.toggle('on', j === cur); el.classList.toggle('prev', j < cur); });
-  document.getElementById('count').textContent = `${cur + 1} / ${els.length}`;
-  document.getElementById('progress').style.width = ((cur + 1) / els.length * 100) + '%';
+  document.getElementById('count').innerHTML = `<b>${pad(cur + 1)}</b><span class="of">/ ${N}</span><span class="t">${TITLES[cur]}</span>`;
+  document.querySelectorAll('.rail .tick').forEach(t => { const k = +t.dataset.go; t.classList.toggle('cur', k === cur); t.classList.toggle('done', k < cur); });
+  document.querySelectorAll('.rail .grp').forEach(g => g.classList.toggle('on', g.dataset.sec === SLIDES[cur].sec));
+  document.querySelectorAll('.ov-card').forEach(c => c.classList.toggle('cur', +c.dataset.go === cur));
+  document.getElementById('prev').disabled = cur === 0;
+  document.getElementById('next').disabled = cur === N - 1;
   history.replaceState(null, '', '#' + (cur + 1));
 }
 function fit(){
-  const s = Math.min(innerWidth / 1920, innerHeight / 1080) * 0.96;
+  const s = Math.min((innerWidth - 48) / 1920, (innerHeight - 124) / 1080);
   deck.style.transform = `translate(-50%,-50%) scale(${s})`;
 }
 document.getElementById('prev').onclick = () => go(cur - 1);
 document.getElementById('next').onclick = () => go(cur + 1);
+document.getElementById('count').onclick = () => openOv(true);
+document.getElementById('grid').onclick = () => openOv(!ov.classList.contains('open'));
+document.addEventListener('fullscreenchange', () => document.body.classList.toggle('fs', !!document.fullscreenElement));
 document.getElementById('fs').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
 addEventListener('keydown', e => {
+  if (e.key === 'g' || e.key === 'G' || e.key === 'o' || e.key === 'O') { openOv(!ov.classList.contains('open')); return; }
+  if (e.key === 'Escape') { openOv(false); return; }
+  if (ov.classList.contains('open')) return;
   if (['ArrowRight','PageDown',' ','Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); }
   else if (['ArrowLeft','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
   else if (e.key === 'Home') go(0);
