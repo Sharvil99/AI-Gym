@@ -1,0 +1,541 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>AI Gym Roadmap</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0E0E0F; --stage:#121212; --card:#1C1C1E; --card-2:#232325; --raised:#2C2C2E;
+  --text:#FFFFFF; --text-2:#A1A1A6; --text-3:#5E5E63; --line:rgba(255,255,255,.08);
+  --accent:#D7F45B; --accent-ink:#121212; --accent-soft:rgba(215,244,91,.12);
+  --p0:#D7F45B; --p1:#6CB6FF; --p2:#A1A1A6; --np:#FF5A5F;
+  --green:#3DDC84; --orange:#FF9F43; --red:#FF5A5F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);overflow:hidden}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:var(--text);-webkit-font-smoothing:antialiased}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+
+/* stage: 1920×1080 canvas scaled to fit the window */
+.viewport{position:fixed;inset:0;overflow:hidden}
+.deck{position:absolute;left:50%;top:50%;width:1920px;height:1080px;transform-origin:center;transform:translate(-50%,-50%)}
+.slide{position:absolute;inset:0;background:var(--stage);border-radius:28px;overflow:hidden;padding:96px 120px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transform:translateX(40px);transition:opacity .45s cubic-bezier(.2,.8,.2,1),transform .45s cubic-bezier(.2,.8,.2,1),visibility .45s}
+.slide.on{opacity:1;visibility:visible;transform:none}
+.slide.prev{transform:translateX(-40px)}
+.slide::before{content:"";position:absolute;inset:0 0 auto;height:520px;background:radial-gradient(70% 100% at 50% 0%,rgba(255,255,255,.05),transparent 70%);pointer-events:none}
+.slide>*{position:relative}
+
+/* chrome */
+.ui{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);display:flex;align-items:center;gap:8px;padding:6px;border-radius:999px;background:rgba(28,28,30,.85);backdrop-filter:blur(16px);border:1px solid var(--line);z-index:10;transition:opacity .3s}
+.ui button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;color:var(--text-2)}
+.ui button:hover{background:var(--raised);color:var(--text)}
+.ui .count{font-size:13px;font-weight:600;color:var(--text-2);font-variant-numeric:tabular-nums;min-width:64px;text-align:center}
+.progress{position:fixed;left:0;top:0;height:3px;background:var(--accent);z-index:10;transition:width .4s cubic-bezier(.2,.8,.2,1)}
+body.idle .ui{opacity:0}
+
+/* type */
+.eyebrow{font-size:22px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-2);display:flex;align-items:center;gap:14px}
+.eyebrow .dot{width:10px;height:10px;border-radius:50%;background:var(--accent)}
+h1{font-size:120px;line-height:1;font-weight:800;letter-spacing:-.045em}
+h2{font-size:68px;line-height:1.05;font-weight:800;letter-spacing:-.035em;margin-top:20px}
+h3{font-size:34px;font-weight:700;letter-spacing:-.02em}
+.lead{font-size:32px;line-height:1.45;color:var(--text-2);max-width:1300px;margin-top:28px}
+.lead b{color:var(--text);font-weight:600}
+.acc{color:var(--accent)}
+.foot{position:absolute;left:120px;right:120px;bottom:56px;display:flex;justify-content:space-between;font-size:18px;color:var(--text-3);font-weight:500}
+.foot .brand{display:flex;align-items:center;gap:10px}
+.foot .brand i{width:28px;height:28px;border-radius:8px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+
+/* components */
+.card{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:36px}
+.grid{display:grid;gap:24px}
+.pill{display:inline-flex;align-items:center;gap:8px;height:40px;padding:0 18px;border-radius:999px;font-size:18px;font-weight:700;white-space:nowrap}
+.pill.p0{background:var(--p0);color:#121212}
+.pill.p1{background:rgba(108,182,255,.16);color:var(--p1)}
+.pill.p2{background:rgba(161,161,166,.16);color:var(--text-2)}
+.pill.np{background:rgba(255,90,95,.14);color:var(--np)}
+.pill.ghost{background:var(--raised);color:var(--text)}
+.ic{flex:none}
+.icon-tile{width:72px;height:72px;border-radius:22px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center}
+.pips{display:inline-flex;gap:5px}
+.pips i{width:22px;height:8px;border-radius:4px;background:var(--raised)}
+.pips i.on{background:var(--accent)}
+.pips.gym i.on{background:var(--p1)}
+.kv{display:flex;align-items:center;gap:14px;font-size:18px;color:var(--text-2);font-weight:500}
+
+/* cover */
+.cover{justify-content:space-between}
+.cover .mark{width:96px;height:96px;border-radius:28px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.cover-stats{display:flex;gap:64px}
+.cover-stats div b{display:block;font-size:84px;font-weight:800;letter-spacing:-.04em;line-height:1}
+.cover-stats div span{font-size:22px;color:var(--text-2);font-weight:500}
+.glow{position:absolute;right:-240px;top:-200px;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(215,244,91,.16),transparent 65%);pointer-events:none}
+
+/* people */
+.person{display:flex;flex-direction:column;gap:20px}
+.person p{font-size:26px;line-height:1.45;color:var(--text-2)}
+.person ul{list-style:none;display:grid;gap:12px;margin-top:8px}
+.person li{display:flex;gap:12px;font-size:22px;color:var(--text);align-items:flex-start;line-height:1.35}
+.person li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:12px;flex:none}
+
+/* ranking */
+.score{display:flex;flex-direction:column;gap:16px}
+.score .big{font-size:56px;font-weight:800;letter-spacing:-.03em}
+.score p{font-size:24px;line-height:1.45;color:var(--text-2)}
+.prio-row{display:flex;align-items:center;gap:24px;padding:22px 0;border-top:1px solid var(--line);font-size:24px;color:var(--text-2)}
+.prio-row:first-child{border-top:0}
+.prio-row .pill{width:150px;justify-content:center}
+
+/* matrix */
+.matrix-wrap{display:grid;grid-template-columns:1080px 1fr;gap:56px;margin-top:40px;flex:1;min-height:0}
+.legend{display:grid;gap:22px;align-content:start}
+.legend h4{font-size:18px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.legend h4 i{width:14px;height:14px;border-radius:50%}
+.legend ol{list-style:none;columns:2;column-gap:24px}
+.legend li{font-size:18px;color:var(--text-2);line-height:1.75;break-inside:avoid;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.legend li b{color:var(--text);font-variant-numeric:tabular-nums;display:inline-block;width:32px}
+.mdot{cursor:default;transition:transform .2s}
+.mdot:hover{transform:scale(1.15)}
+
+/* summary table */
+.tables{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px}
+table{width:100%;border-collapse:collapse}
+th{font-size:15px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);text-align:left;padding:0 10px 14px}
+td{padding:0 10px;height:62px;border-top:1px solid var(--line);font-size:21px;vertical-align:middle}
+td.n{color:var(--text-3);font-variant-numeric:tabular-nums;width:44px;font-weight:600}
+td.f{font-weight:600}
+td .pill{height:30px;font-size:14px;padding:0 12px}
+td.e{color:var(--text-2);font-weight:600;white-space:nowrap}
+th.c,td.c{text-align:center}
+.vbar{display:inline-flex;gap:3px}
+.vbar i{width:10px;height:18px;border-radius:3px;background:var(--raised)}
+.vbar i.on{background:var(--accent)}
+.vbar.gym i.on{background:var(--p1)}
+
+/* feature detail */
+.feat{display:grid;grid-template-columns:1fr 560px;gap:56px;margin-top:40px;flex:1;min-height:0}
+.feat .what{font-size:32px;line-height:1.45;color:var(--text);font-weight:500}
+.feat .why{font-size:25px;line-height:1.5;color:var(--text-2);margin-top:28px;padding-left:28px;border-left:4px solid var(--accent)}
+.feat .why b{color:var(--text);font-weight:600;display:block;font-size:17px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+.side{display:flex;flex-direction:column;gap:20px}
+.side .card{padding:28px 32px}
+.side h5{font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
+.side ul{list-style:none;display:grid;gap:10px}
+.side li{display:flex;gap:12px;font-size:20px;line-height:1.4}
+.side li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:11px;flex:none}
+.side .warn li::before{background:var(--orange)}
+.side .meas li::before{background:var(--p1)}
+.scores{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.scores>div{background:var(--card-2);border-radius:20px;padding:18px 20px}
+.scores span{display:block;font-size:15px;font-weight:600;color:var(--text-2);margin-bottom:10px}
+.scores b{font-size:30px;font-weight:800;letter-spacing:-.02em}
+.scores b small{font-size:18px;color:var(--text-3);font-weight:600}
+.feat-num{font-size:200px;font-weight:800;letter-spacing:-.06em;color:var(--card-2);position:absolute!important;right:110px;top:50px;line-height:1}
+
+/* P1/P2 card grids */
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:44px}
+.fcard{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:30px 32px;display:flex;flex-direction:column;gap:14px}
+.fcard .top{display:flex;align-items:center;justify-content:space-between}
+.fcard .num{font-size:20px;font-weight:700;color:var(--text-3);font-variant-numeric:tabular-nums}
+.fcard h4{font-size:28px;font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.fcard p{font-size:20px;line-height:1.45;color:var(--text-2)}
+.fcard .meta{display:flex;gap:18px;margin-top:auto;padding-top:14px;border-top:1px solid var(--line);font-size:16px;color:var(--text-2);font-weight:600;align-items:center}
+.fcard.np{border-style:dashed;border-color:rgba(255,90,95,.35);background:transparent}
+
+/* phases */
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;flex:1;min-height:0}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:14px;position:relative}
+.phase .ph{font-size:18px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.phase h4{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
+.phase p{font-size:19px;line-height:1.45;color:var(--text-2)}
+.phase .chips{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.phase .chip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--card-2);font-size:19px;font-weight:600}
+.phase .chip i{width:10px;height:10px;border-radius:50%;flex:none}
+.phase .chip span{color:var(--text-3);font-variant-numeric:tabular-nums;width:30px;flex:none}
+.phase .chip.note{background:transparent;border:1px dashed var(--line);color:var(--text-2);font-weight:500}
+.phase.first{border-color:rgba(215,244,91,.45);background:linear-gradient(180deg,rgba(215,244,91,.08),transparent 40%),var(--card)}
+.arrow{position:absolute!important;top:50%;right:-22px;width:20px;height:20px;color:var(--text-3);z-index:1}
+
+/* measurement */
+.meas-wrap{display:grid;grid-template-columns:520px 1fr;gap:40px;margin-top:44px}
+.base li{display:flex;align-items:center;gap:18px;padding:18px 0;border-top:1px solid var(--line);font-size:23px}
+.base li:first-child{border-top:0}
+.base li i{width:44px;height:44px;border-radius:14px;background:var(--raised);display:grid;place-items:center;color:var(--accent);flex:none}
+.base ul{list-style:none}
+.mt td{height:68px;font-size:21px}
+.mt td.who{color:var(--text-2)}
+.chipn{display:inline-flex;height:30px;min-width:44px;padding:0 10px;border-radius:999px;background:var(--raised);font-size:15px;font-weight:700;align-items:center;justify-content:center;margin-right:6px;font-variant-numeric:tabular-nums}
+
+/* questions */
+.qs{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:48px}
+.q{display:flex;gap:24px;align-items:flex-start;padding:30px 32px;background:var(--card);border:1px solid var(--line);border-radius:28px}
+.q b{font-size:44px;font-weight:800;color:var(--accent);line-height:1;letter-spacing:-.03em;width:48px;flex:none}
+.q p{font-size:24px;line-height:1.45}
+.q p span{display:block;color:var(--text-2);font-size:19px;margin-top:6px}
+
+/* print: one slide per page */
+@media print{
+  @page{size:1920px 1080px;margin:0}
+  html,body{overflow:visible;height:auto;background:#121212}
+  .viewport{position:static;display:block}
+  .deck{position:static;transform:none!important;width:1920px;height:auto}
+  .slide{position:relative;opacity:1;visibility:visible;transform:none;border-radius:0;width:1920px;height:1080px;page-break-after:always;transition:none}
+  .ui,.progress{display:none}
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="viewport"><div class="deck" id="deck"></div></div>
+<div class="ui">
+  <button id="prev" title="Previous (←)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+  <span class="count" id="count">1 / 1</span>
+  <button id="next" title="Next (→)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+  <button id="fs" title="Fullscreen (F)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/></svg></button>
+</div>
+
+<script>
+/* =========================================================
+   ROADMAP DATA (mirrors ROADMAP.md)
+   ========================================================= */
+const F = [
+  { n:1, name:'Trainer app and console', m:3, g:5, e:'M', p:0, ph:1, icon:'clipboard',
+    what:'A phone app for trainers on the floor and a web console for desk work: a member list sorted by who needs attention, a plan approval queue, live “call a coach” requests, session feedback, form-check clips and chat.',
+    why:'The member app already depends on trainer actions: approving plans, answering floor calls, reading feedback. None of those work without this. It is how we deliver “trainer-supervised”, our main difference from consumer AI apps.',
+    scope:['Approval queue with edit and approve','Live request feed: accept → on my way','Member list with attention flags','Chat'],
+    watch:'Trainers can’t stare at a phone mid-session. Requests must be loud and one-tap.',
+    measure:['Median plan approval time','Median response time to floor calls','Share of calls answered'] },
+  { n:2, name:'Owner dashboard and at-risk alerts', m:3, g:5, e:'M', p:0, ph:1, icon:'radar',
+    what:'AI flags members who missed 2+ planned sessions, are trending down, or reported pain or “too hard”. Their coach is prompted to reach out, and the app tracks whether they did.',
+    why:'This is the retention feature the product is built around: no member left unattended. It’s also what owners judge when deciding whether to renew our subscription.',
+    scope:['Weekly at-risk list per trainer','One-tap suggested message','Owner view: flagged, contacted, returned'],
+    watch:'Alert fatigue. Cap and rank flags per trainer per week so the list stays actionable.',
+    measure:['At-risk contacted within 48 h','Share who return within 14 days','90-day retention'] },
+  { n:3, name:'Membership, check-in and renewals', m:3, g:5, e:'M', p:0, ph:1, icon:'qr',
+    what:'QR check-in at the front desk, membership status and expiry, UPI renewal in the app, renewal reminders, and freeze or pause requests.',
+    why:'This most directly pays for the product from the owner’s side. It replaces registers and spreadsheets, recovers lost renewals, and provides the attendance data behind streaks and at-risk alerts.',
+    scope:['Check-in QR','Status card on Profile','UPI payment link for renewal','Reminders 7 days and 1 day before expiry'],
+    watch:'Needs a payment gateway (Razorpay or Cashfree) and gym-side admin screens.',
+    measure:['On-time renewal rate','Share of renewals done in the app'] },
+  { n:4, name:'Offline mode for the gym floor', m:4, g:3, e:'M', p:0, ph:1, icon:'wifi',
+    what:'Today’s workout, the logger and the rest timer keep working with no signal, and sync later.',
+    why:'Many Indian gyms are in basements with poor reception. A logger that freezes mid-set is the fastest way to lose trust. It’s built in from day one, because adding offline sync later is much harder.',
+    scope:['Cache the day’s plan and demo videos','Queue logged sets offline','Sync on reconnect','Clear state for coach calls (need signal)'],
+    measure:['Sessions completed with an offline period','Sync failures'] },
+  { n:5, name:'Exercise video library', m:4, g:4, e:'M', p:0, ph:1, icon:'play',
+    what:'A short looping demo for every exercise in the logger, workout detail and swap sheet. Ideally recorded by the gym’s own trainers, with a stock library as fallback.',
+    why:'Members interrupt trainers to ask “how do I do this?”. Demos cut those requests and keep form safe. Gym-recorded videos are a branding win: our coaches, our machines.',
+    scope:['Stock library of ~150 core exercises','Gyms upload their own clip per exercise','Recording template in the trainer app'],
+    watch:'Needs video hosting and a CDN.',
+    measure:['Fewer form-check and call-coach requests','Video plays per workout'] },
+  { n:6, name:'Gamified progress', m:4, g:5, e:'S–M', p:0, ph:2, icon:'trophy',
+    what:'Builds on the streak and PRs already in the app: badges, monthly gym-wide challenges, opt-in leaderboards inside the member’s own gym, and streak protection on rest days.',
+    why:'Gyms lose most members in the first three months. Streaks and challenges are the cheapest proven way to build a habit, owners can run challenges as marketing, and in-gym leaderboards are something consumer apps can’t copy.',
+    scope:['Badges','Gym challenges with real rewards (free PT session, merch)','Seasonal challenges: New Year, festivals','Weekly leaderboard by workouts completed'],
+    watch:'Opt-in only. Rank by consistency, not weight lifted, so beginners aren’t discouraged.',
+    measure:['90-day member retention','Workouts per member per week'] },
+  { n:7, name:'Nutrition tracker', m:5, g:4, e:'M', p:0, ph:2, icon:'apple',
+    what:'Daily calories and protein against coach-set targets, with a food database built for Indian food (dal, roti, idli, paneer, biryani, thalis) and quick-add for repeat meals.',
+    why:'Most members join to lose weight, and diet drives that more than training. Coaches already advise on WhatsApp. This brings it into the app, next to the workout.',
+    scope:['Portions in katoris, rotis and pieces, not grams','Veg / egg / non-veg / Jain, and fasting days','“Send my plate to my coach” photo (no AI)','Protein and calorie rings on Home'],
+    watch:'Logging fatigue: keep v1 to calories and protein. Food database sourcing starts in phase 1.',
+    measure:['Members logging 4+ days a week','Weight progress: loggers vs non-loggers'] },
+  { n:8, name:'WhatsApp integration', m:4, g:4, e:'S–M', p:1, ph:2, d:'Reminders, renewal links, coach nudges and the weekly recap over WhatsApp, which members read far more reliably than push.' },
+  { n:9, name:'Regional languages', m:4, g:4, e:'M', p:1, ph:2, d:'Hindi and Telugu first. Exercise names stay in English with the regional script alongside, the way trainers say them.' },
+  { n:10, name:'4-week reassessment', m:4, g:5, e:'S–M', p:1, ph:2, d:'Measurements, photos and a strength check every 4 weeks, reviewed by the coach. Imports InBody scans. A natural PT upsell moment.' },
+  { n:11, name:'Injury and limitations profile', m:4, g:4, e:'S', p:1, ph:2, d:'Plans avoid flagged movements, and pain reports reach the coach. Safer members, less liability, more trustworthy AI plans.' },
+  { n:12, name:'Referrals', m:2, g:4, e:'S', p:1, ph:2, d:'A free guest pass for a friend and a reward for the member. Cheap acquisition, quick to build once memberships exist.' },
+  { n:13, name:'AI food photo logging', m:5, g:3, e:'L', p:1, ph:3, d:'Photo → suggested dish and portion → one-tap confirm. Needs the nutrition tracker first, and coach-reviewed photos give us test data.' },
+  { n:14, name:'Products space (gym shop)', m:3, g:5, e:'M–L', p:1, ph:3, d:'PT packages, consultations and merch first; supplements once FSSAI compliance is sorted. New revenue for gyms and us.' },
+  { n:15, name:'QR codes on machines', m:3, g:4, e:'S', p:1, ph:3, d:'Scan a machine for its demo, setup tips and your last weights. Makes “AI that knows your gym” something members can touch.' },
+  { n:16, name:'Home and travel workouts', m:4, g:3, e:'S–M', p:1, ph:3, d:'“I can’t make it today” swaps in a home version, keeping the habit alive through festivals, travel and exams.' },
+  { n:17, name:'Wearable and health app sync', m:3, g:2, e:'M', p:1, ph:3, d:'Steps, heart rate and sleep from Apple Health, Health Connect and Indian bands. Useful, but it doesn’t help gyms sell.' },
+  { n:18, name:'Recipes', m:3, g:2, e:'S–M', p:2, ph:4, d:'High-protein Indian recipes, vegetarian first, linked to nutrition targets with one-tap logging.' },
+  { n:19, name:'Video and article space', m:3, g:3, e:'M+', p:2, ph:4, d:'Explainers and diet basics from the gym’s trainers. Engaging, but most gyms can’t sustain the content.' },
+  { n:20, name:'Class booking', m:3, g:4, e:'M', p:2, ph:4, d:'Zumba, yoga and HIIT with capacity and waitlists. A per-gym toggle: essential for some gyms, irrelevant for others.' },
+  { n:21, name:'Live gym crowd meter', m:3, g:2, e:'M', p:2, ph:4, d:'How busy the gym is right now. Needs check-out scans or an estimated ~75-minute session length.' },
+];
+const NOT_PLANNED = { name:'Food video logging', m:2, g:1, e:'L', d:'Adds little over a photo and costs far more to process. Revisit only if photo logging needs multiple angles.' };
+const PRIO = ['P0 · Now','P1 · Next','P2 · Later'];
+const PCLS = ['p0','p1','p2'];
+const PCOL = ['var(--p0)','var(--p1)','var(--p2)'];
+
+/* =========================================================
+   ICONS + HELPERS
+   ========================================================= */
+const IC = {
+  logo:'<path d="M3 9.5 12 4l9 5.5"/><path d="M6 11v7M10 11v7M14 11v7M18 11v7"/><path d="M3.5 20.5h17"/>',
+  user:'<circle cx="12" cy="8" r="4.5"/><path d="M20 21a8 8 0 0 0-16 0"/>',
+  clipboard:'<rect width="8" height="4" x="8" y="2" rx="1"/><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><path d="m9 14 2 2 4-4"/>',
+  chart:'<path d="M3 3v18h18"/><path d="M18 17V9M13 17V5M8 17v-3"/>',
+  radar:'<path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M4 6h.01"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><path d="M12 18h.01"/><path d="M17.99 11.66A6 6 0 0 1 15.77 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/>',
+  qr:'<rect width="5" height="5" x="3" y="3" rx="1"/><rect width="5" height="5" x="16" y="3" rx="1"/><rect width="5" height="5" x="3" y="16" rx="1"/><path d="M21 16h-3a2 2 0 0 0-2 2v3M21 21v.01M12 7v3a2 2 0 0 1-2 2H7M3 12h.01M12 3h.01M12 16v.01M16 12h1M21 12v.01M12 21v-1"/>',
+  wifi:'<path d="M12 20h.01"/><path d="M8.5 16.43a5 5 0 0 1 7 0"/><path d="M2 8.82a15 15 0 0 1 4.18-2.65"/><path d="M10.66 5c4.01-.36 8.14.9 11.34 3.76"/><path d="M5 12.86a10 10 0 0 1 5.17-2.69"/><path d="M13.83 10.12A10 10 0 0 1 19 12.86"/><path d="m2 2 20 20"/>',
+  play:'<rect width="20" height="14" x="2" y="5" rx="3"/><path d="m10 9 5 3-5 3z"/>',
+  trophy:'<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>',
+  apple:'<path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/>',
+  dumbbell:'<rect x="5" y="6" width="3.2" height="12" rx="1.2"/><rect x="15.8" y="6" width="3.2" height="12" rx="1.2"/><path d="M2.5 9.5v5M21.5 9.5v5M8.2 12h7.6"/>',
+  users:'<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+  calendar:'<rect width="18" height="18" x="3" y="4" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  repeat:'<path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/>',
+  arrow:'<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  warn:'<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/>',
+};
+const icon = (n, s = 24, sw = 1.75) => `<svg class="ic" width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round">${IC[n]}</svg>`;
+const pips = (v, cls = '') => `<span class="pips ${cls}">${[1,2,3,4,5].map(i => `<i class="${i <= v ? 'on' : ''}"></i>`).join('')}</span>`;
+const vbar = (v, cls = '') => `<span class="vbar ${cls}">${[1,2,3,4,5].map(i => `<i class="${i <= v ? 'on' : ''}"></i>`).join('')}</span>`;
+const pill = (p) => `<span class="pill ${PCLS[p]}">${PRIO[p]}</span>`;
+const foot = (label) => `<div class="foot"><span class="brand"><i>${icon('logo', 16, 2)}</i>AI Gym · Feature roadmap</span><span>${label}</span></div>`;
+
+/* =========================================================
+   SLIDES
+   ========================================================= */
+const SLIDES = [];
+const add = (html, cls = '') => SLIDES.push({ html, cls });
+
+/* 1 · Cover */
+add(`<div class="glow"></div>
+  <div><div class="mark">${icon('logo', 52, 2)}</div></div>
+  <div>
+    <div class="eyebrow"><span class="dot"></span>Feature roadmap · November 2026</div>
+    <h1 style="margin-top:28px">What we build<br>after the mockup</h1>
+    <p class="lead">Member app, trainer app and owner dashboard, ranked by the value each feature adds for <b>members</b> and for <b>gyms</b>.</p>
+  </div>
+  <div class="cover-stats">
+    <div><b>21</b><span>features</span></div>
+    <div><b class="acc">7</b><span>at P0 · Now</span></div>
+    <div><b>10</b><span>at P1 · Next</span></div>
+    <div><b>4</b><span>at P2 · Later</span></div>
+    <div><b>4</b><span>phases</span></div>
+  </div>`, 'cover');
+
+/* 2 · Three people */
+add(`<div class="eyebrow"><span class="dot"></span>Who we build for</div>
+  <h2>One product, three people</h2>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:56px">
+    <div class="card person"><div class="icon-tile">${icon('user', 36)}</div><h3>Members</h3><p>Follow their plan and get results.</p>
+      <ul><li>Log workouts on the floor</li><li>Track nutrition and progress</li><li>Call a coach for help</li></ul></div>
+    <div class="card person"><div class="icon-tile" style="background:rgba(108,182,255,.14);color:var(--p1)">${icon('clipboard', 36)}</div><h3>Trainers</h3><p>Supervise the AI and the floor.</p>
+      <ul><li>Approve AI plans</li><li>Answer floor requests</li><li>Follow up with members who need attention</li></ul></div>
+    <div class="card person"><div class="icon-tile" style="background:rgba(255,159,67,.14);color:var(--orange)">${icon('chart', 36)}</div><h3>Owners</h3><p>Decide whether to renew with us.</p>
+      <ul><li>See engagement and at-risk members</li><li>Track trainer follow-through</li><li>Watch renewals</li></ul></div>
+  </div>${foot('Overview')}`);
+
+/* 3 · Trainer + owner first */
+add(`<div class="eyebrow"><span class="dot"></span>The big decision</div>
+  <h2>Trainer and owner tools<br>come first</h2>
+  <p class="lead" style="max-width:1500px">The promise we sell is <b>trainer-supervised coaching</b>, and gym owners renew based on <b>retention they can see</b>. The member app alone delivers neither. So phase 1 builds the trainer app, the owner dashboard and memberships alongside it.</p>
+  <div class="grid" style="grid-template-columns:repeat(3,1fr);margin-top:64px">
+    <div class="card"><div class="kv">${icon('clipboard', 22)}Member app already needs</div><h3 style="margin-top:14px;font-size:30px">Plan approvals, floor calls, feedback review</h3></div>
+    <div class="card"><div class="kv">${icon('chart', 22)}Owners renew on</div><h3 style="margin-top:14px;font-size:30px">Retention, attendance and renewals they can see</h3></div>
+    <div class="card"><div class="kv">${icon('users', 22)}Our edge over consumer apps</div><h3 style="margin-top:14px;font-size:30px">A real trainer behind every AI plan</h3></div>
+  </div>${foot('Overview')}`);
+
+/* 4 · Ranking */
+add(`<div class="eyebrow"><span class="dot"></span>Method</div>
+  <h2>How features are ranked</h2>
+  <div class="grid" style="grid-template-columns:1fr 1fr 1fr 1.25fr;margin-top:56px;align-items:stretch">
+    <div class="card score"><div class="kv">Member value</div><div class="big">1–5</div>${pips(4)}<p>Does it help members get results, or make them want to open the app?</p></div>
+    <div class="card score"><div class="kv">Gym value</div><div class="big">1–5</div>${pips(5, 'gym')}<p>Does it keep members, earn more per member, or save trainer time?</p></div>
+    <div class="card score"><div class="kv">Effort</div><div class="big">S · M · L</div><p><b style="color:var(--text)">S</b> a few weeks<br><b style="color:var(--text)">M</b> one to two months<br><b style="color:var(--text)">L</b> a quarter+, or new infra or partners</p></div>
+    <div class="card" style="padding:16px 36px">
+      <div class="prio-row">${pill(0)}<span>Build next. High value for both, or a foundation others need.</span></div>
+      <div class="prio-row">${pill(1)}<span>Strong value, but depends on a P0 or more build work.</span></div>
+      <div class="prio-row">${pill(2)}<span>Once the core is proven. Lower differentiation or high ongoing cost.</span></div>
+    </div>
+  </div>
+  <p class="lead" style="font-size:26px;margin-top:40px">We sell to gyms, but members decide whether the app gets used. Priority weighs both value scores against effort, and accounts for dependencies.</p>
+  ${foot('Method')}`);
+
+/* 5 · Value vs effort matrix */
+(function(){
+  const W = 1080, H = 700, pl = 80, pr = 30, pt = 30, pb = 80;
+  const ex = { 'S':0, 'S–M':1, 'M':2, 'M+':2.5, 'M–L':3, 'L':4 };
+  const X = (e) => pl + 56 + (ex[e] / 4) * (W - pl - pr - 110);
+  const Y = (v) => pt + (10 - v) / 7 * (H - pt - pb); // value range 3..10
+  const groups = {};
+  F.forEach(f => { const k = f.e + '|' + (f.m + f.g); (groups[k] = groups[k] || []).push(f); });
+  let dots = '';
+  Object.values(groups).forEach(list => list.forEach((f, i) => {
+    const off = (i - (list.length - 1) / 2) * 46;
+    const cx = X(f.e) + off, cy = Y(f.m + f.g);
+    dots += `<g class="mdot" style="transform-origin:${cx}px ${cy}px"><title>#${f.n} ${f.name} · value ${f.m + f.g}/10 · effort ${f.e}</title>
+      <circle cx="${cx}" cy="${cy}" r="21" fill="${PCOL[f.p]}" ${f.p ? 'fill-opacity=".2" stroke="' + PCOL[f.p] + '" stroke-width="2"' : ''}/>
+      <text x="${cx}" y="${cy + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="${f.p ? PCOL[f.p] : '#121212'}">${f.n}</text></g>`;
+  }));
+  const npx = X('L'), npy = Y(3.35);
+  dots += `<g><title>Not planned · Food video logging</title><circle cx="${npx}" cy="${npy}" r="21" fill="none" stroke="var(--np)" stroke-width="2" stroke-dasharray="4 4"/><text x="${npx}" y="${npy + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--np)">×</text></g>`;
+  const ticks = ['S','S–M','M','M–L','L'].map(e => `<text x="${X(e)}" y="${H - pb + 40}" text-anchor="middle" font-size="18" font-weight="600" fill="var(--text-2)">${e}</text>`).join('');
+  const yt = [4,6,8,10].map(v => `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl - 18}" y="${Y(v) + 6}" text-anchor="end" font-size="18" font-weight="600" fill="var(--text-2)">${v}</text>`).join('');
+  const midX = X('M'), midY = Y(7.5);
+  const quad = (x, y, t, a = 'start') => `<text x="${x}" y="${y}" text-anchor="${a}" font-size="15" font-weight="700" letter-spacing="2" fill="var(--text-3)">${t}</text>`;
+  const svg = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" style="overflow:visible">
+    <rect x="${pl}" y="${pt}" width="${midX - pl}" height="${midY - pt}" rx="18" fill="rgba(215,244,91,.05)"/>
+    ${yt}${ticks}
+    <line x1="${midX}" x2="${midX}" y1="${pt}" y2="${H - pb}" stroke="var(--line)" stroke-dasharray="6 6"/>
+    <line x1="${pl}" x2="${W - pr}" y1="${midY}" y2="${midY}" stroke="var(--line)" stroke-dasharray="6 6"/>
+    ${quad(pl + 16, pt + 28, 'QUICK WINS')}${quad(W - pr - 8, pt + 28, 'BIG BETS', 'end')}${quad(pl + 16, Y(4) - 14, 'FILL-INS')}${quad(W - pr - 8, Y(4) - 14, 'DEPRIORITISE', 'end')}
+    <text x="${(pl + W - pr) / 2}" y="${H - 4}" text-anchor="middle" font-size="18" font-weight="700" fill="var(--text)">Effort →</text>
+    <text transform="translate(18 ${(pt + H - pb) / 2}) rotate(-90)" text-anchor="middle" font-size="18" font-weight="700" fill="var(--text)">Member + gym value →</text>
+    ${dots}</svg>`;
+  const leg = [0,1,2].map(p => `<div><h4><i style="background:${PCOL[p]}"></i>${PRIO[p]}</h4><ol>${F.filter(f => f.p === p).map(f => `<li><b>${f.n}</b>${f.name}</li>`).join('')}</ol></div>`).join('');
+  add(`<div class="eyebrow"><span class="dot"></span>At a glance</div>
+    <h2 style="font-size:60px">Value vs effort</h2>
+    <div class="matrix-wrap"><div>${svg}</div><div class="legend">${leg}
+      <div><h4><i style="border:2px dashed var(--np)"></i><span style="color:var(--np)">Not planned</span></h4><ol style="columns:1"><li><b>×</b>Food video logging</li></ol></div></div></div>`);
+})();
+
+/* 6 · Summary table */
+(function(){
+  const row = (f) => `<tr><td class="n">${f.n}</td><td class="f">${f.name}</td><td class="c">${vbar(f.m)}</td><td class="c">${vbar(f.g, 'gym')}</td><td class="c e">${f.e}</td><td>${pill(f.p).replace(' · Now','').replace(' · Next','').replace(' · Later','')}</td></tr>`;
+  const head = `<tr><th>#</th><th>Feature</th><th class="c">Member</th><th class="c">Gym</th><th class="c">Effort</th><th>Priority</th></tr>`;
+  add(`<div class="eyebrow"><span class="dot"></span>Summary</div>
+    <h2 style="font-size:60px">21 features, scored</h2>
+    <div class="tables"><table>${head}${F.slice(0, 11).map(row).join('')}</table><table>${head}${F.slice(11).map(row).join('')}
+      <tr><td class="n">—</td><td class="f" style="color:var(--text-2)">${NOT_PLANNED.name}</td><td class="c">${vbar(NOT_PLANNED.m)}</td><td class="c">${vbar(NOT_PLANNED.g, 'gym')}</td><td class="c e">L</td><td><span class="pill np" style="height:30px;font-size:14px;padding:0 12px">Not planned</span></td></tr></table></div>`);
+})();
+
+/* 7 · P0 section divider */
+add(`<div class="glow"></div><div style="margin:auto 0">
+  <span class="pill p0" style="height:52px;font-size:24px;padding:0 24px">P0 · Now</span>
+  <h1 style="margin-top:36px;font-size:110px">Seven features<br>to build next</h1>
+  <p class="lead">Five foundations in phase 1, then the two habit features in phase 2, once members are active.</p></div>
+  <div class="grid" style="grid-template-columns:repeat(7,1fr);gap:16px">${F.filter(f => f.p === 0).map(f => `<div class="card" style="padding:24px"><div class="icon-tile" style="width:56px;height:56px;border-radius:18px">${icon(f.icon, 28)}</div><div style="font-size:20px;font-weight:700;margin-top:18px;line-height:1.25">${f.name}</div><div style="font-size:16px;color:var(--text-3);margin-top:8px;font-weight:600">#${f.n} · Phase ${f.ph}</div></div>`).join('')}</div>`, 'cover');
+
+/* 8–14 · P0 detail slides */
+F.filter(f => f.p === 0).forEach(f => {
+  add(`<span class="feat-num">${String(f.n).padStart(2, '0')}</span>
+    <div class="eyebrow"><span class="dot"></span>P0 · Now · Phase ${f.ph}</div>
+    <div style="display:flex;align-items:center;gap:28px;margin-top:20px"><div class="icon-tile">${icon(f.icon, 36)}</div><h2 style="margin:0">${f.name}</h2></div>
+    <div class="feat">
+      <div><p class="what">${f.what}</p><div class="why"><b>Why it matters</b>${f.why}</div></div>
+      <div class="side">
+        <div class="scores"><div><span>Member value</span><b>${f.m}<small>/5</small></b></div><div><span>Gym value</span><b>${f.g}<small>/5</small></b></div><div><span>Effort</span><b>${f.e}</b></div></div>
+        <div class="card"><h5>Scope v1</h5><ul>${f.scope.map(s => `<li>${s}</li>`).join('')}</ul></div>
+        ${f.watch ? `<div class="card warn"><h5>Watch out for</h5><ul><li>${f.watch}</li></ul></div>` : ''}
+        <div class="card meas"><h5>Measure</h5><ul>${f.measure.map(s => `<li>${s}</li>`).join('')}</ul></div>
+      </div></div>${foot(`P0 · ${f.n} of 7`)}`);
+});
+
+/* P1 + P2 card grids */
+const fcard = (f, np = false) => `<div class="fcard ${np ? 'np' : ''}"><div class="top"><span class="num">${np ? '—' : '#' + f.n}</span>${np ? '<span class="pill np" style="height:32px;font-size:15px">Not planned</span>' : `<span class="pill ghost" style="height:32px;font-size:15px">Phase ${f.ph}</span>`}</div>
+  <h4>${f.name}</h4><p>${f.d}</p>
+  <div class="meta"><span>Member ${vbar(f.m)}</span><span>Gym ${vbar(f.g, 'gym')}</span><span style="margin-left:auto">Effort ${f.e}</span></div></div>`;
+const p1 = F.filter(f => f.p === 1);
+add(`<div class="eyebrow"><span class="dot" style="background:var(--p1)"></span>P1 · Next · Phase 2</div>
+  <h2 style="font-size:60px">Reach, safety and loyalty</h2>
+  <div class="fgrid">${p1.filter(f => f.ph === 2).map(f => fcard(f)).join('')}
+    <div class="fcard" style="background:transparent;border-style:dashed;justify-content:center"><p style="font-size:22px">Four of phase 2’s seven features are small (S or S–M), which is why the busiest phase stays manageable.</p></div></div>${foot('P1 · 1 of 2')}`);
+add(`<div class="eyebrow"><span class="dot" style="background:var(--p1)"></span>P1 · Next · Phase 3</div>
+  <h2 style="font-size:60px">AI and new revenue</h2>
+  <div class="fgrid">${p1.filter(f => f.ph === 3).map(f => fcard(f)).join('')}
+    <div class="fcard" style="background:transparent;border-style:dashed;justify-content:center"><p style="font-size:22px">The heavier AI and shop work waits until the nutrition tracker, memberships and payments it depends on are live.</p></div></div>${foot('P1 · 2 of 2')}`);
+add(`<div class="eyebrow"><span class="dot" style="background:var(--p2)"></span>P2 · Later · Phase 4</div>
+  <h2 style="font-size:60px">Extras, once the core is proven</h2>
+  <div class="fgrid" style="grid-template-columns:repeat(3,1fr)">${F.filter(f => f.p === 2).map(f => fcard(f)).join('')}${fcard(NOT_PLANNED, true)}
+    <div class="fcard" style="background:transparent;border-style:dashed;justify-content:center"><p style="font-size:22px">Lower differentiation or high ongoing cost. Their value mostly comes from features built earlier.</p></div></div>${foot('P2')}`);
+
+/* Phases */
+(function(){
+  const meta = [
+    ['Foundations','What everything else depends on: trainer and owner tools, memberships and a reliable logger.'],
+    ['Habits and nutrition','Habit and nutrition features, once members are active.'],
+    ['AI and revenue','The heavier AI and shop work.'],
+    ['Extras','Nice-to-haves once the core is proven.'],
+  ];
+  const cols = [1,2,3,4].map(ph => `<div class="phase ${ph === 1 ? 'first' : ''}">${ph < 4 ? `<span class="arrow">${icon('arrow', 20, 2)}</span>` : ''}
+    <span class="ph">Phase ${ph}</span><h4>${meta[ph - 1][0]}</h4><p>${meta[ph - 1][1]}</p>
+    <div class="chips">${F.filter(f => f.ph === ph).map(f => `<div class="chip"><i style="background:${PCOL[f.p]}"></i><span>#${f.n}</span>${f.name}</div>`).join('')}
+    ${ph === 1 ? '<div class="chip note">+ start sourcing the Indian food database</div>' : ''}</div></div>`).join('');
+  add(`<div class="eyebrow"><span class="dot"></span>Sequence</div>
+    <h2 style="font-size:60px">Four phases</h2>
+    <div class="phases">${cols}</div>`);
+})();
+
+/* Measurement */
+(function(){
+  const M = [
+    ['90-day member retention','Owner',[2,6,8]],
+    ['Workouts per member per week','Owner, trainer',[6,16]],
+    ['At-risk contacted within 48 hours','Owner',[1,2]],
+    ['Median response time to floor calls','Member, owner',[1]],
+    ['On-time renewal rate','Owner',[3,8]],
+    ['Members logging food 4+ days a week','Member, trainer',[7,13]],
+    ['Shop and PT revenue per gym per month','Owner, us',[10,14]],
+  ];
+  add(`<div class="eyebrow"><span class="dot"></span>Measurement</div>
+    <h2 style="font-size:60px">Baseline first, then seven numbers</h2>
+    <div class="meas-wrap">
+      <div class="card base"><h5 style="font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px">Capture at each pilot gym · last 6 months</h5>
+        <ul><li><i>${icon('users', 22)}</i>90-day retention of new members</li><li><i>${icon('calendar', 22)}</i>Average visits per member per week</li><li><i>${icon('repeat', 22)}</i>On-time renewal rate</li><li><i>${icon('clipboard', 22)}</i>Members per trainer</li></ul>
+        <p style="font-size:19px;color:var(--text-2);line-height:1.45;margin-top:16px">Without a baseline, retention and attendance numbers have nothing to compare against.</p></div>
+      <div class="card" style="padding:24px 36px"><table class="mt"><tr><th>Headline metric</th><th>Matters to</th><th>Driven by</th></tr>
+        ${M.map(([m, w, d]) => `<tr><td class="f">${m}</td><td class="who">${w}</td><td>${d.map(n => `<span class="chipn">#${n}</span>`).join('')}</td></tr>`).join('')}</table></div>
+    </div>${foot('Measurement')}`);
+})();
+
+/* Open questions */
+(function(){
+  const Q = [
+    ['License or build the Indian food database?','Decides when the nutrition tracker and food photos ship.'],
+    ['Which WhatsApp Business API provider?','And how per-message costs fit into our pricing.'],
+    ['How do trainers get floor calls mid-session?','Their own phone, a gym tablet, or a smartwatch.'],
+    ['What revenue share for the products space?','And do gyms or we handle fulfilment?'],
+    ['Which two languages first?','Depends on where the first paying gyms are.'],
+    ['Which body-composition machines are common?','And can we import their data into reassessments?'],
+  ];
+  add(`<div class="eyebrow"><span class="dot"></span>To decide</div>
+    <h2 style="font-size:60px">Open questions</h2>
+    <div class="qs">${Q.map(([q, s], i) => `<div class="q"><b>${i + 1}</b><p>${q}<span>${s}</span></p></div>`).join('')}</div>${foot('Open questions')}`);
+})();
+
+/* Close */
+add(`<div class="glow"></div><div style="margin:auto 0">
+  <div class="eyebrow"><span class="dot"></span>Next step</div>
+  <h1 style="margin-top:28px">Start phase 1:<br><span class="acc">foundations</span></h1>
+  <p class="lead">Trainer app and console · owner dashboard and at-risk alerts · memberships and check-in · offline logger · exercise videos. And start sourcing the Indian food database now.</p></div>
+  ${foot('Thank you')}`, 'cover');
+
+/* =========================================================
+   DECK ENGINE
+   ========================================================= */
+const deck = document.getElementById('deck');
+deck.innerHTML = SLIDES.map((s, i) => `<section class="slide ${s.cls}" data-i="${i}">${s.html}</section>`).join('');
+const els = [...deck.children];
+let cur = 0;
+function go(i){
+  cur = Math.max(0, Math.min(els.length - 1, i));
+  els.forEach((el, j) => { el.classList.toggle('on', j === cur); el.classList.toggle('prev', j < cur); });
+  document.getElementById('count').textContent = `${cur + 1} / ${els.length}`;
+  document.getElementById('progress').style.width = ((cur + 1) / els.length * 100) + '%';
+  history.replaceState(null, '', '#' + (cur + 1));
+}
+function fit(){
+  const s = Math.min(innerWidth / 1920, innerHeight / 1080) * 0.96;
+  deck.style.transform = `translate(-50%,-50%) scale(${s})`;
+}
+document.getElementById('prev').onclick = () => go(cur - 1);
+document.getElementById('next').onclick = () => go(cur + 1);
+document.getElementById('fs').onclick = () => document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen?.();
+addEventListener('keydown', e => {
+  if (['ArrowRight','PageDown',' ','Enter'].includes(e.key)) { e.preventDefault(); go(cur + 1); }
+  else if (['ArrowLeft','PageUp','Backspace'].includes(e.key)) { e.preventDefault(); go(cur - 1); }
+  else if (e.key === 'Home') go(0);
+  else if (e.key === 'End') go(els.length - 1);
+  else if (e.key === 'f' || e.key === 'F') document.getElementById('fs').click();
+});
+let tx = null;
+addEventListener('touchstart', e => tx = e.touches[0].clientX, { passive:true });
+addEventListener('touchend', e => { if (tx == null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) go(cur + (dx < 0 ? 1 : -1)); tx = null; });
+let idle; addEventListener('mousemove', () => { document.body.classList.remove('idle'); clearTimeout(idle); idle = setTimeout(() => document.body.classList.add('idle'), 2500); });
+addEventListener('resize', fit);
+fit();
+go((parseInt(location.hash.slice(1)) || 1) - 1);
+</script>
+</body>
+</html>
