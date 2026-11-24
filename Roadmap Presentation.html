@@ -122,12 +122,16 @@ h3{font-size:34px;font-weight:700;letter-spacing:-.02em}
 .person li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:12px;flex:none}
 
 /* ranking */
-.score{display:flex;flex-direction:column;gap:16px}
+.score{display:flex;flex-direction:column;gap:12px}
+.rank .card{padding:28px 32px}
+.rank .score .big{margin-bottom:16px}
+.rank .score .pips{margin-bottom:8px}
+.rank .card.prio{padding:8px 32px}
 .score .big{font-size:56px;font-weight:800;letter-spacing:-.03em}
-.score p{font-size:24px;line-height:1.45;color:var(--text-2)}
-.prio-row{display:flex;align-items:center;gap:24px;padding:22px 0;border-top:1px solid var(--line);font-size:24px;color:var(--text-2)}
+.score p{font-size:24px;line-height:1.65;color:var(--text-2)}
+.prio-row{display:flex;align-items:center;gap:24px;padding:18px 0;border-top:1px solid var(--line);font-size:24px;line-height:1.6;color:var(--text-2)}
 .prio-row:first-child{border-top:0}
-.prio-row .pill{width:150px;justify-content:center}
+.prio-row .pill{width:150px;justify-content:center;flex:none}
 
 /* matrix */
 .matrix-wrap{display:grid;grid-template-columns:1080px 1fr;gap:56px;margin-top:40px;flex:1;min-height:0}
@@ -137,8 +141,18 @@ h3{font-size:34px;font-weight:700;letter-spacing:-.02em}
 .legend ol{list-style:none;columns:2;column-gap:24px}
 .legend li{font-size:18px;color:var(--text-2);line-height:1.75;break-inside:avoid;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .legend li b{color:var(--text);font-variant-numeric:tabular-nums;display:inline-block;width:32px}
-.mdot{cursor:default;transition:transform .2s}
-.mdot:hover{transform:scale(1.15)}
+.mdot{cursor:pointer;transition:transform .2s,opacity .2s}
+.mdot:hover,.mdot.hl{transform:scale(1.2)}
+svg.dim .mdot:not(.hl){opacity:.35}
+.legend li{transition:color .2s,background .2s;border-radius:8px;padding:0 6px;margin:0 -6px}
+.legend li.hl{background:var(--raised);color:var(--text)}
+.legend li[data-n]{cursor:pointer}
+/* hover tooltip for chart dots */
+.tip{position:fixed;z-index:30;pointer-events:none;background:#fff;color:#121212;border-radius:14px;padding:10px 14px;box-shadow:0 12px 32px rgba(0,0,0,.45);transform:translate(-50%,calc(-100% - 14px));opacity:0;transition:opacity .15s;white-space:nowrap}
+.tip.on{opacity:1}
+.tip::after{content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;background:#fff;transform:translateX(-50%) rotate(45deg);border-radius:2px}
+.tip b{display:block;font-size:15px;font-weight:700}
+.tip span{display:block;font-size:12px;color:#6E6E76;font-weight:600;margin-top:2px}
 
 /* summary table */
 .tables{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:44px}
@@ -156,23 +170,26 @@ th.c,td.c{text-align:center}
 .vbar.gym i.on{background:var(--p1)}
 
 /* feature detail */
-.feat{display:grid;grid-template-columns:1fr 560px;gap:56px;margin-top:40px;flex:1;min-height:0}
-.feat .what{font-size:32px;line-height:1.45;color:var(--text);font-weight:500}
-.feat .why{font-size:25px;line-height:1.5;color:var(--text-2);margin-top:28px;padding-left:28px;border-left:4px solid var(--accent)}
-.feat .why b{color:var(--text);font-weight:600;display:block;font-size:17px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
-.side{display:flex;flex-direction:column;gap:20px}
-.side .card{padding:28px 32px}
-.side h5{font-size:16px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);margin-bottom:14px}
-.side ul{list-style:none;display:grid;gap:10px}
-.side li{display:flex;gap:12px;font-size:20px;line-height:1.4}
-.side li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:11px;flex:none}
-.side .warn li::before{background:var(--orange)}
-.side .meas li::before{background:var(--p1)}
-.scores{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
-.scores>div{background:var(--card-2);border-radius:20px;padding:18px 20px}
-.scores span{display:block;font-size:15px;font-weight:600;color:var(--text-2);margin-bottom:10px}
-.scores b{font-size:30px;font-weight:800;letter-spacing:-.02em}
-.scores b small{font-size:18px;color:var(--text-3);font-weight:600}
+.feat-top{display:grid;grid-template-columns:1fr 600px;gap:64px;align-items:center;margin-top:44px}
+.feat-top .pitch{font-size:42px;line-height:1.3;font-weight:600;letter-spacing:-.015em;color:var(--text)}
+.scores{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.scores>div{background:var(--card);border:1px solid var(--line);border-radius:22px;padding:22px 24px}
+.scores span{display:block;font-size:16px;font-weight:600;color:var(--text-2);margin-bottom:10px}
+.scores b{font-size:40px;font-weight:800;letter-spacing:-.02em;line-height:1}
+.scores b small{font-size:20px;color:var(--text-3);font-weight:600}
+.scores .pips{display:flex;margin-top:14px}
+.feat-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-top:48px;flex:1;min-height:0;margin-bottom:52px}
+.feat-cols .card{padding:34px 36px;display:flex;flex-direction:column}
+.feat-cols .stack{display:grid;grid-template-rows:auto 1fr;gap:24px}
+.feat-cols .why{background:var(--accent-soft);border-color:transparent}
+.feat-cols h5{font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3);margin-bottom:22px}
+.feat-cols .why h5{color:var(--accent)}
+.feat-cols ul{list-style:none;display:grid;gap:18px}
+.feat-cols li{display:flex;gap:14px;font-size:25px;line-height:1.4;font-weight:500}
+.feat-cols li::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--accent);margin-top:14px;flex:none}
+.feat-cols .why li{font-size:28px;font-weight:600;line-height:1.35}
+.feat-cols .warn li::before{background:var(--orange)}
+.feat-cols .meas li::before{background:var(--p1)}
 .feat-num{font-size:200px;font-weight:800;letter-spacing:-.06em;color:var(--card-2);position:absolute!important;right:110px;top:50px;line-height:1}
 
 /* P1/P2 card grids */
@@ -186,15 +203,15 @@ th.c,td.c{text-align:center}
 .fcard.np{border-style:dashed;border-color:rgba(255,90,95,.35);background:transparent}
 
 /* phases */
-.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px;flex:1;min-height:0}
-.phase{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:32px;display:flex;flex-direction:column;gap:14px;position:relative}
-.phase .ph{font-size:18px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
-.phase h4{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.1}
-.phase p{font-size:19px;line-height:1.45;color:var(--text-2)}
-.phase .chips{display:flex;flex-direction:column;gap:8px;margin-top:8px}
-.phase .chip{display:flex;align-items:center;gap:12px;padding:12px 14px;border-radius:16px;background:var(--card-2);font-size:19px;font-weight:600}
-.phase .chip i{width:10px;height:10px;border-radius:50%;flex:none}
-.phase .chip span{color:var(--text-3);font-variant-numeric:tabular-nums;width:30px;flex:none}
+.phases{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:36px;align-items:stretch}
+.phase{background:var(--card);border:1px solid var(--line);border-radius:28px;padding:28px 28px 24px;display:flex;flex-direction:column;position:relative}
+.phase .ph{font-size:16px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--accent)}
+.phase h4{font-size:32px;font-weight:800;letter-spacing:-.02em;line-height:1.15;margin-top:12px}
+.phase p{font-size:19px;line-height:1.6;color:var(--text-2);margin-top:12px;min-height:calc(19px * 1.6 * 3)}
+.phase .chips{display:flex;flex-direction:column;gap:8px;margin-top:20px;padding-top:20px;border-top:1px solid var(--line)}
+.phase .chip{display:flex;align-items:flex-start;gap:10px;padding:11px 16px;border-radius:14px;background:var(--card-2);font-size:19px;font-weight:600;line-height:1.4}
+.phase .chip i{width:10px;height:10px;border-radius:50%;flex:none;margin-top:8px}
+.phase .chip span{color:var(--text-3);font-variant-numeric:tabular-nums;width:40px;flex:none}
 .phase .chip.note{background:transparent;border:1px dashed var(--line);color:var(--text-2);font-weight:500}
 .phase.first{border-color:rgba(215,244,91,.45);background:linear-gradient(180deg,rgba(215,244,91,.08),transparent 40%),var(--card)}
 .arrow{position:absolute!important;top:50%;right:-22px;width:20px;height:20px;color:var(--text-3);z-index:1}
@@ -247,46 +264,47 @@ th.c,td.c{text-align:center}
    ========================================================= */
 const F = [
   { n:1, name:'Trainer app and console', m:3, g:5, e:'M', p:0, ph:1, icon:'clipboard',
-    what:'A phone app for trainers on the floor and a web console for desk work: a member list sorted by who needs attention, a plan approval queue, live “call a coach” requests, session feedback, form-check clips and chat.',
-    why:'The member app already depends on trainer actions: approving plans, answering floor calls, reading feedback. None of those work without this. It is how we deliver “trainer-supervised”, our main difference from consumer AI apps.',
-    scope:['Approval queue with edit and approve','Live request feed: accept → on my way','Member list with attention flags','Chat'],
-    watch:'Trainers can’t stare at a phone mid-session. Requests must be loud and one-tap.',
-    measure:['Median plan approval time','Median response time to floor calls','Share of calls answered'] },
+    pitch:'A floor app and desk console, so trainers can run every member from one place.',
+    why:['Plan approvals, floor calls and feedback all depend on it','Delivers “trainer-supervised”, our edge over consumer AI apps'],
+    scope:['Plan approval queue','Live floor-call feed','Members who need attention','Chat'],
+    watch:'Requests must be loud and one-tap. Trainers are mid-session.',
+    measure:['Plan approval time','Floor-call response time','Share of calls answered'] },
   { n:2, name:'Owner dashboard and at-risk alerts', m:3, g:5, e:'M', p:0, ph:1, icon:'radar',
-    what:'AI flags members who missed 2+ planned sessions, are trending down, or reported pain or “too hard”. Their coach is prompted to reach out, and the app tracks whether they did.',
-    why:'This is the retention feature the product is built around: no member left unattended. It’s also what owners judge when deciding whether to renew our subscription.',
-    scope:['Weekly at-risk list per trainer','One-tap suggested message','Owner view: flagged, contacted, returned'],
-    watch:'Alert fatigue. Cap and rank flags per trainer per week so the list stays actionable.',
-    measure:['At-risk contacted within 48 h','Share who return within 14 days','90-day retention'] },
+    pitch:'AI flags members who are slipping away and prompts their coach to reach out.',
+    why:['Our core promise: no member left unattended','What owners judge when renewing with us'],
+    scope:['Weekly at-risk list per trainer','One-tap suggested message','Owner view: flagged → contacted → returned'],
+    watch:'Alert fatigue. Cap and rank flags each week.',
+    measure:['Contacted within 48 h','Back within 14 days','90-day retention'] },
   { n:3, name:'Membership, check-in and renewals', m:3, g:5, e:'M', p:0, ph:1, icon:'qr',
-    what:'QR check-in at the front desk, membership status and expiry, UPI renewal in the app, renewal reminders, and freeze or pause requests.',
-    why:'This most directly pays for the product from the owner’s side. It replaces registers and spreadsheets, recovers lost renewals, and provides the attendance data behind streaks and at-risk alerts.',
-    scope:['Check-in QR','Status card on Profile','UPI payment link for renewal','Reminders 7 days and 1 day before expiry'],
-    watch:'Needs a payment gateway (Razorpay or Cashfree) and gym-side admin screens.',
-    measure:['On-time renewal rate','Share of renewals done in the app'] },
+    pitch:'QR check-in, membership status and UPI renewals, all inside the app.',
+    why:['Pays for the product by recovering lost renewals','Replaces registers and feeds streaks and alerts'],
+    scope:['Check-in QR','Membership card on Profile','UPI renewal link','Reminders 7 days and 1 day before expiry'],
+    watch:'Needs a payment gateway and gym admin screens.',
+    measure:['On-time renewal rate','Renewals done in the app'] },
   { n:4, name:'Offline mode for the gym floor', m:4, g:3, e:'M', p:0, ph:1, icon:'wifi',
-    what:'Today’s workout, the logger and the rest timer keep working with no signal, and sync later.',
-    why:'Many Indian gyms are in basements with poor reception. A logger that freezes mid-set is the fastest way to lose trust. It’s built in from day one, because adding offline sync later is much harder.',
-    scope:['Cache the day’s plan and demo videos','Queue logged sets offline','Sync on reconnect','Clear state for coach calls (need signal)'],
-    measure:['Sessions completed with an offline period','Sync failures'] },
+    pitch:'The workout, logger and rest timer keep working with no signal.',
+    why:['Many gyms are in basements with poor reception','Hard to add later, so it’s built in from day one'],
+    scope:['Cache today’s plan and videos','Queue logged sets offline','Sync on reconnect','Clear state for coach calls'],
+    watch:'Coach calls still need signal. Say so clearly.',
+    measure:['Sessions with an offline period','Sync failures'] },
   { n:5, name:'Exercise video library', m:4, g:4, e:'M', p:0, ph:1, icon:'play',
-    what:'A short looping demo for every exercise in the logger, workout detail and swap sheet. Ideally recorded by the gym’s own trainers, with a stock library as fallback.',
-    why:'Members interrupt trainers to ask “how do I do this?”. Demos cut those requests and keep form safe. Gym-recorded videos are a branding win: our coaches, our machines.',
-    scope:['Stock library of ~150 core exercises','Gyms upload their own clip per exercise','Recording template in the trainer app'],
+    pitch:'A short looping demo for every exercise, ideally filmed by the gym’s own trainers.',
+    why:['Fewer “how do I do this?” interruptions','Gym-filmed clips are on-brand: our coaches, our machines'],
+    scope:['~150 stock exercise clips','Gyms upload their own','Recording template for trainers'],
     watch:'Needs video hosting and a CDN.',
-    measure:['Fewer form-check and call-coach requests','Video plays per workout'] },
+    measure:['Fewer form-check calls','Video plays per workout'] },
   { n:6, name:'Gamified progress', m:4, g:5, e:'S–M', p:0, ph:2, icon:'trophy',
-    what:'Builds on the streak and PRs already in the app: badges, monthly gym-wide challenges, opt-in leaderboards inside the member’s own gym, and streak protection on rest days.',
-    why:'Gyms lose most members in the first three months. Streaks and challenges are the cheapest proven way to build a habit, owners can run challenges as marketing, and in-gym leaderboards are something consumer apps can’t copy.',
-    scope:['Badges','Gym challenges with real rewards (free PT session, merch)','Seasonal challenges: New Year, festivals','Weekly leaderboard by workouts completed'],
-    watch:'Opt-in only. Rank by consistency, not weight lifted, so beginners aren’t discouraged.',
-    measure:['90-day member retention','Workouts per member per week'] },
+    pitch:'Badges, gym challenges and opt-in leaderboards, built on streaks and PRs.',
+    why:['Most members quit in their first three months','Owners can run challenges as marketing'],
+    scope:['Badges','Gym challenges with real rewards','Seasonal challenges','Weekly leaderboard'],
+    watch:'Opt-in only. Rank by consistency, not weight lifted.',
+    measure:['90-day retention','Workouts per member per week'] },
   { n:7, name:'Nutrition tracker', m:5, g:4, e:'M', p:0, ph:2, icon:'apple',
-    what:'Daily calories and protein against coach-set targets, with a food database built for Indian food (dal, roti, idli, paneer, biryani, thalis) and quick-add for repeat meals.',
-    why:'Most members join to lose weight, and diet drives that more than training. Coaches already advise on WhatsApp. This brings it into the app, next to the workout.',
-    scope:['Portions in katoris, rotis and pieces, not grams','Veg / egg / non-veg / Jain, and fasting days','“Send my plate to my coach” photo (no AI)','Protein and calorie rings on Home'],
-    watch:'Logging fatigue: keep v1 to calories and protein. Food database sourcing starts in phase 1.',
-    measure:['Members logging 4+ days a week','Weight progress: loggers vs non-loggers'] },
+    pitch:'Calories and protein against coach targets, with a food database built for Indian meals.',
+    why:['Most members join to lose weight, and diet drives that','Moves coaches’ WhatsApp diet advice into the app'],
+    scope:['Portions in katoris and rotis','Veg, egg, non-veg, Jain and fasting','Plate photo to coach','Calorie and protein rings on Home'],
+    watch:'Logging fatigue. v1 tracks calories and protein only.',
+    measure:['Logging 4+ days a week','Weight progress vs non-loggers'] },
   { n:8, name:'WhatsApp integration', m:4, g:4, e:'S–M', p:1, ph:2, d:'Reminders, renewal links, coach nudges and the weekly recap over WhatsApp, which members read far more reliably than push.' },
   { n:9, name:'Regional languages', m:4, g:4, e:'M', p:1, ph:2, d:'Hindi and Telugu first. Exercise names stay in English with the regional script alongside, the way trainers say them.' },
   { n:10, name:'4-week reassessment', m:4, g:5, e:'S–M', p:1, ph:2, d:'Measurements, photos and a strength check every 4 weeks, reviewed by the coach. Imports InBody scans. A natural PT upsell moment.' },
@@ -382,11 +400,11 @@ add(`<div class="eyebrow"><span class="dot"></span>The big decision</div>
 /* 4 · Ranking */
 add(`<div class="eyebrow"><span class="dot"></span>Method</div>
   <h2>How features are ranked</h2>
-  <div class="grid" style="grid-template-columns:1fr 1fr 1fr 1.25fr;margin-top:56px;align-items:stretch">
+  <div class="grid rank" style="grid-template-columns:1fr 1fr 1fr 1.9fr;margin-top:56px;align-items:stretch">
     <div class="card score"><div class="kv">Member value</div><div class="big">1–5</div>${pips(4)}<p>Does it help members get results, or make them want to open the app?</p></div>
     <div class="card score"><div class="kv">Gym value</div><div class="big">1–5</div>${pips(5, 'gym')}<p>Does it keep members, earn more per member, or save trainer time?</p></div>
     <div class="card score"><div class="kv">Effort</div><div class="big">S · M · L</div><p><b style="color:var(--text)">S</b> a few weeks<br><b style="color:var(--text)">M</b> one to two months<br><b style="color:var(--text)">L</b> a quarter+, or new infra or partners</p></div>
-    <div class="card" style="padding:16px 36px">
+    <div class="card prio">
       <div class="prio-row">${pill(0)}<span>Build next. High value for both, or a foundation others need.</span></div>
       <div class="prio-row">${pill(1)}<span>Strong value, but depends on a P0 or more build work.</span></div>
       <div class="prio-row">${pill(2)}<span>Once the core is proven. Lower differentiation or high ongoing cost.</span></div>
@@ -408,12 +426,12 @@ SEC = 'Summary';
   Object.values(groups).forEach(list => list.forEach((f, i) => {
     const off = (i - (list.length - 1) / 2) * 46;
     const cx = X(f.e) + off, cy = Y(f.m + f.g);
-    dots += `<g class="mdot" style="transform-origin:${cx}px ${cy}px"><title>#${f.n} ${f.name} · value ${f.m + f.g}/10 · effort ${f.e}</title>
+    dots += `<g class="mdot" data-n="${f.n}" data-name="#${f.n} · ${f.name}" data-meta="${PRIO[f.p]} · Value ${f.m + f.g}/10 (member ${f.m}, gym ${f.g}) · Effort ${f.e}" style="transform-origin:${cx}px ${cy}px">
       <circle cx="${cx}" cy="${cy}" r="21" fill="${PCOL[f.p]}" ${f.p ? 'fill-opacity=".2" stroke="' + PCOL[f.p] + '" stroke-width="2"' : ''}/>
       <text x="${cx}" y="${cy + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="${f.p ? PCOL[f.p] : '#121212'}">${f.n}</text></g>`;
   }));
   const npx = X('L'), npy = Y(3.35);
-  dots += `<g><title>Not planned · Food video logging</title><circle cx="${npx}" cy="${npy}" r="21" fill="none" stroke="var(--np)" stroke-width="2" stroke-dasharray="4 4"/><text x="${npx}" y="${npy + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--np)">×</text></g>`;
+  dots += `<g class="mdot" data-n="x" data-name="Food video logging" data-meta="Not planned · Value 3/10 · Effort L" style="transform-origin:${npx}px ${npy}px"><circle cx="${npx}" cy="${npy}" r="21" fill="none" stroke="var(--np)" stroke-width="2" stroke-dasharray="4 4"/><text x="${npx}" y="${npy + 6}" text-anchor="middle" font-size="16" font-weight="800" fill="var(--np)">×</text></g>`;
   const ticks = ['S','S–M','M','M–L','L'].map(e => `<text x="${X(e)}" y="${H - pb + 40}" text-anchor="middle" font-size="18" font-weight="600" fill="var(--text-2)">${e}</text>`).join('');
   const yt = [4,6,8,10].map(v => `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${pl - 18}" y="${Y(v) + 6}" text-anchor="end" font-size="18" font-weight="600" fill="var(--text-2)">${v}</text>`).join('');
   const midX = X('M'), midY = Y(7.5);
@@ -427,11 +445,11 @@ SEC = 'Summary';
     <text x="${(pl + W - pr) / 2}" y="${H - 4}" text-anchor="middle" font-size="18" font-weight="700" fill="var(--text)">Effort →</text>
     <text transform="translate(18 ${(pt + H - pb) / 2}) rotate(-90)" text-anchor="middle" font-size="18" font-weight="700" fill="var(--text)">Member + gym value →</text>
     ${dots}</svg>`;
-  const leg = [0,1,2].map(p => `<div><h4><i style="background:${PCOL[p]}"></i>${PRIO[p]}</h4><ol>${F.filter(f => f.p === p).map(f => `<li><b>${f.n}</b>${f.name}</li>`).join('')}</ol></div>`).join('');
+  const leg = [0,1,2].map(p => `<div><h4><i style="background:${PCOL[p]}"></i>${PRIO[p]}</h4><ol>${F.filter(f => f.p === p).map(f => `<li data-n="${f.n}"><b>${f.n}</b>${f.name}</li>`).join('')}</ol></div>`).join('');
   add(`<div class="eyebrow"><span class="dot"></span>At a glance</div>
     <h2 style="font-size:60px">Value vs effort</h2>
     <div class="matrix-wrap"><div>${svg}</div><div class="legend">${leg}
-      <div><h4><i style="border:2px dashed var(--np)"></i><span style="color:var(--np)">Not planned</span></h4><ol style="columns:1"><li><b>×</b>Food video logging</li></ol></div></div></div>`);
+      <div><h4><i style="border:2px dashed var(--np)"></i><span style="color:var(--np)">Not planned</span></h4><ol style="columns:1"><li data-n="x"><b>×</b>Food video logging</li></ol></div></div></div>`);
 })();
 
 /* 6 · Summary table */
@@ -453,18 +471,20 @@ add(`<div class="glow"></div><div style="margin:auto 0">
   <div class="grid" style="grid-template-columns:repeat(7,1fr);gap:16px">${F.filter(f => f.p === 0).map(f => `<div class="card" style="padding:24px"><div class="icon-tile" style="width:56px;height:56px;border-radius:18px">${icon(f.icon, 28)}</div><div style="font-size:20px;font-weight:700;margin-top:18px;line-height:1.25">${f.name}</div><div style="font-size:16px;color:var(--text-3);margin-top:8px;font-weight:600">#${f.n} · Phase ${f.ph}</div></div>`).join('')}</div>`, 'cover');
 
 /* 8–14 · P0 detail slides */
+const ul = a => `<ul>${a.map(x => `<li>${x}</li>`).join('')}</ul>`;
 F.filter(f => f.p === 0).forEach(f => {
   add(`<span class="feat-num">${String(f.n).padStart(2, '0')}</span>
     <div class="eyebrow"><span class="dot"></span>P0 · Now · Phase ${f.ph}</div>
     <div style="display:flex;align-items:center;gap:28px;margin-top:20px"><div class="icon-tile">${icon(f.icon, 36)}</div><h2 style="margin:0">${f.name}</h2></div>
-    <div class="feat">
-      <div><p class="what">${f.what}</p><div class="why"><b>Why it matters</b>${f.why}</div></div>
-      <div class="side">
-        <div class="scores"><div><span>Member value</span><b>${f.m}<small>/5</small></b></div><div><span>Gym value</span><b>${f.g}<small>/5</small></b></div><div><span>Effort</span><b>${f.e}</b></div></div>
-        <div class="card"><h5>Scope v1</h5><ul>${f.scope.map(s => `<li>${s}</li>`).join('')}</ul></div>
-        ${f.watch ? `<div class="card warn"><h5>Watch out for</h5><ul><li>${f.watch}</li></ul></div>` : ''}
-        <div class="card meas"><h5>Measure</h5><ul>${f.measure.map(s => `<li>${s}</li>`).join('')}</ul></div>
-      </div></div>${foot(`P0 · ${f.n} of 7`)}`);
+    <div class="feat-top">
+      <p class="pitch">${f.pitch}</p>
+      <div class="scores"><div><span>Member value</span><b>${f.m}<small>/5</small></b>${pips(f.m)}</div><div><span>Gym value</span><b>${f.g}<small>/5</small></b>${pips(f.g, 'gym')}</div><div><span>Effort</span><b>${f.e}</b></div></div>
+    </div>
+    <div class="feat-cols">
+      <div class="card why"><h5>Why it matters</h5>${ul(f.why)}</div>
+      <div class="card"><h5>Scope v1</h5>${ul(f.scope)}</div>
+      <div class="stack"><div class="card warn"><h5>Watch out for</h5>${ul([f.watch])}</div><div class="card meas"><h5>Measure</h5>${ul(f.measure)}</div></div>
+    </div>${foot(`P0 · ${f.n} of 7`)}`);
 });
 
 SEC = 'P1 · Next';
@@ -571,6 +591,28 @@ SLIDES.forEach((s, i) => { const g = groups[groups.length - 1]; if (g && g.sec =
 document.getElementById('rail').innerHTML = groups.map(g => `<div class="grp" data-sec="${g.sec}" style="flex:${g.idx.length}"><span class="lbl">${g.sec}</span><div class="ticks">${g.idx.map(i => `<i class="tick" data-go="${i}" title="${pad(i + 1)} · ${TITLES[i]}"></i>`).join('')}</div></div>`).join('');
 // overview
 document.getElementById('ovBody').innerHTML = groups.map(g => `<div><div class="ov-sec">${g.sec}</div><div class="ov-grid">${g.idx.map(i => `<button class="ov-card" data-go="${i}"><b>${pad(i + 1)}</b><span>${TITLES[i]}</span></button>`).join('')}</div></div>`).join('');
+// chart hover: tooltip on dots, and dot <-> legend highlighting
+const tip = document.createElement('div'); tip.className = 'tip'; document.body.appendChild(tip);
+function hl(n, on){
+  document.querySelectorAll(`.mdot[data-n="${n}"], .legend li[data-n="${n}"]`).forEach(el => el.classList.toggle('hl', on));
+  document.querySelectorAll('.matrix-wrap svg').forEach(svg => svg.classList.toggle('dim', on));
+}
+function showTip(dot){
+  const r = dot.getBoundingClientRect();
+  tip.innerHTML = `<b>${dot.dataset.name}</b><span>${dot.dataset.meta}</span>`;
+  tip.style.left = (r.left + r.width / 2) + 'px'; tip.style.top = r.top + 'px';
+  tip.classList.add('on');
+}
+document.addEventListener('mouseover', e => {
+  const d = e.target.closest('.mdot'), li = e.target.closest('.legend li[data-n]');
+  if (d){ showTip(d); hl(d.dataset.n, true); }
+  else if (li){ const dot = document.querySelector(`.mdot[data-n="${li.dataset.n}"]`); if (dot) showTip(dot); hl(li.dataset.n, true); }
+});
+document.addEventListener('mouseout', e => {
+  const d = e.target.closest('.mdot, .legend li[data-n]');
+  if (d && !d.contains(e.relatedTarget)){ tip.classList.remove('on'); hl(d.dataset.n, false); }
+});
+
 const ov = document.getElementById('ov');
 const openOv = (on) => ov.classList.toggle('open', on);
 document.addEventListener('click', e => { const t = e.target.closest('[data-go]'); if (t){ go(+t.dataset.go); openOv(false); } });

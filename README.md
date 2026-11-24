@@ -1,10 +1,10 @@
-# AI Gym — Member App Mockup
+# Gym Companion — App Mockups
 
-A high-fidelity, interactive HTML mockup of the **member app** for a B2B gym platform. Each independent gym gives its members a branded app. AI drafts a personalised workout plan, a trainer at the gym reviews and approves it, and the member follows it on the gym floor. Members can call a trainer to their station at any time.
+High-fidelity, interactive HTML mockups for **Gym Companion**, a B2B platform for independent gyms. AI drafts a workout plan from the gym's verified equipment, a trainer reviews it and sets every weight, and the member follows it on the gym floor with a clear path to a human trainer. Owners see whether that attention actually happened.
 
-This first mockup covers **workout plans and the in-gym workout experience**.
+The mockup covers all three surfaces in the Gym Companion PRD v1.0: the **member app**, the **trainer app** and the **owner console**. Every frame is labelled with its PRD screen ID (MEM-01 … OWN-05).
 
-> Sample data: member Arjun Reddy (28), Coach Ravi Kumar, Iron Temple Gym, Hyderabad.
+> Sample data: member Arjun Reddy, Coach Ravi Kumar, Iron Temple Gym (Banjara Hills, Hyderabad). Names, records and numbers are illustrative.
 
 ---
 
@@ -13,32 +13,37 @@ This first mockup covers **workout plans and the in-gym workout experience**.
 No build step and no dependencies. Open the file in Chrome:
 
 ```
-App/AI Gym App.html
+App/Gym Companion.html
 ```
 
 The page is a design canvas:
 
-- **00 · Prototype**: a working phone in the centre. Tabs, buttons, bottom sheets, set check-offs and timers all respond to clicks. Use **Jump to** on the left to open any screen, or **Reset** to start over.
-- **01–11**: static frames of every screen, laid out in rows. Long screens scroll inside the phone.
+- **00 · Prototype**: a working phone in the centre. Use **Jump to** on the left to open any member or trainer screen. State carries over, so you can call a trainer as the member, switch to the trainer and accept it, then switch back and see the status change.
+- **01–43**: static frames of every screen, grouped by surface. Long screens scroll inside the phone.
 - **Dark / Light** toggle in the top-right switches every screen.
 
-Phones scale automatically to fit your window height.
+Phones scale to your window height; the owner console frames scale to its width.
 
 ## Screens
 
-| # | Screen | Highlights |
-|---|--------|-----------|
-| 01–03 | Onboarding | Weight ruler (drag it) with BMI card, goal picker, animated "plan being built" checklist ending in coach review |
-| 04 / 04b | Workout home | Sticky header and week strip that shrink on scroll, program card with coach approval, today's workout, streak, muscle recovery rings |
-| 05 | Plan | 8-week overview, week chips, day-by-day breakdown, coach's note |
-| 06 | Workout detail | KCAL / time / volume, target muscle rings, AI load adjustment, warm-up toggle, exercise list |
-| 07 | Active workout logger | Set rows with animated check-offs, rest timer (−15s / +15s / pause), AI weight suggestion, Timer / AI tip / Swap, always-visible **Coach** button |
-| 08 / 08b | Help sheet | Call a coach to my station, message, form check, swap a busy machine, report pain → "Ravi is on his way" state |
-| 09 | Workout complete | Summary stats, muscles worked, "How did it feel?" feedback, PRs |
-| 10 | Coach tab | Trainer card, chat with voice note, shared workout, AI weekly recap reviewed by the coach |
-| 11 | Profile | Goal progress, stats, weight trend chart, measurements, progress photos, strength sparklines, settings |
+| # | Section | Screens (PRD ID) |
+|---|---------|------------------|
+| 01–08 | Member · join & onboarding | Invite & verify, consent (MEM-01), invite expired, weight (optional), goal (MEM-02), experience & schedule, limits & symptoms (MEM-03), plan being built (MEM-05) |
+| 09–16 | Member · before the workout | Plan in review (MEM-05), home & compact header (MEM-06), gym check-in (MEM-07), readiness check & hold (MEM-04), weekly plan (MEM-08), workout preview (MEM-09) |
+| 17–27 | Member · in the gym | Active workout & offline (MEM-10), log a set (MEM-11), setup & technique, swap (MEM-12), get help, request sent / on the way (MEM-13), pain reported, exercise on hold, workout complete (MEM-14) |
+| 28–32 | Member · AI, trainer & progress | AI Coach & daily-limit fallback (MEM-15), trainer chat (MEM-16), progress (MEM-17), 4-week check-in (MEM-18) |
+| 33–38 | Trainer app | Today & queue (TRN-01), help request & resolve (TRN-04), plan review (TRN-03), member record & log a check-in (TRN-02) |
+| 39–43 | Owner console (web) | Attention dashboard (OWN-01), members & follow-ups (OWN-05), orientation tracker (OWN-04), equipment inventory (OWN-03), gym & staff (OWN-02) |
 
-A **Workout in progress** mini-bar appears above the tab bar on every tab while a workout is running.
+## PRD rules the screens follow
+
+- **Trainer sets the weights.** Body weight is optional and never sets loads. AI drafts arrive with no weights, and the trainer can't approve until every weight is filled in.
+- **Help is honest.** A request shows *Sent* until a trainer taps accept, then *Accepted → On the way → Resolved*, each with a time. The member can say whether they got the help.
+- **Pain holds only the affected exercise.** Logging that exercise is blocked and a trainer is called automatically. The rest of the workout stays open, and only a trainer can clear the hold.
+- **Only verified equipment.** Plans, swaps and plate loading use verified stations only. Swaps wait for trainer approval. There is no "machine free now" claim without an occupancy signal.
+- **Facts from logs.** Actual weight and reps are logged next to the plan. Summaries use logged sets only, with no calories or recovery percentages.
+- **AI is bounded.** Standard answers come from approved cues and the plan; free text is the only AI path. At the daily limit, quick answers, logging and trainer help keep working.
+- **Attention counts humans.** Owner coverage metrics count logged trainer check-ins, not automated messages or AI chats. Retention stays hidden until membership dates exist.
 
 ## Design system
 
@@ -67,7 +72,7 @@ const BRAND = {
 };
 ```
 
-Change these values and every screen updates.
+Change these values and every screen updates, including the trainer app and owner console.
 
 ## Code structure
 
@@ -76,28 +81,30 @@ Everything is in one file: inline CSS, then inline JS.
 | Part | What it holds |
 |------|---------------|
 | `BRAND` | Gym name, logo, accent colours |
-| `ME`, `COACH`, `EX`, `WEEK`, … | Sample data, consistent across screens |
+| `ME`, `COACH`, `EX`, `SWAPS`, `TRAINERS`, `EQUIP`, … | Sample data, consistent across all three surfaces |
 | `ICONS` / `icon()` | Inline SVG icon set |
 | `bodyFig()` | Front and back body figure with muscle highlighting and crops |
-| `C` | Reusable components: phone frame, status bar, nav, tab bar, mini-bar, rings, set row, bottom sheet, avatar, sparkline |
-| `S` | Screens. Each is a function of app state returning `{ body, fixed, pb }` |
-| `FRAMES` | What appears on the canvas, in order |
-| `A` | Prototype actions (`start`, `check`, `help`, `callCoach`, …) |
+| `C` | Shared components: phone frame, tab bars, set row, sheet, selection card, timeline, plate diagram, … |
+| `S` | Member screens. Each is a function of state returning `{ body, fixed, pb }` |
+| `T` | Trainer app screens, same contract |
+| `D` | Owner console pages. Each returns a full desktop frame |
+| `FRAMES` | What appears on the canvas: `[id, label, PRD id, state, hint, scrollTo]` |
+| `A` | Prototype actions (`checkinQr`, `saveLog`, `callCoach`, `trnAccept`, `trnApprove`, …) |
 
 ### Adding a screen
 
-1. Write a function `S.myScreen = (s) => ({ body: '…', fixed: '…' })`. `body` scrolls, `fixed` holds floating layers like CTAs, the tab bar and sheets.
+1. Write `S.myScreen = (s) => ({ body: '…', fixed: '…' })` (or `T.` for the trainer app). `body` scrolls, `fixed` holds floating layers like CTAs, the tab bar and sheets.
 2. Route to it in `build()` if it should be reachable in the prototype.
-3. Add a line to `FRAMES` to show it on the canvas:
+3. Add a line to `FRAMES`:
    ```js
-   ['12', 'My new screen', () => ({ ...freshState(), route: 'myScreen' })]
+   ['44', 'My new screen', 'MEM-xx', ph({ route:'myScreen' })]
    ```
 
 ## Repository layout
 
 ```
 App/
-  AI Gym App.html   # the mockup (self-contained)
+  Gym Companion.html        # the mockup (self-contained)
 README.md
 ROADMAP.md                  # prioritised list of future features
 Roadmap Presentation.html   # the roadmap as a slide deck
@@ -105,4 +112,4 @@ Roadmap Presentation.html   # the roadmap as a slide deck
 
 ## What's next
 
-See [ROADMAP.md](ROADMAP.md) for future features, ranked by priority and the value each adds for members and gyms. To present it, open `Roadmap Presentation.html` in Chrome and use the arrow keys (F for fullscreen).
+See [ROADMAP.md](ROADMAP.md) for future features. Note that the PRD's pilot scope leaves out several roadmap items (nutrition, gamification, payments, WhatsApp), so those aren't in this mockup.
