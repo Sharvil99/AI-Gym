@@ -2,7 +2,9 @@
 
 High-fidelity, interactive HTML mockups for **Gym Companion**, a B2B platform for independent gyms. AI drafts a workout plan from the gym's verified equipment, a trainer reviews it and sets every weight, and the member follows it on the gym floor with a clear path to a human trainer. Owners see whether that attention actually happened.
 
-The mockup covers all three surfaces in the Gym Companion PRD v1.0: the **member app**, the **trainer app** and the **owner console**. Every frame is labelled with its PRD screen ID (MEM-01 … OWN-05).
+The mockup covers the three surfaces in the Gym Companion PRD v1.0 (the **member app**, the **trainer app** and the **owner console**) Every frame is labelled with its PRD screen ID (MEM-01 … OWN-05).
+
+The **platform admin**, where our own team onboards new gyms, is a separate file: `App/Platform Admin.html` (OPS-01 … OPS-05, not in the PRD yet).
 
 > Sample data: member Arjun Reddy, Coach Ravi Kumar, Iron Temple Gym (Banjara Hills, Hyderabad). Names, records and numbers are illustrative.
 
@@ -45,6 +47,18 @@ Phones scale to your window height; the owner console frames scale to its width.
 - **AI is bounded.** Standard answers come from approved cues and the plan; free text is the only AI path. At the daily limit, quick answers, logging and trainer help keep working.
 - **Attention counts humans.** Owner coverage metrics count logged trainer check-ins, not automated messages or AI chats. Retention stays hidden until membership dates exist.
 
+## Platform admin
+
+`App/Platform Admin.html` holds five desktop pages for our dev, IT and ops team:
+
+- all gyms by stage
+- onboarding: gym and owner basics
+- onboarding: plan and pilot terms
+- review and provision
+- gym setup progress
+
+It uses the neutral Gym Companion brand rather than a gym's, and never shows member health data. It shares the design tokens and components with the main mockup; its pages live in the `O` object.
+
 ## Design system
 
 All colours are CSS custom properties, so a theme is one class swap (`.theme-dark` / `.theme-light` on `<body>`).
@@ -72,7 +86,7 @@ const BRAND = {
 };
 ```
 
-Change these values and every screen updates, including the trainer app and owner console.
+Change these values and every gym-facing screen updates, including the trainer app and owner console.
 
 ## Code structure
 
@@ -104,7 +118,8 @@ Everything is in one file: inline CSS, then inline JS.
 
 ```
 App/
-  Gym Companion.html        # the mockup (self-contained)
+  Gym Companion.html        # member app, trainer app, owner console (self-contained)
+  Platform Admin.html       # our team's console for onboarding new gyms (self-contained)
 README.md
 ROADMAP.md                  # prioritised list of future features
 Roadmap Presentation.html   # the roadmap as a slide deck

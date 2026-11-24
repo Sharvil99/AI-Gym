@@ -35,10 +35,11 @@ Priority weighs both value scores against effort, and accounts for dependencies.
 
 ## Summary
 
-The roadmap has 21 features: 7 at P0, 10 at P1 and 4 at P2. One idea is not planned.
+The roadmap has 22 features: 8 at P0, 10 at P1 and 4 at P2. One idea is not planned.
 
 | # | Feature | Member value | Gym value | Effort | Priority | Phase |
 |---|---------|:-:|:-:|:-:|:-:|:-:|
+| 0 | Platform admin and gym onboarding | 1 | 5 | M | **P0** | 1 |
 | 1 | Trainer app and console | 3 | 5 | M | **P0** | 1 |
 | 2 | Owner dashboard and at-risk alerts | 3 | 5 | M | **P0** | 1 |
 | 3 | Membership, check-in and renewals | 3 | 5 | M | **P0** | 1 |
@@ -65,6 +66,29 @@ The roadmap has 21 features: 7 at P0, 10 at P1 and 4 at P2. One idea is not plan
 ---
 
 ## P0 · Now
+
+### 0. Platform admin and gym onboarding
+**What:** an internal web console for our own team (dev, IT, ops), separate from the gym owner's console. We use it to take a new gym from lead to live. It captures the gym's basics, then provisions it as an isolated tenant and tracks setup until go-live.
+
+**Why it matters:** every other feature assumes a gym already exists in the system. The PRD names a platform operator role and a provisioning endpoint (`POST /gyms`) but no screens for them. Without this, onboarding a gym means hand-editing the database.
+
+**Scope v1:**
+- **Gyms list:** every gym by stage (lead, onboarding, pilot, live, paused), with setup progress, AI spend and next step.
+- **Onboarding wizard:**
+  - gym and owner basics: brand and registered name, GSTIN, branch, address, hours, languages, owner contact, size
+  - plan and pilot terms
+  - branches and equipment
+  - branding
+  - review and provision
+- **Agreement checks:** provisioning is blocked until the pilot agreement and data processing agreement are signed.
+- **Go-live checklist:** trainers invited, equipment verified, gym QR printed, first members invited.
+- **Support access:** time-bound and logged.
+
+**Watch out for:** platform staff must never see member assessments, photos or chats (PRD role matrix). Paid prices stay "to be agreed" until D-01 is signed off.
+
+**Measure:** days from signed pilot to go-live, and the share of onboarding steps done without engineering help.
+
+**Mockup:** `App/Platform Admin.html` (OPS-01 to OPS-05).
 
 ### 1. Trainer app and console
 **What:** a phone app for trainers on the floor and a web console for desk work. It holds a member list sorted by who needs attention, a plan approval queue, live "call a coach" requests, session feedback, form-check clips and member chat.
@@ -275,7 +299,7 @@ Video adds little over a photo for estimating food, and costs far more to upload
 ## Suggested sequence
 
 ```
-Phase 1 · Foundations       ─  Trainer app and console (#1) · Owner dashboard and at-risk alerts (#2)
+Phase 1 · Foundations       ─  Platform admin & gym onboarding (#0) · Trainer app and console (#1) · Owner dashboard and at-risk alerts (#2)
                                Membership and check-in (#3) · Offline mode (#4) · Exercise videos (#5)
                                Also: start sourcing the Indian food database
 
