@@ -964,6 +964,35 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:default}
 .perm{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;background:var(--raised);font-size:11px;font-weight:600;color:var(--text-2);margin:2px 4px 2px 0;white-space:nowrap}
 .theme-light .perm{background:var(--card-2)}
 .drawer{width:330px;flex:none;display:flex;flex-direction:column;gap:12px}
+
+.ring-badge{white-space:nowrap}
+
+/* screen & feature index (canvas level, always light) */
+html{scroll-behavior:smooth}
+.cv-section[id],.frame[id]{scroll-margin-top:24px}
+.ix-jump{color:#111;font-weight:600;text-decoration:none;border-bottom:1.5px solid #C7CBD1;margin-left:6px}
+.idx-wrap{display:grid;gap:24px}
+.idx{background:#fff;border-radius:20px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(17,24,39,.05);padding:20px 24px 12px}
+.idx-h{display:flex;align-items:baseline;gap:12px;padding:0 12px 4px}
+.idx-h h3{font-size:17px;font-weight:700;color:#111;letter-spacing:-.01em}
+.idx-h span{font-size:13px;color:#6B7280}
+.idx table{width:100%;border-collapse:collapse;font-size:13px;color:#111}
+.idx th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9CA3AF;padding:14px 12px 10px;border-bottom:1px solid #E5E7EB}
+.idx td{padding:11px 12px;border-bottom:1px solid #F1F2F4;vertical-align:top;line-height:1.45}
+.idx tr:last-child td{border-bottom:0}
+.idx tr:not(.grp):hover td{background:#FAFAFB}
+.idx .n{color:#9CA3AF;font-variant-numeric:tabular-nums;font-weight:600}
+.idx .sc{font-weight:600}
+.idx .feat{color:#4B5563}
+.idx .prd{font-size:10px;font-weight:700;letter-spacing:.06em;color:#6B7280;background:#EEF0F3;border-radius:6px;padding:3px 6px;white-space:nowrap}
+.idx .grp td{background:#F7F8FA;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B7280;padding:10px 12px;border-bottom:1px solid #EEF0F3}
+.idx .acts{white-space:nowrap;text-align:right}
+.idx .acts a,.idx .acts button{display:inline-block;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:#F3F4F6;color:#111;text-decoration:none;cursor:pointer;margin-left:4px}
+.idx .acts button{background:#121212;color:#fff}
+.ix-link{display:inline-block;min-width:28px;text-align:center;font-size:12px;font-weight:600;padding:3px 6px;margin:0 4px 4px 0;border-radius:6px;background:#F3F4F6;color:#111;text-decoration:none;font-variant-numeric:tabular-nums}
+.ix-link:hover,.idx .acts a:hover{background:#E5E7EB}
+.ix-link.wide{padding:3px 8px}
+.ix-top{display:inline-block;margin-top:16px;font-size:13px;font-weight:600;color:#6B7280;text-decoration:none}
 </style>
 </head>
 <body class="theme-dark">
@@ -1008,9 +1037,9 @@ const TODAY = { title:'Upper Body A', sub:'Push & Pull', mins:45, date:'Thu, 19 
 // Today's approved session. Every station is a verified Iron Temple station (see EQUIP).
 const EX = [
   { name:'Barbell Bench Press', mus:['chest','shoulders','triceps'], view:'front', tags:'Chest · Triceps', station:'Flat bench 2', sets:4, reps:'6–8', load:'60–65 kg', unit:'kg', bar:20,
-    cues:['Feet flat, shoulder blades squeezed back and down.','Lower the bar to mid-chest, elbows about 45° from your body.','Press up and slightly back over your shoulders.'], plan:[[60,8],[65,8],[65,8],[65,7]] },
+    last:62.5, cues:['Feet flat, shoulder blades squeezed back and down.','Lower the bar to mid-chest, elbows about 45° from your body.','Press up and slightly back over your shoulders.'], plan:[[60,8],[65,8],[65,8],[65,7]] },
   { name:'Incline Dumbbell Press', mus:['chest','shoulders','triceps'], view:'front', tags:'Upper chest · Front delts', station:'Incline bench 3', sets:4, reps:'8–10', load:'30–32.5 kg each', unit:'kg each',
-    cues:['Bench at 30°, shoulder blades back.','Lower to your upper chest, elbows about 45°.','Drive up and slightly in. Don’t clank the dumbbells.'], plan:[[30,10],[32.5,10],[32.5,10],[32.5,9]] },
+    last:30, cues:['Bench at 30°, shoulder blades back.','Lower to your upper chest, elbows about 45°.','Drive up and slightly in. Don’t clank the dumbbells.'], plan:[[30,10],[32.5,10],[32.5,10],[32.5,9]] },
   { name:'Lat Pulldown', mus:['back','biceps'], view:'back', tags:'Lats · Biceps', station:'Cable stack 1', sets:4, reps:'10–12', load:'50–52.5 kg', unit:'kg',
     cues:['Grip just outside your shoulders, chest up.','Pull your elbows down to your ribs, not behind you.','Let the bar rise slowly over 2 seconds.'], plan:[[50,12],[52.5,10],[52.5,10],[52.5,10]] },
   { name:'Seated Cable Row', mus:['back','traps','biceps'], view:'back', tags:'Mid back · Traps', station:'Cable stack 2', sets:3, reps:'10–12', load:'45–47.5 kg', unit:'kg',
@@ -1019,6 +1048,19 @@ const EX = [
     cues:['Brace your core, ribs down.','Press up in a slight arc, biceps by your ears.','Lower to chin height under control. Stop if your shoulder pinches.'], plan:[[16,10],[16,10],[16,10]] },
   { name:'Rope Triceps Pushdown', mus:['triceps'], view:'back', tags:'Triceps', station:'Cable stack 1', sets:3, reps:'12–15', load:'22.5–25 kg', unit:'kg',
     cues:['Elbows pinned to your sides.','Spread the rope apart at the bottom.','Slow 2-second return.'], plan:[[22.5,15],[25,12],[25,12]] },
+];
+const MUSCLES = [
+  { k:'Chest', mus:['chest'], view:'front', crop:'upper' },
+  { k:'Back', mus:['back','traps'], view:'back', crop:'upper' },
+  { k:'Shoulders', mus:['shoulders'], view:'front', crop:'upper' },
+  { k:'Triceps', mus:['triceps'], view:'back', crop:'upper' },
+];
+// this week so far (Mon lower A, Tue pull), sets logged / planned for the week
+const WEEK_MUSCLES = [
+  { k:'Quads', mus:['quads'], view:'front', crop:'lower', done:9, plan:12 },
+  { k:'Glutes', mus:['glutes'], view:'back', crop:'lower', done:6, plan:14 },
+  { k:'Back', mus:['back','traps'], view:'back', crop:'upper', done:10, plan:17, today:true },
+  { k:'Chest', mus:['chest'], view:'front', crop:'upper', done:0, plan:8, today:true },
 ];
 const WARMUP = [
   { name:'Band pull-aparts & arm circles', meta:'4 min', mus:['shoulders','traps'], view:'back' },
@@ -1348,6 +1390,16 @@ const C = {
     return `<span class="av-ini" style="width:${size}px;height:${size}px;background:${color};font-size:${Math.round(size * .36)}px">${t}</span>`;
   },
   person(p, size = 36){ return p.me ? C.avatar('me', size) : C.ini(p.n, p.c, size); },
+  ring(pct, size, inner, { color = 'var(--accent)', label } = {}){
+    const r = (size - 5) / 2, c = 2 * Math.PI * r, p = Math.max(0, Math.min(100, pct));
+    return `<div class="ring" style="width:${size}px;height:${size}px">
+      <svg width="${size}" height="${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ring-track)" stroke-width="3"/>
+      <circle class="ring-p" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p / 100)}" style="--c:${c}"/></svg>
+      <div class="ring-in">${inner}</div><span class="ring-badge" style="background:${color}">${label ?? Math.round(p) + '%'}</span></div>`;
+  },
+  muscleRing(m, size = 76){
+    return `<div class="ring-item">${C.ring(m.pct, size, bodyFig({ view:m.view, on:m.mus, crop:m.crop, h:size - 12 }), { label:m.label, color:m.color })}<span class="lb">${m.k}</span></div>`;
+  },
   thumb(mus = [], view = 'front', size = 56){
     return `<div class="thumb" style="width:${size}px;height:${size}px">${bodyFig({ view, on:mus, crop:'upper', h:size - 4 })}<span class="pl">${icon('play', 8)}</span></div>`;
   },
@@ -1409,6 +1461,8 @@ function metrics(s){
   const done = s.log.flat().filter(x => x.done);
   return { sets:done.length, total:s.log.flat().length, volume:Math.round(done.reduce((a, x) => a + x.w * x.r, 0)), duration:s.elapsed || 0 };
 }
+// approved sets per muscle group, from the plan (or only the logged ones)
+const setsFor = (s, m, doneOnly) => EX.reduce((a, _, i) => liveEx(s, i).mus.some(x => m.mus.includes(x)) ? a + s.log[i].filter(x => !doneOnly || x.done).length : a, 0);
 const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function freshState(){
   return {
@@ -1639,6 +1693,10 @@ S.home = (s) => {
         <div class="bigstat"><b class="num">${VISITS.length}</b><span>visits</span></div></div>
     </div>
 
+    <div class="sec-title"><h3>This week by muscle</h3><a>Sets logged / planned</a></div>
+    <div class="card" style="margin:0 16px;padding:20px 16px 24px"><div class="rings">${WEEK_MUSCLES.map(m => { const add = s.completed && m.today ? setsFor(s, m, true) : 0, d = Math.min(m.plan, m.done + add);
+      return C.muscleRing({ ...m, pct:d / m.plan * 100, label:`${d}/${m.plan}`, color: d >= m.plan ? 'var(--green)' : 'var(--accent)' }, 72); }).join('')}</div></div>
+
     <div class="sec-title"><h3>Your trainer</h3><a data-act="tab" data-arg="coach">Message${icon('chev-r',16)}</a></div>
     <div class="card row gap12" style="margin:0 16px;padding:14px 16px">${C.avatarDot('coach', 48)}
       <div style="flex:1;min-width:0"><div style="font-weight:700">Coach ${COACH.name}</div><div class="t13 muted" style="margin-top:2px">On shift ${COACH.shift}</div></div>
@@ -1712,10 +1770,9 @@ S.plan = (s) => {
 /* ---------- Workout preview (MEM-09) ---------- */
 S.detail = (s) => ({ body:`${C.nav({ title:TODAY.title, sub:TODAY.sub })}
   <div class="stats3"><div><span>EXERCISES</span><b>${EX.length}</b></div><div><span>TARGET</span><b>${TODAY.mins} <small>min</small></b></div><div><span>PLAN</span><b>v${s.planVer}</b></div></div>
-  <div class="card row" style="margin:20px 16px 0;padding:14px 16px;gap:12px">
-    <div class="row" style="gap:0">${bodyFig({ view:'front', on:['chest','shoulders','triceps'], h:92 })}${bodyFig({ view:'back', on:['back','traps','triceps','biceps'], h:92 })}</div>
-    <div style="flex:1"><div style="font-weight:600;font-size:15px">Muscles today</div><div class="chips mt8" style="gap:4px">${['Chest','Back','Shoulders','Triceps','Biceps'].map(m => `<span class="tag acc">${m}</span>`).join('')}</div></div></div>
-  <div class="px mt12">${C.info('building', `Every exercise uses a <b>verified station at ${BRAND.short}</b>. Coach ${COACH.first} set the weights.`)}</div>
+  <div class="sec-title" style="margin-top:28px"><h3>Target muscles</h3><a>Share of ${metrics(s).total} sets</a></div>
+  <div class="rings px">${MUSCLES.map(m => { const n = setsFor(s, m); return C.muscleRing({ ...m, pct:n / metrics(s).total * 100, label:`${n} sets` }, 76); }).join('')}</div>
+  <div class="px mt24"><div class="ai-note"><span class="ico">${icon('building',17)}</span><div class="t13" style="line-height:19px"><b style="font-weight:600">Built for ${BRAND.short}.</b> <span class="muted">Every exercise uses a verified station, and Coach ${COACH.first} set the weights. Changes need ${COACH.first}’s approval.</span></div></div></div>
   <div class="card" style="margin:12px 16px 0;padding:16px 16px 8px">
     <div class="row between" style="padding:0 4px 8px"><div><div style="font-weight:700;font-size:17px">Warm-up</div><div class="t12 muted" style="margin-top:2px">9 min · recommended</div></div><span class="toggle ${s.warmup ? 'on' : ''}" data-act="warmup"></span></div>
     <div style="${s.warmup ? '' : 'opacity:.4'}">${WARMUP.map(w => `<div class="lrow">${C.thumb(w.mus, w.view, 48)}<div class="mid"><div class="t" style="font-size:15px">${w.name}</div><div class="s">${w.meta}</div></div></div>`).join('')}</div></div>
@@ -1796,6 +1853,7 @@ const helpSheet = (s) => C.sheet(`
   <button class="hrow primary" style="width:100%;text-align:left" data-act="callCoach" data-arg="spotting"><span class="hi">${icon('hand',22)}</span><span class="mid"><div class="ht">Call a trainer to my station</div><div class="hs">${liveEx(s).station} · spotting or form help</div></span>${icon('chev-r',20)}</button>
   <button class="hrow" style="width:100%;text-align:left;margin-top:8px" data-act="callCoach" data-arg="equipment"><span class="hi">${icon('wrench',20)}</span><span class="mid"><div class="ht">Equipment problem</div><div class="hs">Broken, missing or feels unsafe</div></span>${icon('chev-r',18)}</button>
   <button class="hrow" style="width:100%;text-align:left" data-act="msgCoach"><span class="hi">${icon('chat',20)}</span><span class="mid"><div class="ht">Message Coach ${COACH.first}</div><div class="hs">Goes to your trainer chat</div></span>${icon('chev-r',18)}</button>
+  <button class="hrow" style="width:100%;text-align:left" data-act="formCheck"><span class="hi">${icon('video',20)}</span><span class="mid"><div class="ht">Check my form</div><div class="hs">Send a 10-second clip to ${COACH.first}</div></span>${icon('chev-r',18)}</button>
   <button class="hrow" style="width:100%;text-align:left" data-act="swap"><span class="hi">${icon('swap',20)}</span><span class="mid"><div class="ht">Swap this exercise</div><div class="hs">${COACH.first} approves swaps first</div></span>${icon('chev-r',18)}</button>
   <button class="hrow danger" style="width:100%;text-align:left" data-act="pain"><span class="hi">${icon('alert',20)}</span><span class="mid"><div class="ht">I feel pain or discomfort</div><div class="hs">Holds this exercise and calls a trainer</div></span>${icon('chev-r',18)}</button>`);
 const calledSheet = (s) => {
@@ -1828,6 +1886,8 @@ S.complete = (s) => {
   const m = metrics(s), partial = m.sets < m.total;
   const conf = [[30,90,'var(--accent)',8,4,20],[70,60,'#fff',6,6,-30],[110,120,'var(--green)',5,10,45],[300,80,'var(--accent)',10,4,-20],[340,140,'var(--orange)',6,6,15],[260,50,'#fff',4,10,60],[50,180,'var(--orange)',8,3,-40],[330,210,'var(--accent)',5,5,30],[160,40,'var(--accent)',4,4,10],[230,110,'var(--green)',8,3,-60]];
   const feels = ['Too easy','Easy','Just right','Hard','Too hard'];
+  const bests = EX.map((e, i) => { if (!e.last || s.overrides[i]) return null; const top = s.log[i].filter(x => x.done).sort((a, b) => b.w - a.w || b.r - a.r)[0];
+    return top && top.w > e.last ? { name:e.name, w:top.w, r:top.r, last:e.last } : null; }).filter(Boolean);
   const rows = EX.map((_, i) => { const e = liveEx(s, i), l = s.log[i], d = l.filter(x => x.done).length;
     const tag = s.holds[i] ? `<span class="tag bad">On hold · ${d}/${l.length}</span>` : d === l.length ? `<span class="tag good">${icon('check',11,'stroke-width="2.6"')}${d}/${l.length}</span>` : d ? `<span class="tag warn">${d}/${l.length} sets</span>` : `<span class="tag">Skipped</span>`;
     return `<div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">${e.name}</div></div>${tag}</div>`; }).join('');
@@ -1843,7 +1903,12 @@ S.complete = (s) => {
         <div><span>${icon('check',14)}Sets</span><b>${m.sets}<small> / ${m.total}</small></b></div>
         <div><span>${icon('dumbbell',14)}Volume</span><b>${m.volume.toLocaleString('en-IN')}<small> kg</small></b></div></div>
       <div class="t12 muted px" style="margin-top:8px;padding-left:20px">From the sets you logged.</div>
-      <div class="sec-title" style="margin-top:20px"><h3>Plan vs done</h3></div>
+      <div class="card row" style="margin:8px 16px 0;padding:12px 16px;gap:12px">
+        <div class="row" style="gap:0">${bodyFig({ view:'front', on:['chest','shoulders','triceps','biceps'], h:84 })}${bodyFig({ view:'back', on:['back','traps','triceps','shoulders'], h:84 })}</div>
+        <div style="flex:1"><div style="font-weight:600;font-size:15px">Muscles worked</div><div class="chips mt8" style="gap:4px">${MUSCLES.filter(mm => setsFor(s, mm, true)).map(mm => `<span class="tag acc">${mm.k} · ${setsFor(s, mm, true)}</span>`).join('')}</div></div></div>
+      ${bests.length ? `<div class="sec-title" style="margin-top:24px"><h3>New bests</h3><a>From your logs</a></div>
+      <div class="card" style="margin:0 16px;padding:14px 16px">${bests.map((b, i) => `<div class="row gap12" ${i ? 'style="margin-top:12px"' : ''}><span class="tile-ic acc">${icon(i ? 'up' : 'zap',18)}</span><div style="flex:1"><div style="font-weight:600;font-size:14px">${b.name} · ${kg(b.w)} kg × ${b.r}</div><div class="t12 muted">Up from ${kg(b.last)} kg last week</div></div></div>`).join('')}</div>` : ''}
+      <div class="sec-title" style="margin-top:24px"><h3>Plan vs done</h3></div>
       <div class="card" style="margin:0 16px;padding:4px 18px">${rows}</div>
       <div class="sec-title" style="margin-top:24px"><h3>How did it feel?</h3></div>
       <div class="feel px">${feels.map((f, i) => `<button class="${s.feel === i + 1 ? 'on' : ''}" data-act="feel" data-arg="${i + 1}"><span class="lv">${[1,2,3,4,5].map(b => `<i class="${b <= i + 1 ? 'f' : ''}" style="height:${4 + b * 3}px"></i>`).join('')}</span>${f}</button>`).join('')}</div>
@@ -2247,6 +2312,106 @@ D.setup = () => {
   return D.shell('setup', 'Gym & staff', 'Profile, policies and who can do what.', body, '');
 };
 
+/* =========================================================
+   SCREEN & FEATURE INDEX — tables at the end of the canvas
+   ========================================================= */
+const IDX_FEAT = {
+  '01':'Gym-bound invite, 6-digit code, data kept separate per gym',
+  '02':'Required vs optional consent (photos, location), changeable later',
+  '03':'Error state with front-desk contact',
+  '04':'Optional weight with kg/lb ruler; never used to set weights',
+  '05':'Pick one of four goals',
+  '06':'Experience level, days per week, session length',
+  '07':'Body-area limits and symptom check; severe symptoms hold the plan',
+  '08':'Animated AI draft from verified equipment, sent to the trainer',
+  '09':'Review timeline, no workouts until approved, orientation booking',
+  '10':'Today’s workout, check-in status, program progress, weekly muscle rings, trainer card',
+  '11':'Collapsing sticky header with week strip',
+  '12':'QR scanner, location with permission, front-desk fallback',
+  '13':'Body check before every session',
+  '14':'Pain or symptoms block the session and call a trainer',
+  '15':'Plan version and what changed, coach note, 4-week view, day list',
+  '16':'Target-muscle rings (share of sets), warm-up toggle, stations and weights',
+  '17':'Set logging, rest timer, plate diagram, next set from plan, trainer button',
+  '18':'Sets saved on the phone and synced later',
+  '19':'Plan vs actual, weight and rep steppers, effort rating',
+  '20':'Gym-filmed demo, plate loading, technique cues, breathing',
+  '21':'Verified alternatives only; trainer approves before use',
+  '22':'Call to station, equipment problem, message, form check, swap, pain',
+  '23':'Shows Sent until a trainer accepts, with live status steps',
+  '24':'Accepted and on the way, with timestamps',
+  '25':'Exercise hold, automatic trainer request, medical guidance',
+  '26':'Held exercise locked; the rest of the workout continues',
+  '27':'Time, sets and volume from logs, muscles worked, new bests, plan vs done, feedback',
+  '28':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
+  '29':'Daily-limit banner; quick answers, logging and help still work',
+  '30':'Messages, voice notes, shared workouts, weekly summary from logs, call to station',
+  '31':'Visit calendar, stats, best lifts, optional body data, photo opt-in, privacy',
+  '32':'Facts from logs, optional weight, progress and support feedback, pain flag',
+  '33':'Live help requests, swap approvals, queue counts, attention list with reasons',
+  '34':'Member, station, planned set, timeline, transfer or escalate',
+  '35':'Outcome categories, including clearing a pain hold; logged as attention',
+  '36':'Automatic checks, flags, enter every starting weight, approve or send back',
+  '37':'Consents, assessment, visits, attention schedule, help history, notes',
+  '38':'Check-in type and outcome; counts toward attention coverage',
+  '39':'Attention and orientation coverage, help response, adherence, trainer table, AI spend',
+  '40':'Filters, follow-up status, member detail drawer, sensitive data hidden',
+  '41':'Coverage numbers, board by status, assign and nudge',
+  '42':'Verified, draft and disabled equipment, load setup, flagged plans',
+  '43':'Gym profile, policies, staff roles and permissions, invite staff',
+};
+const IDX_OPS = [
+  ['OPS-01','All gyms','Gyms by stage, setup progress, AI spend, next step'],
+  ['OPS-02','Onboard · gym & owner','Brand and legal name, GSTIN, branch, address, hours, languages, owner contact, size'],
+  ['OPS-03','Onboard · plan & pilot terms','Pilot vs paid (price not signed off), pilot dates, cohort, AI budget, agreements'],
+  ['OPS-04','Review & provision','Summary, checks that block provisioning, what gets created'],
+  ['OPS-05','Gym setup progress','Go-live checklist, tenant details, support-access log'],
+];
+const MODULES = [
+  ['M01','Gym equipment knowledge','Verified stations only, plate loading from the verified bar and plates, inventory with verify and disable',['17','20','21','42']],
+  ['M02','Onboarding & orientation','Gym-bound invite, consent, trainer assignment, orientation tracking',['01','02','03','09','41']],
+  ['M03','Fitness assessment','Goal, experience, schedule, limits and symptoms; weight is optional',['04','05','06','07','37']],
+  ['M04','AI plan + trainer approval','AI draft from verified equipment, automatic checks, trainer sets weights, versioned plans',['08','09','15','36']],
+  ['M05','Gym check-in','QR, location with permission or front desk; repeat scans count once',['12']],
+  ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','13','14','16']],
+  ['M07','Guided logging','Plan vs actual, effort, rest timer, offline, swaps, summary from logs',['17','18','19','20','21','27']],
+  ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds, outcomes, member feedback',['22','23','24','25','26','33','34','35']],
+  ['M09','Periodic evaluation','4-week check-in with facts from logs and support feedback',['31','32']],
+  ['M10','Trainer tools','Queue with reasons, member record, check-in logging',['33','37','38']],
+  ['M11','Owner dashboard','Coverage metrics, follow-ups, orientation, equipment, staff',['39','40','41','42','43']],
+  ['M12','AI coach','Answers with sources, hand-off to trainer, daily-limit fallback',['28','29','30']],
+  ['New','Platform admin (our team)','Onboard and provision new gyms, track go-live',null],
+];
+function renderIndex(){
+  const link = (n) => `<a class="ix-link" href="#f${n}">${n}</a>`;
+  const feat = MODULES.map(([m, t, d, scr]) => `<tr><td><span class="prd">${m}</span></td><td class="sc">${t}</td><td class="feat">${d}</td><td>${scr ? scr.map(link).join('') : '<a class="ix-link wide" href="Platform Admin.html">OPS-01 – 05 ↗</a>'}</td></tr>`).join('');
+  let rows = '';
+  FRAMES.forEach(sec => {
+    rows += `<tr class="grp"><td colspan="5">${sec.section}</td></tr>`;
+    sec.items.forEach(([n, label, prd]) => {
+      rows += `<tr><td class="n">${n}</td><td class="sc">${label}</td><td><span class="prd">${prd}</span></td><td class="feat">${IDX_FEAT[n] || ''}</td>
+        <td class="acts"><a href="#f${n}">View</a>${sec.desk ? '' : `<button data-open="${n}">Open</button>`}</td></tr>`;
+    });
+  });
+  rows += `<tr class="grp"><td colspan="5">Platform admin · separate file: Platform Admin.html</td></tr>`;
+  rows += IDX_OPS.map(([id, label, f], i) => `<tr><td class="n">${i + 44}</td><td class="sc">${label}</td><td><span class="prd">${id}</span></td><td class="feat">${f}</td><td class="acts"><a href="Platform Admin.html">Open ↗</a></td></tr>`).join('');
+  const total = FRAMES.reduce((a, s) => a + s.items.length, 0) + IDX_OPS.length;
+  return `<section class="cv-section" id="index"><h2>Screen & feature index</h2>
+    <div class="idx-wrap">
+      <div class="idx"><div class="idx-h"><h3>Features</h3><span>${MODULES.length - 1} PRD modules + platform admin</span></div>
+        <table><tr><th style="width:70px">Module</th><th style="width:220px">Feature</th><th>What it does</th><th style="width:300px">Screens</th></tr>${feat}</table></div>
+      <div class="idx"><div class="idx-h"><h3>All screens</h3><span>${total} screens · 4 surfaces</span></div>
+        <table><tr><th style="width:50px">#</th><th style="width:240px">Screen</th><th style="width:90px">PRD</th><th>Key features</th><th style="width:120px"></th></tr>${rows}</table></div>
+    </div><a class="ix-top" href="#canvas">↑ Back to top</a></section>`;
+}
+function openFrame(n){
+  for (const sec of FRAMES) for (const it of sec.items) if (it[0] === n && !sec.desk){
+    P = it[3](); lastKey = ''; renderProto();
+    document.getElementById('protoDevice').scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+}
+
 /* ---------- Router ---------- */
 const ONB = [S.invite, S.consent, S.onbWeight, S.onbGoal, S.onbExp, S.onbLimits, S.onbBuild];
 const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, log:logSheet, pain:painSheet, demo:demoSheet };
@@ -2339,7 +2504,7 @@ function renderCanvas(){
   const n = FRAMES.reduce((a, s) => a + s.items.length, 0);
   let html = `
   <header class="cv-head"><div class="cv-title"><div class="lg">${BRAND.logo(24)}</div><div><h1>${BRAND.name} · Gym Companion</h1><p>Member app, trainer app and owner console · ${n} screens + interactive prototype</p></div></div></header>
-  <p class="cv-sub">Each frame carries its screen ID from the Gym Companion PRD v1.0. Names, gym records and numbers are sample data.</p>
+  <p class="cv-sub">Each frame carries its screen ID from the Gym Companion PRD v1.0. Names, gym records and numbers are sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
   <section class="cv-section"><h2>00 · Prototype</h2>
     <div class="proto-wrap">
       <div class="frame is-proto"><div class="frame-label" style="justify-content:center;padding:0"><span class="n">00</span>Interactive prototype</div><div id="protoDevice"></div></div>
@@ -2370,11 +2535,12 @@ function renderCanvas(){
     html += `<section class="cv-section"><h2>${sec.section}</h2><div class="cv-row">`;
     sec.items.forEach(([n, label, prd, st, hint, scrollTo]) => {
       const label_ = `<div class="frame-label"><span class="n">${n}</span>· ${label}<span class="prd">${prd}</span>${hint ? `<span class="hint">${hint}</span>` : ''}</div>`;
-      html += sec.desk ? `<div class="frame">${label_}${D[st]()}</div>`
-        : `<div class="frame" ${scrollTo ? `data-scrollto="${scrollTo}"` : ''}>${label_}${C.device(C.phone(build(st())))}</div>`;
+      html += sec.desk ? `<div class="frame" id="f${n}">${label_}${D[st]()}</div>`
+        : `<div class="frame" id="f${n}" ${scrollTo ? `data-scrollto="${scrollTo}"` : ''}>${label_}${C.device(C.phone(build(st())))}</div>`;
     });
     html += `</div></section>`;
   });
+  html += renderIndex();
   document.getElementById('canvas').innerHTML = html;
   requestAnimationFrame(() => {
     document.querySelectorAll('#canvas .frame:not(.is-proto) .scroll[data-end]').forEach(el => el.scrollTop = el.scrollHeight);
@@ -2470,6 +2636,7 @@ const A = {
   pain(){ P.holds[P.ex] = true; P.rest = null; P.edit = null; P.req = req('discomfort', liveEx(P).station); P.sheet = 'pain'; },
   closeSheet(){ P.sheet = null; P.edit = null; },
   msgCoach(){ P.sheet = null; P.tab = 'coach'; },
+  formCheck(){ P.sheet = null; toast(`Camera opens · clip goes to ${COACH.first}’s chat`); },
   /* AI coach — deterministic answers first; free text is the only "model" path */
   aiQuick(k){
     const ex = liveEx(P), set = P.log[P.ex][Math.min(curSet(P), P.log[P.ex].length - 1)], run = P.running && !P.completed;
@@ -2572,6 +2739,7 @@ document.addEventListener('scroll', e => { if (e.target.classList?.contains('scr
 /* event delegation for the prototype */
 document.addEventListener('click', e => {
   const jt = e.target.closest('[data-jump]'); if (jt){ jump(jt.dataset.jump); return; }
+  const op = e.target.closest('[data-open]'); if (op){ openFrame(op.dataset.open); return; }
   const tg = e.target.closest('[data-theme]'); if (tg){ setTheme(tg.dataset.theme); return; }
   const proto = e.target.closest('#protoDevice');
   if (!proto){ // static frames: let set checks animate for demo
