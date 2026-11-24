@@ -1,10 +1,10 @@
 # Gym Companion — App Mockups
 
-High-fidelity, interactive HTML mockups for **Gym Companion**, a B2B platform for independent gyms. AI drafts a workout plan from the gym's verified equipment, a trainer reviews it and sets every weight, and the member follows it on the gym floor with a clear path to a human trainer. Owners see whether that attention actually happened.
+High-fidelity, interactive HTML mockups for **Gym Companion**, a B2B platform for independent gyms. AI drafts a workout plan from the gym's equipment list, a trainer reviews it and sets every weight, and the member follows it on the gym floor with a clear path to a human trainer. Owners see whether that attention actually happened.
 
 The mockup covers the three surfaces in the Gym Companion PRD v1.0 (the **member app**, the **trainer app** and the **owner console**) Every frame is labelled with its PRD screen ID (MEM-01 … OWN-05).
 
-The **platform admin**, where our own team onboards new gyms, is a separate file: `App/Platform Admin.html` (OPS-01 … OPS-05, not in the PRD yet).
+The **platform admin**, where our own team onboards new gyms, is in two separate files: `App/Platform Admin Pilot.html` (what we build now, OPS-01 … OPS-04) and `App/Platform Admin.html` (the full version for after the pilot, OPS-L1 … L5). Neither is in the PRD yet.
 
 > Sample data: member Arjun Reddy, Coach Ravi Kumar, Iron Temple Gym (Banjara Hills, Hyderabad). Names, records and numbers are illustrative.
 
@@ -42,22 +42,36 @@ Phones scale to your window height; the owner console frames scale to its width.
 - **Trainer sets the weights.** Body weight is optional and never sets loads. AI drafts arrive with no weights, and the trainer can't approve until every weight is filled in.
 - **Help is honest.** A request shows *Sent* until a trainer taps accept, then *Accepted → On the way → Resolved*, each with a time. The member can say whether they got the help.
 - **Pain holds only the affected exercise.** Logging that exercise is blocked and a trainer is called automatically. The rest of the workout stays open, and only a trainer can clear the hold.
-- **Only verified equipment.** Plans, swaps and plate loading use verified stations only. Swaps wait for trainer approval. There is no "machine free now" claim without an occupancy signal.
+- **Only the gym's equipment.** Plans, swaps and plate loading use only the gym's equipment list. Our team adds the full list in one go during setup, with no trainer verification step and no half-done drafts. The owner can mark a machine out of order, and plans skip it. Swaps wait for trainer approval. There is no "machine free now" claim without an occupancy signal.
 - **Facts from logs.** Actual weight and reps are logged next to the plan. Summaries use logged sets only, with no calories or recovery percentages.
 - **AI is bounded.** Standard answers come from approved cues and the plan; free text is the only AI path. At the daily limit, quick answers, logging and trainer help keep working.
 - **Attention counts humans.** Owner coverage metrics count logged trainer check-ins, not automated messages or AI chats. Retention stays hidden until membership dates exist.
 
 ## Platform admin
 
-`App/Platform Admin.html` holds five desktop pages for our dev, IT and ops team:
+Our dev, IT and ops team's console for onboarding gyms, in two files:
 
-- all gyms by stage
-- onboarding: gym and owner basics
-- onboarding: plan and pilot terms
-- review and provision
-- gym setup progress
+- **`App/Platform Admin Pilot.html`, built now:**
+  - **Gyms:** the gym list with filters and search.
+  - **Add a gym:** a 3-step wizard with Back / Next. Step 1, gym details: name, phone, email, full address (two lines, area, city, state, PIN). Step 2, contacts: owner and point of contact (with a "Same as owner" option), each with a mobile and an optional alternate mobile, plus notes. Step 3, equipment (optional): the full list in one go, or **Do later**. The go-live date is set later on the gym's page.
+  - **Gym setup:** 3 steps, all done by our team: gym details and logo, equipment, trainers. The gym opens to members on its go-live date once setup is done.
+  - **Equipment:** a standalone page from Gym setup, using the same editor as wizard step 3. Search suggests equipment as you type, Paste a list matches each line, and photos are optional.
+  - **Locked page:** an example of how later features appear.
+- **`App/Platform Admin.html`, after the pilot:** gym pipeline, a detailed onboarding wizard (legal and tax details, plans, agreements), and provisioning. Kept as a reference.
 
-It uses the neutral Gym Companion brand rather than a gym's, and never shows member health data. It shares the design tokens and components with the main mockup; its pages live in the `O` object.
+Features that come after the pilot (leads, plans and billing, legal and tax details, agreement tracking, multiple branches, usage, support access, ops team) appear in the pilot file **locked** with an "After pilot" label. It's an internal tool, so showing them is fine, and unlocking one later is a state change rather than a redesign. Pricing stays out until PRD decision D-01 is signed off.
+
+It uses the neutral Gym Companion brand and never shows member health data.
+
+### Developer handoff
+
+Open `App/Platform Admin Pilot.html` in a browser. It's one self-contained file with no build step.
+
+1. **Working prototype** (top): click through the real flow: gym list, the Add a gym wizard with validation, Gym setup, equipment, trainers. **Fill sample data** and **Reset** sit above it.
+2. **Developer rules**: every component state (default, hover, focus, filled, error, disabled; checked; selected), behaviour, validation messages and tokens with exact values.
+3. **Reference screens**: static frames OPS-01 to OPS-05.
+
+The equipment catalog behind the search is supplied by engineering: name, type, default weights and search aliases per item. The prototype uses a small sample.
 
 ## Design system
 
@@ -119,7 +133,8 @@ Everything is in one file: inline CSS, then inline JS.
 ```
 App/
   Gym Companion.html        # member app, trainer app, owner console (self-contained)
-  Platform Admin.html       # our team's console for onboarding new gyms (self-contained)
+  Platform Admin Pilot.html # our team's console, pilot version we build now (self-contained)
+  Platform Admin.html       # our team's console, full version for after the pilot (self-contained)
 README.md
 ROADMAP.md                  # prioritised list of future features
 Roadmap Presentation.html   # the roadmap as a slide deck

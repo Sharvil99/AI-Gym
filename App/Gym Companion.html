@@ -1034,7 +1034,7 @@ const BRANCH = 'Banjara Hills';
 const PROGRAM = { name:'Fat Loss — Gym', level:'Intermediate', perWeek:4, week:2, weeks:4 };
 const TODAY = { title:'Upper Body A', sub:'Push & Pull', mins:45, date:'Thu, 19 Nov', checkTime:'6:12 PM' };
 
-// Today's approved session. Every station is a verified Iron Temple station (see EQUIP).
+// Today's approved session. Every station is on Iron Temple's equipment list (see EQUIP).
 const EX = [
   { name:'Barbell Bench Press', mus:['chest','shoulders','triceps'], view:'front', tags:'Chest · Triceps', station:'Flat bench 2', sets:4, reps:'6–8', load:'60–65 kg', unit:'kg', bar:20,
     last:62.5, cues:['Feet flat, shoulder blades squeezed back and down.','Lower the bar to mid-chest, elbows about 45° from your body.','Press up and slightly back over your shoulders.'], plan:[[60,8],[65,8],[65,8],[65,7]] },
@@ -1067,7 +1067,7 @@ const WARMUP = [
   { name:'Push-up to down-dog', meta:'3 min', mus:['chest','shoulders'], view:'front' },
   { name:'Light incline dumbbell press', meta:'2 × 12 · 12.5 kg each', mus:['chest'], view:'front' },
 ];
-// Trainer-approved alternatives per exercise (verified stations only). w = weight the trainer sets on approval.
+// Trainer-approved alternatives per exercise (gym's equipment list only). w = weight the trainer sets on approval.
 const SWAPS = {
   0:[{ name:'Dumbbell Bench Press', station:'Flat bench 1', w:24, r:10, unit:'kg each' }, { name:'Chest Press Machine', station:'Chest press 1', w:45, r:10 }],
   1:[{ name:'Incline Chest Press Machine', station:'Chest press 1', w:35, r:10 }, { name:'Low-to-High Cable Fly', station:'Cable stack 2', w:10, r:12 }],
@@ -1160,19 +1160,19 @@ const ORIENT = [
   ['Completed', 43, [ ['Arjun Reddy','Ravi','10 Nov · walkthrough + baseline'], ['Sana Qureshi','Sneha','9 Nov · walkthrough + baseline'], ['Ananya Das','Ravi','6 Nov · walkthrough + baseline'] ]],
 ];
 const EQUIP = [
-  ['EQ-101','Flat bench + Olympic bar','Flat bench 1–2',4,'Bar 20 kg · plates 1.25–20 kg','Verified','Ravi · 12 Nov'],
-  ['EQ-102','Adjustable incline bench','Incline bench 3',3,'—','Verified','Ravi · 12 Nov'],
-  ['EQ-103','Lat pulldown','Cable stack 1',5,'Stack 5–100 kg','Verified','Sneha · 10 Nov'],
-  ['EQ-104','Seated cable row','Cable stack 2',4,'Stack 5–100 kg','Verified','Sneha · 10 Nov'],
-  ['EQ-105','Dumbbells 2.5–40 kg','Dumbbell rack',14,'Pairs in 2.5 kg steps','Verified','Imran · 8 Nov'],
-  ['EQ-106','Chest press machine','Chest press 1',2,'Stack 5–90 kg','Verified','Ravi · 14 Nov'],
-  ['EQ-107','Smith machine','Smith 1',3,'Bar weight not verified','Draft','Not used in plans until verified'],
-  ['EQ-108','Cable crossover','Cable stack 3',0,'—','Draft','Missing exercise mapping'],
-  ['EQ-109','Leg press','Leg zone',3,'Plate-loaded','Disabled','Under repair since 18 Nov'],
+  ['EQ-101','Flat bench + Olympic bar','Flat bench 1–2',4,'Bar 20 kg · plates 1.25–20 kg','In use','Setup · 12 Nov'],
+  ['EQ-102','Adjustable incline bench','Incline bench 3',3,'—','In use','Setup · 12 Nov'],
+  ['EQ-103','Lat pulldown','Cable stack 1',5,'Stack 5–100 kg','In use','Setup · 12 Nov'],
+  ['EQ-104','Seated cable row','Cable stack 2',4,'Stack 5–100 kg','In use','Setup · 12 Nov'],
+  ['EQ-105','Dumbbells 2.5–40 kg','Dumbbell rack',14,'Pairs in 2.5 kg steps','In use','Setup · 12 Nov'],
+  ['EQ-106','Chest press machine','Chest press 1',2,'Stack 5–90 kg','In use','Setup · 12 Nov'],
+  ['EQ-107','Smith machine','Smith 1',3,'Bar 15 kg','In use','Setup · 12 Nov'],
+  ['EQ-108','Cable crossover','Cable stack 3',4,'Stack 5–100 kg','In use','Setup · 12 Nov'],
+  ['EQ-109','Leg press','Leg zone',3,'Plate-loaded','Out of order','Ravi · 18 Nov'],
 ];
 const STAFF = [
   ['Suresh Menon','#4B5563','Owner · admin',['All settings','Reports'],'—','Active'],
-  ['Ravi Kumar','#3B4A5E','Trainer',['Approve plans','Verify equipment','Help requests'],'4–10 PM','Active'],
+  ['Ravi Kumar','#3B4A5E','Trainer',['Approve plans','Help requests'],'4–10 PM','Active'],
   ['Sneha Reddy','#2F8F83','Trainer',['Approve plans','Help requests'],'6 AM–12 PM','Active'],
   ['Imran Khan','#C0743A','Trainer',['Help requests','!Plan approval after qualification check'],'6–10 PM','Active'],
   ['Deepa Nair','#8E5BB5','Trainer',['Approve plans','Help requests'],'7 AM–1 PM','Active'],
@@ -1625,7 +1625,7 @@ S.pending = (s) => ({ body:`
     <div class="divider mt16"></div>
     <div class="mt16">${C.vtl([
       ['ok','Assessment submitted','Today, 9:12 AM'],
-      ['ok',`Draft built for ${BRAND.short}`,'Verified stations only · 4 days a week'],
+      ['ok',`Draft built for ${BRAND.short}`,'Only equipment at your gym · 4 days a week'],
       ['now','Trainer review',`${COACH.first} checks exercises against your limits and sets weights`],
       ['fut','Plan approved','You’ll get a notification, then you can start']])}</div>
   </div>
@@ -1772,7 +1772,7 @@ S.detail = (s) => ({ body:`${C.nav({ title:TODAY.title, sub:TODAY.sub })}
   <div class="stats3"><div><span>EXERCISES</span><b>${EX.length}</b></div><div><span>TARGET</span><b>${TODAY.mins} <small>min</small></b></div><div><span>PLAN</span><b>v${s.planVer}</b></div></div>
   <div class="sec-title" style="margin-top:28px"><h3>Target muscles</h3><a>Share of ${metrics(s).total} sets</a></div>
   <div class="rings px">${MUSCLES.map(m => { const n = setsFor(s, m); return C.muscleRing({ ...m, pct:n / metrics(s).total * 100, label:`${n} sets` }, 76); }).join('')}</div>
-  <div class="px mt24"><div class="ai-note"><span class="ico">${icon('building',17)}</span><div class="t13" style="line-height:19px"><b style="font-weight:600">Built for ${BRAND.short}.</b> <span class="muted">Every exercise uses a verified station, and Coach ${COACH.first} set the weights. Changes need ${COACH.first}’s approval.</span></div></div></div>
+  <div class="px mt24"><div class="ai-note"><span class="ico">${icon('building',17)}</span><div class="t13" style="line-height:19px"><b style="font-weight:600">Built for ${BRAND.short}.</b> <span class="muted">Every exercise uses equipment at your gym, and Coach ${COACH.first} set the weights. Changes need ${COACH.first}’s approval.</span></div></div></div>
   <div class="card" style="margin:12px 16px 0;padding:16px 16px 8px">
     <div class="row between" style="padding:0 4px 8px"><div><div style="font-weight:700;font-size:17px">Warm-up</div><div class="t12 muted" style="margin-top:2px">9 min · recommended</div></div><span class="toggle ${s.warmup ? 'on' : ''}" data-act="warmup"></span></div>
     <div style="${s.warmup ? '' : 'opacity:.4'}">${WARMUP.map(w => `<div class="lrow">${C.thumb(w.mus, w.view, 48)}<div class="mid"><div class="t" style="font-size:15px">${w.name}</div><div class="s">${w.meta}</div></div></div>`).join('')}</div></div>
@@ -1833,7 +1833,7 @@ const logSheet = (s) => {
 };
 const demoSheet = (s) => {
   const ex = liveEx(s), set = s.log[s.ex][Math.min(curSet(s), s.log[s.ex].length - 1)];
-  return C.sheet(`<div class="sheet-head"><div><div class="h2">${ex.name}</div><div class="t13 muted row gap4" style="margin-top:4px">${icon('pin',13)}${ex.station} · verified station</div></div>${C.closeBtn()}</div>
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">${ex.name}</div><div class="t13 muted row gap4" style="margin-top:4px">${icon('pin',13)}${ex.station}</div></div>${C.closeBtn()}</div>
     <div class="vid">${bodyFig({ view:ex.view, on:ex.mus, h:176 })}<span class="play">${icon('play',22)}</span><span class="vsrc">${icon('badge',12)}Filmed at ${BRAND.short}</span><span class="vdur">0:38</span></div>
     ${ex.bar ? C.plates(set.w, ex.bar) : ''}
     <div class="qlabel" style="margin:18px 4px 12px">Setup &amp; technique · checked by ${COACH.first}</div>
@@ -1843,7 +1843,7 @@ const demoSheet = (s) => {
 };
 const swapSheet = (s) => {
   const ex = EX[s.ex], opts = SWAPS[s.ex] || [], pend = s.swapReq && s.swapReq.ex === s.ex;
-  return C.sheet(`<div class="sheet-head"><div><div class="h2">Swap exercise</div><div class="t13 muted" style="margin-top:4px">Instead of ${ex.name} · verified at ${BRAND.short}</div></div>${C.closeBtn()}</div>
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">Swap exercise</div><div class="t13 muted" style="margin-top:4px">Instead of ${ex.name} · available at ${BRAND.short}</div></div>${C.closeBtn()}</div>
     ${pend ? `<div class="card" style="padding:14px 16px;margin-bottom:12px;border-color:var(--accent-line)"><div class="row gap12"><span class="tile-ic" style="color:var(--orange)">${icon('clock',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Waiting for ${COACH.first}</div><div class="t12 muted">Keep going with ${ex.name} for now</div></div><button class="t13" style="font-weight:600;color:var(--red);padding:8px" data-act="cancelSwap">Cancel</button></div></div>` : ''}
     ${opts.map((a, i) => `<button class="hrow" style="width:100%;text-align:left" data-act="doSwap" data-arg="${i}">${C.thumb(ex.mus, ex.view, 44)}<span class="mid"><div class="ht">${a.name}</div><div class="hs row gap4">${icon('pin',12)}${a.station}</div></span>${pend && s.swapReq.i === i ? `<span class="tag warn">Requested</span>` : icon('chev-r',18)}</button>`).join('')}
     <div class="row gap8 t12 muted" style="margin-top:16px;padding:0 4px;line-height:16px">${icon('shield',14)}Coach ${COACH.first} approves the swap and sets the weight before you start it.</div>`);
@@ -2150,7 +2150,7 @@ T.review = (s) => {
       <div class="row gap8 t13 mt12" style="color:var(--orange);font-weight:600">${icon('alert',14)}Left shoulder: tightness (self-reported)</div></div>
     <div class="sec-title"><h3>Automatic checks</h3><a>Before it reached you</a></div>
     <div class="card" style="margin:0 16px;padding:4px 16px">
-      ${C.check('ok','All exercises use verified stations',`24 exercises across 4 days, all at ${BRAND.short}`)}
+      ${C.check('ok','All exercises use equipment on the gym’s list',`24 exercises across 4 days, all at ${BRAND.short}`)}
       ${C.check('ok','Fits the 45-minute session','Day A estimate: 44 min')}
       ${C.check('ok','No unknown exercises or equipment','')}
       ${C.check('warn','Shoulder concern: overhead press flagged','Suggest you supervise the first session')}
@@ -2210,13 +2210,13 @@ const trnCheckinSheet = (s) => C.sheet(`<div class="sheet-head"><div><div class=
    ========================================================= */
 const D = {};
 D.shell = (active, title, sub, body, actions = '') => {
-  const nav = [['dashboard','grid','Dashboard'],['members','users','Members',54],['orientation','clipboard','Orientation',2],['equipment','dumbbell','Equipment',3],['setup','settings','Gym & staff']];
+  const nav = [['dashboard','grid','Dashboard'],['members','users','Members',54],['orientation','clipboard','Orientation',2],['equipment','dumbbell','Equipment',1],['setup','settings','Gym & staff']];
   return `<div class="desk"><div class="dchrome"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><div class="url">${icon('lock',11)}console.gymcompanion.app/iron-temple/${active}</div><span style="width:60px"></span></div>
     <div class="dbody"><aside class="dside"><div class="brand"><span class="logo" style="width:34px;height:34px;border-radius:11px">${BRAND.logo(17)}</span><div><div style="font-size:14px">${BRAND.name}</div><div class="t12 muted" style="font-weight:500">${BRANCH}</div></div></div>
       ${nav.map(([k, ic, lb, n]) => `<div class="ni ${k === active ? 'on' : ''}">${icon(ic, 18)}${lb}${n ? `<span class="cnt">${n}</span>` : ''}</div>`).join('')}
       <div class="foot"><div class="ni">${icon('sparkles',18)}AI usage<span class="cnt">69%</span></div>
         <div class="row gap8" style="padding:14px 8px 0;border-top:1px solid var(--line-2);margin-top:8px">${C.ini('Suresh Menon','#4B5563',32)}<div><div style="font-size:13px;font-weight:600">Suresh Menon</div><div class="t12 muted">Owner</div></div></div></div></aside>
-      <main class="dmain"><div class="dtop"><div><h1>${title}</h1><p>${sub}</p></div><div class="dfilt">${actions}</div></div>${body}</main></div></div>`;
+      <main class="dmain"><div class="dtop"><div><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ''}</div><div class="dfilt">${actions}</div></div>${body}</main></div></div>`;
 };
 const dFilters = () => `<span>${icon('building',14)}${BRANCH}</span><span>${icon('cal',14)}Last 30 days</span><span>${icon('users',14)}All trainers</span><span class="samp">Sample data</span>`;
 const dName = (p, size = 28) => `<div class="nm">${C.person(p, size)}${p.n}</div>`;
@@ -2238,7 +2238,7 @@ D.dashboard = () => {
       ${kpi('headset','Help · time to accept','2m 40s','Median · 90th pct 7m 50s')}
       ${kpi('activity','Session adherence','64%','1,412 of 2,206 sessions', [64,'warn'])}</div>
     <div class="dgrid" style="grid-template-columns:1.25fr 1fr">
-      <div class="dcard"><div class="dhead"><div><h3>Attention coverage by week</h3><div class="sub">Members who got every due human check-in ÷ members due. Automated messages and AI chats don’t count.</div></div></div>${chart}</div>
+      <div class="dcard"><div class="dhead"><div><h3>Attention coverage by week</h3><div class="sub">Human check-ins only</div></div></div>${chart}</div>
       <div class="dcard"><div class="dhead" style="margin-bottom:6px"><h3>Trainer follow-through</h3></div>
         <table class="dtable"><tr><th>Trainer</th><th>Done / due</th><th>Coverage</th><th>Accept</th></tr>
         ${TRAINERS.map(t => { const p = pct(t.done, t.due); return `<tr><td>${dName(t, 26)}</td><td class="num">${t.done} / ${t.due}</td><td><div class="row gap8"><div class="meter ${tone(p)}" style="width:56px"><i style="width:${p}%"></i></div><b class="num" style="font-size:12px">${p}%</b></div></td><td class="num mut">${t.accept}</td></tr>`; }).join('')}</table></div></div>
@@ -2252,7 +2252,7 @@ D.dashboard = () => {
         <div class="meter warn"><i style="width:69%"></i></div>
         <table class="dtable" style="margin-top:8px"><tr><th>Feature</th><th>Calls</th><th>Cost</th></tr>
           <tr><td>Coach questions</td><td class="num mut">1,240</td><td class="num">₹188</td></tr><tr><td>Plan drafts</td><td class="num mut">14</td><td class="num">₹96</td></tr><tr><td>Weekly summaries</td><td class="num mut">210</td><td class="num">₹28</td></tr></table></div></div>`;
-  return D.shell('dashboard', 'Is every member getting attention?', 'Retention and renewal metrics are hidden until membership dates are imported.', body, dFilters());
+  return D.shell('dashboard', 'Dashboard', '', body, dFilters());
 };
 
 D.members = () => {
@@ -2270,11 +2270,10 @@ D.members = () => {
         <div class="dcard"><div class="row between"><h3>Open follow-up</h3><span class="tag bad">Due today</span></div>
           <div style="font-weight:600;margin-top:10px">Contact Priya · missed 3 planned sessions</div>
           <div class="t12 muted" style="margin-top:4px">Assigned to Ravi Kumar · created 17 Nov</div>
-          <div class="row gap8 mt12"><span class="dbtn sec sm">Reassign</span><span class="dbtn sec sm">Escalate</span></div>
-          <div class="t12 muted" style="margin-top:10px;line-height:16px">Closes when a trainer logs a call, message or visit.</div></div>
+          <div class="row gap8 mt12"><span class="dbtn sec sm">Reassign</span><span class="dbtn sec sm">Escalate</span></div></div>
         <div class="dcard"><h3>Member feedback</h3><div class="t12 muted" style="margin-top:2px">4-week check-in · 12 Nov</div>
           <div class="row gap8" style="margin-top:10px"><span class="tag warn">Needs more trainer help</span><span class="tag">Progress: some</span></div></div></div></div>`;
-  return D.shell('members', 'Members & follow-ups', 'Every active member has a trainer or an open assignment task.', body, `<span class="dbtn">${icon('plus',14)}Invite member</span>`);
+  return D.shell('members', 'Members', '', body, `<span class="dbtn">${icon('plus',14)}Invite member</span>`);
 };
 
 D.orientation = () => {
@@ -2284,18 +2283,18 @@ D.orientation = () => {
     <div class="kan">${ORIENT.map(([col, n, cards]) => `<div class="kcol"><h4>${col}<span>${n}</span></h4>
       ${cards.map(([nm, tr, d, f]) => `<div class="kcard"><div class="kn">${C.ini(nm, f === 2 ? '#C0392B' : '#5B6472', 26)}${nm}</div><div class="ks">${d}</div><div class="kf"><span class="tag ${tr === 'Unassigned' ? 'warn' : ''}">${tr}</span>${col === 'Completed' ? `<span class="tag good">${icon('check',11,'stroke-width="2.6"')}Logged</span>` : tr === 'Unassigned' ? '<span class="dbtn sm">Assign</span>' : f === 2 ? '<span class="dbtn sec sm">Nudge</span>' : ''}</div></div>`).join('')}
       ${col === 'Completed' ? `<div class="t12 muted" style="text-align:center;padding:6px">+ 40 more</div>` : ''}</div>`).join('')}</div>`;
-  return D.shell('orientation', 'Orientation tracker', 'An orientation counts only when a trainer records it in person.', body, dFilters());
+  return D.shell('orientation', 'Orientation', '', body, dFilters());
 };
 
 D.equipment = () => {
-  const st = { Verified:'good', Draft:'warn', Disabled:'bad' };
-  const rows = EQUIP.map(([id, n, station, ex, load, s, by]) => `<tr><td class="mut num">${id}</td><td style="font-weight:600">${n}</td><td class="mut">${station}</td><td class="num">${ex}</td><td class="wr ${/not verified/.test(load) ? '' : 'mut'}" style="${/not verified/.test(load) ? 'color:var(--orange);font-weight:600' : ''}">${load}</td><td><span class="tag ${st[s]}">${s}</span></td><td class="mut wr">${by}</td>
-    <td style="text-align:right">${s === 'Verified' ? '<span class="dbtn sec sm">Disable</span>' : s === 'Draft' ? `<span class="dbtn sm">${ex ? 'Verify' : 'Map exercises'}</span>` : '<span class="dbtn sec sm">Re-enable</span>'}</td></tr>`).join('');
+  const st = { 'In use':'good', 'Out of order':'bad' };
+  const rows = EQUIP.map(([id, n, station, ex, load, s, by]) => `<tr><td class="mut num">${id}</td><td style="font-weight:600">${n}</td><td class="mut">${station}</td><td class="num">${ex}</td><td class="wr mut">${load}</td><td><span class="tag ${st[s]}">${s}</span></td><td class="mut">${by}</td>
+    <td style="text-align:right">${s === 'In use' ? '<span class="dbtn sec sm">Mark out of order</span>' : '<span class="dbtn sec sm">Back in use</span>'}</td></tr>`).join('');
   const body = `
-    <div class="dbanner">${icon('alert',18)}<div style="flex:1"><b>Leg press disabled on 18 Nov.</b> 2 approved plans use it and are flagged for trainer review.</div><span class="dbtn sec sm">Review plans</span></div>
-    <div class="row gap8"><span class="tag good" style="height:28px;padding:0 10px">6 verified</span><span class="tag warn" style="height:28px;padding:0 10px">2 draft</span><span class="tag bad" style="height:28px;padding:0 10px">1 disabled</span><span class="t13 muted" style="margin-left:8px">Only verified equipment can appear in plans and swaps.</span></div>
-    <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>ID</th><th>Equipment</th><th>Station</th><th>Exercises</th><th>Load setup</th><th>Status</th><th>Verified by</th><th></th></tr>${rows}</table></div>`;
-  return D.shell('equipment', 'Equipment inventory', 'What exists at this branch, and what plans are allowed to use.', body, `<span class="dbtn">${icon('plus',14)}Add equipment</span>`);
+    <div class="dbanner">${icon('alert',18)}<div style="flex:1"><b>Leg press marked out of order on 18 Nov.</b> 2 approved plans use it and are flagged for trainer review.</div><span class="dbtn sec sm">Review plans</span></div>
+    <div class="row gap8"><span class="tag good" style="height:28px;padding:0 10px">${EQUIP.filter(e => e[5] === 'In use').length} in use</span><span class="tag bad" style="height:28px;padding:0 10px">${EQUIP.filter(e => e[5] === 'Out of order').length} out of order</span></div>
+    <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>ID</th><th>Equipment</th><th>Station</th><th>Exercises</th><th>Load setup</th><th>Status</th><th>Last change</th><th></th></tr>${rows}</table></div>`;
+  return D.shell('equipment', 'Equipment', '', body, `<span class="dbtn">${icon('plus',14)}Add equipment</span>`);
 };
 
 D.setup = () => {
@@ -2306,10 +2305,10 @@ D.setup = () => {
         <div class="dform">${f('Gym name', BRAND.name)}${f('Branch', BRANCH + ', ' + BRAND.city)}${f('Opening hours','6 AM – 10 PM · Sun till 1 PM')}${f('Member app languages','English · Telugu soon')}${f('Front desk','+91 40 •••• 2210')}${f('Brand colours', `<span style="width:16px;height:16px;border-radius:5px;background:${BRAND.accent.dark}"></span><span style="width:16px;height:16px;border-radius:5px;background:${BRAND.accent.light}"></span>Dark · light`)}</div></div>
       <div class="dcard" style="padding-bottom:8px"><div class="dhead" style="margin-bottom:4px"><h3>Policies</h3><span class="dbtn sec sm">Edit</span></div>
         <div class="alist">${POLICIES.map(([ic, t, d]) => `<div class="al" style="padding:7px 0"><span class="ai" style="width:28px;height:28px;background:var(--raised);color:var(--text-2)">${icon(ic,14)}</span><div class="at" style="width:132px;flex:none">${t}</div><div class="as" style="flex:1;font-size:13px">${d}</div></div>`).join('')}</div></div></div>
-    <div class="dcard" style="padding:16px 12px 6px"><div class="dhead" style="padding:0 8px;margin-bottom:6px"><div><h3>Staff &amp; roles</h3><div class="sub">Approvals, equipment checks and attendance fixes are logged with the staff member’s name.</div></div><span class="dbtn">${icon('plus',14)}Invite staff</span></div>
+    <div class="dcard" style="padding:16px 12px 6px"><div class="dhead" style="padding:0 8px;margin-bottom:6px"><h3>Staff &amp; roles</h3><span class="dbtn">${icon('plus',14)}Invite staff</span></div>
         <table class="dtable"><tr><th>Name</th><th>Role</th><th>Can</th><th>Shift</th><th>Status</th></tr>
         ${STAFF.map(([n, c, r, perms, hrs, st]) => `<tr><td>${dName({ n, c }, 28)}</td><td class="mut">${r}</td><td>${perms.map(p => p[0] === '!' ? `<span class="perm warn">${p.slice(1)}</span>` : `<span class="perm">${p}</span>`).join('')}</td><td class="mut">${hrs}</td><td><span class="tag ${st === 'Active' ? 'good' : 'warn'}">${st}</span></td></tr>`).join('')}</table></div>`;
-  return D.shell('setup', 'Gym & staff', 'Profile, policies and who can do what.', body, '');
+  return D.shell('setup', 'Gym & staff', '', body, '');
 };
 
 /* =========================================================
@@ -2323,7 +2322,7 @@ const IDX_FEAT = {
   '05':'Pick one of four goals',
   '06':'Experience level, days per week, session length',
   '07':'Body-area limits and symptom check; severe symptoms hold the plan',
-  '08':'Animated AI draft from verified equipment, sent to the trainer',
+  '08':'Animated AI draft from the gym’s equipment, sent to the trainer',
   '09':'Review timeline, no workouts until approved, orientation booking',
   '10':'Today’s workout, check-in status, program progress, weekly muscle rings, trainer card',
   '11':'Collapsing sticky header with week strip',
@@ -2336,7 +2335,7 @@ const IDX_FEAT = {
   '18':'Sets saved on the phone and synced later',
   '19':'Plan vs actual, weight and rep steppers, effort rating',
   '20':'Gym-filmed demo, plate loading, technique cues, breathing',
-  '21':'Verified alternatives only; trainer approves before use',
+  '21':'Alternatives from the gym’s equipment only; trainer approves before use',
   '22':'Call to station, equipment problem, message, form check, swap, pain',
   '23':'Shows Sent until a trainer accepts, with live status steps',
   '24':'Accepted and on the way, with timestamps',
@@ -2357,21 +2356,24 @@ const IDX_FEAT = {
   '39':'Attention and orientation coverage, help response, adherence, trainer table, AI spend',
   '40':'Filters, follow-up status, member detail drawer, sensitive data hidden',
   '41':'Coverage numbers, board by status, assign and nudge',
-  '42':'Verified, draft and disabled equipment, load setup, flagged plans',
+  '42':'Full list from setup, in use or out of order, load setup, flagged plans',
   '43':'Gym profile, policies, staff roles and permissions, invite staff',
 };
 const IDX_OPS = [
-  ['OPS-01','All gyms','Gyms by stage, setup progress, AI spend, next step'],
-  ['OPS-02','Onboard · gym & owner','Brand and legal name, GSTIN, branch, address, hours, languages, owner contact, size'],
-  ['OPS-03','Onboard · plan & pilot terms','Pilot vs paid (price not signed off), pilot dates, cohort, AI budget, agreements'],
-  ['OPS-04','Review & provision','Summary, checks that block provisioning, what gets created'],
-  ['OPS-05','Gym setup progress','Go-live checklist, tenant details, support-access log'],
+  ['OPS-01','Gyms','All gyms: status, go-live date, members, setup, next step; filters and search'],
+  ['OPS-02.1','Add a gym · gym details','Step 1 of 3: name, phone, email, full address'],
+  ['OPS-02.2','Add a gym · contacts','Step 2 of 3: owner, point of contact (same-as-owner option), notes'],
+  ['OPS-02.3','Add a gym · equipment','Step 3 of 3, optional: search to add, paste a list, photos; or Do later'],
+  ['OPS-03','Gym setup','3 steps: details & logo, equipment, trainers'],
+  ['OPS-04','Equipment','Standalone page from Gym setup, same editor as step 3'],
+  ['OPS-04','Equipment · searching','Suggestions while typing, Added marker, custom option'],
+  ['OPS-05','Locked · plans & billing','How after-pilot features appear: visible, locked, with a preview'],
 ];
 const MODULES = [
-  ['M01','Gym equipment knowledge','Verified stations only, plate loading from the verified bar and plates, inventory with verify and disable',['17','20','21','42']],
+  ['M01','Gym equipment knowledge','Plans only use the gym’s equipment list (added by our team in one go), plate loading from the gym’s bars and plates, out-of-order toggle',['17','20','21','42']],
   ['M02','Onboarding & orientation','Gym-bound invite, consent, trainer assignment, orientation tracking',['01','02','03','09','41']],
   ['M03','Fitness assessment','Goal, experience, schedule, limits and symptoms; weight is optional',['04','05','06','07','37']],
-  ['M04','AI plan + trainer approval','AI draft from verified equipment, automatic checks, trainer sets weights, versioned plans',['08','09','15','36']],
+  ['M04','AI plan + trainer approval','AI draft from the gym’s equipment, automatic checks, trainer sets weights, versioned plans',['08','09','15','36']],
   ['M05','Gym check-in','QR, location with permission or front desk; repeat scans count once',['12']],
   ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','13','14','16']],
   ['M07','Guided logging','Plan vs actual, effort, rest timer, offline, swaps, summary from logs',['17','18','19','20','21','27']],
@@ -2380,11 +2382,11 @@ const MODULES = [
   ['M10','Trainer tools','Queue with reasons, member record, check-in logging',['33','37','38']],
   ['M11','Owner dashboard','Coverage metrics, follow-ups, orientation, equipment, staff',['39','40','41','42','43']],
   ['M12','AI coach','Answers with sources, hand-off to trainer, daily-limit fallback',['28','29','30']],
-  ['New','Platform admin (our team)','Onboard and provision new gyms, track go-live',null],
+  ['New','Platform admin (our team)','Pilot version with a working prototype: add a gym (3-step wizard), set it up, equipment search. Later features shown locked',null],
 ];
 function renderIndex(){
   const link = (n) => `<a class="ix-link" href="#f${n}">${n}</a>`;
-  const feat = MODULES.map(([m, t, d, scr]) => `<tr><td><span class="prd">${m}</span></td><td class="sc">${t}</td><td class="feat">${d}</td><td>${scr ? scr.map(link).join('') : '<a class="ix-link wide" href="Platform Admin.html">OPS-01 – 05 ↗</a>'}</td></tr>`).join('');
+  const feat = MODULES.map(([m, t, d, scr]) => `<tr><td><span class="prd">${m}</span></td><td class="sc">${t}</td><td class="feat">${d}</td><td>${scr ? scr.map(link).join('') : '<a class="ix-link wide" href="Platform Admin Pilot.html">OPS-01 – 05 ↗</a>'}</td></tr>`).join('');
   let rows = '';
   FRAMES.forEach(sec => {
     rows += `<tr class="grp"><td colspan="5">${sec.section}</td></tr>`;
@@ -2393,8 +2395,8 @@ function renderIndex(){
         <td class="acts"><a href="#f${n}">View</a>${sec.desk ? '' : `<button data-open="${n}">Open</button>`}</td></tr>`;
     });
   });
-  rows += `<tr class="grp"><td colspan="5">Platform admin · separate file: Platform Admin.html</td></tr>`;
-  rows += IDX_OPS.map(([id, label, f], i) => `<tr><td class="n">${i + 44}</td><td class="sc">${label}</td><td><span class="prd">${id}</span></td><td class="feat">${f}</td><td class="acts"><a href="Platform Admin.html">Open ↗</a></td></tr>`).join('');
+  rows += `<tr class="grp"><td colspan="5">Platform admin · pilot version · separate file: Platform Admin Pilot.html (full after-pilot version: Platform Admin.html)</td></tr>`;
+  rows += IDX_OPS.map(([id, label, f], i) => `<tr><td class="n">${i + 44}</td><td class="sc">${label}</td><td><span class="prd">${id}</span></td><td class="feat">${f}</td><td class="acts"><a href="Platform Admin Pilot.html">Open ↗</a></td></tr>`).join('');
   const total = FRAMES.reduce((a, s) => a + s.items.length, 0) + IDX_OPS.length;
   return `<section class="cv-section" id="index"><h2>Screen & feature index</h2>
     <div class="idx-wrap">
@@ -2653,7 +2655,7 @@ const A = {
   aiPain(){ P.ai.push({ who:'me', t:'Sharp pain' }, { who:'ai', src:'stop', t:`Stop the exercise that hurts and don’t add weight. If the pain is severe or sudden, or you feel unwell, get medical help.`, acts:[['Call a trainer','aiCallPain',1]] }); if (P.running) P.holds[P.ex] = true; setTimeout(scrollChat, 0); },
   aiCallPain(){ P.req = req('discomfort', P.running ? liveEx(P).station : 'Gym floor'); P.sheet = 'called'; },
   aiSend(){ const inp = document.querySelector('#protoDevice [data-input]'), v = inp?.value.trim(); if (!v || P.aiCapped) return 'noRender'; inp.value = '';
-    P.ai.push({ who:'me', t:esc(v) }, { who:'ai', src:'ai', t:`Today is ${TODAY.title}: ${EX.length} exercises at verified ${BRAND.short} stations. For weight changes or anything that hurts, Coach ${COACH.first} decides.` }); setTimeout(scrollChat, 0); },
+    P.ai.push({ who:'me', t:esc(v) }, { who:'ai', src:'ai', t:`Today is ${TODAY.title}: ${EX.length} exercises on ${BRAND.short} equipment. For weight changes or anything that hurts, Coach ${COACH.first} decides.` }); setTimeout(scrollChat, 0); },
   askRavi(){ P.tab = 'coach'; P.chat.push({ who:'me', t:'Can I go heavier on bench today?', tm:'Now' }); },
   /* trainer chat */
   callFromCoach(){ if (P.running){ P.tab = 'workout'; P.route = 'active'; P.sheet = 'help'; } else toast(`Calling ${COACH.first}…`); },

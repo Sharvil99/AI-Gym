@@ -990,6 +990,230 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:default}
 .ocard.on{border-color:var(--accent);background:var(--accent-soft)}
 .oradio{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;color:var(--accent-ink)}
 .ocard.on .oradio{background:var(--accent);border-color:var(--accent)}
+
+.ring-badge{white-space:nowrap}
+
+/* screen & feature index (canvas level, always light) */
+html{scroll-behavior:smooth}
+.cv-section[id],.frame[id]{scroll-margin-top:24px}
+.ix-jump{color:#111;font-weight:600;text-decoration:none;border-bottom:1.5px solid #C7CBD1;margin-left:6px}
+.idx-wrap{display:grid;gap:24px}
+.idx{background:#fff;border-radius:20px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 8px 24px rgba(17,24,39,.05);padding:20px 24px 12px}
+.idx-h{display:flex;align-items:baseline;gap:12px;padding:0 12px 4px}
+.idx-h h3{font-size:17px;font-weight:700;color:#111;letter-spacing:-.01em}
+.idx-h span{font-size:13px;color:#6B7280}
+.idx table{width:100%;border-collapse:collapse;font-size:13px;color:#111}
+.idx th{text-align:left;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#9CA3AF;padding:14px 12px 10px;border-bottom:1px solid #E5E7EB}
+.idx td{padding:11px 12px;border-bottom:1px solid #F1F2F4;vertical-align:top;line-height:1.45}
+.idx tr:last-child td{border-bottom:0}
+.idx tr:not(.grp):hover td{background:#FAFAFB}
+.idx .n{color:#9CA3AF;font-variant-numeric:tabular-nums;font-weight:600}
+.idx .sc{font-weight:600}
+.idx .feat{color:#4B5563}
+.idx .prd{font-size:10px;font-weight:700;letter-spacing:.06em;color:#6B7280;background:#EEF0F3;border-radius:6px;padding:3px 6px;white-space:nowrap}
+.idx .grp td{background:#F7F8FA;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#6B7280;padding:10px 12px;border-bottom:1px solid #EEF0F3}
+.idx .acts{white-space:nowrap;text-align:right}
+.idx .acts a,.idx .acts button{display:inline-block;font-size:12px;font-weight:600;padding:5px 11px;border-radius:999px;background:#F3F4F6;color:#111;text-decoration:none;cursor:pointer;margin-left:4px}
+.idx .acts button{background:#121212;color:#fff}
+.ix-link{display:inline-block;min-width:28px;text-align:center;font-size:12px;font-weight:600;padding:3px 6px;margin:0 4px 4px 0;border-radius:6px;background:#F3F4F6;color:#111;text-decoration:none;font-variant-numeric:tabular-nums}
+.ix-link:hover,.idx .acts a:hover{background:#E5E7EB}
+.ix-link.wide{padding:3px 8px}
+.ix-top{display:inline-block;margin-top:16px;font-size:13px;font-weight:600;color:#6B7280;text-decoration:none}
+
+/* platform admin · locked "after pilot" pattern */
+.dside .nlab{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);padding:18px 12px 6px}
+.dside .ni.locked{color:var(--text-3)}
+.dside .ni.locked .ic{color:var(--text-3)}
+.dside .ni.locked.on{background:var(--raised);color:var(--text-2)}
+.soon{font-size:10px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3);border:1px dashed var(--line-2);border-radius:999px;padding:3px 8px;white-space:nowrap}
+.lockrow .at{color:var(--text-2)}
+.dlocked{display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:14px;border:1px dashed var(--line-2);font-size:13px;color:var(--text-2)}
+.dlocked b{color:var(--text);font-weight:600}
+.lockbig{width:72px;height:72px;border-radius:50%;background:var(--raised);color:var(--text-2);display:grid;place-items:center}
+.lockprev{margin-top:32px;display:flex;flex-direction:column;align-items:center}
+.lockprev .dgrid{filter:blur(1.2px) grayscale(.4);opacity:.55;pointer-events:none}
+/* gyms list: scales to any number of gyms */
+.kpi .kv2.warn{color:var(--orange)}
+.theme-light .kpi .kv2.warn{color:#B85E00}
+.nxtc{display:flex;align-items:center;gap:8px}
+.nxtc .t{display:block;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nxtc .wdot{width:6px;height:6px;border-radius:50%;background:var(--orange);flex-shrink:0}
+.morec{flex-shrink:0;height:20px;padding:0 7px;border-radius:999px;background:var(--raised);color:var(--text-2);font-size:11px;font-weight:700;display:inline-flex;align-items:center}
+.dtable td.go{width:24px;padding-left:0;color:var(--text-3)}
+.dtable th .sort{display:inline-flex;vertical-align:-2px;color:var(--text-2)}
+.dtable .row.gap6{gap:6px}
+/* pilot setup + one-go equipment entry */
+.setnote{display:flex;align-items:center;gap:10px;margin-top:6px;padding:12px 14px;border-radius:12px;background:var(--raised);font-size:13px;color:var(--text-2)}
+.setnote b{color:var(--text);font-weight:600}
+.eqcard{padding:12px 10px 0;display:flex;flex-direction:column;overflow:hidden}
+.eqcard .dtable td{padding:7px 10px}
+.ein{height:32px;border-radius:8px;border:1px solid var(--line-2);background:var(--card-2);display:inline-flex;align-items:center;gap:6px;padding:0 10px;font-weight:500;font-size:13px;box-sizing:border-box}
+.theme-light .ein{background:var(--bg)}
+.ein .caret{margin-left:auto;padding-left:6px;color:var(--text-3);display:inline-flex}
+.ethumb{width:36px;height:36px;border-radius:8px;display:grid;place-items:center;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 22%,var(--raised)),var(--raised));color:var(--text-2)}
+.ethumb.add{background:transparent;border:1px dashed var(--line-2);color:var(--text-3)}
+.eqadd{display:flex;align-items:center;gap:8px;padding:12px 10px 14px;margin-top:auto;border-top:1px solid var(--line-2);font-size:13px;font-weight:600;color:var(--text-2)}
+.pchip{height:28px;min-width:40px;padding:0 10px;border-radius:999px;border:1px solid var(--line-2);display:inline-flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;font-variant-numeric:tabular-nums}
+.eqscroll{flex:1;min-height:0;overflow:hidden;position:relative}
+.eqscroll::after{content:"";position:absolute;left:0;right:0;bottom:0;height:36px;background:linear-gradient(transparent,var(--card));pointer-events:none}
+.eqtable{table-layout:fixed}
+.eqtable .ein{width:100%}
+.eqtable td.go{text-align:right;padding-right:6px}
+.pchip{min-width:34px;padding:0 6px}
+.eqtable .ein:not(.sel){display:block;line-height:30px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.eqtable td{padding-left:6px;padding-right:6px}
+.eqtable .ein.sel{display:flex;width:100%}
+.dfld div.ph{justify-content:flex-start}
+.dcheck{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--text-2)}
+.dcheck .box{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--text-3);display:grid;place-items:center;box-sizing:border-box}
+.dcheck.on .box{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+/* add-gym form: one centred column, cards with headings on top, 2-up fields */
+.desk.tall{height:auto;min-height:820px}
+.desk.tall .dmain{overflow:visible}
+.fcol{width:100%;max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.ftitle{font-size:24px;font-weight:700;letter-spacing:-.025em;line-height:30px;margin-bottom:4px}
+.fbox{padding:22px 24px 24px}
+.fhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.fhead h3{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fgrid .full{grid-column:1/-1}
+.fgrid .dfld div{height:42px}
+.fgrid .dfld div.notes{height:96px}
+.optl{color:var(--text-3);font-weight:500;margin-left:4px;font-size:12px}
+.dfld .pre{align-self:stretch;display:flex;align-items:center;padding-right:10px;margin-right:2px;border-right:1px solid var(--line-2);color:var(--text-2);font-weight:600}
+.dfld .fv{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dfld .suf{display:inline-flex;color:var(--text-3)}
+.ffoot{display:flex;justify-content:flex-end;gap:8px;padding:4px 0 6px}
+/* add-gym wizard */
+.wfoot{display:flex;align-items:center;justify-content:space-between;padding:4px 0 6px}
+.flab{display:block;font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:8px}
+.fbox .eqtable{margin:0 -6px;width:calc(100% + 12px)}
+.fbox .eqadd{margin:4px 0 -8px;padding:14px 0 0}
+
+.wsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:2px 0 6px;align-items:start}
+.wstep{display:flex;flex-direction:column;gap:2px;min-width:0}
+.wstep .wbar{height:4px;border-radius:4px;background:var(--line-2);margin-bottom:10px}
+.theme-light .wstep .wbar{background:var(--line)}
+.wstep.done .wbar,.wstep.now .wbar{background:var(--accent)}
+.wstep .wsk{font-size:11px;font-weight:600;letter-spacing:.02em;color:var(--text-3)}
+.wstep .wsl{font-size:13px;font-weight:600;color:var(--text-3)}
+.wstep.now .wsl{color:var(--text)}
+.wstep.done .wsl{color:var(--text-2)}
+.wstep .wso{font-size:12px;font-weight:500;color:var(--text-3);margin-left:6px}
+.wstep.now .wsk{color:var(--accent)}
+.theme-light .wstep.now .wsk{color:#D9531E}
+.pchip{height:32px;padding:0 12px;gap:6px;color:var(--text-2);cursor:default}
+.pchip.on{background:var(--accent-soft);border-color:var(--accent-line);color:var(--text)}
+.pchip.on .ic{color:var(--accent)}
+.theme-light .pchip.on .ic{color:#D9531E}
+.dcard .kv{align-items:center}
+/* ---------- interactive states (prototype + rules board) ---------- */
+button.dbtn,button.pchip,button.ethumb,button.xbtn,button.fback,.fchips button{border:0;font-family:inherit;cursor:pointer}
+button.dbtn{font-size:13px;font-weight:700}
+button.dbtn.sm{font-size:12px}
+.dbtn.off,.dbtn:disabled{opacity:.4;pointer-events:none}
+button.pchip{background:transparent;border:1px solid var(--line-2);font-size:12px;font-weight:600}
+button.pchip.on{background:var(--accent-soft);border-color:var(--accent-line)}
+button.pchip:not(.on):hover{border-color:var(--text-3)}
+.fchips button{height:32px;padding:0 12px;border-radius:999px;background:var(--card);border:1px solid var(--line-2);font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;color:var(--text-2)}
+.fchips button b{color:var(--text);font-weight:700}
+.fchips button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.fchips button.on b{color:var(--bg)}
+.dfld .fi input,.dfld .fi select,.dfld .fi textarea,.ein input,.ein select,.tabox input{all:unset;box-sizing:border-box;flex:1;min-width:0;width:100%;height:100%;font-family:inherit;font-size:13px;font-weight:500;color:var(--text)}
+.dfld .fi input::placeholder,.dfld .fi textarea::placeholder,.ein input::placeholder,.tabox input::placeholder{color:var(--text-3)}
+.dfld .fi select,.ein select{cursor:pointer}
+.dfld .fi select.empty{color:var(--text-3)}
+.dfld .fi select option,.ein select option{color:#111;background:#fff}
+.dfld .fi{transition:border-color .12s,box-shadow .12s}
+.dfld .fi:hover,.dfld .fi.is-hover{border-color:var(--text-3)}
+.dfld .fi:focus-within,.dfld .fi.is-focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.dfld.err .fi,.dfld.err .fi:hover{border-color:var(--red)}
+.dfld.err .fi:focus-within{border-color:var(--red);box-shadow:0 0 0 3px color-mix(in srgb,var(--red) 18%,transparent)}
+.ferr{display:block;margin-top:6px;font-size:12px;font-weight:500;color:var(--red)}
+.dfld.dis .fi{background:var(--raised);opacity:.6;pointer-events:none}
+.fgrid .dfld .fi.ta,.dfld .fi.ta{height:96px;align-items:flex-start;padding:10px 12px}
+.dfld .fi textarea{resize:none;line-height:20px;white-space:pre-wrap}
+.ein{transition:border-color .12s,box-shadow .12s}
+.ein:focus-within{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.eqtable .ein input{height:30px}
+.ethumb.add{cursor:pointer}
+button.ethumb.has{background-size:cover;background-position:center}
+.xbtn{background:none;color:var(--text-3);display:grid;place-items:center;width:26px;height:26px;border-radius:7px}
+.xbtn:hover{background:var(--raised);color:var(--text)}
+.dcheck{cursor:pointer;user-select:none}
+.dcheck:hover .box{border-color:var(--text-2)}
+.dcheck.on .box{border-color:var(--accent)}
+.dcheck:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:6px}
+.fback{display:inline-flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--text-2);margin-bottom:-8px;background:none;padding:0;width:max-content}
+.fback:hover{color:var(--text)}
+/* equipment search */
+.tawrap{position:relative;margin-bottom:14px}
+.tabox{height:42px;border-radius:10px;border:1px solid var(--line-2);background:var(--card-2);display:flex;align-items:center;gap:10px;padding:0 12px;font-size:13px;font-weight:500;color:var(--text-3);transition:border-color .12s,box-shadow .12s;box-sizing:border-box}
+.theme-light .tabox{background:var(--bg)}
+.tabox:hover{border-color:var(--text-3)}
+.tabox:focus-within,.tabox.is-focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.tabox .fv{color:var(--text)}
+.fv.fph,.tabox .fv.fph{color:var(--text-3)}
+.tadrop{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:20;background:var(--card);border:1px solid var(--line-2);border-radius:12px;box-shadow:0 14px 36px rgba(0,0,0,.35);padding:6px;max-height:320px;overflow:auto}
+.theme-light .tadrop{box-shadow:0 14px 36px rgba(0,0,0,.12)}
+.taitem{display:flex;align-items:center;gap:10px;height:38px;padding:0 10px;border-radius:8px;font-size:13px;cursor:pointer}
+.taitem.on,.taitem:hover{background:var(--raised)}
+.taitem .tan{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500;color:var(--text-2)}
+.taitem .tan b{font-weight:700;color:var(--text)}
+.taitem .tat{font-size:12px;color:var(--text-3)}
+.taitem .taadded{font-size:11px;font-weight:700;color:var(--green)}
+.taitem.add{color:var(--text);font-weight:600;margin-top:4px;position:relative}
+.taitem.add::before{content:"";position:absolute;left:4px;right:4px;top:-3px;height:1px;background:var(--line-2)}
+.eqcount{font-size:12px;color:var(--text-3);padding-top:12px;text-align:right}
+.eqempty{padding:26px 0 14px;text-align:center;font-size:13px;color:var(--text-3)}
+/* prototype desk */
+.pdesk{position:relative}
+.pdesk .dmain{overflow-y:auto;overscroll-behavior:contain}
+.pdesk .ni{cursor:pointer}
+.pdesk .ni:not(.on):hover{background:var(--raised)}
+.pdesk .prow{cursor:pointer}
+.pdesk .prow:hover td{background:var(--raised)}
+.pdesk .tabox input{color:var(--text)}
+.plogo{display:inline-block;border-radius:50%;background-size:cover;background-position:center;flex:none}
+.dinput{all:unset;box-sizing:border-box;height:30px;padding:0 10px;border:1px solid var(--line-2);border-radius:8px;font-size:12px;font-weight:600;color:var(--text);color-scheme:dark;font-family:inherit}
+.theme-light .dinput{color-scheme:light}
+.dinput:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.pmodal{position:absolute;inset:0;z-index:50;background:rgba(0,0,0,.5);display:grid;place-items:center}
+.mcard{width:560px;max-height:680px;overflow:auto;background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:22px 24px;box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.mcard h3{font-size:16px;font-weight:700;margin-bottom:14px}
+.mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.pastepv{margin-top:10px;max-height:200px;overflow:auto}
+.pvrow{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid var(--line-2);font-size:13px}
+.pvrow .pvl{color:var(--text-2)} .pvrow .pvr{font-weight:600} .pvrow .pvr.cust{color:var(--orange)}
+.trow{display:grid;grid-template-columns:1fr 1fr 26px;gap:12px;margin-bottom:12px;align-items:start}
+.trow .dfld .fi{height:42px}
+.ptoast{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);z-index:60;background:var(--text);color:var(--bg);font-size:13px;font-weight:600;padding:10px 16px;border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.25);white-space:nowrap}
+.ptoast[hidden]{display:none}
+.ptbar{display:flex;align-items:center;gap:8px;margin:-8px 0 18px}
+.ptbar button{height:32px;padding:0 12px;border-radius:8px;border:1px solid #D9DCE1;background:#fff;font:600 12px var(--font);color:#111;cursor:pointer}
+.ptbar button:hover{background:#F3F4F6}
+/* developer rules board */
+.spec{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:1282px}
+.scard{background:var(--bg);color:var(--text);border:1px solid var(--line-2);border-radius:18px;padding:22px 24px}
+.scard h3{font-size:15px;font-weight:700;margin-bottom:16px}
+.srow{display:flex;flex-wrap:wrap;gap:18px 20px;align-items:flex-start}
+.sspec{min-width:180px}
+.sspec .dfld{width:200px}
+.scap{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--text-3);margin-bottom:8px}
+.srules{margin:18px 0 0;padding-left:18px;font-size:13px;line-height:20px;color:var(--text-2)}
+.srules li+li{margin-top:4px}
+.svals{margin-top:16px;width:100%;border-collapse:collapse;font-size:12.5px}
+.svals td,.svals th{padding:7px 0;border-top:1px solid var(--line-2);vertical-align:top;text-align:left}
+.svals th{font-size:11px;font-weight:600;color:var(--text-3);text-transform:uppercase;letter-spacing:.04em}
+.svals td:first-child{color:var(--text-2);width:38%;padding-right:12px}
+.svals.wide td:first-child{width:46%}
+.svals.tok td:first-child{width:30%}
+.svals.tok i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:8px;vertical-align:-2px;border:1px solid var(--line-2)}
+
+.dfld .fi select{display:block;line-height:40px}
+.ein select{display:block;height:30px;line-height:30px}
+.scard .tadrop{position:static;margin-top:6px;box-shadow:none}
+.scard .tawrap{margin:0}
 </style>
 </head>
 <body class="theme-dark">
@@ -1224,6 +1448,16 @@ const C = {
     return `<span class="av-ini" style="width:${size}px;height:${size}px;background:${color};font-size:${Math.round(size * .36)}px">${t}</span>`;
   },
   person(p, size = 36){ return p.me ? C.avatar('me', size) : C.ini(p.n, p.c, size); },
+  ring(pct, size, inner, { color = 'var(--accent)', label } = {}){
+    const r = (size - 5) / 2, c = 2 * Math.PI * r, p = Math.max(0, Math.min(100, pct));
+    return `<div class="ring" style="width:${size}px;height:${size}px">
+      <svg width="${size}" height="${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="var(--ring-track)" stroke-width="3"/>
+      <circle class="ring-p" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c * (1 - p / 100)}" style="--c:${c}"/></svg>
+      <div class="ring-in">${inner}</div><span class="ring-badge" style="background:${color}">${label ?? Math.round(p) + '%'}</span></div>`;
+  },
+  muscleRing(m, size = 76){
+    return `<div class="ring-item">${C.ring(m.pct, size, bodyFig({ view:m.view, on:m.mus, crop:m.crop, h:size - 12 }), { label:m.label, color:m.color })}<span class="lb">${m.k}</span></div>`;
+  },
   thumb(mus = [], view = 'front', size = 56){
     return `<div class="thumb" style="width:${size}px;height:${size}px">${bodyFig({ view, on:mus, crop:'upper', h:size - 4 })}<span class="pl">${icon('play', 8)}</span></div>`;
   },
@@ -1285,6 +1519,8 @@ function metrics(s){
   const done = s.log.flat().filter(x => x.done);
   return { sets:done.length, total:s.log.flat().length, volume:Math.round(done.reduce((a, x) => a + x.w * x.r, 0)), duration:s.elapsed || 0 };
 }
+// approved sets per muscle group, from the plan (or only the logged ones)
+const setsFor = (s, m, doneOnly) => EX.reduce((a, _, i) => liveEx(s, i).mus.some(x => m.mus.includes(x)) ? a + s.log[i].filter(x => !doneOnly || x.done).length : a, 0);
 const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function freshState(){
   return {
@@ -1325,7 +1561,7 @@ const reqWord = (s) => !s.req ? 'not sent' : { sent:'waiting for a trainer', acc
 const GYMS = [
   { n:'Iron Temple Gym', c:'#C0743A', city:'Hyderabad · Banjara Hills', st:['Live','good'], plan:'Pilot → paid', mem:240, setup:100, ai:'₹312 / ₹450', owner:'Suresh Menon', next:'Renewal call 2 Dec' },
   { n:'Pulse Fitness Studio', c:'#2F8F83', city:'Hyderabad · Kondapur', st:['Pilot','acc'], plan:'Pilot · day 18 of 45', mem:186, setup:92, ai:'₹205 / ₹450', owner:'Kavitha Rao', next:'2 trainers not invited' },
-  { n:'Muscle Factory', c:'#8E5BB5', city:'Vijayawada · Benz Circle', st:['Onboarding','warn'], plan:'Pilot', mem:0, setup:40, ai:'—', owner:'Prakash Varma', next:'Equipment 3 of 12 verified', sel:true },
+  { n:'Muscle Factory', c:'#8E5BB5', city:'Vijayawada · Benz Circle', st:['Onboarding','warn'], plan:'Pilot', mem:0, setup:40, ai:'—', owner:'Prakash Varma', next:'Equipment visit 27 Nov', sel:true },
   { n:'FitZone Unisex Gym', c:'#3E7CB1', city:'Warangal · Hanamkonda', st:['Onboarding','warn'], plan:'Pilot', mem:0, setup:15, ai:'—', owner:'Ramesh Goud', next:'Owner invite not accepted' },
   { n:'Ascend Strength Club', c:'#6B7A2E', city:'Bengaluru · Indiranagar', st:['Lead',''], plan:'—', mem:0, setup:0, ai:'—', owner:'Neha Kapoor', next:'Demo booked 26 Nov' },
   { n:'Core Hub Fitness', c:'#9C4F6B', city:'Hyderabad · Madhapur', st:['Paused','bad'], plan:'Pilot ended', mem:58, setup:100, ai:'₹0', owner:'Arvind Shetty', next:'Waiting on paid decision' },
@@ -1338,9 +1574,8 @@ O.shell = (active, title, sub, body, actions = '') => {
   return `<div class="desk"><div class="dchrome"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><div class="url">${icon('lock',11)}admin.gymcompanion.app/${active}</div><span style="width:60px"></span></div>
     <div class="dbody"><aside class="dside"><div class="brand"><span class="opslogo">${icon('layers',17)}</span><div><div style="font-size:14px">Gym Companion</div><div class="t12 muted" style="font-weight:500">Platform admin</div></div></div>
       ${nav.map(([k, ic, lb, n]) => `<div class="ni ${k === active ? 'on' : ''}">${icon(ic, 18)}${lb}${n ? `<span class="cnt">${n}</span>` : ''}</div>`).join('')}
-      <div class="foot"><div class="opsnote">${icon('shield',14)}<span>Platform staff can’t see member assessments, photos or chats.</span></div>
-        <div class="row gap8" style="padding:14px 8px 0;border-top:1px solid var(--line-2);margin-top:8px">${C.ini('Nikhil Reddy','#374151',32)}<div><div style="font-size:13px;font-weight:600">Nikhil Reddy</div><div class="t12 muted">Ops · onboarding</div></div></div></div></aside>
-      <main class="dmain"><div class="dtop"><div><h1>${title}</h1><p>${sub}</p></div><div class="dfilt">${actions}</div></div>${body}</main></div></div>`;
+      <div class="foot"><div class="row gap8" style="padding:14px 8px 0;border-top:1px solid var(--line-2)">${C.ini('Nikhil Reddy','#374151',32)}<div><div style="font-size:13px;font-weight:600">Nikhil Reddy</div><div class="t12 muted">Ops · onboarding</div></div></div></div></aside>
+      <main class="dmain"><div class="dtop"><div><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ''}</div><div class="dfilt">${actions}</div></div>${body}</main></div></div>`;
 };
 const oStepper = (cur) => `<div class="ostep">${OSTEPS.map((t, i) => `<div class="os ${i < cur ? 'ok' : i === cur ? 'now' : ''}"><span class="od">${i < cur ? icon('check',13,'stroke-width="2.6"') : i + 1}</span><div><div class="ot">${t}</div><div class="osub">${i < cur ? 'Done' : i === cur ? 'In progress' : 'Not started'}</div></div></div>`).join('')}</div>`;
 const of = (l, v, opt, hint) => `<div class="dfld"><label>${l}${opt ? ' <span style="color:var(--text-3);font-weight:500">· optional</span>' : ''}</label><div class="${v ? '' : 'ph'}">${v || hint || ''}</div></div>`;
@@ -1350,28 +1585,28 @@ const oFoot = (back, next, note) => `<div class="ofoot"><span class="t12 muted r
 O.gyms = () => {
   const k = (l, v, d) => `<div class="dcard kpi" style="padding:14px 18px"><div class="kl">${l}</div><div class="kv2" style="font-size:26px">${v}</div><div class="kd">${d}</div></div>`;
   const body = `
-    <div class="dgrid" style="grid-template-columns:repeat(5,1fr)">${k('Live','1','Iron Temple · paying from Dec')}${k('In pilot','1','Pulse Fitness · day 18 of 45')}${k('Onboarding','2','Avg 6 days to go live')}${k('Leads','1','Demo booked 26 Nov')}${k('Members on platform','484','Across 3 active gyms')}</div>
+    <div class="dgrid" style="grid-template-columns:repeat(5,1fr)">${k('Live','1','1 starts billing in Dec')}${k('In pilot','1','1 ends in the next 30 days')}${k('Onboarding','2','Avg 6 days to go live')}${k('Leads','1','1 demo booked this week')}${k('Members on platform','484','Across 3 active gyms')}</div>
     <div class="row between"><div class="fchips"><span class="on">All <b>6</b></span><span>Live <b>1</b></span><span>Pilot <b>1</b></span><span>Onboarding <b>2</b></span><span>Lead <b>1</b></span><span>Paused <b>1</b></span></div>
       <span class="dfilt" style="margin:0"><span style="width:220px;color:var(--text-3);font-weight:500">${icon('search',14)}Search gyms or owners</span></span></div>
     <div class="dcard grow" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Gym</th><th>Stage</th><th>Plan</th><th>Members</th><th>Setup</th><th>AI spend</th><th>Owner</th><th>Next step</th></tr>
       ${GYMS.map(g => `<tr class="${g.sel ? 'sel' : ''}"><td><div class="nm">${C.ini(g.n, g.c, 30)}<div><div>${g.n}</div><div class="t12 mut" style="font-weight:500">${g.city}</div></div></div></td><td><span class="tag ${g.st[1]}">${g.st[0]}</span></td><td class="mut">${g.plan}</td><td class="num">${g.mem || '—'}</td>
         <td><div class="row gap8"><div class="meter ${g.setup === 100 ? 'good' : g.setup > 50 ? '' : 'warn'}" style="width:60px"><i style="width:${g.setup}%"></i></div><span class="num t12" style="font-weight:700">${g.setup}%</span></div></td><td class="num mut">${g.ai}</td><td>${g.owner}</td><td class="wr" style="max-width:190px">${g.next}</td></tr>`).join('')}</table></div>`;
-  return O.shell('gyms', 'Gyms', 'Every gym on Gym Companion, from first demo to live.', body, `<span class="dbtn">${icon('plus',14)}Onboard a gym</span>`);
+  return O.shell('gyms', 'Gyms', '', body, `<span class="dbtn">${icon('plus',14)}Onboard a gym</span>`);
 };
 
 O.basics = () => {
   const body = `<div class="row gap16" style="align-items:flex-start;flex:1;min-height:0">${oStepper(0)}
     <div class="stack gap16" style="flex:1;min-width:0">
-      ${oSec('The gym', 'Becomes the tenant. The branch is where equipment and members live.', `<div class="dform three">
-        ${of('Brand name (shown in the app)','Muscle Factory')}${of('Registered business name','Muscle Factory Fitness LLP')}${of('GSTIN','37ABCFM1234K1Z5',1)}
+      ${oSec('The gym', '', `<div class="dform three">
+        ${of('Brand name','Muscle Factory')}${of('Registered business name','Muscle Factory Fitness LLP')}${of('GSTIN','37ABCFM1234K1Z5',1)}
         ${of('Gym type','Unisex · strength + cardio')}${of('Branch name','Benz Circle')}${of('City','Vijayawada, Andhra Pradesh')}
         ${of('Address','2nd floor, MG Road, Benz Circle, 520010')}${of('Opening hours','5:30 AM – 10 PM · Sun till 12 PM')}${of('Member app languages','English · Telugu')}</div>`)}
-      ${oSec('Owner / admin', 'Gets the owner console invite. This person approves staff roles.', `<div class="dform three">
-        ${of('Full name','Prakash Varma')}${of('Mobile (for login OTP)','+91 98490 ••• 512')}${of('Email','owner@musclefactory.in')}</div>`)}
-      ${oSec('Size', 'Helps us plan trainer setup and the pilot cohort.', `<div class="dform three">
-        ${of('Active members (approx.)','320')}${of('Trainers on staff','5')}${of('Existing software',null,1,'e.g. register, spreadsheet, gym software')}</div>`)}
+      ${oSec('Owner / admin', '', `<div class="dform three">
+        ${of('Full name','Prakash Varma')}${of('Mobile','+91 98490 ••• 512')}${of('Email','owner@musclefactory.in')}</div>`)}
+      ${oSec('Size', '', `<div class="dform three">
+        ${of('Active members (approx.)','320')}${of('Trainers on staff','5')}${of('Existing software',null,1,'')}</div>`)}
       ${oFoot('Save draft','Next: plan & pilot terms','Draft saved 2 min ago')}</div></div>`;
-  return O.shell('onboard', 'Onboard a gym', 'Step 1 of 5 · basic information from the new gym.', body, `<span class="tag warn" style="height:30px;padding:0 10px">Draft · not provisioned</span>`);
+  return O.shell('onboard', 'Onboard a gym', 'Step 1 of 5', body, `<span class="tag warn" style="height:30px;padding:0 10px">Draft · not provisioned</span>`);
 };
 
 O.plan = () => {
@@ -1379,15 +1614,15 @@ O.plan = () => {
   const body = `<div class="row gap16" style="align-items:flex-start;flex:1;min-height:0">${oStepper(1)}
     <div class="stack gap16" style="flex:1;min-width:0">
       ${oSec('Plan', '', `<div class="dgrid" style="grid-template-columns:repeat(3,1fr);gap:12px">
-        ${card(true, '45-day pilot', 'Full product, no charge. Ends with a go / no-go call.', '<span class="tag acc">Recommended</span>')}
-        ${card(false, 'Paid · monthly', 'Price needs sign-off (PRD D-01). Verbal range INR 4,000–5,000.', '<span class="tag warn">Not signed off</span>')}
-        ${card(false, 'Paid · annual', 'Price to be agreed.', '<span class="tag warn">Not signed off</span>')}</div>`)}
-      ${oSec('Pilot terms', 'Agreed with the owner before any member data is collected (PRD D-02, D-11).', `<div class="dform three">
+        ${card(true, '45-day pilot', 'Free · 45 days', '<span class="tag acc">Recommended</span>')}
+        ${card(false, 'Paid · monthly', 'Price not set', '<span class="tag warn">Not signed off</span>')}
+        ${card(false, 'Paid · annual', 'Price not set', '<span class="tag warn">Not signed off</span>')}</div>`)}
+      ${oSec('Pilot terms', '', `<div class="dform three">
         ${of('Pilot start','1 Dec 2026')}${of('Pilot end','14 Jan 2027 · 45 days')}${of('Members in pilot cohort','25 consenting members')}
         ${of('AI budget per month','₹450 · quick answers at the cap')}${of('Help-request target','Accept within 5 min')}${of('Trainer check-in interval','Every 14 days')}</div>`)}
       ${oSec('Agreements', '', `<div class="alist">
         ${[['Pilot agreement','Signed by Prakash Varma · 22 Nov','good','Signed'],['Data processing agreement','Sent 22 Nov · covers assessments, photos, retention','warn','Waiting']].map(([t, s, tn, l]) => `<div class="al"><span class="ai" style="background:var(--raised);color:var(--text-2)">${icon('file',15)}</span><div style="flex:1"><div class="at">${t}</div><div class="as">${s}</div></div><span class="tag ${tn}">${l}</span></div>`).join('')}</div>`)}
-      ${oFoot('Back','Next: branches & equipment','Can’t provision until the data agreement is signed')}</div></div>`;
+      ${oFoot('Back','Next: branches & equipment','Required before provisioning')}</div></div>`;
   return O.shell('onboard', 'Onboard a gym', 'Step 2 of 5 · Muscle Factory, Vijayawada', body, `<span class="tag warn" style="height:30px;padding:0 10px">Draft · not provisioned</span>`);
 };
 
@@ -1397,45 +1632,57 @@ O.review = () => {
     <div class="dgrid" style="grid-template-columns:1.1fr 1fr;flex:1;min-width:0">
       <div class="stack gap16">
         ${oSec('Summary', '', `<div class="kv"><span>Gym</span><b>Muscle Factory · Benz Circle, Vijayawada</b></div><div class="kv"><span>Owner</span><b>Prakash Varma</b></div><div class="kv"><span>Plan</span><b>45-day pilot · 1 Dec – 14 Jan</b></div><div class="kv"><span>Cohort</span><b>25 members · 5 trainers</b></div><div class="kv"><span>Branding</span><b class="row gap8"><span style="width:14px;height:14px;border-radius:4px;background:#E8FF5A"></span><span style="width:14px;height:14px;border-radius:4px;background:#E5484D"></span>Logo uploaded</b></div><div class="kv"><span>Languages</span><b>English · Telugu</b></div>`)}
-        ${oSec('Checks before provisioning', '', `${row(1,'Owner mobile verified','OTP confirmed 22 Nov')}${row(1,'Pilot agreement signed','')}${row(1,'Data processing agreement signed','Signed 23 Nov')}${row(0,'Equipment: 3 of 12 verified','Plans can only use verified stations. Trainers finish this after go-live.')}`)}</div>
+        ${oSec('Checks before provisioning', '', `${row(1,'Owner mobile verified','OTP confirmed 22 Nov')}${row(1,'Pilot agreement signed','')}${row(1,'Data processing agreement signed','Signed 23 Nov')}${row(0,'Equipment: 3 of 12 verified','Added at setup')}`)}</div>
       <div class="stack gap16">
-        ${oSec('What gets created', 'One tenant, isolated from every other gym.', `<div class="alist">
-          ${[['building','Tenant','gym_muscle-factory · branch benz-circle'],['user','Owner invite','SMS + email to Prakash, expires in 48 h'],['users','Staff invites','5 trainers, roles set by the owner'],['dumbbell','Equipment list','12 items in Draft until a trainer verifies them'],['sparkles','AI budget & metering','₹450 a month, usage ledger on'],['shield','Audit log','Approvals, overrides and support access recorded']].map(([ic, t, s]) => `<div class="al" style="padding:9px 0"><span class="ai" style="background:var(--accent-soft);color:var(--accent)">${icon(ic,15)}</span><div style="flex:1"><div class="at">${t}</div><div class="as">${s}</div></div></div>`).join('')}</div>`)}
-        <div class="dcard"><div class="row between"><div><h3>Ready to provision</h3><div class="sub">The owner invites members later.</div></div><span class="dbtn">${icon('check',14,'stroke-width="2.6"')}Provision gym</span></div></div></div></div></div>`;
-  return O.shell('onboard', 'Review & provision', 'Step 5 of 5 · check everything before the tenant is created.', body, `<span class="tag warn" style="height:30px;padding:0 10px">Draft · not provisioned</span>`);
+        ${oSec('What gets created', '', `<div class="alist">
+          ${[['building','Tenant','gym_muscle-factory · branch benz-circle'],['user','Owner invite','SMS + email to Prakash, expires in 48 h'],['users','Staff invites','5 trainers, roles set by the owner'],['dumbbell','Equipment list','Added at setup'],['sparkles','AI budget & metering','₹450 a month, usage ledger on'],['shield','Audit log','Approvals, overrides and support access recorded']].map(([ic, t, s]) => `<div class="al" style="padding:9px 0"><span class="ai" style="background:var(--accent-soft);color:var(--accent)">${icon(ic,15)}</span><div style="flex:1"><div class="at">${t}</div><div class="as">${s}</div></div></div>`).join('')}</div>`)}
+        <div class="dcard"><div class="row between"><div><h3>Ready to provision</h3></div><span class="dbtn">${icon('check',14,'stroke-width="2.6"')}Provision gym</span></div></div></div></div></div>`;
+  return O.shell('onboard', 'Review & provision', 'Step 5 of 5', body, `<span class="tag warn" style="height:30px;padding:0 10px">Draft · not provisioned</span>`);
 };
 
 O.detail = () => {
   const step = (st, t, s, act) => `<div class="al"><span class="vi ${st === 'ok' ? 'ok' : 'warn'}" style="width:26px;height:26px">${icon(st === 'ok' ? 'check' : 'clock',13,'stroke-width="2.4"')}</span><div style="flex:1"><div class="at">${t}</div><div class="as">${s}</div></div>${act ? `<span class="dbtn sec sm">${act}</span>` : ''}</div>`;
   const body = `<div class="dgrid" style="grid-template-columns:1.2fr 1fr;flex:1">
-    ${oSec('Go-live checklist', '4 of 8 done · usual time to go live is 6 days', `<div class="meter mt8" style="margin-bottom:6px"><i style="width:50%"></i></div><div class="alist">
-      ${step('ok','Tenant provisioned','22 Nov by Nikhil Reddy')}${step('ok','Owner joined the console','Prakash Varma · 22 Nov')}${step('ok','Gym profile & hours','Completed by owner')}${step('ok','Branding applied','Logo and colours live in the member app')}
-      ${step('warn','Trainers invited · 3 of 5','2 invites not accepted','Resend')}${step('warn','Equipment verified · 3 of 12','A trainer must verify bar and plate weights','Nudge owner')}${step('warn','Gym QR printed for front desk','Needed for member check-in','Download QR')}${step('warn','First 25 members invited','Unlocks after equipment is 80% verified')}</div>`)}
+    ${oSec('Go-live checklist', '4 of 8 done', `<div class="meter mt8" style="margin-bottom:6px"><i style="width:50%"></i></div><div class="alist">
+      ${step('ok','Tenant provisioned','22 Nov by Nikhil Reddy')}${step('ok','Owner joined the console','Prakash Varma · 22 Nov')}${step('ok','Gym profile & hours','Completed by owner')}${step('ok','Branding applied','22 Nov')}
+      ${step('warn','Trainers invited · 3 of 5','2 invites not accepted','Resend')}${step('warn','Equipment','Site visit · 27 Nov','Add equipment')}${step('warn','Gym QR printed for front desk','','Download QR')}${step('warn','First members invited','After equipment')}</div>`)}
     <div class="stack gap16">
       ${oSec('Tenant', '', `<div class="kv"><span>Tenant ID</span><b class="num">gym_muscle-factory</b></div><div class="kv"><span>Plan</span><b>45-day pilot · starts 1 Dec</b></div><div class="kv"><span>AI budget</span><b>₹0 of ₹450 used</b></div><div class="kv"><span>Service health</span><b style="color:var(--green)">All systems normal</b></div>`)}
-      ${oSec('Support access', 'Time-bound and logged. Member health data is never shown.', `<div class="alist">${[['Nikhil Reddy','Setup help · 30 min · equipment list only','22 Nov'],['Anil K.','Login issue · 15 min · owner account','21 Nov']].map(([n, s, d]) => `<div class="al" style="padding:9px 0">${C.ini(n,'#374151',28)}<div style="flex:1"><div class="at">${n}</div><div class="as">${s}</div></div><span class="t12 muted">${d}</span></div>`).join('')}</div>
+      ${oSec('Support access', 'Time-bound, logged', `<div class="alist">${[['Nikhil Reddy','Setup help · 30 min · equipment list only','22 Nov'],['Anil K.','Login issue · 15 min · owner account','21 Nov']].map(([n, s, d]) => `<div class="al" style="padding:9px 0">${C.ini(n,'#374151',28)}<div style="flex:1"><div class="at">${n}</div><div class="as">${s}</div></div><span class="t12 muted">${d}</span></div>`).join('')}</div>
         <span class="dbtn sec sm mt12">${icon('lock',13)}Request access</span>`)}</div></div>`;
   return O.shell('gyms', 'Muscle Factory', 'Vijayawada · Benz Circle · onboarding since 22 Nov', body, `<span class="tag warn" style="height:30px;padding:0 10px">Onboarding</span><span class="dbtn sec">${icon('mail',14)}Message owner</span>`);
 };
 
+const OPS_PAGE = {
+  title:'Gym Companion · Platform admin (full version)',
+  tagline:'Internal admin · after the pilot',
+  intro:'Reference for after the pilot. Pilot version: Platform Admin Pilot.html. Sample data.',
+  sections:[{ title:'Full version · after the pilot (reference)', note:'', items:[
+    ['L1','All gyms · pipeline','OPS-L1','gyms','leads to live'],
+    ['L2','Onboard · gym & owner','OPS-L2','basics','full details'],
+    ['L3','Onboard · plan & terms','OPS-L3','plan','needs pricing'],
+    ['L4','Review & provision','OPS-L4','review'],
+    ['L5','Gym setup progress','OPS-L5','detail'],
+  ]}],
+};
+
 /* =========================================================
-   CANVAS — platform admin only
+   CANVAS — platform admin (sections come from OPS_PAGE)
    ========================================================= */
-const OPS_FRAMES = [
-  ['01','All gyms','OPS-01','gyms','every gym by stage'],
-  ['02','Onboard · gym & owner','OPS-02','basics','basic info from the gym'],
-  ['03','Onboard · plan & pilot terms','OPS-03','plan'],
-  ['04','Review & provision','OPS-04','review'],
-  ['05','Gym setup progress','OPS-05','detail','after provisioning'],
-];
 function renderCanvas(){
-  let html = `<header class="cv-head"><div class="cv-title"><div class="lg">${icon('layers',24)}</div><div><h1>Gym Companion · Platform admin</h1><p>Internal console for our team (dev, IT, ops) to onboard new gyms · ${OPS_FRAMES.length} screens</p></div></div></header>
-    <p class="cv-sub">Separate from the gym owner’s console. Covers the PRD’s platform operator role and gym provisioning (POST /gyms). Screen IDs OPS-01 to OPS-05 aren’t in the PRD yet. Gym names, people and numbers are sample data.</p>
-    <section class="cv-section"><h2>Platform admin · onboarding new gyms</h2><div class="cv-row">`;
-  OPS_FRAMES.forEach(([n, label, prd, k, hint]) => {
-    html += `<div class="frame"><div class="frame-label"><span class="n">${n}</span>· ${label}<span class="prd">${prd}</span>${hint ? `<span class="hint">${hint}</span>` : ''}</div>${O[k]()}</div>`;
+  let html = `<header class="cv-head"><div class="cv-title"><div class="lg">${icon('layers',24)}</div><div><h1>${OPS_PAGE.title}</h1><p>${OPS_PAGE.tagline}</p></div></div></header>
+    <p class="cv-sub">${OPS_PAGE.intro}</p>`;
+  if (OPS_PAGE.pre) html += OPS_PAGE.pre();
+  OPS_PAGE.sections.forEach(sec => {
+    html += `<section class="cv-section"><h2>${sec.title}</h2>${sec.note ? `<p class="cv-sub" style="margin-top:-12px">${sec.note}</p>` : ''}<div class="cv-row">`;
+    sec.items.forEach(([n, label, prd, k, hint]) => {
+      html += `<div class="frame"><div class="frame-label"><span class="n">${n}</span>· ${label}<span class="prd">${prd}</span>${hint ? `<span class="hint">${hint}</span>` : ''}</div>${O[k]()}</div>`;
+    });
+    html += '</div></section>';
   });
-  document.getElementById('canvas').innerHTML = html + '</div></section>';
+  if (OPS_PAGE.post) html += OPS_PAGE.post();
+  document.getElementById('canvas').innerHTML = html;
+  if (OPS_PAGE.init) OPS_PAGE.init();
 }
 function fitDesks(){
   const dzd = Math.max(0.42, Math.min(1, (Math.min(window.innerWidth, 2000) - 136) / 1282));

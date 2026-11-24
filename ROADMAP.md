@@ -72,23 +72,24 @@ The roadmap has 22 features: 8 at P0, 10 at P1 and 4 at P2. One idea is not plan
 
 **Why it matters:** every other feature assumes a gym already exists in the system. The PRD names a platform operator role and a provisioning endpoint (`POST /gyms`) but no screens for them. Without this, onboarding a gym means hand-editing the database.
 
-**Scope v1:**
-- **Gyms list:** every gym by stage (lead, onboarding, pilot, live, paused), with setup progress, AI spend and next step.
-- **Onboarding wizard:**
-  - gym and owner basics: brand and registered name, GSTIN, branch, address, hours, languages, owner contact, size
-  - plan and pilot terms
-  - branches and equipment
-  - branding
-  - review and provision
-- **Agreement checks:** provisioning is blocked until the pilot agreement and data processing agreement are signed.
-- **Go-live checklist:** trainers invited, equipment verified, gym QR printed, first members invited.
-- **Support access:** time-bound and logged.
+**Scope v1 (pilot):**
+- A list of the gyms: status, go-live date, members, setup progress, next step.
+- **Add a gym:** a 3-step wizard. Step 1, gym details: name, phone, email, full address. Step 2, contacts: owner and point of contact (name, email, mobile, alternate mobile, with a "Same as owner" option, since the owner usually isn't the manager), plus notes. Step 3, equipment: optional, with "Do later". The go-live date is set later on the gym's page.
+- **Setup in 3 steps, all done by our team:** gym details and logo, equipment, trainers. The owner doesn't have to set anything up.
+- **Equipment in one go:** our team logs the full list (with optional photos) after one site visit and saves it once. Trainers don't verify anything, and there are no half-done states to get stuck on.
+- **Equipment search:** suggestions as you type from an equipment catalog that engineering supplies (name, type, default weights, aliases), plus Paste a list and custom items.
+
+**Later (designed, locked in the pilot build):**
+- Lead-to-live pipeline.
+- Full onboarding wizard: legal and tax details, plans and pricing, agreement tracking, multiple branches.
+- Per-gym AI budgets, usage, support access, ops team.
+- Equipment entry from the owner and trainer apps: typed on the gym floor, with photos taken there.
 
 **Watch out for:** platform staff must never see member assessments, photos or chats (PRD role matrix). Paid prices stay "to be agreed" until D-01 is signed off.
 
 **Measure:** days from signed pilot to go-live, and the share of onboarding steps done without engineering help.
 
-**Mockup:** `App/Platform Admin.html` (OPS-01 to OPS-05).
+**Mockup:** `App/Platform Admin Pilot.html` (pilot, working prototype + developer rules + OPS-01 to 05) and `App/Platform Admin.html` (full version, OPS-L1 to L5).
 
 ### 1. Trainer app and console
 **What:** a phone app for trainers on the floor and a web console for desk work. It holds a member list sorted by who needs attention, a plan approval queue, live "call a coach" requests, session feedback, form-check clips and member chat.
