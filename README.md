@@ -49,8 +49,13 @@ Phones scale to your window height; the owner console frames scale to its width.
 
 ## Gym Jodi (beginner member app)
 
-`App/Gym Jodi.html` is a separate, simpler version of the member app for beginners: 37 screens and an interactive prototype. It doesn't include the trainer app or the owner console.
+`App/Gym Jodi.html` is a separate, simpler version of the member app for beginners: 39 screens and an interactive prototype. It doesn't include the trainer app or the owner console.
 
+- **3-step onboarding:** Body → Goal & schedule → Health check.
+  - **Body** is one screen: an "Upload body scan" row (DEXA or InBody, PDF or photo), then Height & weight, then Body composition (optional: body fat, lean mass, fat mass, visceral fat). A report fills every tile; without one, the member types height and weight. Every value stays editable.
+  - **Goal & schedule** is one screen: goal, training so far, days per week, session length and diet (Veg / Eggetarian / Non-veg / Vegan).
+  - **Health check** keeps the severe-symptom hold.
+- **Body scans instead of progress photos.** Photos are gone for privacy: nobody, our team included, should hold members' photos. The scan report file is kept for the member and their trainer. Engineering: encrypt it at rest, serve it only to those two, and build no admin or support view of it. Progress shows the latest scan and the change since the first scan of the same type (DEXA and InBody read differently, so they aren't compared). Members can upload a scan any time, and the 4-week check-in asks for one (optional). A scan's weight counts as that day's weigh-in.
 - **No QR check-in.** The phone's location is checked once, when the member taps Start workout, against the gym's location from the admin, a Google Maps link (100 m radius). Inside: straight to the body check. Outside or location off: "Are you at Iron Temple?" Yes counts the visit and logs the mismatch as a location issue; No means the session isn't a visit and trainer help is hidden. Opening the app at the gym offers today's workout. No background tracking.
 - **No logging.** The trainer sets sets, reps and weight (weights can differ per set). The exercise screen shows the current set's reps and weight in large type and lists every set; members tap a set when it's done (with an explicit Undo).
 - **Couldn't complete, set by set.** "Couldn't complete" sits next to "Set N done" and opens a number scroller: the selected number sits large on a lens and its neighbours fade; drag or tap (0 = not done). The exercise carries on.

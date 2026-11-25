@@ -1160,6 +1160,37 @@ button.tag{border:0;font-family:inherit;cursor:pointer}
 .wl-box:focus-within{border-color:var(--accent)}
 .wl-box input{width:4.2ch;font-family:inherit;font-size:44px;font-weight:700;line-height:84px;height:84px;letter-spacing:-.03em;text-align:right;background:none;border:0;outline:0;color:var(--text);font-variant-numeric:tabular-nums;padding:0}
 .wl-box span{font-size:17px;font-weight:600;color:var(--text-2)}
+
+/* Onboarding · goal grid */
+.goalgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.gtile{height:84px;border-radius:18px;background:var(--card);border:1.5px solid var(--line);display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:8px;padding:0 16px;box-shadow:var(--card-shadow);transition:all .2s;text-align:left}
+.theme-light .gtile{border-color:transparent}
+.gtile .em{font-size:24px;line-height:1}
+.gtile b{font-size:15px;font-weight:700;letter-spacing:-.01em}
+.gtile.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--card))}
+/* Body scan: file card, value tiles */
+.fcard{display:flex;align-items:center;gap:12px;padding:14px 16px;border-radius:18px;background:var(--card-2);border:1px solid var(--line)}
+.fcard .fi{width:40px;height:40px;border-radius:12px;background:var(--raised);display:grid;place-items:center;flex:none;color:var(--text-2)}
+.theme-light .fcard .fi{background:var(--card)}
+.fcard .ft{font-weight:600;font-size:15px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fcard .fs{font-size:12px;color:var(--text-2);margin-top:2px}
+.spin{width:20px;height:20px;border-radius:50%;border:2.5px solid var(--line-2);border-top-color:var(--accent);animation:jspin .8s linear infinite;flex:none}
+@keyframes jspin{to{transform:rotate(360deg)}}
+.scan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scan-grid.two{grid-template-columns:repeat(2,1fr);gap:16px 12px}
+.sv-t{display:flex;flex-direction:column;gap:4px;min-width:0}
+.sv-t > span{font-size:12px;font-weight:600;color:var(--text-2);white-space:nowrap}
+.sv-t > div{display:flex;align-items:baseline;gap:3px}
+.sv-t b{font-size:20px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.sv-t em{font-style:normal;font-size:12px;font-weight:600;color:var(--text-2)}
+.sv-t small{font-size:12px;color:var(--text-2)}
+.sv-t.ed{padding:10px 12px;border-radius:14px;background:var(--card-2);border:1.5px solid var(--line-2);cursor:text;transition:border-color .15s}
+.sv-t.ed:focus-within{border-color:var(--accent)}
+.sv-t.ed .lr{display:flex;justify-content:space-between;gap:4px}
+.sv-t.ed .lr i{font-style:normal;color:var(--text-3)}
+.sv-t.ed input{width:100%;min-width:0;background:none;border:0;outline:0;color:var(--text);font-family:inherit;font-size:20px;font-weight:700;letter-spacing:-.02em;padding:0;font-variant-numeric:tabular-nums}
+.sv-t.ed input::placeholder{color:var(--text-3);font-weight:500;font-size:14px;letter-spacing:0}
+.scan-grid.two.tight{gap:8px}
 </style>
 </head>
 <body class="theme-dark">
@@ -1253,6 +1284,19 @@ const WEEK = [ // week 2: 16–22 Nov 2026
   { d:'Sun', n:22, t:'Rest day', sub:'Full rest', st:'rest' },
 ];
 const WEIGHTS = [88.2,88.0,87.6,87.7,87.1,86.8,86.9,86.2,85.9,85.6,85.4,85.0]; // weekly weigh-ins, Sun 31 Aug → Sun 16 Nov
+// Body scans (DEXA or InBody). The report file is kept, encrypted; only the member and their trainer can open it.
+// Change is only compared between scans of the same type (DEXA and InBody read differently).
+const SCAN_FIELDS = [['w','Weight','kg',1],['bf','Body fat','%',1],['lean','Lean mass','kg',1],['fat','Fat mass','kg',1],['vat','Visceral fat','kg',2]];
+const BODY_BASIC = [['h','Height','cm',0],['w','Weight','kg',1]];
+const BODY_COMP = [['bf','Body fat','%',1],['lean','Lean mass','kg',1],['fat','Fat mass','kg',1],['vat','Visceral fat','kg',2]];
+const SCANS = [
+  { d:'30 Aug', type:'DEXA', file:'DEXA_30Aug2026.pdf', size:'1.4 MB', h:178, w:88.0, bf:28.9, lean:59.6, fat:25.4, vat:1.31 },
+  { d:'11 Oct', type:'DEXA', file:'DEXA_11Oct2026.pdf', size:'1.3 MB', w:86.8, bf:27.6, lean:59.8, fat:24.0, vat:1.22 },
+  { d:'8 Nov',  type:'DEXA', file:'DEXA_08Nov2026.pdf', size:'1.4 MB', w:85.4, bf:26.6, lean:59.7, fat:22.7, vat:1.12 },
+];
+const SCAN_TODAY = { d:'19 Nov', type:'DEXA', file:'IMG_2041.jpg', size:'2.1 MB', w:85.0, bf:26.2, lean:59.7, fat:22.3, vat:1.08 };
+const DIETS = [['veg','Veg'],['egg','Eggetarian'],['nonveg','Non-veg'],['vegan','Vegan']];
+
 const SET_WEIGHTS = [ // weights Coach Ravi set, week by week
   { k:'Leg Press', v:'40 kg', d:'Up from 30 kg', data:[30,30,35,35,40] },
   { k:'Chest Press', v:'20 kg', d:'Up from 15 kg', data:[15,15,17.5,20,20] },
@@ -1589,8 +1633,9 @@ const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function freshState(){
   return {
     role:'member', tab:'workout', route:'home', onb:0,
-    weight:85, unit:'kg', goal:'lose', exp:'new', days:3, mins:45, areas:['shoulder'], symptom:'none',
-    consent:{ terms:true, assess:true, photos:false, location:false },
+    weight:85, unit:'kg', body:{ h:'', w:'', bf:'', lean:'', fat:'', vat:'' }, onbScan:null, goal:'lose', exp:'new', days:3, mins:45, diet:null,
+    scanStage:null, scanDraft:null, scans:SCANS.map(x => ({ ...x })), areas:['shoulder'], symptom:'none',
+    consent:{ terms:true, assess:true, location:false },
     planStatus:'approved', planVer:2,
     loc:'in', where:null, locIssue:false, readiness:null,
     running:false, elapsed:0, ex:0, log:planLog(), exDone:{}, fb:{}, fbFor:null, shortFor:null, shortVal:null, cardioDone:{}, weighToday:null, weighVal:null,
@@ -1650,69 +1695,60 @@ S.inviteBad = () => ({ pb:130, body:`
 
 S.consent = (s) => {
   const rows = [
-    ['terms','file','Terms & privacy','How Iron Temple and ${APP} use your data.',true],
-    ['assess','clipboard','Fitness assessment','Your goals, experience and limits go to your assigned trainer to build a safe plan.',true],
-    ['photos','camera','Progress photos','Private photos for your check-ins. Never used to judge your health or body fat.',false],
+    ['terms','file','Terms & privacy',`How ${BRAND.name} and ${APP} use your data.`,true],
+    ['assess','clipboard','Fitness assessment','Your body numbers, goals and limits go to your trainer to build a safe plan.',true],
     ['location','pin','Location','Checks you’re at the gym when you start a workout. No background tracking.',false],
   ];
   return { pb:130, body:`
     <div class="onb-head"><button class="btn-ic" data-act="onbBack">${icon('chev-l')}</button><span class="t13 muted" style="font-weight:600">Welcome, ${ME.first}</span><span style="width:44px"></span></div>
-    <div class="onb-title"><div class="h1">Your data,<br>your choice</div><p>Change the optional ones anytime in<br>Progress → Privacy.</p></div>
+    <div class="onb-title"><div class="h1">Your data,<br>your choice</div><p>Change location anytime in<br>Progress → Privacy.</p></div>
     <div class="card" style="margin:24px 16px 0;padding:4px 18px">${rows.map(([k, ic, t, sub, req]) => `
       <div class="trow"><span class="ti">${icon(ic,19)}</span><div style="flex:1;min-width:0"><div class="tt">${t}</div><div class="ts">${req ? '<span class="req">Required · </span>' : ''}${sub}</div></div>
       <span class="toggle ${req || s.consent[k] ? 'on' : ''} ${req ? 'lock' : ''}" ${req ? '' : `data-act="consent" data-arg="${k}"`}></span></div>`).join('')}</div>`,
     fixed:`<button class="cta" data-act="onbNext">Agree &amp; continue</button>` };
 };
 
-/* ---------- Onboarding (MEM-02 – MEM-05) ---------- */
-function onbHead(step, skip){
+/* ---------- Onboarding (MEM-02 – MEM-05): Body → Goal & schedule → Health check ---------- */
+function onbHead(step){
   return `<div class="onb-head"><button class="btn-ic" data-act="onbBack">${icon('chev-l')}</button>
-    <div class="onb-prog"><i style="width:${step / 4 * 100}%"></i></div>
-    ${skip ? `<button class="skip" data-act="onbNext">Skip</button>` : `<span class="t13 muted" style="width:56px;text-align:right;font-weight:600">${step} of 4</span>`}</div>`;
+    <div class="onb-prog"><i style="width:${step / 3 * 100}%"></i></div>
+    <span class="t13 muted" style="width:56px;text-align:right;font-weight:600">${step} of 3</span></div>`;
 }
-function rulerHTML(s){
-  const isKg = s.unit === 'kg', val = isKg ? s.weight : s.weight * 2.20462;
-  const min = isKg ? 40 : 90, max = isKg ? 160 : 350;
-  let t = '';
-  for (let v = min; v <= max; v++){
-    const x = (v - min) * 10, maj = v % 10 === 0, mid = !maj && v % 5 === 0;
-    t += `<i class="tk ${maj ? 'maj' : mid ? 'mid' : ''}" style="left:${x}px;height:${maj ? 40 : mid ? 28 : 16}px"></i>`;
-    if (maj) t += `<span class="tl" style="left:${x}px">${v}</span>`;
-  }
-  return `<div class="ruler" data-ruler data-min="${min}"><div class="ruler-track" style="transform:translateX(${-(val - min) * 10}px)">${t}</div><i class="needle"></i></div>`;
-}
-S.onbWeight = (s) => {
-  const isKg = s.unit === 'kg', val = isKg ? s.weight : s.weight * 2.20462;
-  const disp = (Math.round(val * 2) / 2).toFixed(1).replace(/\.0$/, '');
-  return { pb:120, body:`${onbHead(1, true)}
-    <div class="onb-title"><div class="h1">What’s your<br>current weight?</div><p>Optional. It powers your progress chart.</p></div>
-    <div style="display:flex;justify-content:center;margin-top:24px"><div class="seg"><button class="${isKg ? 'on' : ''}" data-act="unit" data-arg="kg">kg</button><button class="${!isKg ? 'on' : ''}" data-act="unit" data-arg="lb">lb</button></div></div>
-    <div class="wt"><b class="num" data-w>${disp}</b><span>${s.unit}</span></div>
-    ${rulerHTML(s)}
-    <div class="px mt24">${C.info('lock', `<b>Only you and Coach ${COACH.first} see it.</b> Your weight never sets lifting weights. Your trainer does that after your assessment.`)}</div>`,
-    fixed:`<button class="cta" data-act="onbNext">Continue</button>` };
+ICONS.upload = '<path d="M12 15V3"/><path d="m7 8 5-5 5 5"/><path d="M20 15v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-4"/>';
+const fmtV = (v, dp) => v == null || v === '' || isNaN(+v) ? '' : (+v).toFixed(dp);
+// Value tiles: read-only (Progress) or inputs (scan check, manual entry). Inputs bind to scanDraft, or to state with data-bind.
+const valTiles = (d, fields, o = {}) => `<div class="scan-grid${o.two ? ' two' : ''}${o.edit && o.two ? ' tight' : ''}">${fields.map(([k, l, u, dp]) => o.edit
+  ? `<label class="sv-t ed"><span class="lr">${l}<i>${u}</i></span><input ${o.bind ? `data-bind="${k}"` : `data-scanv="${k}"`} inputmode="decimal" value="${fmtV(d[k], dp)}" placeholder="${(o.ph && o.ph[k]) || ''}"/></label>`
+  : `<div class="sv-t"><span>${l}</span><div><b>${fmtV(d[k], dp) || '—'}</b><em>${u}</em></div>${o.delta ? o.delta(k, dp) : ''}</div>`).join('')}</div>`;
+const fileCard = (d, o = {}) => `<div class="fcard"><span class="fi">${icon('file',20)}</span><div style="flex:1;min-width:0"><div class="ft">${d.file}</div><div class="fs">${o.reading ? 'Reading the report…' : `${d.type} · ${d.d} · ${d.size}`}</div></div>${o.reading ? '<i class="spin"></i>' : o.change ? `<button class="t13" style="font-weight:600;padding:8px 0 8px 8px" ${o.change}>Change</button>` : ''}</div>
+  <div class="row t12 muted" style="gap:6px;margin:10px 4px 0">${icon('lock',12)}Encrypted · you and Coach ${COACH.first}</div>`;
+
+// One screen: a scan fills every tile; without one, height and weight are typed. Everything stays editable.
+S.onbBody = (s) => {
+  const reading = s.scanStage === 'reading', f = s.onbScan;
+  const upload = `<button class="goal" style="width:100%;text-align:left" data-act="bodyUpload"><span class="em">${icon('upload',24)}</span><span style="flex:1;min-width:0"><div class="t">Upload body scan</div><div class="s">DEXA or InBody · PDF or photo</div></span><span style="color:var(--text-3)">${icon('chev-r',20)}</span></button>`;
+  return { pb:130, body:`${onbHead(1)}<div class="onb-title"><div class="h1">Your body</div></div>
+    <div class="px mt24">${f ? fileCard(f, { reading, change:'data-act="bodyUpload"' }) : upload}</div>
+    <div class="px"><div class="qlabel">Height &amp; weight</div>${valTiles(s.body, BODY_BASIC, { edit:true, bind:true, two:true })}
+      <div class="qlabel">Body composition <span style="font-weight:500">Optional</span></div>${valTiles(s.body, BODY_COMP, { edit:true, bind:true, two:true })}</div>`,
+    fixed:`<div class="fade-b"></div><button class="cta" data-act="onbNext" ${reading ? 'disabled' : ''}>Continue</button>` };
 };
 S.onbGoal = (s) => {
-  const goals = [['strong','🏋️','Get stronger','Lift heavier on the big lifts'],['muscle','💪','Build muscle','Add size with more volume'],['lose','🔥','Lose weight','Burn fat, keep your muscle'],['fit','🏃','General fitness','Move better, stay consistent']];
-  return { pb:120, body:`${onbHead(2)}
-    <div class="onb-title"><div class="h1">What’s your<br>main goal?</div><p>Pick one. Coach ${COACH.first} fine-tunes it with you.</p></div>
-    <div class="stack gap8 px mt32">${goals.map(([k, em, t, sub]) => `
-      <button class="goal ${s.goal === k ? 'on' : ''}" data-act="goal" data-arg="${k}" style="text-align:left">
-        <span class="em">${em}</span><span><div class="t">${t}</div><div class="s">${sub}</div></span>
-        <span class="ck">${s.goal === k ? icon('check', 15, 'stroke-width="2.6"') : ''}</span></button>`).join('')}</div>`,
-    fixed:`<button class="cta" data-act="onbNext">Continue</button>` };
+  const goals = [['strong','🏋️','Get stronger'],['muscle','💪','Build muscle'],['lose','🔥','Lose weight'],['fit','🏃','General fitness']];
+  const ch = (act, cur, opts, cls = '') => `<div class="choice ${cls}">${opts.map(([k, b, sp]) => `<button class="${cur === k ? 'on' : ''}" data-act="${act}" data-arg="${k}"><b>${b}</b><span>${sp}</span></button>`).join('')}</div>`;
+  return { pb:130, body:`${onbHead(2)}
+    <div class="onb-title"><div class="h1">Goal &amp; schedule</div></div>
+    <div class="px"><div class="qlabel">Main goal</div>
+      <div class="goalgrid">${goals.map(([k, em, t]) => `<button class="gtile ${s.goal === k ? 'on' : ''}" data-act="goal" data-arg="${k}"><span class="em">${em}</span><b>${t}</b></button>`).join('')}</div>
+      <div class="qlabel">Training so far</div>${ch('exp', s.exp, [['new','New','< 3 months'],['some','Some','3–12 months'],['exp','Experienced','1 year +']], 'three')}
+      <div class="qlabel">Days per week</div>${ch('days', s.days, [2,3,4,5].map(n => [n, n, 'days']))}
+      <div class="qlabel">Time per session</div>${ch('mins', s.mins, [20,30,45,60].map(n => [n, n, 'min']))}
+      <div class="qlabel">Diet</div><div class="chips">${DIETS.map(([k, l]) => `<button class="chip ${s.diet === k ? 'on' : ''}" data-act="diet" data-arg="${k}">${l}</button>`).join('')}</div></div>`,
+    fixed:`<div class="fade-b"></div><button class="cta" data-act="onbNext">Continue</button>` };
 };
-S.onbExp = (s) => ({ pb:130, body:`${onbHead(3)}
-  <div class="onb-title"><div class="h1">Your training<br>so far</div><p>Helps your trainer pick a safe starting point.</p></div>
-  <div class="stack gap8 px mt24">${[['new','🌱','New to the gym','Less than 3 months of training'],['some','📈','Some experience','Comfortable on most machines'],['exp','⚡','Experienced','Regular squats, bench and deadlifts']].map(([k, em, t, sub]) => C.opt({ act:'exp', arg:k, on:s.exp === k, em, t, s:sub })).join('')}</div>
-  <div class="px"><div class="qlabel">Days per week</div>
-    <div class="choice">${[2,3,4,5].map(n => `<button class="${s.days === n ? 'on' : ''}" data-act="days" data-arg="${n}"><b>${n}</b><span>days</span></button>`).join('')}</div>
-    <div class="qlabel">Time per session</div>
-    <div class="choice">${[20,30,45,60].map(n => `<button class="${s.mins === n ? 'on' : ''}" data-act="mins" data-arg="${n}"><b>${n}</b><span>min</span></button>`).join('')}</div></div>`,
-  fixed:`<div class="fade-b"></div><button class="cta" data-act="onbNext">Continue</button>` });
 S.onbLimits = (s) => {
   const areas = [['shoulder','Shoulder'],['back','Lower back'],['knee','Knee'],['hip','Hip'],['wrist','Wrist'],['neck','Neck']];
-  return { pb:130, body:`${onbHead(4)}
+  return { pb:130, body:`${onbHead(3)}
     <div class="onb-title"><div class="h1">Anything your<br>trainer should know?</div><p>This isn’t a diagnosis. It helps Coach ${COACH.first} avoid the wrong exercises.</p></div>
     <div class="px"><div class="qlabel">Areas that feel limited or tight</div>
       <div class="chips">${areas.map(([k, l]) => `<button class="chip ${s.areas.includes(k) ? 'on' : ''}" data-act="area" data-arg="${k}">${l}</button>`).join('')}<button class="chip ${s.areas.length ? '' : 'on'}" data-act="area" data-arg="none">None</button></div>
@@ -1725,7 +1761,7 @@ S.onbLimits = (s) => {
     fixed:`<div class="fade-b"></div><button class="cta" data-act="onbNext">Build my plan</button>` };
 };
 S.onbBuild = (s) => {
-  const items = [['target','Reading your goals and limits'],['building',`Matching ${BRAND.short} equipment`],['shield','Checking against your limits'],['send',`Sending it to Coach ${COACH.first}`]];
+  const items = [['target','Reading your body numbers, goals and limits'],['building',`Matching ${BRAND.short} equipment`],['shield','Checking against your limits'],['send',`Sending it to Coach ${COACH.first}`]];
   return { pb:120, body:`
     <div class="onb-head"><span style="width:44px"></span><div class="onb-prog"><i style="width:100%"></i></div><span style="width:56px"></span></div>
     <div class="build-orb"><div class="o1"></div><div class="o2">${icon('sparkles', 36)}</div></div>
@@ -2153,6 +2189,16 @@ const weighSheet = (s) => C.sheet(`<div class="sheet-head"><div><div class="h2">
     <button class="wl-step" data-act="weighStep" data-arg="0.1" aria-label="Plus 0.1 kg">${icon('plus',22,'stroke-width="2.2"')}</button>
   </div>
   <button class="btn pri block mt24" data-act="weighSave">Save</button>`);
+const scanRows = (list) => list.map(x => `<button class="hrow" style="width:100%;text-align:left" data-act="scanOpen" data-arg="${x.file}"><span class="hi">${icon('file',20)}</span><span class="mid"><div class="ht">${x.d} · ${x.type}</div><div class="hs">Body fat ${fmtV(x.bf,1)}% · Lean ${fmtV(x.lean,1)} kg</div></span>${icon('chev-r',18)}</button>`).join('');
+const scanSheet = (s) => C.sheet(`<div class="sheet-head"><div><div class="h2">Body scans</div><div class="t13 muted" style="margin-top:4px">${s.scans.length} ${s.scans.length === 1 ? 'scan' : 'scans'}</div></div>${C.closeBtn()}</div>
+  ${scanRows(s.scans.slice().reverse())}
+  <div class="row t12 muted" style="gap:6px;margin:12px 4px 0">${icon('lock',12)}Encrypted · you and Coach ${COACH.first}</div>
+  <button class="btn pri block mt16" data-act="scanUp">${icon('upload',18)}Upload new scan</button>`);
+const scanUpSheet = (s) => { const reading = s.scanStage === 'reading';
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">New body scan</div></div>${C.closeBtn()}</div>
+    ${fileCard(s.scanDraft, { reading })}
+    ${reading ? '' : `<div class="qlabel">From the report</div>${valTiles(s.scanDraft, SCAN_FIELDS, { edit:true })}`}
+    <button class="btn pri block mt24" data-act="scanSave" ${reading ? 'disabled' : ''}>Save</button>`); };
 S.profile = (s) => {
   const wi = weighIns(s), cur = wi[wi.length - 1], vs = wi.map(p => p.v);
   const W = 326, H = 120, mn = Math.min(79.5, Math.min(...vs) - 1), mx = Math.max(89, Math.max(...vs) + 1), st = W / cur.d;
@@ -2173,12 +2219,13 @@ S.profile = (s) => {
     ${[0, 28, 56, cur.d].map(d => `<text x="${d * st}" y="${H + 18}" text-anchor="${d === 0 ? 'start' : d === cur.d ? 'end' : 'middle'}" font-size="11" fill="var(--text-2)">${dayLabel(d)}</text>`).join('')}</svg>`;
   let cal = ['M','T','W','T','F','S','S'].map(d => `<span class="cl">${d}</span>`).join('') + '<span></span>'.repeat(6);
   for (let d = 1; d <= 30; d++) cal += `<span class="cd ${VISITS.includes(d) ? 'v' : ''} ${d === 19 ? 't' : ''} ${d > 19 ? 'f' : ''}">${d}</span>`;
-  const photos = s.consent.photos ? `<div class="photos px mt8">
-      <div class="ph"><span class="cap">Aug 31</span>${bodyFig({ view:'front', h:128, crop:'full' })}</div>
-      <div class="ph"><span class="cap" style="background:var(--accent);color:var(--accent-ink)">Nov 16</span>${bodyFig({ view:'front', h:128, crop:'full' })}</div>
-      <div class="ph add">${icon('camera',22)}</div></div>
-      <div class="row gap8 t12 muted px" style="margin-top:8px;padding-left:20px">${icon('lock',13)}Private to you and Coach ${COACH.first}</div>`
-    : `<div class="card row gap12" style="margin:8px 16px 0;padding:14px 16px"><span class="tile-ic">${icon('camera',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:15px">Progress photos are off</div><div class="t13 muted" style="margin-top:2px">Private, for your check-ins only.</div></div><button class="btn sec sm" data-act="photosOn">Turn on</button></div>`;
+  const sc = s.scans, ls = sc[sc.length - 1], fs = ls && sc.find(x => x.type === ls.type);
+  const delta = (k, dp) => { if (!fs || fs === ls || ls[k] == null || fs[k] == null) return ''; const v = Math.round((ls[k] - fs[k]) * 10 ** dp) / 10 ** dp; return `<small>${v > 0 ? '+' : v < 0 ? '−' : '±'}${Math.abs(v).toFixed(dp)} since ${fs.d.split(' ')[1]}</small>`; };
+  const scanCard = ls ? `<div class="card" style="margin:8px 16px 0;padding:16px 18px">
+      <button class="row gap12" style="width:100%;text-align:left" data-act="scanView"><span class="tile-ic">${icon('file',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:600">${ls.type} scan</div><div class="t12 muted" style="margin-top:2px">${ls.d} · ${sc.length} ${sc.length === 1 ? 'scan' : 'scans'}</div></div>${icon('chev-r',18)}</button>
+      <div class="mt16">${valTiles(ls, SCAN_FIELDS.slice(1), { two:true, delta })}</div>
+      <button class="btn sec sm block mt16" data-act="scanUp">${icon('upload',16)}Upload new scan</button></div>`
+    : `<div class="card row gap12" style="margin:8px 16px 0;padding:14px 16px"><span class="tile-ic">${icon('file',18)}</span><div style="flex:1;min-width:0;font-weight:600;font-size:15px">No body scan yet</div><button class="btn sec sm" data-act="scanUp">${icon('upload',16)}Upload</button></div>`;
   return { body:`
     <div class="nav" style="padding-top:4px"><div class="h1" style="font-size:28px">Progress</div><button class="btn-ic">${icon('sliders')}</button></div>
     <div style="text-align:center;margin-top:8px"><div class="pf-av"><div>${C.avatar('me', 80)}</div></div>
@@ -2203,14 +2250,15 @@ S.profile = (s) => {
     <div class="card" style="margin:0 16px">
       <div class="row between"><div><div class="t13 muted">Body weight</div><div class="row gap4" style="align-items:baseline;margin-top:2px"><b style="font-size:30px;font-weight:700;letter-spacing:-.03em" data-bw>${cur.v.toFixed(1)}</b><span class="muted">kg</span></div></div>${since}</div>
       <div class="mt16">${chart}</div></div>
+    ${scanCard}
     <div class="card" style="margin:8px 16px 0;padding:8px 20px">
       <table class="mtable"><tr><td class="muted">Chest</td><td>102.0 cm</td><td class="dn">−1.5</td></tr><tr><td class="muted">Waist</td><td>91.0 cm</td><td class="dn">−4.0</td></tr><tr><td class="muted">Arms</td><td>36.5 cm</td><td class="up">+0.8</td></tr></table></div>
-    ${photos}
 
     <div class="sec-title"><h3>Settings</h3></div>
     <div class="card" style="margin:0 16px;padding:2px 20px">
-      <div class="setrow2"><span class="si">${icon('lock',18)}</span><span class="st">Privacy &amp; consent</span><span class="sv">Photos ${s.consent.photos ? 'on' : 'off'} · Location ${s.consent.location ? 'on' : 'off'}${icon('chev-r',16)}</span></div>
+      <div class="setrow2"><span class="si">${icon('lock',18)}</span><span class="st">Privacy &amp; consent</span><span class="sv">Location ${s.consent.location ? 'on' : 'off'}${icon('chev-r',16)}</span></div>
       <div class="setrow2"><span class="si">${icon('scale',18)}</span><span class="st">Units</span><span class="sv">kg · cm${icon('chev-r',16)}</span></div>
+      <div class="setrow2"><span class="si">${icon('heart',18)}</span><span class="st">Diet</span><span class="sv">${(DIETS.find(d => d[0] === s.diet) || [0, 'Add'])[1]}${icon('chev-r',16)}</span></div>
       <div class="setrow2"><span class="si">${icon('bell',18)}</span><span class="st">Notifications</span><span class="sv">On${icon('chev-r',16)}</span></div>
       <div class="setrow2"><span class="si">${icon('building',18)}</span><span class="st">My gym</span><span class="sv">${BRAND.short}${icon('chev-r',16)}</span></div>
       <div class="setrow2"><span class="si" style="color:var(--red)">${icon('logout',18)}</span><span class="st" style="color:var(--red)">Log out</span></div></div>`,
@@ -2223,7 +2271,7 @@ S.evaluation = (s) => {
   if (ev.saved) return { pb:130, body:`${C.nav({ title:'4-week check-in', sub:'Due Sun 6 Dec', right:null })}
     <div class="px mt8"><div class="okhero"><span class="ico">${icon('send',20)}</span><div><div style="font-weight:700;font-size:16px">Sent to Coach ${COACH.first}</div><div class="t13 muted" style="margin-top:2px">Today, 7:05 PM</div></div></div></div>
     <div class="card" style="margin:16px 16px 0">${C.vtl([
-      ['ok','Check-in submitted', ev.weight ? `Weight ${kg(ev.weight)} kg · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }` : `No weight entered · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }`],
+      ['ok','Check-in submitted', (s.scans.some(x => x.today) ? 'Scan added · ' : '') + (ev.weight ? `Weight ${kg(ev.weight)} kg · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }` : `No weight entered · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }`)],
       ['now',`${COACH.first} reviews it with your workouts`,'Workouts, how each exercise felt and anything you flagged'],
       ['fut','New 4-week plan',`${AI_NAME} rebuilds it from your progress and feedback · ${COACH.first} approves it`]])}</div>
     ${ev.support === 'no' ? `<div class="px mt12">${C.info('users', `You said you need more help. ${BRAND.short} has been asked to follow up with you.`)}</div>` : ''}`,
@@ -2237,6 +2285,9 @@ S.evaluation = (s) => {
       <div class="qlabel">Weight today <span style="font-weight:500">Optional</span></div>
       ${ev.weight == null ? `<button class="hrow" style="width:100%;text-align:left" data-act="evAddW"><span class="hi">${icon('scale',20)}</span><span class="mid"><div class="ht">Add your weight</div><div class="hs">For your progress chart only</div></span>${icon('plus',18)}</button>`
         : `<div class="stepper" style="background:var(--card)"><button data-act="evW" data-arg="-0.1">−</button><div class="sv"><b>${kg(ev.weight)}</b><span>kg</span></div><button data-act="evW" data-arg="0.1">+</button></div>`}
+      <div class="qlabel">Body scan <span style="font-weight:500">Optional</span></div>
+      ${s.scans.some(x => x.today) ? scanRows(s.scans.filter(x => x.today)).replace('class="hi"', 'class="hi" style="color:var(--green)"').replace(icon('file',20), icon('check',20))
+        : `<button class="hrow" style="width:100%;text-align:left" data-act="scanUp"><span class="hi">${icon('upload',20)}</span><span class="mid"><div class="ht">Upload body scan</div><div class="hs">DEXA or InBody · PDF or photo</div></span>${icon('plus',18)}</button>`}
       <div class="qlabel">How’s your progress?</div>${pick('progress', [['yes','Improving'],['some','Some'],['no','Not yet']])}
       <div class="qlabel">Enough help from your trainer?</div>${pick('support', [['good','Yes'],['some','Sometimes'],['no','Need more']])}
       ${ev.support === 'no' ? `<div class="mt8">${C.info('users', `Thanks for saying so. ${BRAND.short} will follow up with you.`)}</div>` : ''}
@@ -2251,11 +2302,11 @@ S.evaluation = (s) => {
    ========================================================= */
 const IDX_FEAT = {
   '01':'Gym-bound invite, 6-digit code, data kept separate per gym',
-  '02':'Required vs optional consent (photos, location), changeable later',
+  '02':'Required vs optional consent (location), changeable later',
   '03':'Error state with front-desk contact',
-  '04':'Optional weight with kg/lb ruler; never used to set weights',
-  '05':'Pick one of four goals',
-  '06':'Experience level, days per week, session length',
+  '04':'One screen: Upload body scan (DEXA or InBody, PDF or photo) or type height and weight; body composition optional',
+  '05':'The report fills height, weight, body fat, lean mass, fat mass and visceral fat; every value editable; file kept encrypted, visible to the member and their trainer',
+  '06':'One screen: goal, training so far, days per week, session length, diet (Veg / Eggetarian / Non-veg / Vegan)',
   '07':'Body-area limits and symptom check; severe symptoms hold the plan',
   '08':`${AI_NAME} builds the first plan from the gym’s equipment; sent to the trainer`,
   '09':'Review timeline, no workouts until the trainer approves',
@@ -2284,21 +2335,23 @@ const IDX_FEAT = {
   '32':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
   '33':'Daily-limit banner; quick answers and trainer help still work',
   '34':'Messages, voice notes, weekly summary from feedback, call to station',
-  '35':'Visit calendar, stats, weights set by the trainer over time, body weight with Log weight, photo opt-in',
+  '35':'Visit calendar, stats, weights set by the trainer over time, body weight with Log weight, latest body scan with change since the first scan of the same type',
   '36':'Log weight: prefilled with the last weigh-in; −/+ 0.1 kg or type; one a day (logging again replaces today’s); chart and change since Aug update',
-  '37':`4-week facts and how it’s going; ${AI_NAME} restructures the plan, the trainer approves`,
+  '37':'Every scan with date, type and key values; each opens its encrypted report; Upload new scan',
+  '38':'After the system file picker: report read, values editable, Save adds it to Progress',
+  '39':`4-week facts and how it’s going; ${AI_NAME} restructures the plan, the trainer approves; optional body scan upload`,
 };
 const MODULES = [
   ['M02','Onboarding & orientation','Gym-bound invite, consent, plan review before the first workout',['01','02','03','09']],
-  ['M03','Fitness assessment','Goal, experience, schedule, limits and symptoms; weight is optional',['04','05','06','07']],
-  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks; the trainer approves and sets weights`,['08','09','16','37']],
+  ['M03','Fitness assessment','Body on one screen (a DEXA or InBody report fills it, or type height and weight); goal, experience, schedule and diet on one screen; limits and symptoms',['04','05','06','07']],
+  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks; the trainer approves and sets weights`,['08','09','16','39']],
   ['M05','Location-aware start','Location checked once at Start against the gym’s pin; prompt when the app opens at the gym; no QR, no background tracking',['12','13']],
   ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','14','15','17']],
   ['M07','Guided workout','Trainer-set sets, reps and weights; tap sets done; timer only on cardio; works offline',['18','19','30','31']],
   ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); the trainer uses it for weights, ${AI_NAME} for the 4-week plan`,['20','21','31','34']],
   ['M01','Equipment & technique','How-to videos and cues; instant swaps to pre-approved alternatives on the gym’s equipment',['23','24']],
   ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds',['25','26','27','28','29']],
-  ['M09','Progress & check-in','Visits, weights set by the trainer, body weight log, 4-week check-in',['35','36','37']],
+  ['M09','Progress & check-in','Visits, weights set by the trainer, body weight log, body scans, 4-week check-in',['35','36','37','38','39']],
   ['M12',`${AI_NAME} & trainer chat`,'Answers with sources, hand-off to trainer, daily-limit fallback',['32','33','34']],
 ];
 function renderIndex(){
@@ -2330,8 +2383,8 @@ function openFrame(n){
 }
 
 /* ---------- Router (member app only) ---------- */
-const ONB = [S.invite, S.consent, S.onbWeight, S.onbGoal, S.onbExp, S.onbLimits, S.onbBuild];
-const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, fb:fbSheet, pain:painSheet, demo:demoSheet, atgym:atGymSheet, where:whereSheet, short:shortSheet, menu:menuSheet, weigh:weighSheet };
+const ONB = [S.invite, S.consent, S.onbBody, S.onbGoal, S.onbLimits, S.onbBuild];
+const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, fb:fbSheet, pain:painSheet, demo:demoSheet, atgym:atGymSheet, where:whereSheet, short:shortSheet, menu:menuSheet, weigh:weighSheet, scan:scanSheet, scanUp:scanUpSheet };
 function build(s){
   let base;
   if (s.route === 'onb') base = ONB[s.onb](s);
@@ -2361,11 +2414,11 @@ const FRAMES = [
     ['01','Invite & verify','MEM-01', ph({ route:'onb', onb:0 })],
     ['02','Consent','MEM-01', ph({ route:'onb', onb:1 })],
     ['03','Invite expired','MEM-01', ph({ route:'inviteBad' }), 'error state'],
-    ['04','Weight · optional','MEM-02', ph({ route:'onb', onb:2 }), 'drag the ruler'],
-    ['05','Goal','MEM-02', ph({ route:'onb', onb:3 })],
-    ['06','Experience & schedule','MEM-03', ph({ route:'onb', onb:4 })],
-    ['07','Limits & symptoms','MEM-03', ph({ route:'onb', onb:5, symptom:'severe' }), 'severe → hold', 150],
-    ['08','Plan being built','MEM-05', ph({ route:'onb', onb:6 }), 'AI · day one'],
+    ['04','Your body','MEM-02', ph({ route:'onb', onb:2 }), 'upload or type'],
+    ['05','Your body · from a scan','MEM-02', ph({ route:'onb', onb:2, onbScan:{ ...SCANS[0] }, scanStage:'done', body:{ h:178, w:88, bf:28.9, lean:59.6, fat:25.4, vat:1.31 } }), 'after the file picker · editable'],
+    ['06','Goal & schedule','MEM-02', ph({ route:'onb', onb:3, diet:'veg' }), 'scroll ↓'],
+    ['07','Health check','MEM-03', ph({ route:'onb', onb:4, symptom:'severe' }), 'severe → hold', 150],
+    ['08','Plan being built','MEM-05', ph({ route:'onb', onb:5 }), 'AI · day one'],
   ]},
   { section:'Before the workout', items:[
     ['09','Plan in review','MEM-05', ph({ planStatus:'pending', planVer:1 }), 'no workouts yet'],
@@ -2400,7 +2453,9 @@ const FRAMES = [
     ['34','Trainer chat','MEM-16', () => Object.assign(activeState(), { tab:'coach' }), 'live workout'],
     ['35','Progress','MEM-17', ph({ tab:'profile' }), 'scroll ↓'],
     ['36','Log weight','MEM-17', ph({ tab:'profile', sheet:'weigh', weighVal:'85.0' }), 'one a day · prefilled'],
-    ['37','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), `${AI_NAME} restructures the plan`],
+    ['37','Body scans','MEM-17', ph({ tab:'profile', sheet:'scan' }), 'each opens its report'],
+    ['38','New body scan','MEM-17', ph({ tab:'profile', sheet:'scanUp', scanStage:'done', scanDraft:{ ...SCAN_TODAY } }), 'after the file picker · editable'],
+    ['39','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), `${AI_NAME} restructures the plan`],
   ]},
 ];
 
@@ -2480,13 +2535,14 @@ function renderProto(){
   const inp = screen.querySelector('[data-input]'); if (inp) inp.value = inputVal;
   lastKey = key; lastSheet = sheetKey;
   P.log.forEach(l => l.forEach(x => delete x.pop));
-  bindRuler(screen);
   bindRepRuler(screen);
   if (sc) syncSticky(sc);
 }
 function toast(msg){ P.toast = msg; clearTimeout(toastTimer); toastTimer = setTimeout(() => { P.toast = null; renderProto(); }, 2200); }
 const req = (type, station) => ({ status:'sent', type, station, ex:P.ex });
 
+let scanT;
+const scanTimer = () => { clearTimeout(scanT); scanT = setTimeout(() => { A._scanRead(); renderProto(); }, 1400); };
 const A = {
   noop(){},
   /* navigation */
@@ -2494,7 +2550,23 @@ const A = {
   go(r){ P.tab = 'workout'; P.route = r; P.sheet = null; },
   back(){ P.route = 'home'; P.sheet = null; },
   /* onboarding */
-  onbNext(){ P.onb = Math.min(ONB.length - 1, P.onb + 1); }, onbBack(){ if (P.onb > 0) P.onb--; },
+  onbNext(){
+    if (P.onb === 2){ if (P.scanStage === 'reading') return;
+      if (!(+P.body.h >= 100 && +P.body.w >= 30)){ toast('Enter your height and weight'); return; } }
+    P.onb = Math.min(ONB.length - 1, P.onb + 1); },
+  onbBack(){ if (P.onb > 0) P.onb--; },
+  // Body: the system file picker (PDF or photo) opens first; the report then fills every tile, and each stays editable.
+  bodyUpload(){ P.onbScan = { ...SCANS[0] }; P.scanStage = 'reading'; scanTimer(); },
+  _scanRead(){ if (P.scanStage !== 'reading') return; P.scanStage = 'done';
+    if (P.route === 'onb' && P.onbScan){ const x = P.onbScan; P.body = { h:x.h, w:x.w, bf:x.bf, lean:x.lean, fat:x.fat, vat:x.vat }; } },
+  scanUp(){ P.sheet = 'scanUp'; P.scanDraft = { ...SCAN_TODAY }; P.scanStage = 'reading'; scanTimer(); },
+  scanSave(){ const d = P.scanDraft, num = k => d[k] === '' || d[k] == null || isNaN(+d[k]) ? null : +d[k];
+    if (['w','bf','lean','fat'].some(k => !(num(k) > 0))){ toast('Fill in weight, body fat, lean and fat mass'); return; }
+    P.scans = P.scans.filter(x => !x.today).concat({ ...d, w:num('w'), bf:num('bf'), lean:num('lean'), fat:num('fat'), vat:num('vat'), today:true });
+    P.weighToday = num('w'); // the scan's weight is today's weigh-in
+    P.sheet = null; P.scanDraft = null; P.scanStage = null; toast('Scan saved'); },
+  scanView(){ P.sheet = 'scan'; }, scanOpen(f){ toast(`Opening ${f}`); },
+  diet(k){ P.diet = k; },
   consent(k){ P.consent[k] = !P.consent[k]; },
   unit(u){ P.unit = u; }, goal(g){ P.goal = g; }, exp(k){ P.exp = k; }, days(n){ P.days = +n; }, mins(n){ P.mins = +n; },
   area(k){ if (k === 'none'){ P.areas = []; return; } P.areas = P.areas.includes(k) ? P.areas.filter(a => a !== k) : [...P.areas, k]; },
@@ -2586,7 +2658,6 @@ const A = {
   weigh(){ P.weighVal = lastWeigh(P).toFixed(1); P.sheet = 'weigh'; },
   weighStep(d){ const v = parseFloat(String(P.weighVal).replace(',', '.')); P.weighVal = Math.max(30, (isNaN(v) ? lastWeigh(P) : v) + +d).toFixed(1); },
   weighSave(){ const v = parseFloat(String(P.weighVal).replace(',', '.')); if (!(v >= 30 && v <= 300)){ toast('Enter a weight between 30 and 300 kg'); return; } P.weighToday = Math.round(v * 10) / 10; P.sheet = null; toast('Weight saved'); },
-  photosOn(){ P.consent.photos = true; toast('Progress photos turned on'); },
   evAddW(){ P.ev.weight = 85; }, evW(d){ P.ev.weight = Math.round((P.ev.weight + +d) * 10) / 10; },
   ev(k){ const [f, v] = k.split(':'); P.ev[f] = v; },
   evSubmit(){ P.ev.saved = true; toast(`Sent to Coach ${COACH.first}`); }, evEdit(){ P.ev.saved = false; },
@@ -2623,22 +2694,6 @@ function bindRepRuler(screen){
   r.addEventListener('wheel', e => { e.preventDefault(); acc += e.deltaX || e.deltaY; if (Math.abs(acc) >= 30){ show(P.shortVal + Math.sign(acc)); acc = 0; } }, { passive:false });
 }
 
-/* ruler drag (onboarding) */
-function bindRuler(screen){
-  const r = screen.querySelector('[data-ruler]'); if (!r) return;
-  const track = r.querySelector('.ruler-track');
-  let sx = 0, sw = 0, drag = false;
-  r.addEventListener('pointerdown', e => { drag = true; sx = e.clientX; sw = P.weight; r.setPointerCapture(e.pointerId); track.style.transition = 'none'; });
-  r.addEventListener('pointermove', e => {
-    if (!drag) return;
-    const per = P.unit === 'kg' ? 1 : 1 / 2.20462;
-    P.weight = Math.min(150, Math.max(40, Math.round((sw - (e.clientX - sx) / (10 * DZ) * per) * 2) / 2));
-    const val = P.unit === 'kg' ? P.weight : P.weight * 2.20462, min = +r.dataset.min;
-    track.style.transform = `translateX(${-(val - min) * 10}px)`;
-    screen.querySelector('[data-w]').textContent = (Math.round(val * 2) / 2).toFixed(1).replace(/\.0$/, '');
-  });
-  r.addEventListener('pointerup', () => { drag = false; track.style.transition = ''; });
-}
 
 /* collapsing sticky header: hysteresis avoids flicker when the header height changes */
 function syncSticky(sc){
@@ -2662,6 +2717,7 @@ document.addEventListener('click', e => {
   renderProto();
 });
 document.addEventListener('input', e => { if (e.target.matches('#protoDevice [data-wlog]')) P.weighVal = e.target.value; });
+document.addEventListener('input', e => { const t = e.target; if (!t.closest || !t.closest('#protoDevice')) return; if (t.dataset.scanv && P.scanDraft) P.scanDraft[t.dataset.scanv] = t.value; if (t.dataset.bind) P.body[t.dataset.bind] = t.value; });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('#protoDevice [data-wlog]')){ A.weighSave(); renderProto(); } });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('#protoDevice [data-input]')){ if (P.tab === 'ai' && P.role === 'member') A.aiSend(); else A.send(); renderProto(); scrollChat(); } });
 
