@@ -1241,7 +1241,7 @@ const BRAND = {
 })();
 /* =========================================================
    GYM JODI · SAMPLE DATA — beginner member app.
-   Members don't log weights or reps: the trainer sets them.
+   Members don't log weights or reps: Jod.ai's plan sets them and the trainer approves the plan.
    Cardio exercises have a timer; strength exercises don't.
    ========================================================= */
 const APP = 'Gym Jodi';
@@ -1315,7 +1315,7 @@ const SCANS = [
 const SCAN_TODAY = { d:'19 Nov', type:'DEXA', file:'IMG_2041.jpg', size:'2.1 MB', w:85.0, bf:26.2, lean:59.7, fat:22.3, vat:1.08 };
 const DIETS = [['veg','Veg'],['egg','Eggetarian'],['nonveg','Non-veg'],['vegan','Vegan']];
 
-const SET_WEIGHTS = [ // weights Coach Ravi set, week by week
+const SET_WEIGHTS = [ // weights from the approved plan, week by week
   { k:'Leg Press', v:'40 kg', d:'Up from 30 kg', data:[30,30,35,35,40] },
   { k:'Chest Press', v:'20 kg', d:'Up from 15 kg', data:[15,15,17.5,20,20] },
   { k:'Lat Pulldown', v:'25 kg', d:'Up from 20 kg', data:[20,20,22.5,22.5,25] },
@@ -1343,7 +1343,7 @@ const AI_DEFAULT = [
   { who:'me', t:'How should I breathe on the leg press?' },
   { who:'ai', src:'cues', t:'Breathe in as you lower the plate. Breathe out as you push. Don’t lock your knees at the top.', acts:[['Watch setup','demo']] },
   { who:'me', t:'Can I go heavier today?' },
-  { who:'ai', src:'plan', t:'Your plan has <b>40 kg × 12</b> for leg press. Coach Ravi sets your weights, using how each exercise felt.', acts:[['Ask Ravi','askRavi',1]] },
+  { who:'ai', src:'plan', t:'Your plan has <b>40 kg × 12</b> for leg press, approved by Coach Ravi. How each exercise feels goes into your next 4-week plan.', acts:[['Ask Ravi','askRavi',1]] },
 ];
 const AI_CAPPED = [
   { who:'me', t:'Why does my lower back feel tight after rows?' },
@@ -1783,7 +1783,7 @@ S.onbBuild = (s) => {
   return { pb:120, body:`
     <div class="onb-head"><span style="width:44px"></span><div class="onb-prog"><i style="width:100%"></i></div><span style="width:56px"></span></div>
     <div class="build-orb"><div class="o1"></div><div class="o2">${icon('sparkles', 36)}</div></div>
-    <div class="onb-title" style="padding-top:16px"><div class="h1">Building your plan</div><p>${AI_NAME} drafts it. Your trainer checks it<br>and sets every weight.</p></div>
+    <div class="onb-title" style="padding-top:16px"><div class="h1">Building your plan</div><p>${AI_NAME} builds it, weights included.<br>Coach ${COACH.first} approves it.</p></div>
     <div class="card chk-list" style="margin:24px 16px 0;padding:6px 20px">${items.map(([ic, t], i) => `
       <div class="it" style="--d:${1.1 + i * 1.1}s"><span class="ico">${icon(ic, 18)}</span><span class="tx">${t}</span>
       <span class="st"><i class="sp"></i><i class="ok">${icon('check', 14, 'stroke-width="3"')}</i></span></div>`).join('')}</div>
@@ -1800,12 +1800,12 @@ S.pending = (s) => ({ body:`
   <div class="card" style="margin:20px 16px 0">
     <div class="row between"><span class="pill"><i class="d" style="background:var(--orange)"></i>Plan in review</span><span class="t12 muted" style="font-weight:600">Draft v1</span></div>
     <div class="h2" style="margin-top:14px">Coach ${COACH.first} is checking your plan</div>
-    <p class="t13 muted" style="margin-top:6px;line-height:19px">Workouts unlock once ${COACH.first} approves it and sets your starting weights.</p>
+    <p class="t13 muted" style="margin-top:6px;line-height:19px">Workouts unlock once Coach ${COACH.first} approves it.</p>
     <div class="divider mt16"></div>
     <div class="mt16">${C.vtl([
       ['ok','Assessment submitted','Today, 9:12 AM'],
       ['ok',`Draft built for ${BRAND.short}`,'Only equipment at your gym · 4 days a week'],
-      ['now','Trainer review',`${COACH.first} checks exercises against your limits and sets weights`],
+      ['now','Trainer review',`${COACH.first} checks exercises and weights against your limits`],
       ['fut','Plan approved','You’ll get a notification, then you can start']])}</div>
   </div>
   <div class="sec-title"><h3>While you wait</h3></div>
@@ -1940,7 +1940,7 @@ S.plan = (s) => {
     <div class="card" style="margin:12px 16px 0;padding:12px">
       <div class="row between" style="padding:8px 8px 12px"><div><div style="font-weight:700;font-size:16px">Week 2 · 16–22 Nov</div><div class="t12 muted" style="margin-top:2px">3 workouts · 4 rest days</div></div><span class="pill acc">1 of 3 done</span></div>
       ${rows}</div>
-    <div class="card row between" style="margin:12px 16px 0;padding:16px 20px"><div><div style="font-weight:600">Week 3 · 23–29 Nov</div><div class="t13 muted" style="margin-top:2px">Same exercises · weights set by ${COACH.first} from your feedback</div></div>${icon('chev-d',20)}</div>
+    <div class="card row between" style="margin:12px 16px 0;padding:16px 20px"><div><div style="font-weight:600">Week 3 · 23–29 Nov</div><div class="t13 muted" style="margin-top:2px">Same exercises · weights from your plan</div></div>${icon('chev-d',20)}</div>
     <div class="card row between" style="margin:8px 16px 0;padding:16px 20px"><div><div style="font-weight:600">Week 4 · 30 Nov – 6 Dec</div><div class="t13 muted" style="margin-top:2px">Ends with your 4-week check-in</div></div>${icon('chev-d',20)}</div>`,
     fixed:`${s.running ? C.miniBar(s) : ''}${C.tabBar('workout')}`, pb: s.running ? 200 : 128 };
 };
@@ -1961,7 +1961,7 @@ S.detail = (s) => ({ body:`${C.nav({ title:TODAY.title, sub:TODAY.sub })}
 
 /* =========================================================
    GYM JODI · ACTIVE WORKOUT (MEM-10)
-   Strength: the trainer's sets × reps × weight, tap each set
+   Strength: the plan's sets × reps × weight, tap each set
    when done (no typing, no rest timer). Cardio: countdown timer.
    After each exercise: optional "How did it feel?" (MEM-11).
    ========================================================= */
@@ -2261,7 +2261,7 @@ S.profile = (s) => {
       <div class="stat"><span>${icon('activity',15)}Cardio</span><b>8.5<small> h</small></b></div>
       <div class="stat"><span>${icon('headset',15)}Trainer help</span><b>6<small> times</small></b></div></div>
 
-    <div class="sec-title"><h3>Your weights</h3><a>Set by Coach ${COACH.first}</a></div>
+    <div class="sec-title"><h3>Your weights</h3></div>
     <div class="card" style="margin:0 16px;padding:4px 20px">${SET_WEIGHTS.map(l => `<div class="lift"><div style="flex:1"><div style="font-weight:600">${l.k}</div><div class="t12" style="color:var(--green);font-weight:600;margin-top:2px">${l.d}</div></div>${C.spark(l.data)}<div style="width:86px;text-align:right"><b style="font-size:18px;font-weight:700;letter-spacing:-.02em">${l.v}</b></div></div>`).join('')}</div>
 
     <div class="sec-title"><h3>Body</h3><button class="btn sec xs" data-act="weigh">${icon('plus',15,'stroke-width="2.2"')}Log weight</button></div>
@@ -2353,7 +2353,7 @@ const IDX_FEAT = {
   '32':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
   '33':'Daily-limit banner; quick answers and trainer help still work',
   '34':'Messages, voice notes, weekly summary from feedback, call to station',
-  '35':'Visit calendar, stats, weights set by the trainer over time, body weight with Log weight, latest body scan with change since the first scan of the same type',
+  '35':'Visit calendar, stats, weights over time, body weight with Log weight, latest body scan with change since the first scan of the same type',
   '36':'Log weight: prefilled with the last weigh-in; −/+ 0.1 kg or type; one a day (logging again replaces today’s); chart and change since Aug update',
   '37':'Every scan with date, type and key values; each opens its encrypted report; Upload new scan',
   '38':'After the system file picker: report read, values editable, Save adds it to Progress',
@@ -2362,14 +2362,14 @@ const IDX_FEAT = {
 const MODULES = [
   ['M02','Onboarding & orientation','Gym-bound invite, consent, plan review before the first workout',['01','02','03','09']],
   ['M03','Fitness assessment','Body on one screen (a DEXA or InBody report fills it, or type height and weight); goal, experience, schedule and diet on one screen; limits and symptoms',['04','05','06','07']],
-  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks; the trainer approves and sets weights`,['08','09','16','39']],
+  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks, weights included; the trainer approves each version`,['08','09','16','39']],
   ['M05','Location-aware start','Location checked once at Start against the gym’s pin; prompt when the app opens at the gym; no QR, no background tracking',['12','13']],
   ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','14','15','17']],
-  ['M07','Guided workout','Trainer-set sets, reps and weights; tap sets done; timer only on cardio; works offline',['18','19','30','31']],
-  ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); the trainer uses it for weights, ${AI_NAME} for the 4-week plan`,['20','21','31','34']],
+  ['M07','Guided workout','Sets, reps and weights from the approved plan; tap sets done; timer only on cardio; works offline',['18','19','30','31']],
+  ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); ${AI_NAME} uses it for the next 4-week plan; the trainer sees it`,['20','21','31','34']],
   ['M01','Equipment & technique','How-to videos and cues; instant swaps to pre-approved alternatives on the gym’s equipment',['23','24']],
   ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds',['25','26','27','28','29']],
-  ['M09','Progress & check-in','Visits, weights set by the trainer, body weight log, body scans, 4-week check-in',['35','36','37','38','39']],
+  ['M09','Progress & check-in','Visits, weights over time, body weight log, body scans, 4-week check-in',['35','36','37','38','39']],
   ['M12',`${AI_NAME} & trainer chat`,'Answers with sources, hand-off to trainer, daily-limit fallback',['32','33','34']],
 ];
 function renderIndex(){
@@ -2481,7 +2481,7 @@ function renderCanvas(){
   const n = FRAMES.reduce((a, s) => a + s.items.length, 0);
   let html = `
   <header class="cv-head"><div class="cv-title"><div class="lg">${BRAND.logo(24)}</div><div><h1>${BRAND.name} · ${APP}</h1><p>Member app for beginners · ${n} screens + interactive prototype</p></div></div></header>
-  <p class="cv-sub">Beginner version of the member app. The trainer sets weights and reps; members don’t log them. Timer only on cardio. Optional feedback after each exercise. ${AI_NAME}, the AI coach, builds the plan on day one and restructures it every 4 weeks. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
+  <p class="cv-sub">Beginner version of the member app. ${AI_NAME}, the AI coach, builds the plan (sets, reps and weights) on day one and restructures it every 4 weeks; the trainer approves each version. Members don’t log weights or reps. Timer only on cardio. Optional feedback after each exercise. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
   <section class="cv-section"><h2>00 · Prototype</h2>
     <div class="proto-wrap">
       <div class="frame is-proto"><div class="frame-label" style="justify-content:center;padding:0"><span class="n">00</span>Interactive prototype</div><div id="protoDevice"></div></div>
