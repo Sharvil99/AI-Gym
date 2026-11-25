@@ -74,7 +74,7 @@ The roadmap has 22 features: 8 at P0, 10 at P1 and 4 at P2. One idea is not plan
 
 **Scope v1 (pilot):**
 - A list of the gyms: status, go-live date, members, setup progress, next step.
-- **Add a gym:** a 3-step wizard. Step 1, gym details: name, phone, email, full address. Step 2, contacts: owner and point of contact (name, email, mobile, alternate mobile, with a "Same as owner" option, since the owner usually isn't the manager), plus notes. Step 3, equipment: optional, with "Do later". The go-live date is set later on the gym's page.
+- **Add a gym:** a 3-step wizard. Step 1, gym details: name, phone, email, full address, and the gym's Google Maps link (the member app checks workouts start within 100 m of it). Step 2, contacts: owner and point of contact (name, email, mobile, alternate mobile, with a "Same as owner" option, since the owner usually isn't the manager), plus notes. Step 3, equipment: optional, with "Do later". The go-live date is set later on the gym's page.
 - **Setup in 3 steps, all done by our team:** gym details and logo, equipment, trainers. The owner doesn't have to set anything up.
 - **Equipment in one go:** our team logs the full list (with optional photos) after one site visit and saves it once. Trainers don't verify anything, and there are no half-done states to get stuck on.
 - **Equipment search:** suggestions as you type from an equipment catalog that engineering supplies (name, type, default weights, aliases), plus Paste a list and custom items.

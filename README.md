@@ -47,13 +47,24 @@ Phones scale to your window height; the owner console frames scale to its width.
 - **AI is bounded.** Standard answers come from approved cues and the plan; free text is the only AI path. At the daily limit, quick answers, logging and trainer help keep working.
 - **Attention counts humans.** Owner coverage metrics count logged trainer check-ins, not automated messages or AI chats. Retention stays hidden until membership dates exist.
 
+## Gym Jodi (beginner member app)
+
+`App/Gym Jodi.html` is a separate, simpler version of the member app for beginners: 34 screens and an interactive prototype. It doesn't include the trainer app or the owner console.
+
+- **No QR check-in.** The phone's location is checked once, when the member taps Start workout, against the gym's location from the admin, a Google Maps link (100 m radius). Inside: straight to the body check. Outside or location off: "Are you at Iron Temple?" Yes counts the visit and logs the mismatch as a location issue; No means the session isn't a visit and trainer help is hidden. Opening the app at the gym offers today's workout. No background tracking.
+- **No logging.** The trainer sets sets, reps and weight; the exercise screen shows them in large type, and members tap each set when it's done.
+- **Timer only on cardio.** Treadmill, bike and similar have a countdown with pause and done. Strength exercises have no rest timer.
+- **Optional feedback after each exercise:** Too easy / Just right / Hard / Couldn't finish, or Skip. The trainer uses it to set the next weights; the AI uses it when it restructures the plan.
+- **AI's role:** it builds the plan on day one and restructures it every 4 weeks from progress and feedback. The trainer approves each version.
+- **Summary and progress** show time, exercises done, cardio minutes and how each exercise felt, plus the weights the trainer set over time. There's no volume or "best lifts", since members don't log weights.
+
 ## Platform admin
 
 Our dev, IT and ops team's console for onboarding gyms, in two files:
 
 - **`App/Platform Admin Pilot.html`, built now:**
   - **Gyms:** the gym list with filters and search.
-  - **Add a gym:** a 3-step wizard with Back / Next. Step 1, gym details: name, phone, email, full address (two lines, area, city, state, PIN). Step 2, contacts: owner and point of contact (with a "Same as owner" option), each with a mobile and an optional alternate mobile, plus notes. Step 3, equipment (optional): the full list in one go, or **Do later**. The go-live date is set later on the gym's page.
+  - **Add a gym:** a 3-step wizard with Back / Next. Step 1, gym details: name, phone, email, full address (two lines, area, city, state, PIN) and the gym's Google Maps link. Coordinates are shown with "Open in Maps"; the member app uses them for its start check. Step 2, contacts: owner and point of contact (with a "Same as owner" option), each with a mobile and an optional alternate mobile, plus notes. Step 3, equipment (optional): the full list in one go, or **Do later**. The go-live date is set later on the gym's page.
   - **Gym setup:** 3 steps, all done by our team: gym details and logo, equipment, trainers. The gym opens to members on its go-live date once setup is done.
   - **Equipment:** a standalone page from Gym setup, using the same editor as wizard step 3. Search suggests equipment as you type, Paste a list matches each line, and photos are optional.
   - **Locked page:** an example of how later features appear.
@@ -133,6 +144,7 @@ Everything is in one file: inline CSS, then inline JS.
 ```
 App/
   Gym Companion.html        # member app, trainer app, owner console (self-contained)
+  Gym Jodi.html             # beginner member app: no logging, cardio-only timer, optional feedback (self-contained)
   Platform Admin Pilot.html # our team's console, pilot version we build now (self-contained)
   Platform Admin.html       # our team's console, full version for after the pilot (self-contained)
 README.md

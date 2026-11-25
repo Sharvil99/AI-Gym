@@ -1214,6 +1214,13 @@ button.ethumb.has{background-size:cover;background-position:center}
 .ein select{display:block;height:30px;line-height:30px}
 .scard .tadrop{position:static;margin-top:6px;box-shadow:none}
 .scard .tawrap{margin:0}
+/* gym location: Google Maps link */
+.gmeta{display:flex;align-items:center;gap:6px;margin-top:8px;font-size:12px;font-weight:500;color:var(--text-2);font-variant-numeric:tabular-nums}
+
+.gopen{margin-left:auto;display:inline-flex;align-items:center;gap:4px;font-weight:600;color:var(--text);text-decoration:none}
+.gopen:hover{text-decoration:underline}
+a.dbtn{text-decoration:none}
+.sspec .wide .dfld{width:100%}
 </style>
 </head>
 <body class="theme-dark">
@@ -1712,6 +1719,8 @@ const caretDown = () => icon('chev-l', 14, 'style="transform:rotate(-90deg)"');
 const fField = (l, v, o = {}) => `<div class="dfld${o.full ? ' full' : ''}"><label>${l}${o.opt ? ' <span class="optl">optional</span>' : ''}</label><div class="${v ? '' : 'ph'}">${o.pre ? `<span class="pre">${o.pre}</span>` : ''}<span class="fv">${v || ''}</span>${o.suf ? `<span class="suf">${o.suf}</span>` : ''}</div></div>`;
 const fCard = (title, inner, right = '') => `<div class="dcard fbox"><div class="fhead"><h3>${title}</h3>${right}</div>${inner}</div>`;
 const fGrid = x => `<div class="fgrid">${x}</div>`;
+// Gym location: the gym's Google Maps share link. The server resolves short links and reads the coordinates.
+const mapsMeta = (coords, url = '#') => `<div class="gmeta">${icon('pin', 13)}${coords} · 100 m radius<a class="gopen" href="${url}" target="_blank" rel="noopener">Open in Maps${icon('arrow', 12)}</a></div>`;
 const wizSteps = cur => `<div class="wsteps">${ADD_STEPS.map((t, i) => `<div class="wstep ${i < cur ? 'done' : i === cur ? 'now' : ''}"><span class="wbar"></span><span class="wsk">Step ${i + 1}</span><span class="wsl">${t}${i === 2 ? '<span class="wso">optional</span>' : ''}</span></div>`).join('')}</div>`;
 const wizPage = (cur, cards, foot) => O.pShell('add', '', '', `<div class="fcol"><h1 class="ftitle">Add a gym</h1>${wizSteps(cur)}${cards}<div class="wfoot">${foot}</div></div>`, '', true);
 const wBack = () => `<span class="dbtn sec">${icon('chev-l', 14)}Back</span>`;
@@ -1720,7 +1729,8 @@ const wNext = () => `<span class="dbtn">Next${icon('arrow', 14)}</span>`;
 O.pAdd1 = () => wizPage(0,
   fCard('Gym details', fGrid(`${fField('Gym name', 'Muscle Factory', { full:1 })}${fField('Phone', '98661 ••• 471', { pre:'+91' })}${fField('Email', 'frontdesk@musclefactory.in')}
     ${fField('Address line 1', '2nd floor, Sri Sai Complex, MG Road', { full:1 })}${fField('Address line 2', '', { full:1, opt:1 })}
-    ${fField('Area / locality', 'Benz Circle')}${fField('City', 'Vijayawada')}${fField('State', 'Andhra Pradesh', { suf:caretDown() })}${fField('PIN code', '520010')}`)),
+    ${fField('Area / locality', 'Benz Circle')}${fField('City', 'Vijayawada')}${fField('State', 'Andhra Pradesh', { suf:caretDown() })}${fField('PIN code', '520010')}
+    ${fField('Google Maps link', 'https://maps.app.goo.gl/Fz3kQ8vN2pLw', { full:1 })}<div class="full" style="margin-top:-8px">${mapsMeta('16.5062° N, 80.6480° E')}</div>`)),
   `<span class="dbtn sec">Cancel</span>${wNext()}`);
 
 O.pAdd2 = () => {
@@ -1780,7 +1790,7 @@ O.pDetail = () => {
       <div class="dcard"><div class="dhead"><h3>Gym</h3><span class="dbtn sec sm">Edit</span></div>
         <div class="kv"><span>Owner</span><b>Prakash Varma · +91 98490 ••• 512</b></div><div class="kv"><span>Point of contact</span><b>Kiran Kumar · +91 99631 ••• 208</b></div><div class="kv"><span>Gym phone</span><b>+91 98661 ••• 471</b></div>
         <div class="kv"><span>Owner console</span><b class="row gap8"><span class="tag warn">Not signed in</span><span class="dbtn sec sm">Resend link</span></b></div>
-        <div class="kv"><span>Goes live</span><b>1 Dec 2026</b></div><div class="kv"><span>Gym QR</span><b><span class="dbtn sec sm">${icon('qr',13)}Download</span></b></div></div>
+        <div class="kv"><span>Location</span><b><span class="dbtn sec sm">${icon('pin',13)}Open in Maps</span></b></div><div class="kv"><span>Goes live</span><b>1 Dec 2026</b></div><div class="kv"><span>Gym QR</span><b><span class="dbtn sec sm">${icon('qr',13)}Download</span></b></div></div>
       ${lockedList(['Plan & billing','Support access log','AI spend'])}</div></div>`;
   return O.pShell('gyms', 'Muscle Factory', 'Vijayawada · Benz Circle · added 22 Nov', body, `<span class="tag warn" style="height:30px;padding:0 10px">Setting up</span><span class="dbtn sec">${icon('phone',14)}Call contact</span>`);
 };
@@ -1848,6 +1858,14 @@ function renderSpec(){
        'Completed steps are clickable to go back. Upcoming steps are not.',
        'Step 3 (Equipment) is optional: Do later creates the gym without equipment.'],
       [['Bar', '4px · radius 4 · done and current accent · upcoming line-2'], ['Caption', '“Step n” 11px / 600 · current in accent'], ['Label', '13px / 600 · current text · done text-2 · upcoming text-3'], ['Optional', 'inline after the label · 12px / 500 · text-3']]),
+    card('Gym location',
+      spc('Google Maps link', `<div class="wide" style="width:420px">${fld('Google Maps link', 'https://maps.app.goo.gl/Fz3kQ8vN2pLw')}${mapsMeta('16.5062° N, 80.6480° E')}</div>`),
+      ['Ops pastes the gym’s Google Maps share link, ideally dropped at the entrance during the site visit.',
+       'Accept google.com/maps and maps.app.goo.gl links. Short links are resolved on the server to read the coordinates; show them with “Open in Maps” to confirm.',
+       'Anything else shows “Paste a Google Maps link”.',
+       'Members’ phones are checked against a 100 m radius only when they tap Start workout or open the app. No background tracking.',
+       'Outside, or location off: “Are you at [gym]?” Yes → visit counted, location mismatch logged for review. No → not a visit; trainer help hidden.'],
+      [['Stored', 'link, latitude, longitude, radius 100 m']]),
     card('Equipment search',
       spc('Typing “leg”', `<div class="tawrap" style="width:420px;margin:0"><div class="fi tabox is-focus">${icon('search', 15)}<span class="fv">leg</span></div>${taDrop('leg', ['Leg extension'])}</div>`),
       ['Suggestions open from the first character. Up to 8 results, plus “Add … as custom equipment” when there’s no exact match.',
@@ -1859,7 +1877,7 @@ function renderSpec(){
       [['Dropdown', 'card background · 1px line-2 · radius 12 · 6px padding · max 320px, scrolls'], ['Row', '38px · radius 8 · active row raised'], ['Gap', '6px below the field']]),
   ];
   const rules = [
-    ['Gym name', 'Required'], ['Phone', 'Required · 10 digits'], ['Email', 'Optional · valid email if filled'], ['Address line 1, Area, City, State', 'Required'], ['Address line 2', 'Optional'], ['PIN code', 'Required · 6 digits'],
+    ['Gym name', 'Required'], ['Phone', 'Required · 10 digits'], ['Email', 'Optional · valid email if filled'], ['Address line 1, Area, City, State', 'Required'], ['Address line 2', 'Optional'], ['PIN code', 'Required · 6 digits'], ['Google Maps link', 'Required · google.com/maps or maps.app.goo.gl'],
     ['Owner name, mobile', 'Required · mobile 10 digits'], ['Point of contact name, mobile', 'Required unless Same as owner'], ['Alternate mobile, Email (people)', 'Optional · validated if filled'],
     ['Trainers', 'Name and 10-digit mobile per row; empty rows are ignored'], ['Equipment quantity', 'Digits only, 1–999'],
   ];
@@ -1871,7 +1889,7 @@ function renderSpec(){
   return `<section class="cv-section" id="dev-rules"><h2>Developer rules</h2>
     <div class="spec">${cards.join('')}
       <div class="scard"><h3>Validation</h3><table class="svals wide">${rules.map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')}</table>
-        <ul class="srules"><li>Messages: “Required”, “Enter a 10-digit number”, “Enter a 6-digit PIN code”, “Enter a valid email”.</li><li>Stored values: phone numbers as 10 digits without spaces; the +91 prefix is display only.</li></ul></div>
+        <ul class="srules"><li>Messages: “Required”, “Enter a 10-digit number”, “Enter a 6-digit PIN code”, “Enter a valid email”, “Paste a Google Maps link”.</li><li>Stored values: phone numbers as 10 digits without spaces; the +91 prefix is display only.</li></ul></div>
       <div class="scard"><h3>Tokens</h3><table class="svals wide tok"><tr><th>Token</th><th>Dark</th><th>Light</th></tr>${tokens.map(([k, d, l]) => `<tr><td>${k}</td><td>${d.startsWith('#') ? `<i style="background:${d}"></i>` : ''}${d}</td><td>${l.startsWith('#') ? `<i style="background:${l}"></i>` : ''}${l}</td></tr>`).join('')}</table>
         <ul class="srules"><li>Font: Inter 400–800. Cards: radius 18px, 1px line border. Page gutter 26px. Form column max 720px, centred.</li><li>Accent is lime in dark and orange in light. Focus, checked and selected states all use the accent.</li></ul></div>
     </div></section>`;
@@ -1900,15 +1918,15 @@ const PT = (() => {
   const LOCKED = { leads:'Leads', billing:'Plans & billing', usage:'Usage & analytics', access:'Support access', team:'Ops team' };
 
   const seed = () => [
-    { id:'iron-temple', n:'Iron Temple Gym', c:'#C0743A', addr1:'Plot 12, Road No. 2', addr2:'', area:'Banjara Hills', city:'Hyderabad', state:'Telangana', pin:'500034', phone:'9866100231', email:'hello@irontemple.in',
+    { id:'iron-temple', n:'Iron Temple Gym', c:'#C0743A', addr1:'Plot 12, Road No. 2', addr2:'', area:'Banjara Hills', city:'Hyderabad', state:'Telangana', pin:'500034', maps:'https://maps.app.goo.gl/Ir4nT3mpL3Bh', phone:'9866100231', email:'hello@irontemple.in',
       owner:{ name:'Suresh Menon', email:'', mob:'9849011220', alt:'' }, poc:{ same:true, name:'', email:'', mob:'', alt:'' }, notes:'', logo:true,
       eq:{ items: pick(['Flat bench + Olympic bar', 'Adjustable bench', 'Lat pulldown', 'Seated row machine', 'Dumbbells', 'Chest press machine', 'Smith machine', 'Cable crossover', 'Leg press 45°', 'Treadmill']), bars:['Olympic · 20 kg', 'EZ curl · 10 kg'], plates:['1.25', '2.5', '5', '10', '15', '20', '25'] },
       trainers:[{ name:'Ravi Kumar', mob:'9000011111' }, { name:'Sneha Reddy', mob:'9000022222' }, { name:'Imran Khan', mob:'9000033333' }], signedIn:true, live:true, liveFrom:D(10, 14), golive:D(10, 14), mem:23, added:D(10, 6) },
-    { id:'pulse-fitness', n:'Pulse Fitness Studio', c:'#2F8F83', addr1:'3rd floor, Botanical Garden Road', addr2:'', area:'Kondapur', city:'Hyderabad', state:'Telangana', pin:'500084', phone:'9866200417', email:'',
+    { id:'pulse-fitness', n:'Pulse Fitness Studio', c:'#2F8F83', addr1:'3rd floor, Botanical Garden Road', addr2:'', area:'Kondapur', city:'Hyderabad', state:'Telangana', pin:'500084', maps:'https://maps.app.goo.gl/Pu1s3K0nd4pr', phone:'9866200417', email:'',
       owner:{ name:'Kavitha Rao', email:'', mob:'9849022331', alt:'' }, poc:{ same:false, name:'Deepak Varma', email:'', mob:'9959011223', alt:'' }, notes:'', logo:true,
       eq:{ items: pick(['Functional trainer', 'Dumbbells', 'Kettlebells', 'Adjustable bench', 'Power rack', 'Spin bike', 'Rowing machine', 'Air bike']), bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20'] },
       trainers:[{ name:'Arjun Das', mob:'9000044444' }, { name:'Meera Iyer', mob:'9000055555' }], signedIn:true, live:true, liveFrom:D(10, 21), golive:D(10, 21), mem:18, added:D(10, 12) },
-    { id:'muscle-factory', n:'Muscle Factory', c:'#8E5BB5', addr1:'2nd floor, Sri Sai Complex, MG Road', addr2:'', area:'Benz Circle', city:'Vijayawada', state:'Andhra Pradesh', pin:'520010', phone:'9866147102', email:'frontdesk@musclefactory.in',
+    { id:'muscle-factory', n:'Muscle Factory', c:'#8E5BB5', addr1:'2nd floor, Sri Sai Complex, MG Road', addr2:'', area:'Benz Circle', city:'Vijayawada', state:'Andhra Pradesh', pin:'520010', maps:'https://maps.app.goo.gl/Fz3kQ8vN2pLw', phone:'9866147102', email:'frontdesk@musclefactory.in',
       owner:{ name:'Prakash Varma', email:'', mob:'9849051200', alt:'' }, poc:{ same:false, name:'Kiran Kumar', email:'', mob:'9963120845', alt:'7032261900' }, notes:'', logo:true,
       eq:{ items:[], bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20', '25'] }, visit:'27 Nov',
       trainers:[{ name:'Vamsi K', mob:'9000066666' }, { name:'Sai Teja', mob:'9000077777' }, { name:'Lakshmi P', mob:'9000088888' }, { name:'Naveen R', mob:'9000099999' }, { name:'Harsha M', mob:'9000012121' }],
@@ -1990,7 +2008,7 @@ const PT = (() => {
 
   /* ---------- validation ---------- */
   const RULES = {
-    0: [['gym.name', 'req'], ['gym.phone', 'tel'], ['gym.email', 'email?'], ['gym.addr1', 'req'], ['gym.area', 'req'], ['gym.city', 'req'], ['gym.state', 'req'], ['gym.pin', 'pin']],
+    0: [['gym.name', 'req'], ['gym.phone', 'tel'], ['gym.email', 'email?'], ['gym.addr1', 'req'], ['gym.area', 'req'], ['gym.city', 'req'], ['gym.state', 'req'], ['gym.pin', 'pin'], ['gym.maps', 'maps']],
     1: [['owner.name', 'req'], ['owner.mob', 'tel'], ['owner.alt', 'tel?'], ['owner.email', 'email?'], ['poc.name', 'req'], ['poc.mob', 'tel'], ['poc.alt', 'tel?'], ['poc.email', 'email?']],
   };
   const check = (v, r) => {
@@ -1998,6 +2016,7 @@ const PT = (() => {
     if (!v) return opt ? '' : 'Required';
     if (r === 'tel' && digits(v).length !== 10) return 'Enter a 10-digit number';
     if (r === 'pin' && digits(v).length !== 6) return 'Enter a 6-digit PIN code';
+    if (r === 'maps' && parseMaps(v).bad) return 'Paste a Google Maps link';
     if (r === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return 'Enter a valid email';
     return '';
   };
@@ -2008,16 +2027,17 @@ const PT = (() => {
   };
 
   /* ---------- wizard ---------- */
-  const blankData = () => ({ gym:{ name:'', phone:'', email:'', addr1:'', addr2:'', area:'', city:'', state:'', pin:'' }, owner:{ name:'', email:'', mob:'', alt:'' }, poc:{ same:false, name:'', email:'', mob:'', alt:'' }, notes:'',
+  const blankData = () => ({ gym:{ name:'', phone:'', email:'', addr1:'', addr2:'', area:'', city:'', state:'', pin:'', maps:'' }, owner:{ name:'', email:'', mob:'', alt:'' }, poc:{ same:false, name:'', email:'', mob:'', alt:'' }, notes:'',
     eq:{ items:[], bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20', '25'] } });
   const newWiz = (mode = 'create', g = null) => ({ mode, step:0, err:{}, gymId: g ? g.id : null,
-    d: g ? { gym:{ name:g.n, phone:g.phone, email:g.email, addr1:g.addr1, addr2:g.addr2, area:g.area, city:g.city, state:g.state, pin:g.pin }, owner:clone(g.owner), poc:clone(g.poc), notes:g.notes, eq:clone(g.eq) } : blankData() });
+    d: g ? { gym:{ name:g.n, phone:g.phone, email:g.email, addr1:g.addr1, addr2:g.addr2, area:g.area, city:g.city, state:g.state, pin:g.pin, maps:g.maps || '' }, owner:clone(g.owner), poc:clone(g.poc), notes:g.notes, eq:clone(g.eq) } : blankData() });
   const vWizard = () => {
     const W = S.wiz, d = W.d, names = W.mode === 'edit' ? ['Gym details', 'Contacts'] : STEPS_CREATE, last = W.step === names.length - 1;
     const stepper = `<div class="wsteps" style="grid-template-columns:repeat(${names.length},1fr)">${names.map((t, i) => `<div class="wstep ${i < W.step ? 'done' : i === W.step ? 'now' : ''}" ${i < W.step ? `data-a="wizgo" data-i="${i}" style="cursor:pointer"` : ''}><span class="wbar"></span><span class="wsk">Step ${i + 1}</span><span class="wsl">${t}${i === 2 ? '<span class="wso">optional</span>' : ''}</span></div>`).join('')}</div>`;
     let body = '';
     if (W.step === 0) body = fCard('Gym details', fGrid(`${inp('Gym name', 'gym.name', { full:1 })}${inp('Phone', 'gym.phone', { pre:'+91', mask:'tel' })}${inp('Email', 'gym.email', { type:'email' })}
-      ${inp('Address line 1', 'gym.addr1', { full:1, ph:'Building, street' })}${inp('Address line 2', 'gym.addr2', { full:1, opt:1, ph:'Floor, landmark' })}${inp('Area / locality', 'gym.area')}${inp('City', 'gym.city')}${selState()}${inp('PIN code', 'gym.pin', { mask:'pin' })}`));
+      ${inp('Address line 1', 'gym.addr1', { full:1, ph:'Building, street' })}${inp('Address line 2', 'gym.addr2', { full:1, opt:1, ph:'Floor, landmark' })}${inp('Area / locality', 'gym.area')}${inp('City', 'gym.city')}${selState()}${inp('PIN code', 'gym.pin', { mask:'pin' })}
+      ${inp('Google Maps link', 'gym.maps', { full:1, type:'url', ph:'Paste the gym’s share link' })}<div class="full" id="pt-geo" style="margin-top:-8px">${geoMeta(d.gym.maps)}</div>`));
     if (W.step === 1) body = `${fCard('Owner', person('owner', false))}${fCard('Point of contact', person('poc', d.poc.same), `<span class="dcheck${d.poc.same ? ' on' : ''}" data-a="same" role="checkbox" aria-checked="${d.poc.same}" tabindex="0"><span class="box">${d.poc.same ? icon('check', 12, 'stroke-width="3"') : ''}</span>Same as owner</span>`)}
       ${fCard('Notes <span class="optl">optional</span>', fGrid(`<div class="dfld full"><div class="fi ta"><textarea data-f="notes">${esc(d.notes)}</textarea></div></div>`))}`;
     if (W.step === 2) body = vEditor(d.eq);
@@ -2090,6 +2110,7 @@ const PT = (() => {
         <div class="kv"><span>Owner</span><b>${esc(g.owner.name)} · +91 ${tel(g.owner.mob)}</b></div>
         <div class="kv"><span>Point of contact</span><b>${g.poc.same ? 'Same as owner' : `${esc(p.name)} · +91 ${tel(p.mob)}`}</b></div>
         <div class="kv"><span>Gym phone</span><b>+91 ${tel(g.phone)}</b></div>
+        <div class="kv"><span>Location</span><b>${g.maps ? `<a class="dbtn sec sm" href="${esc(g.maps)}" target="_blank" rel="noopener">${icon('pin', 13)}Open in Maps</a>` : '<span class="mut">Not set</span>'}</b></div>
         <div class="kv"><span>Owner console</span><b class="row gap8">${g.signedIn ? '<span class="tag good">Signed in</span>' : '<span class="tag warn">Not signed in</span><button class="dbtn sec sm" data-a="resend">Resend link</button>'}</b></div>
         <div class="kv"><span>${g.live ? 'Live since' : 'Goes live'}</span>${golive}</div>
         <div class="kv"><span>Gym QR</span><b><button class="dbtn sec sm" data-a="qr">${icon('qr', 13)}Download</button></b></div></div>
@@ -2152,7 +2173,17 @@ const PT = (() => {
   const go = (route, extra = {}) => { Object.assign(S, { route, modal:null, ta:{ q:'', i:0, open:false, res:[], n:0 } }, extra); render(); };
   const focusFirstErr = () => { const el = root.querySelector('.dfld.err input, .dfld.err select'); if (el) el.focus(); };
 
-  const saveGymFrom = (d, g) => Object.assign(g, { n:d.gym.name.trim(), phone:digits(d.gym.phone), email:d.gym.email.trim(), addr1:d.gym.addr1.trim(), addr2:d.gym.addr2.trim(), area:d.gym.area.trim(), city:d.gym.city.trim(), state:d.gym.state, pin:digits(d.gym.pin),
+  // Accept google.com/maps and maps.app.goo.gl links. Coordinates come from the URL when present;
+  // short links are resolved by the server (the prototype uses a sample point).
+  const MAPS_RE = /^https?:\/\/((www\.)?google\.[a-z.]+\/maps|maps\.google\.[a-z.]+|maps\.app\.goo\.gl|goo\.gl\/maps)/i;
+  const parseMaps = u => {
+    u = String(u || '').trim(); if (!u) return null;
+    if (!MAPS_RE.test(u)) return { bad:true };
+    const m = u.match(/@(-?\d{1,2}\.\d+),(-?\d{1,3}\.\d+)/) || u.match(/[?&](?:q|query|ll)=(-?\d{1,2}\.\d+),\s*(-?\d{1,3}\.\d+)/);
+    return { lat: m ? +m[1] : 17.9784, lng: m ? +m[2] : 79.5941, url:u };
+  };
+  const geoMeta = u => { const g = parseMaps(u); return g && !g.bad ? mapsMeta(`${g.lat.toFixed(4)}° N, ${g.lng.toFixed(4)}° E`, esc(g.url)) : ''; };
+  const saveGymFrom = (d, g) => Object.assign(g, { maps:d.gym.maps.trim(), n:d.gym.name.trim(), phone:digits(d.gym.phone), email:d.gym.email.trim(), addr1:d.gym.addr1.trim(), addr2:d.gym.addr2.trim(), area:d.gym.area.trim(), city:d.gym.city.trim(), state:d.gym.state, pin:digits(d.gym.pin),
     owner:Object.assign(clone(d.owner), { mob:digits(d.owner.mob), alt:digits(d.owner.alt) }), poc: d.poc.same ? { same:true, name:'', email:'', mob:'', alt:'' } : Object.assign(clone(d.poc), { mob:digits(d.poc.mob), alt:digits(d.poc.alt) }), notes:d.notes });
   const createGym = withEquip => {
     const d = S.wiz.d, slug = d.gym.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'gym';
@@ -2163,7 +2194,7 @@ const PT = (() => {
   const fillSample = () => {
     if (S.route !== 'add' || S.wiz.mode !== 'create') S.wiz = newWiz();
     S.route = 'add';
-    Object.assign(S.wiz.d, { gym:{ name:'FitZone Unisex Gym', phone:'9876543210', email:'fitzone.hnk@gmail.com', addr1:'1st floor, Sai Plaza, Hanamkonda Main Road', addr2:'', area:'Hanamkonda', city:'Warangal', state:'Telangana', pin:'506001' },
+    Object.assign(S.wiz.d, { gym:{ name:'FitZone Unisex Gym', phone:'9876543210', email:'fitzone.hnk@gmail.com', addr1:'1st floor, Sai Plaza, Hanamkonda Main Road', addr2:'', area:'Hanamkonda', city:'Warangal', state:'Telangana', pin:'506001', maps:'https://maps.app.goo.gl/Wg9HnKd3Fz1t' },
       owner:{ name:'Ramesh Goud', email:'', mob:'9848022338', alt:'' }, poc:{ same:false, name:'Anil Kumar', email:'', mob:'9959012345', alt:'' }, notes:'Prefers calls after 2 PM' });
     S.wiz.err = {}; render();
   };
@@ -2242,6 +2273,7 @@ const PT = (() => {
       const W = S.wiz, p = t.dataset.f;
       setP(W.d, p, t.value);
       if (W.err[p]){ delete W.err[p]; const f = t.closest('.dfld'); f.classList.remove('err'); const m = f.querySelector('.ferr'); m && m.remove(); }
+      if (p === 'gym.maps'){ const h = root.querySelector('#pt-geo'); if (h) h.innerHTML = geoMeta(t.value); }
       if (p.startsWith('owner.') && W.d.poc.same){ const m = root.querySelector(`[data-f="poc.${p.slice(6)}"]`); if (m) m.value = t.value; }
     }
   }
