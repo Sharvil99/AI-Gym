@@ -62,6 +62,7 @@ Phones scale to your window height; the owner console frames scale to its width.
   - **Beginner rule:** missed by 1–2 reps keeps the weight; missed by 3 or more drops the remaining sets about 10% (shown as "35 kg · was 40"). Undo restores the plan.
   - **Feedback:** "How did it feel?" (Too easy / Just right / Hard, optional) appears only after a fully completed exercise. If any set was short, the reps say it and the button goes straight to the next exercise.
   - **Colour:** reps are orange when short ("32/36") and green when complete ("36/36"). Weights and feelings stay neutral.
+- **Pain and stop states are calm.** Red (#E5534B dark, #CF222E light) is only an accent: the alert icon, the selected option's border and check. Hold and medical-guidance boxes are neutral cards; nothing is a filled red box.
 - **Instant swaps.** The trainer approves each exercise's alternatives, with their own weights, as part of the plan, so a swap doesn't wait for anyone. Pick one and it switches; "Back to …" restores the original. Swaps work until the first set is done or the cardio timer starts, then the options are greyed out.
 - **Trainer help in the action row.** How to · Swap · Trainer sit together on the exercise card. Trainer is the accent item with a ripple, and during a request it shows the status (Sent / Accepted / On the way). There's no floating button.
 - **Timer only on cardio.** Treadmill, bike and similar have a countdown with pause and done. There's no rest timer and no running workout clock; total time only appears in the summary.

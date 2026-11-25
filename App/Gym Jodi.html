@@ -1191,6 +1191,24 @@ button.tag{border:0;font-family:inherit;cursor:pointer}
 .sv-t.ed input{width:100%;min-width:0;background:none;border:0;outline:0;color:var(--text);font-family:inherit;font-size:20px;font-weight:700;letter-spacing:-.02em;padding:0;font-variant-numeric:tabular-nums}
 .sv-t.ed input::placeholder{color:var(--text-3);font-weight:500;font-size:14px;letter-spacing:0}
 .scan-grid.two.tight{gap:8px}
+/* Pain & stop: a calmer red, used as an accent (icon, border, check), never as a filled box */
+.theme-dark{--red:#E5534B}
+.theme-light{--red:#CF222E}
+.hold{background:var(--card-2);border:1px solid var(--line-2)}
+.theme-light .hold{background:var(--card);border-color:transparent;box-shadow:var(--card-shadow)}
+.hold .ht{color:var(--text)}
+.hold .ht .ic{color:var(--red)}
+.hold p{color:var(--text-2)}
+.info.stop .ic{color:var(--red)}
+.goal.danger.on{background:var(--card);border-color:color-mix(in srgb,var(--red) 75%,transparent)}
+.goal.danger.on .em{background:var(--raised)}
+.theme-light .goal.danger.on .em{background:var(--card-2)}
+.hrow.danger{background:var(--card-2);border-color:var(--line)}
+.theme-light .hrow.danger{border-color:transparent}
+.hrow.danger .hi{background:var(--raised);color:var(--red)}
+.theme-light .hrow.danger .hi{background:#fff}
+.hrow.danger .ht{color:var(--text)}
+.badico{background:color-mix(in srgb,var(--red) 12%,transparent);box-shadow:none}
 </style>
 </head>
 <body class="theme-dark">
@@ -1965,7 +1983,7 @@ const actionRow = (s) => {
   return `<div class="qa ${out ? 'two' : 'three'}">
     <button data-act="demo"><span class="qa-ic">${icon('video',19)}</span>How to</button>
     <button data-act="swap"><span class="qa-ic">${icon('swap',19)}</span>Swap</button>
-    ${out ? '' : `<button class="qa-tr${live ? ' live' : ''}" data-act="${live ? 'showReq' : 'help'}"><span class="qa-ic">${icon('headset',19)}</span>${label}</button>`}</div>`;
+    ${out ? '' : `<button class="qa-tr${live ? ' qa-on' : ''}" data-act="${live ? 'showReq' : 'help'}"><span class="qa-ic">${icon('headset',19)}</span>${label}</button>`}</div>`;
 };
 S.active = (s) => {
   const ex = liveEx(s), log = s.log[s.ex], held = !!s.holds[s.ex], cardio = ex.kind === 'cardio', cur = curSet(s);
@@ -2086,7 +2104,7 @@ const painSheet = (s) => {
     <div class="badico" style="margin-top:8px">${icon('alert',32)}</div>
     <div style="text-align:center;margin-top:20px;padding:0 8px"><div class="h2">Stop ${ex.name}</div><p class="t13 muted" style="margin-top:6px;line-height:19px">${s.where === 'outside' ? `Coach ${COACH.first} has been told.` : `A trainer has been asked to come to <b style="color:var(--text)">${ex.station}</b>.`}</p></div>
     ${s.where === 'outside' ? '' : `<div class="card mt16" style="padding:14px 16px"><div class="row gap12"><span class="tile-ic" style="color:var(--orange)">${icon('headset',18)}</span><div style="flex:1"><div style="font-weight:600;font-size:14px">Trainer request · ${reqWord(s)}</div><div class="t12 muted">Sent ${REQ_T.sent} · pain or discomfort</div></div></div></div>`}
-    <div class="hold mt12" style="padding:14px 16px"><p style="margin:0">If the pain is severe or sudden, or you feel dizzy, short of breath or unwell, stop training and get medical help.</p></div>
+    <div class="info stop mt12">${icon('alert',18)}<span>If the pain is severe or sudden, or you feel dizzy, short of breath or unwell, stop training and get medical help.</span></div>
     <div class="btnrow mt16"><button class="btn sec" data-act="closeSheet">Back</button>${more ? `<button class="btn pri" data-act="nextEx">Next exercise${icon('arrow',16)}</button>` : `<button class="btn pri" data-act="finish">Finish workout</button>`}</div>`);
 };
 
@@ -2509,8 +2527,8 @@ function renderCanvas(){
 function renderSwatches(){
   const dark = document.body.classList.contains('theme-dark');
   const list = dark
-    ? [['Background','#121212'],['Card','#1E1E1E'],['Raised','#2C2C2C'],['Accent',BRAND.accent.dark],['Text 2','#9A9A9A'],['Success','#3DDC84'],['Warning','#FF9F43'],['Stop · pain','#FF5A5F']]
-    : [['Background','#F5F5F7'],['Card','#FFFFFF'],['Raised','#EEEEF1'],['Accent',BRAND.accent.light],['Text 2','#6E6E76'],['Success','#3DDC84'],['Warning','#FF9F43'],['Stop · pain','#FF5A5F']];
+    ? [['Background','#121212'],['Card','#1E1E1E'],['Raised','#2C2C2C'],['Accent',BRAND.accent.dark],['Text 2','#9A9A9A'],['Success','#3DDC84'],['Warning','#FF9F43'],['Stop · pain','#E5534B']]
+    : [['Background','#F5F5F7'],['Card','#FFFFFF'],['Raised','#EEEEF1'],['Accent',BRAND.accent.light],['Text 2','#6E6E76'],['Success','#3DDC84'],['Warning','#FF9F43'],['Stop · pain','#CF222E']];
   document.getElementById('swatches').innerHTML = list.map(([n, v]) => `<div class="sw"><i style="background:${v}"></i><b>${n}</b><span>${v}</span></div>`).join('');
 }
 
