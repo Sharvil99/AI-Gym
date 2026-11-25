@@ -1033,6 +1033,133 @@ button.tag{border:0;font-family:inherit;cursor:pointer}
 .theme-light .ag-ic{color:color-mix(in srgb,var(--accent) 85%,#000)}
 .ag-ic.warn{background:color-mix(in srgb,var(--orange) 16%,transparent);color:var(--orange)}
 .outtag{position:absolute;top:196px;right:16px;z-index:6;height:28px;padding:0 10px;border-radius:999px;background:color-mix(in srgb,var(--orange) 16%,var(--card));color:var(--orange);font-size:12px;font-weight:600;display:flex;align-items:center;gap:6px}
+/* set list: each set's reps and weight; explicit Undo */
+.setlist{margin-top:14px;border-top:1px solid var(--line-2)}
+.theme-light .setlist{border-color:var(--line)}
+.sl{display:flex;align-items:center;gap:12px;height:52px;border-bottom:1px solid var(--line-2);padding:0 2px}
+.theme-light .sl{border-color:var(--line)}
+.sl:last-child{border-bottom:0}
+.sl-n{width:52px;font-size:14px;font-weight:700;color:var(--text-2)}
+.sl-v{flex:1;font-size:15px;font-weight:600;color:var(--text-2);font-variant-numeric:tabular-nums}
+.sl.cur .sl-n,.sl.cur .sl-v{color:var(--text)}
+.sl.done .sl-v{color:var(--text)}
+.sl-ck{width:30px;height:30px;border-radius:50%;border:2px solid var(--text-3);background:transparent;display:grid;place-items:center;cursor:pointer;flex:none;padding:0;box-sizing:border-box}
+.sl.cur .sl-ck{border-color:var(--accent)}
+.sl-ck.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);cursor:default}
+.sl-undo{background:none;border:0;font:600 13px var(--font);color:var(--text-2);padding:6px 4px;cursor:pointer}
+.btn.cant{flex:.8;height:56px}
+/* couldn't finish: reps per set */
+.prows{margin-top:4px}
+.pr{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line-2)}
+.theme-light .pr{border-color:var(--line)}
+.pr-l{flex:1;display:flex;flex-direction:column;gap:2px}
+.pr-l b{font-size:15px;font-weight:700}
+.pr-l span{font-size:12px;color:var(--text-2)}
+.pstep{display:flex;align-items:center;gap:4px;background:var(--card-2);border-radius:14px;padding:4px}
+.theme-light .pstep{background:var(--raised)}
+.pstep button{width:40px;height:40px;border-radius:10px;border:0;background:var(--raised);color:var(--text);font:600 20px var(--font);cursor:pointer}
+.theme-light .pstep button{background:var(--card)}
+.pstep b{min-width:36px;text-align:center;font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
+.ptotal{margin-top:12px;font-size:13px;font-weight:600;color:var(--text-2);text-align:right}
+/* set list v2: done = muted fill, current = accent card with NOW, upcoming = outline */
+.setlist{border-top:0;display:flex;flex-direction:column;gap:6px}
+.sl,.sl:last-child{height:54px;border:1px solid var(--line-2);border-radius:14px;padding:0 10px 0 14px}
+.theme-light .sl,.theme-light .sl:last-child{border-color:var(--line-2)}
+.sl.done{background:var(--card-2);border-color:transparent}
+.theme-light .sl.done{background:var(--raised)}
+.sl.cur{background:var(--accent-soft);border:1.5px solid var(--accent)}
+.sl.cur .sl-n,.sl.cur .sl-v{color:var(--text);font-weight:700}
+.sl-n{display:flex;align-items:center;gap:6px;width:auto;min-width:52px}
+.sl-n i{font-style:normal;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;background:var(--accent);color:var(--accent-ink);padding:2px 6px;border-radius:999px}
+.sl.cur .sl-ck{border-color:var(--accent);width:32px;height:32px}
+.sl.skip{border-style:dashed}
+.sl.skip .sl-v{color:var(--text-3)}
+.sl.short .sl-v em{font-style:normal;color:var(--orange);font-weight:800}
+.sl-ck.off{border-color:var(--text-3);color:var(--text-3);cursor:default}
+.rxpart{display:flex;align-items:center;gap:10px;margin-top:16px;padding:12px 14px;border-radius:16px;background:color-mix(in srgb,var(--orange) 10%,var(--card-2))}
+.theme-light .rxpart{background:color-mix(in srgb,var(--orange) 10%,var(--raised))}
+.rxpart .rp{flex:1;font-size:14px;color:var(--text-2)}
+.rxpart .rp b{font-size:22px;color:var(--text);font-weight:800;margin-right:2px}
+.rxpart button{background:none;border:0;font:600 13px var(--font);color:var(--text);text-decoration:underline;cursor:pointer;padding:6px}
+/* current set: green tint only (no badge, no border) */
+.sl.cur{background:var(--accent-soft);border-color:transparent}
+.theme-light .sl.cur{border-color:transparent}
+.sl-adj{display:inline-flex;margin-left:8px;height:20px;padding:0 7px;border-radius:999px;font-size:11px;font-weight:700;align-items:center;background:color-mix(in srgb,var(--orange) 16%,transparent);color:var(--orange);vertical-align:1px}
+.adjnote{display:flex;align-items:center;gap:3px;font-style:normal;font-size:11px;font-weight:600;color:var(--orange);margin-top:2px}
+.rxpart.ok{background:color-mix(in srgb,var(--green) 10%,var(--card-2))}
+.theme-light .rxpart.ok{background:color-mix(in srgb,var(--green) 10%,var(--raised))}
+.endearly{display:block;margin:12px auto 0;background:none;border:0;font:600 13px var(--font);color:var(--text-2);padding:6px 8px;cursor:pointer}
+.bigstep{display:flex;align-items:center;justify-content:center;gap:20px;margin-top:12px}
+.bigstep button{width:56px;height:56px;border-radius:18px;border:0;background:var(--raised);color:var(--text);font:600 26px var(--font);cursor:pointer}
+.bigstep>div{display:flex;flex-direction:column;align-items:center;min-width:110px}
+.bigstep b{font-size:56px;font-weight:800;letter-spacing:-.03em;line-height:60px;font-variant-numeric:tabular-nums}
+.bigstep span{font-size:13px;color:var(--text-2);font-weight:600}
+/* v3: Couldn't complete sheet, neutral adjustments, orange = reps short, green = all reps */
+.rx b{font-weight:700}
+.adjnote{color:var(--text-3)}
+.sl-was{margin-left:6px;font-size:12px;font-weight:500;color:var(--text-3)}
+.sl-undo{font-size:12px;font-weight:600;color:var(--text-3)}
+.sl-v em{font-style:normal}
+.rp-short{color:var(--orange);font-weight:700}
+.rp-full{color:var(--green);font-weight:700}
+.theme-light .rp-short{color:#C46A00}
+.theme-light .rp-full{color:#1F9D57}
+.rxdone{display:flex;align-items:center;gap:10px;margin-top:16px;padding:14px 16px;border-radius:16px;background:var(--card-2);font-size:14px;font-weight:600;color:var(--text-2)}
+.theme-light .rxdone{background:var(--raised)}
+.rxdone b{font-size:20px;font-weight:700;letter-spacing:-.02em}
+.rxdone.full .ic,.rxdone.full b{color:var(--green)}
+.rxdone.short .ic,.rxdone.short b{color:var(--orange)}
+.theme-light .rxdone.full .ic,.theme-light .rxdone.full b{color:#1F9D57}
+.theme-light .rxdone.short .ic,.theme-light .rxdone.short b{color:#C46A00}
+.repgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.repgrid button{height:48px;border-radius:12px;border:0;background:var(--card-2);font:700 17px var(--font);color:var(--text);cursor:pointer;font-variant-numeric:tabular-nums}
+.theme-light .repgrid button{background:var(--raised)}
+.repgrid button.on{background:var(--accent);color:var(--accent-ink)}
+.nextline{min-height:20px;margin-top:16px;font-size:13px;font-weight:500;color:var(--text-2);text-align:center}
+.nextline b{color:var(--text);font-weight:700}
+.nextline span{color:var(--text-3);margin-left:6px}
+.painlink{display:block;margin:6px auto 0;background:none;border:0;font:600 13px var(--font);color:var(--red);padding:8px 12px;cursor:pointer}
+.feellist{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.feellist button{display:flex;align-items:center;gap:14px;min-height:64px;padding:0 16px;border-radius:16px;background:var(--card-2);border:1.5px solid transparent;text-align:left;font-family:inherit;color:var(--text);cursor:pointer}
+.theme-light .feellist button{background:var(--raised)}
+.feellist button.on{border-color:var(--accent);background:var(--accent-soft)}
+.feellist .lv{display:flex;align-items:flex-end;gap:3px;width:24px;height:18px}
+.feellist .lv i{width:5px;border-radius:2px;background:var(--text-3)}
+.feellist .lv i.f{background:var(--accent)}
+.feellist b{display:block;font-size:15px;font-weight:700}
+.feellist .fs{display:block;font-size:12px;color:var(--text-2);margin-top:1px}
+/* rep ruler in the Couldn't complete sheet (same component as the weight ruler) */
+.repwt{margin-top:18px}
+.repwt b{font-size:64px}
+.sheet .ruler{margin-top:8px}
+/* rep scroller: numbers scroll, selected one large on a lens, neighbours shrink and fade */
+.rpick{position:relative;height:112px;margin-top:20px;overflow:hidden;touch-action:none;user-select:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent);mask-image:linear-gradient(90deg,transparent,#000 22%,#000 78%,transparent)}
+.proto .rpick{cursor:ew-resize}
+.rp-lens{position:absolute;left:50%;top:6px;bottom:6px;width:84px;transform:translateX(-50%);border-radius:24px;background:var(--raised)}
+.rp-track{position:absolute;left:50%;top:0;bottom:0;transition:transform .2s cubic-bezier(.2,.8,.2,1)}
+.rp-n{position:absolute;top:50%;transform:translate(-50%,-50%);font-weight:600;line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em;transition:font-size .2s,color .2s,opacity .2s;cursor:pointer}
+.rp-n.d0{font-size:56px;font-weight:700;color:var(--text)}
+.rp-n.d1{font-size:30px;color:var(--text-2)}
+.rp-n.d2{font-size:24px;color:var(--text-3)}
+.rp-n.d3{font-size:20px;color:var(--text-3);opacity:.45}
+.rp-cap{text-align:center;font-size:13px;font-weight:600;color:var(--text-2);margin-top:8px}
+/* action row: How to · Swap · Trainer (Trainer = accent circle with the ripple from the old floating button) */
+.qa.three{grid-template-columns:repeat(3,1fr)}
+.qa .qa-ic{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;background:var(--raised);position:relative}
+.qa .qa-tr{font-weight:700}
+.qa .qa-tr .qa-ic{background:var(--accent);box-shadow:0 6px 18px color-mix(in srgb,var(--accent) 30%,transparent)}
+.qa .qa-tr .qa-ic .ic,.theme-light .qa .qa-tr .qa-ic .ic{color:var(--accent-ink)}
+.qa .qa-tr .qa-ic::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--accent);opacity:.5;animation:ripple 2.2s ease-out infinite}
+
+/* Progress · Log weight */
+.btn.sec.xs{height:34px;padding:0 12px 0 10px;font-size:13px;font-weight:700;gap:4px;border-radius:999px}
+.wlog{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:28px}
+.wl-step{width:52px;height:52px;border-radius:50%;background:var(--raised);display:grid;place-items:center;color:var(--text);flex:none}
+.theme-light .wl-step{background:var(--card-2)}
+.wl-box{display:flex;align-items:baseline;justify-content:center;gap:6px;height:84px;padding:0 18px;border-radius:20px;border:1.5px solid var(--line-2);background:var(--card-2);cursor:text;transition:border-color .15s}
+.wl-box:focus-within{border-color:var(--accent)}
+.wl-box input{width:4.2ch;font-family:inherit;font-size:44px;font-weight:700;line-height:84px;height:84px;letter-spacing:-.03em;text-align:right;background:none;border:0;outline:0;color:var(--text);font-variant-numeric:tabular-nums;padding:0}
+.wl-box span{font-size:17px;font-weight:600;color:var(--text-2)}
 </style>
 </head>
 <body class="theme-dark">
@@ -1069,6 +1196,7 @@ const BRAND = {
    Cardio exercises have a timer; strength exercises don't.
    ========================================================= */
 const APP = 'Gym Jodi';
+const AI_NAME = 'Jod.ai'; // the AI coach: builds the plan on day one, restructures it every 4 weeks, answers questions
 const ME = { name:'Arjun Reddy', first:'Arjun', age:28, since:'Aug 2026', heightCm:178, phone:'+91 98480 ••214' };
 const COACH = { name:'Ravi Kumar', first:'Ravi', role:'Strength & Conditioning', rating:4.9, shift:'until 10 PM' };
 const BRANCH = 'Banjara Hills';
@@ -1079,15 +1207,15 @@ const TODAY = { title:'Full Body A', sub:'Machines & cardio', mins:40, date:'Thu
 const EX = [
   { kind:'cardio', name:'Treadmill Walk', mus:['quads','calves'], view:'front', tags:'Warm-up', station:'Treadmill 3', mins:5, target:'Speed 5–6 km/h · incline 1', plan:[],
     cues:['Stand tall, look ahead, arms relaxed.','Start slow for the first minute, then reach the target speed.','Hold the rails only to get on and off.'] },
-  { kind:'strength', name:'Leg Press', mus:['quads','glutes'], view:'front', tags:'Legs', station:'Leg press', sets:3, reps:'12', load:'40 kg', unit:'kg', plan:[[40,12],[40,12],[40,12]],
+  { kind:'strength', name:'Leg Press', mus:['quads','glutes'], view:'front', tags:'Legs', station:'Leg press', sets:3, reps:'12', load:'35–40 kg', unit:'kg', plan:[[35,12],[40,12],[40,12]],
     cues:['Back flat against the pad, feet shoulder-width on the plate.','Lower until your knees are at about 90°.','Push through your heels. Don’t lock your knees at the top.'] },
-  { kind:'strength', name:'Chest Press Machine', mus:['chest','shoulders','triceps'], view:'front', tags:'Chest', station:'Chest press 1', sets:3, reps:'12', load:'20 kg', unit:'kg', plan:[[20,12],[20,12],[20,12]],
+  { kind:'strength', name:'Chest Press Machine', mus:['chest','shoulders','triceps'], view:'front', tags:'Chest', station:'Chest press 1', sets:3, reps:'12', load:'15–20 kg', unit:'kg', plan:[[15,12],[20,12],[20,12]],
     cues:['Seat so the handles line up with mid-chest.','Press forward without locking your elbows.','Come back slowly over 2 seconds.'] },
-  { kind:'strength', name:'Lat Pulldown', mus:['back','biceps'], view:'back', tags:'Back', station:'Cable stack 1', sets:3, reps:'12', load:'25 kg', unit:'kg', plan:[[25,12],[25,12],[25,12]],
+  { kind:'strength', name:'Lat Pulldown', mus:['back','biceps'], view:'back', tags:'Back', station:'Cable stack 1', sets:3, reps:'12', load:'20–25 kg', unit:'kg', plan:[[20,12],[25,12],[25,12]],
     cues:['Grip just outside your shoulders, chest up.','Pull your elbows down to your ribs.','Let the bar rise slowly.'] },
-  { kind:'strength', name:'Seated Cable Row', mus:['back','traps','biceps'], view:'back', tags:'Back', station:'Cable stack 2', sets:3, reps:'12', load:'20 kg', unit:'kg', plan:[[20,12],[20,12],[20,12]],
+  { kind:'strength', name:'Seated Cable Row', mus:['back','traps','biceps'], view:'back', tags:'Back', station:'Cable stack 2', sets:3, reps:'12', load:'15–20 kg', unit:'kg', plan:[[15,12],[20,12],[20,12]],
     cues:['Sit tall with a slight bend in your knees.','Pull your elbows back and squeeze your shoulder blades.','Keep your body still. No rocking.'] },
-  { kind:'strength', name:'Dumbbell Shoulder Press', mus:['shoulders','triceps'], view:'front', tags:'Shoulders', station:'Dumbbell rack', sets:2, reps:'10', load:'5 kg each', unit:'kg each', note:'Ravi watches your first set', plan:[[5,10],[5,10]],
+  { kind:'strength', name:'Dumbbell Shoulder Press', mus:['shoulders','triceps'], view:'front', tags:'Shoulders', station:'Dumbbell rack', sets:2, reps:'10', load:'4–5 kg each', unit:'kg each', note:'Ravi watches your first set', plan:[[4,10],[5,10]],
     cues:['Sit on a bench with back support, core tight.','Press up until your arms are nearly straight.','Lower to chin height. Stop if your shoulder pinches.'] },
   { kind:'cardio', name:'Upright Bike', mus:['quads','calves'], view:'front', tags:'Cardio', station:'Upright bike 2', mins:10, target:'Level 4–5 · a pace you can talk at', plan:[],
     cues:['Seat at hip height; a slight bend in the knee at the bottom.','Keep a steady pace for the whole time.','Slow down in the last minute to cool down.'] },
@@ -1105,15 +1233,15 @@ const WEEK_MUSCLES = [
   { k:'Chest', mus:['chest'], view:'front', crop:'upper', done:3, plan:9, today:true },
   { k:'Shoulders', mus:['shoulders'], view:'front', crop:'upper', done:2, plan:7, today:true },
 ];
-// Trainer-approved alternatives per exercise (gym's equipment list only).
+// Alternatives per exercise, approved by the trainer with the plan (weights included), so swapping is instant.
 const SWAPS = {
-  0:[{ name:'Cross-trainer', station:'Cross-trainer 2' }, { name:'Upright Bike', station:'Upright bike 2' }],
-  1:[{ name:'Horizontal Leg Press', station:'Horizontal leg press' }, { name:'Goblet Squat', station:'Dumbbell rack' }],
-  2:[{ name:'Pec Deck', station:'Pec deck' }, { name:'Dumbbell Bench Press', station:'Flat bench 1' }],
-  3:[{ name:'Neutral-grip Pulldown', station:'Cable stack 1' }],
-  4:[{ name:'Seated Row Machine', station:'Row machine' }],
-  5:[{ name:'Shoulder Press Machine', station:'Shoulder press 1' }],
-  6:[{ name:'Rowing Machine', station:'Rower 1' }, { name:'Cross-trainer', station:'Cross-trainer 2' }],
+  0:[{ name:'Cross-trainer', station:'Cross-trainer 2', kind:'cardio', mins:5, target:'Level 4–5 · easy pace' }, { name:'Upright Bike', station:'Upright bike 2', kind:'cardio', mins:5, target:'Level 3–4 · easy pace' }],
+  1:[{ name:'Horizontal Leg Press', station:'Horizontal leg press', reps:'12', load:'30–35 kg', unit:'kg', plan:[[30,12],[35,12],[35,12]] }, { name:'Goblet Squat', station:'Dumbbell rack', reps:'12', load:'8–10 kg', unit:'kg', plan:[[8,12],[10,12],[10,12]] }],
+  2:[{ name:'Pec Deck', station:'Pec deck', reps:'12', load:'15–20 kg', unit:'kg', plan:[[15,12],[20,12],[20,12]] }, { name:'Dumbbell Bench Press', station:'Flat bench 1', reps:'12', load:'6–8 kg each', unit:'kg each', plan:[[6,12],[8,12],[8,12]] }],
+  3:[{ name:'Neutral-grip Pulldown', station:'Cable stack 1', reps:'12', load:'20–25 kg', unit:'kg', plan:[[20,12],[25,12],[25,12]] }],
+  4:[{ name:'Seated Row Machine', station:'Row machine', reps:'12', load:'15–20 kg', unit:'kg', plan:[[15,12],[20,12],[20,12]] }],
+  5:[{ name:'Shoulder Press Machine', station:'Shoulder press 1', reps:'10', load:'10–12.5 kg', unit:'kg', plan:[[10,10],[12.5,10]] }],
+  6:[{ name:'Rowing Machine', station:'Rower 1', kind:'cardio', mins:10, target:'Steady · 20–24 strokes a minute' }, { name:'Cross-trainer', station:'Cross-trainer 2', kind:'cardio', mins:10, target:'Level 4–5 · a pace you can talk at' }],
 };
 const WEEK = [ // week 2: 16–22 Nov 2026
   { d:'Mon', n:16, t:'Full Body B', tags:['Legs','Back'], st:'done' },
@@ -1124,14 +1252,14 @@ const WEEK = [ // week 2: 16–22 Nov 2026
   { d:'Sat', n:21, t:'Full Body B', tags:['Legs','Back','Core'], st:'next' },
   { d:'Sun', n:22, t:'Rest day', sub:'Full rest', st:'rest' },
 ];
-const WEIGHTS = [88.2,88.0,87.6,87.7,87.1,86.8,86.9,86.2,85.9,85.6,85.4,85.0]; // self-reported weigh-ins
+const WEIGHTS = [88.2,88.0,87.6,87.7,87.1,86.8,86.9,86.2,85.9,85.6,85.4,85.0]; // weekly weigh-ins, Sun 31 Aug → Sun 16 Nov
 const SET_WEIGHTS = [ // weights Coach Ravi set, week by week
   { k:'Leg Press', v:'40 kg', d:'Up from 30 kg', data:[30,30,35,35,40] },
   { k:'Chest Press', v:'20 kg', d:'Up from 15 kg', data:[15,15,17.5,20,20] },
   { k:'Lat Pulldown', v:'25 kg', d:'Up from 20 kg', data:[20,20,22.5,22.5,25] },
 ];
 const VISITS = [2,4,6,9,11,13,16,19]; // November check-ins
-const FEEL = [['easy','Too easy','Could do a lot more'],['right','Just right','Last reps were hard'],['hard','Hard','Barely finished'],['fail','Couldn’t finish','Stopped early']];
+const FEEL = [['easy','Too easy','Could do a lot more'],['right','Just right','Last reps were hard'],['hard','Hard','Barely got there']];
 const CHAT_DEFAULT = [
   { who:'sep', t:'Sunday' },
   { who:'recap' },
@@ -1145,9 +1273,9 @@ const AI_SRC = {
   cues:['badge','From Iron Temple’s approved cues'],
   plan:['clipboard','From your approved plan'],
   equip:['pin','From Iron Temple’s equipment list'],
-  ai:['sparkles','AI answer · checked against your plan'],
+  ai:['sparkles',`${AI_NAME} · checked against your plan`],
   stop:['alert','Safety · trainer needed'],
-  limit:['clock','Quick answer · AI limit reached'],
+  limit:['clock','Quick answer · daily limit reached'],
 };
 const AI_DEFAULT = [
   { who:'me', t:'How should I breathe on the leg press?' },
@@ -1339,7 +1467,7 @@ const C = {
   },
   tabBar(active){
     const t = (k, ic, lb) => `<button class="tab ${active === k ? 'on' : ''}" data-act="tab" data-arg="${k}">${icon(ic, 21)}${lb}</button>`;
-    return `<nav class="tabbar">${t('workout','dumbbell','Workout')}${t('ai','sparkles','AI Coach')}${t('coach','chat','Trainer')}${t('profile','user','Progress')}</nav>`;
+    return `<nav class="tabbar">${t('workout','dumbbell','Workout')}${t('ai','sparkles',AI_NAME)}${t('coach','chat','Trainer')}${t('profile','user','Progress')}</nav>`;
   },
   trnTabBar(active, s){
     const open = s.req && s.req.status !== 'resolved' ? 1 : 0;
@@ -1351,7 +1479,7 @@ const C = {
     const sub = c ? (s.cardio.left != null ? `<span data-tick="cardio">${fmt(s.cardio.left)}</span> left` : `${ex.mins} min`) : `Set ${Math.min(curSet(s) + 1, s.log[s.ex].length)}/${s.log[s.ex].length}`;
     return `<div class="minibar" data-act="resume">
       <div style="flex:1;min-width:0"><div class="lbl"><i></i>WORKOUT IN PROGRESS</div><div class="nm">${ex.name} <span class="muted" style="font-weight:500">· ${sub}</span></div></div>
-      <div class="tm">${icon('clock', 16)}<span data-tick="elapsed">${fmt(s.elapsed)}</span></div></div>`;
+      <div class="tm">${s.ex + 1}<span class="muted" style="font-weight:600"> / ${EX.length}</span></div></div>`;
   },
   avatar(who = 'coach', size = 44){
     const pal = who === 'coach' ? ['#3B4A5E','#1F2733','#8FA3BC'] : ['#5E4A3B','#2E241D','#C4A68C'];
@@ -1435,12 +1563,24 @@ const C = {
 const planLog = () => EX.map(e => (e.plan || []).map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })));
 const liveEx = (s, i = s.ex) => s.overrides[i] || EX[i];
 const isCardio = (s, i = s.ex) => liveEx(s, i).kind === 'cardio';
-const curSet = (s) => { const i = s.log[s.ex].findIndex(x => !x.done); return i < 0 ? s.log[s.ex].length : i; };
+const curSet = (s) => { const i = s.log[s.ex].findIndex(x => !x.done && !x.skip); return i < 0 ? s.log[s.ex].length : i; };
+// Beginner rule: missed by 1–2 reps → keep the weight; missed by 3+ (or 0 reps) → remaining sets ~10% lighter.
+// Steps: 1 kg up to 10 kg (dumbbells), 2.5 kg above. Undo restores the plan.
+const stepOf = w => w <= 10 ? 1 : 2.5;
+const lighter = w => { const st = stepOf(w); return Math.max(st, Math.min(w - st, Math.floor(w * 0.9 / st) * st)); };
+function replan(log){
+  let carry = null;
+  log.forEach(x => {
+    if (x.done || x.skip){ const miss = x.skip ? x.r : x.got != null ? x.r - x.got : 0; if (miss >= 3) carry = lighter(x.w); return; }
+    const w = carry != null ? Math.min(x.pw, carry) : x.pw; x.w = w; x.adj = w < x.pw;
+  });
+}
+const repsOf = (log) => ({ done: log.reduce((a, x) => a + (x.done ? (x.got ?? x.r) : 0), 0), total: log.reduce((a, x) => a + x.r, 0), short: log.some(x => (x.done && x.got != null) || x.skip) });
 function metrics(s){
   const all = s.log.flat(), done = all.filter(x => x.done);
   return { sets:done.length, total:all.length, duration:s.elapsed || 0,
     exDone: EX.filter((_, i) => s.exDone[i]).length, exTotal: EX.length,
-    cardioMin: EX.reduce((a, e, i) => e.kind === 'cardio' && s.exDone[i] ? a + e.mins : a, 0),
+    cardioMin: EX.reduce((a, e, i) => e.kind === 'cardio' && s.exDone[i] ? a + (s.cardioDone[i] ?? e.mins) : a, 0),
     rated: EX.filter((_, i) => s.fb[i]).length };
 }
 // planned strength sets per muscle group (or only the ones done)
@@ -1453,9 +1593,9 @@ function freshState(){
     consent:{ terms:true, assess:true, photos:false, location:false },
     planStatus:'approved', planVer:2,
     loc:'in', where:null, locIssue:false, readiness:null,
-    running:false, elapsed:0, ex:0, log:planLog(), exDone:{}, fb:{}, fbFor:null,
+    running:false, elapsed:0, ex:0, log:planLog(), exDone:{}, fb:{}, fbFor:null, shortFor:null, shortVal:null, cardioDone:{}, weighToday:null, weighVal:null,
     cardio:{ left:null, total:0, paused:false },
-    sheet:null, holds:{}, overrides:{}, swapReq:null, offline:false, pendingSync:0,
+    sheet:null, holds:{}, overrides:{}, offline:false, pendingSync:0,
     req:null, chips:{ sore:false, joint:false, tired:false }, completed:false,
     chat:CHAT_DEFAULT.slice(), ai:AI_DEFAULT.slice(), aiCapped:false,
     ev:{ weight:null, progress:'some', support:'good', sore:'none', saved:false },
@@ -1474,7 +1614,8 @@ function completedState(){
   Object.assign(s, { route:'complete', where:'gym', readiness:'ready', elapsed:2480 });
   s.log.forEach(l => l.forEach(x => { x.done = true; }));
   EX.forEach((_, i) => { s.exDone[i] = true; });
-  Object.assign(s.fb, { 0:'right', 1:'easy', 2:'right', 3:'hard', 4:'right', 6:'right' }); // shoulder press not rated
+  Object.assign(s.fb, { 0:'right', 1:'easy', 2:'right', 3:'hard', 6:'right' }); // row was short (no question asked); shoulder press not rated
+  s.log[4][2].got = 8;
   return s;
 }
 const reqWord = (s) => !s.req ? 'not sent' : { sent:'waiting for a trainer', accepted:`accepted by ${COACH.first}`, onway:`${COACH.first} is on the way`, resolved:'resolved' }[s.req.status];
@@ -1588,7 +1729,7 @@ S.onbBuild = (s) => {
   return { pb:120, body:`
     <div class="onb-head"><span style="width:44px"></span><div class="onb-prog"><i style="width:100%"></i></div><span style="width:56px"></span></div>
     <div class="build-orb"><div class="o1"></div><div class="o2">${icon('sparkles', 36)}</div></div>
-    <div class="onb-title" style="padding-top:16px"><div class="h1">Building your plan</div><p>AI drafts it. Your trainer checks it<br>and sets every weight.</p></div>
+    <div class="onb-title" style="padding-top:16px"><div class="h1">Building your plan</div><p>${AI_NAME} drafts it. Your trainer checks it<br>and sets every weight.</p></div>
     <div class="card chk-list" style="margin:24px 16px 0;padding:6px 20px">${items.map(([ic, t], i) => `
       <div class="it" style="--d:${1.1 + i * 1.1}s"><span class="ico">${icon(ic, 18)}</span><span class="tx">${t}</span>
       <span class="st"><i class="sp"></i><i class="ok">${icon('check', 14, 'stroke-width="3"')}</i></span></div>`).join('')}</div>
@@ -1770,9 +1911,9 @@ S.detail = (s) => ({ body:`${C.nav({ title:TODAY.title, sub:TODAY.sub })}
    when done (no typing, no rest timer). Cardio: countdown timer.
    After each exercise: optional "How did it feel?" (MEM-11).
    ========================================================= */
-const FEEL_CARDIO = { easy:'Could go much longer', right:'Breathing hard, but OK', hard:'Struggled to keep the pace', fail:'Stopped early' };
+const FEEL_CARDIO = { easy:'Could go much longer', right:'Breathing hard, but OK', hard:'Struggled to keep the pace' };
 const feelLabel = k => (FEEL.find(f => f[0] === k) || [])[1];
-const feelTag = k => ({ easy:'acc', right:'good', hard:'warn', fail:'bad' }[k]);
+const feelTag = () => ''; // feelings are labels; green/orange are reserved for reps
 const ringC = 2 * Math.PI * 88;
 const cardioRing = (s, ex) => {
   const c = s.cardio, total = ex.mins * 60, left = c.left == null ? total : c.left, pct = (total - left) / total;
@@ -1781,50 +1922,85 @@ const cardioRing = (s, ex) => {
     <div class="ct-in"><b data-tick="cardio">${fmt(left)}</b><span>${c.left == null ? 'minutes' : c.paused ? 'paused' : 'left'}</span></div></div>`;
 };
 
+// How to · Swap · Trainer. Trainer is the strongest item; during a request it shows the status and opens it.
+const actionRow = (s) => {
+  const live = s.req && s.req.status !== 'resolved', out = s.where === 'outside';
+  const label = live ? { sent:'Sent', accepted:'Accepted', onway:'On the way' }[s.req.status] : 'Trainer';
+  return `<div class="qa ${out ? 'two' : 'three'}">
+    <button data-act="demo"><span class="qa-ic">${icon('video',19)}</span>How to</button>
+    <button data-act="swap"><span class="qa-ic">${icon('swap',19)}</span>Swap</button>
+    ${out ? '' : `<button class="qa-tr${live ? ' live' : ''}" data-act="${live ? 'showReq' : 'help'}"><span class="qa-ic">${icon('headset',19)}</span>${label}</button>`}</div>`;
+};
 S.active = (s) => {
-  const ex = liveEx(s), log = s.log[s.ex], held = !!s.holds[s.ex], cardio = ex.kind === 'cardio', cur = curSet(s), allDone = !cardio && cur >= log.length;
-  const prog = cardio ? (s.cardio.left == null ? 0 : (1 - s.cardio.left / (ex.mins * 60)) * 100) : cur / log.length * 100;
+  const ex = liveEx(s), log = s.log[s.ex], held = !!s.holds[s.ex], cardio = ex.kind === 'cardio', cur = curSet(s);
+  const allDone = !cardio && cur >= log.length, rs = cardio ? null : repsOf(log), nx = cardio ? null : log[Math.min(cur, log.length - 1)];
+  const unit = ex.unit === 'kg each' ? 'kg each' : 'kg';
+  const handled = cardio ? 0 : log.filter(x => x.done || x.skip).length;
+  const prog = cardio ? (s.cardio.left == null ? 0 : (1 - s.cardio.left / (ex.mins * 60)) * 100) : handled / log.length * 100;
   const segs = EX.map((_, i) => s.exDone[i] ? '<i class="on"></i>' : i === s.ex ? `<i class="cur" style="--p:${prog}%"></i>` : '<i></i>').join('');
   const nextI = EX.findIndex((_, i) => i > s.ex && !s.exDone[i]), nextEx = nextI > -1 ? liveEx(s, nextI) : null;
-  const swapPending = s.swapReq && s.swapReq.ex === s.ex ? `<div class="mt12"><span class="tag warn">${icon('clock',12)}Swap requested · waiting for ${COACH.first}</span></div>` : '';
-  const unit = ex.unit === 'kg each' ? 'kg each' : 'kg';
-  const rx = cardio
+  const main = cardio
     ? `${cardioRing(s, ex)}<div class="ctarget">${icon('activity',15)}${ex.target}</div>`
-    : `<div class="rx"><div><span>Sets</span><b>${log.length}</b></div><div><span>Reps</span><b>${ex.reps}</b></div><div><span>Weight</span><b>${kg(log[0].w)}<small> ${unit}</small></b></div></div>
-       <div class="rxby">${C.avatar('coach', 18)}Set by Coach ${COACH.first}</div>
-       <div class="setchips">${log.map((x, i) => `<button class="sc ${x.done ? 'done' : i === cur && !held ? 'cur' : ''}" data-act="setDone" data-arg="${i}" aria-pressed="${x.done}"><span class="ck">${icon('check', 15, 'stroke-width="2.8"')}</span>Set ${i + 1}</button>`).join('')}</div>`;
+    : `${allDone
+        ? `<div class="rxdone ${rs.short ? 'short' : 'full'}">${icon(rs.short ? 'activity' : 'check', 16, 'stroke-width="2.6"')}<span><b>${rs.done}/${rs.total}</b> reps · ${log.filter(x => x.done).length} of ${log.length} sets</span></div>`
+        : `<div class="rx"><div><span>Set</span><b>${cur + 1}<small> of ${log.length}</small></b></div><div><span>Reps</span><b>${nx.r}</b></div><div><span>Weight</span><b>${kg(nx.w)}<small> ${unit}</small></b>${nx.adj ? `<em class="adjnote">was ${kg(nx.pw)}</em>` : ''}</div></div>`}
+       <div class="setlist">${log.map((x, i) => {
+         const isCur = !allDone && !held && i === cur, short = x.done && x.got != null;
+         const st = x.skip ? 'skip' : x.done ? 'done' : isCur ? 'cur' : '';
+         const val = x.skip ? 'Not done' : short ? `<em class="rp-short">${x.got}</em>/${x.r} reps` : `${x.r} reps`;
+         const wt = `${kg(x.w)} ${unit}${!x.done && !x.skip && x.adj ? `<span class="sl-was">was ${kg(x.pw)}</span>` : ''}`;
+         const right = x.done || x.skip
+           ? `<button class="sl-undo" data-act="undoSet" data-arg="${i}">Undo</button><span class="sl-ck ${x.done ? 'on' : 'off'}">${x.done ? icon('check', 15, 'stroke-width="2.8"') : icon('x', 13, 'stroke-width="2.6"')}</span>`
+           : `<button class="sl-ck" data-act="setDone" data-arg="${i}" aria-label="Set ${i + 1} done"></button>`;
+         return `<div class="sl ${st}"><span class="sl-n">Set ${i + 1}</span><span class="sl-v">${val} · ${wt}</span>${right}</div>`; }).join('')}</div>`;
   let bottom;
   if (held) bottom = `<div class="logbar"><button class="btn cta-in" data-act="nextEx">${nextEx ? `Skip to ${nextEx.name}` : 'Finish workout'}${icon('arrow',18)}</button></div>`;
   else if (cardio && s.cardio.left == null) bottom = `<div class="logbar"><button class="btn cta-in" data-act="cardioStart">${icon('play',18)}Start ${ex.mins}-min timer</button></div>`;
   else if (cardio) bottom = `<div class="logbar row gap8"><button class="btn sec" style="flex:.8;height:56px" data-act="cardioPause">${icon(s.cardio.paused ? 'play' : 'pause',18)}${s.cardio.paused ? 'Resume' : 'Pause'}</button><button class="btn cta-in" style="flex:1" data-act="cardioDone">${icon('check',18,'stroke-width="2.4"')}Done</button></div>`;
-  else if (allDone) bottom = `<div class="logbar"><button class="btn cta-in" data-act="finishEx">${icon('check',18,'stroke-width="2.4"')}Finish ${ex.name}</button></div>`;
-  else bottom = `<div class="logbar"><button class="btn cta-in" data-act="setDone" data-arg="${cur}">${icon('check',18,'stroke-width="2.4"')}Set ${cur + 1} done</button></div>`;
+  else if (allDone && rs.short) bottom = `<div class="logbar"><button class="btn cta-in" data-act="nextDone">${nextEx ? `Next: ${nextEx.name}` : 'Finish workout'}${icon('arrow',18)}</button></div>`;
+  else if (allDone) bottom = `<div class="logbar"><button class="btn cta-in" data-act="finishEx">${icon('check',18,'stroke-width="2.4"')}Finish exercise</button></div>`;
+  else bottom = `<div class="logbar row gap8"><button class="btn sec cant" data-act="shortOpen">Couldn’t complete</button><button class="btn cta-in" style="flex:1" data-act="setDone" data-arg="${cur}">${icon('check',18,'stroke-width="2.4"')}Set ${cur + 1} done</button></div>`;
   return { pb:120, body:`
-    ${C.nav({ left:'x', leftAct:'closeActive', title:`Exercise ${s.ex + 1} of ${EX.length}`, sub:`${TODAY.title} · <span data-tick="elapsed">${fmt(s.elapsed)}</span>`, right:'more', rightAct:'finish' })}
+    ${C.nav({ left:'x', leftAct:'closeActive', title:`Exercise ${s.ex + 1} of ${EX.length}`, sub:TODAY.title, right:'more', rightAct:'menu' })}
     <div class="segs">${segs}</div>
     ${s.offline ? `<div class="offline">${icon('wifi-off',18)}<span><b>No signal.</b> Your progress is saved on this phone and syncs when you’re back online.</span></div>` : ''}
-    <div class="illus">${bodyFig({ view:'front', on:ex.mus, h:140 })}${bodyFig({ view:'back', on:ex.mus, h:140 })}</div>
-    <div class="card" style="margin:8px 16px 0;padding:18px 20px 16px">
+    <div class="illus" style="height:132px">${bodyFig({ view:'front', on:ex.mus, h:112 })}${bodyFig({ view:'back', on:ex.mus, h:112 })}</div>
+    <div class="card" style="margin:8px 16px 0;padding:18px 20px 18px">
       <div style="font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:28px">${ex.name}</div>
-      <div class="row gap4 t13 muted" style="margin-top:6px">${icon('pin',14)}${ex.station}${cardio ? ` · ${ex.tags}` : ''}</div>
-      ${ex.note ? `<div class="row gap8 t13" style="margin-top:8px;color:var(--orange);font-weight:600">${icon('user',14)}${ex.note}</div>` : ''}
-      ${held ? '' : rx}${swapPending}
-      <div class="qa two"><button data-act="demo">${icon('video',20)}How to</button><button data-act="swap">${icon('swap',20)}Swap</button></div>
+      <div class="row gap4 t13 muted" style="margin-top:6px">${icon('pin',14)}${ex.station}${cardio ? ` · ${ex.tags}` : ''}${ex.note ? ` · ${ex.note}` : ''}</div>
+      ${held ? '' : main}
+      ${actionRow(s)}
     </div>
     ${held ? `<div class="px mt12">${C.hold(`${ex.name} is on hold`, s.where === 'outside' ? `You reported pain. Don’t continue this exercise. Coach ${COACH.first} has been told.` : `You reported pain. Don’t continue this exercise until a trainer has checked in with you. Trainer request: <b>${reqWord(s)}</b>.`)}</div>` : ''}
     ${nextEx ? `<div class="px mt16"><div class="t12 muted" style="font-weight:600;letter-spacing:.06em;margin:0 4px 8px">UP NEXT</div><div class="ex-card">${C.thumb(nextEx.mus, nextEx.view, 48)}<div style="flex:1;min-width:0"><div style="font-weight:600">${nextEx.name}</div><div class="t13 muted" style="margin-top:2px">${exMeta(nextEx)}</div></div>${icon('chev-r',18)}</div></div>` : ''}`,
-    fixed:`${s.where === 'outside' ? `<div class="outtag">${icon('pin',12)}Not at ${BRAND.short}</div>` : `<div class="fab-wrap" style="${s.offline ? 'top:214px' : ''}"><button class="fab" data-act="help">${icon('headset',24)}</button><span>Trainer</span></div>`}${bottom}` };
+    fixed:`${s.where === 'outside' ? `<div class="outtag">${icon('pin',12)}Not at ${BRAND.short}</div>` : ''}<div class="fade-b" style="height:130px"></div>${bottom}` };
 };
 
 /* ---------- Sheets ---------- */
+// Asked only when every set was completed in full (or the cardio timer ran out). Optional.
 const fbSheet = (s) => {
   const i = s.fbFor == null ? s.ex : s.fbFor, ex = liveEx(s, i), cur = s.fb[i], review = s.route === 'complete';
   const sub = k => ex.kind === 'cardio' ? FEEL_CARDIO[k] : FEEL.find(f => f[0] === k)[2];
-  return C.sheet(`<div class="sheet-head"><div><div class="h2">How was ${ex.name}?</div><div class="t13 muted" style="margin-top:4px">Optional · helps Coach ${COACH.first} set your weights and shapes your 4-week plan</div></div>${C.closeBtn()}</div>
-    <div class="feelopts">${FEEL.map(([k, t], n) => `<button class="${cur === k ? 'on' : ''}" data-act="fbAnswer" data-arg="${k}"><span class="lv">${[1,2,3,4].map(b => `<i class="${b <= n + 1 ? 'f' : ''}" style="height:${4 + b * 3}px"></i>`).join('')}</span><b>${t}</b><span class="fs">${sub(k)}</span></button>`).join('')}</div>
-    ${review || s.where === 'outside' ? '' : `<button class="hrow danger" style="width:100%;text-align:left;margin-top:12px" data-act="pain"><span class="hi">${icon('alert',20)}</span><span class="mid"><div class="ht">I felt pain</div><div class="hs">Holds this exercise and calls a trainer</div></span>${icon('chev-r',18)}</button>`}
-    <button class="btn sec block mt12" data-act="fbSkip">${review ? 'Cancel' : 'Skip'}</button>`);
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">How was ${ex.name}?</div><div class="t13 muted" style="margin-top:4px">Optional</div></div>${C.closeBtn()}</div>
+    <div class="feellist">${FEEL.map(([k, t], n) => `<button class="${cur === k ? 'on' : ''}" data-act="fbAnswer" data-arg="${k}"><span class="lv">${[1,2,3].map(b => `<i class="${b <= n + 1 ? 'f' : ''}" style="height:${5 + b * 4}px"></i>`).join('')}</span><span><b>${t}</b><span class="fs">${sub(k)}</span></span></button>`).join('')}</div>
+    <button class="btn sec block mt16" data-act="fbSkip">${review ? 'Cancel' : 'Skip'}</button>`);
 };
+// "Couldn't complete" on the current set: a horizontal number scroller. The selected number sits large on a lens;
+// neighbours shrink and fade. Drag, scroll or tap a number. 0 = not done.
+const REP_STEP = 72;
+const repDist = (v, val) => Math.min(3, Math.abs(v - val));
+const repPicker = (val, max) => `<div class="rpick" data-repruler data-max="${max}"><i class="rp-lens"></i>
+    <div class="rp-track" style="transform:translateX(${-val * REP_STEP}px)">${Array.from({ length:max + 1 }, (_, v) => `<span class="rp-n d${repDist(v, val)}" data-n="${v}" style="left:${v * REP_STEP}px">${v}</span>`).join('')}</div></div>`;
+const shortSheet = (s) => {
+  const ex = liveEx(s), x = s.log[s.ex][s.shortFor], unit = ex.unit === 'kg each' ? 'kg each' : 'kg';
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">Set ${s.shortFor + 1} · ${ex.name}</div><div class="t13 muted" style="margin-top:4px">${kg(x.w)} ${unit} · plan ${x.r} reps</div></div>${C.closeBtn()}</div>
+    ${repPicker(s.shortVal, x.r - 1)}
+    <div class="rp-cap">of ${x.r} reps</div>
+    <button class="btn pri block mt24" data-act="shortSave">Save</button>`);
+};
+const menuSheet = (s) => C.sheet(`<div class="sheet-head"><div><div class="h2">${liveEx(s).name}</div></div>${C.closeBtn()}</div>
+  <button class="hrow" style="width:100%;text-align:left" data-act="pain"><span class="hi">${icon('alert',20)}</span><span class="mid"><div class="ht">Report pain</div></span>${icon('chev-r',18)}</button>
+  <button class="hrow" style="width:100%;text-align:left" data-act="finish"><span class="hi">${icon('check',20)}</span><span class="mid"><div class="ht">Finish workout</div></span>${icon('chev-r',18)}</button>`);
 const demoSheet = (s) => {
   const ex = liveEx(s);
   return C.sheet(`<div class="sheet-head"><div><div class="h2">${ex.name}</div><div class="t13 muted row gap4" style="margin-top:4px">${icon('pin',13)}${ex.station}</div></div>${C.closeBtn()}</div>
@@ -1835,18 +2011,23 @@ const demoSheet = (s) => {
     <button class="btn pri block mt16" data-act="closeSheet">Got it</button>`);
 };
 const swapSheet = (s) => {
-  const ex = EX[s.ex], opts = SWAPS[s.ex] || [], pend = s.swapReq && s.swapReq.ex === s.ex;
-  return C.sheet(`<div class="sheet-head"><div><div class="h2">Swap exercise</div><div class="t13 muted" style="margin-top:4px">Instead of ${ex.name} · available at ${BRAND.short}</div></div>${C.closeBtn()}</div>
-    ${pend ? `<div class="card" style="padding:14px 16px;margin-bottom:12px;border-color:var(--accent-line)"><div class="row gap12"><span class="tile-ic" style="color:var(--orange)">${icon('clock',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:600;font-size:14px">Waiting for ${COACH.first}</div><div class="t12 muted">Keep going with ${ex.name} for now</div></div><button class="t13" style="font-weight:600;color:var(--red);padding:8px" data-act="cancelSwap">Cancel</button></div></div>` : ''}
-    ${opts.map((a, i) => `<button class="hrow" style="width:100%;text-align:left" data-act="doSwap" data-arg="${i}">${C.thumb(ex.mus, ex.view, 44)}<span class="mid"><div class="ht">${a.name}</div><div class="hs row gap4">${icon('pin',12)}${a.station}</div></span>${pend && s.swapReq.i === i ? `<span class="tag warn">Requested</span>` : icon('chev-r',18)}</button>`).join('')}
-    <div class="row gap8 t12 muted" style="margin-top:16px;padding:0 4px;line-height:16px">${icon('shield',14)}Coach ${COACH.first} approves the swap and sets the weight first.</div>`);
+  const base = EX[s.ex], cur = liveEx(s), opts = SWAPS[s.ex] || [], swapped = !!s.overrides[s.ex];
+  const locked = s.log[s.ex].some(x => x.done || x.skip) || s.cardio.left != null;
+  // station only when it says something the name doesn't ("Dumbbell rack", "Rower 1")
+  const where = o => { const n = o.name.toLowerCase(); return o.station.toLowerCase().replace(/\s*\d+$/, '').split(/\s+/).every(w => n.includes(w)) ? '' : ` · ${o.station}`; };
+  const meta = o => (o.kind === 'cardio' ? `${o.mins} min` : `${(o.plan || []).length} × ${o.reps} · ${o.load}`) + where(o);
+  const row = (o, title, act, arg, on) => `<button class="hrow" style="width:100%;text-align:left${locked && !on ? ';opacity:.45' : ''}" ${on ? '' : `data-act="${act}"`} ${arg != null ? `data-arg="${arg}"` : ''}>${C.thumb(base.mus, base.view, 44)}<span class="mid"><div class="ht">${title}</div><div class="hs">${meta(o)}</div></span>${on ? `<span style="color:var(--accent)">${icon('check',18,'stroke-width="2.6"')}</span>` : icon('chev-r',18)}</button>`;
+  return C.sheet(`<div class="sheet-head"><div><div class="h2">Swap exercise</div><div class="t13 muted" style="margin-top:4px">${locked ? 'Available before your first set' : `Instead of ${base.name}`}</div></div>${C.closeBtn()}</div>
+    ${swapped ? row(base, `Back to ${base.name}`, 'swapBack', null, false) : ''}
+    ${opts.map((o, i) => row(o, o.name, 'doSwap', i, swapped && cur.name === o.name)).join('')}
+    <div class="row gap8 t12 muted" style="margin-top:14px;padding:0 4px">${icon('shield',13)}Approved by Coach ${COACH.first} with your plan</div>`);
 };
 const helpSheet = (s) => C.sheet(`
   <div class="sheet-head"><div><div class="h2">Get help</div><div class="t13 muted" style="margin-top:4px">On shift now: ${COACH.first} and Imran</div></div>${C.closeBtn()}</div>
   <button class="hrow primary" style="width:100%;text-align:left" data-act="callCoach" data-arg="spotting"><span class="hi">${icon('hand',22)}</span><span class="mid"><div class="ht">Call a trainer to my station</div><div class="hs">${liveEx(s).station} · setup or form help</div></span>${icon('chev-r',20)}</button>
   <button class="hrow" style="width:100%;text-align:left;margin-top:8px" data-act="callCoach" data-arg="equipment"><span class="hi">${icon('wrench',20)}</span><span class="mid"><div class="ht">Equipment problem</div><div class="hs">Broken, missing or feels unsafe</div></span>${icon('chev-r',18)}</button>
   <button class="hrow" style="width:100%;text-align:left" data-act="msgCoach"><span class="hi">${icon('chat',20)}</span><span class="mid"><div class="ht">Message Coach ${COACH.first}</div><div class="hs">Goes to your trainer chat</div></span>${icon('chev-r',18)}</button>
-  <button class="hrow" style="width:100%;text-align:left" data-act="swap"><span class="hi">${icon('swap',20)}</span><span class="mid"><div class="ht">Swap this exercise</div><div class="hs">${COACH.first} approves swaps first</div></span>${icon('chev-r',18)}</button>
+  <button class="hrow" style="width:100%;text-align:left" data-act="swap"><span class="hi">${icon('swap',20)}</span><span class="mid"><div class="ht">Swap this exercise</div><div class="hs">Alternatives at ${BRAND.short}</div></span>${icon('chev-r',18)}</button>
   <button class="hrow danger" style="width:100%;text-align:left" data-act="pain"><span class="hi">${icon('alert',20)}</span><span class="mid"><div class="ht">I feel pain or discomfort</div><div class="hs">Holds this exercise and calls a trainer</div></span>${icon('chev-r',18)}</button>`);
 const calledSheet = (s) => {
   const r = s.req || { status:'sent', type:'spotting', station:liveEx(s).station };
@@ -1877,9 +2058,10 @@ const painSheet = (s) => {
 S.complete = (s) => {
   const m = metrics(s), partial = m.exDone < m.exTotal;
   const conf = [[30,90,'var(--accent)',8,4,20],[70,60,'#fff',6,6,-30],[110,120,'var(--green)',5,10,45],[300,80,'var(--accent)',10,4,-20],[340,140,'var(--orange)',6,6,15],[260,50,'#fff',4,10,60],[50,180,'var(--orange)',8,3,-40],[330,210,'var(--accent)',5,5,30],[160,40,'var(--accent)',4,4,10],[230,110,'var(--green)',8,3,-60]];
-  const rows = EX.map((_, i) => { const e = liveEx(s, i), f = s.fb[i];
-    const right = s.holds[i] ? `<span class="tag bad">On hold</span>` : !s.exDone[i] ? `<span class="tag">Skipped</span>` : f ? `<button class="tag ${feelTag(f)}" data-act="rateEx" data-arg="${i}">${feelLabel(f)}</button>` : `<button class="pill acc" data-act="rateEx" data-arg="${i}">${icon('plus',12)}Rate</button>`;
-    return `<div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">${e.name}</div><div class="s">${exMeta(e)}</div></div>${right}</div>`; }).join('');
+  const rows = EX.map((_, i) => { const e = liveEx(s, i), f = s.fb[i], r = e.kind === 'cardio' ? null : repsOf(s.log[i]), early = e.kind === 'cardio' && s.cardioDone[i] != null;
+    const right = s.holds[i] ? `<span class="tag bad">On hold</span>` : !s.exDone[i] ? `<span class="tag">Skipped</span>` : (r && r.short) || early ? '' : f ? `<button class="tag ${feelTag(f)}" data-act="rateEx" data-arg="${i}">${feelLabel(f)}</button>` : `<button class="pill acc" data-act="rateEx" data-arg="${i}">${icon('plus',12)}Rate</button>`;
+    const sub = r && r.short ? `<span class="rp-short">${r.done}/${r.total} reps</span> · Next time: same weights` : early ? `<span class="rp-short">${s.cardioDone[i]} of ${e.mins} min</span>` : r && s.exDone[i] ? `<span class="rp-full">${r.total}/${r.total} reps</span> · ${e.load}` : exMeta(e);
+    return `<div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">${e.name}</div><div class="s">${sub}</div></div>${right}</div>`; }).join('');
   return { pb:120, body:`
     ${partial ? '' : `<div class="confetti">${conf.map(([x, y, c, w, h, r], i) => `<i style="left:${x}px;top:${y}px;width:${w}px;height:${h}px;background:${c};transform:rotate(${r}deg);--r2:${r + 30}deg;opacity:${c === '#fff' ? .35 : .9};animation-delay:${i * .2}s"></i>`).join('')}</div>`}
     <div style="position:relative;z-index:1">
@@ -1894,7 +2076,7 @@ S.complete = (s) => {
       <div class="card row" style="margin:12px 16px 0;padding:12px 16px;gap:12px">
         <div class="row" style="gap:0">${bodyFig({ view:'front', on:['chest','shoulders','quads'], h:84 })}${bodyFig({ view:'back', on:['back','traps','glutes'], h:84 })}</div>
         <div style="flex:1"><div style="font-weight:600;font-size:15px">Muscles worked</div><div class="chips mt8" style="gap:4px">${MUSCLES.filter(mm => setsFor(s, mm, true)).map(mm => `<span class="tag acc">${mm.k} · ${setsFor(s, mm, true)} sets</span>`).join('')}</div></div></div>
-      <div class="sec-title" style="margin-top:24px"><h3>How it felt</h3><a>${m.rated} of ${m.exDone} rated</a></div>
+      <div class="sec-title" style="margin-top:24px"><h3>Exercises</h3><a>${m.rated} rated</a></div>
       <div class="card" style="margin:0 16px;padding:4px 18px">${rows}</div>
       <div class="sec-title" style="margin-top:24px"><h3>Anything else?</h3></div>
       <div class="chips px">
@@ -1907,7 +2089,7 @@ S.complete = (s) => {
     fixed:`<div class="fade-b" style="height:120px"></div><button class="cta" data-act="done">Done</button>` };
 };
 
-/* ---------- AI Coach (MEM-15) ---------- */
+/* ---------- Jod.ai, the AI coach (MEM-15) ---------- */
 function aiMsg(m){
   if (m.who === 'me') return `<div class="msg me">${m.t}</div>`;
   const [ic, lb] = AI_SRC[m.src];
@@ -1917,13 +2099,13 @@ S.ai = (s) => {
   const run = s.running && !s.completed;
   return { pb: run ? 300 : 236, scrollEnd:true, body:`
     <div style="height:${s.aiCapped ? 166 : 96}px"></div>
-    <div class="chat" style="padding-top:16px"><div class="ans"><div class="src">${icon('sparkles',14)}AI Coach</div>Ask about today’s plan, how to do an exercise or where things are at ${BRAND.short}. For pain or weight changes, I’ll bring in Coach ${COACH.first}.</div>${s.ai.map(aiMsg).join('')}</div>`,
+    <div class="chat" style="padding-top:16px"><div class="ans"><div class="src">${icon('sparkles',14)}${AI_NAME}</div>Ask about today’s plan, how to do an exercise or where things are at ${BRAND.short}. For pain or weight changes, I’ll bring in Coach ${COACH.first}.</div>${s.ai.map(aiMsg).join('')}</div>`,
     fixed:`<div class="coach-top" style="padding-bottom:20px">
-      <div class="nav" style="height:56px;padding-top:0"><div><div class="eyebrow">${BRAND.short} · gym-specific</div><div class="h1" style="font-size:28px;line-height:32px">AI Coach</div></div><button class="btn-ic">${icon('info')}</button></div>
+      <div class="nav" style="height:56px;padding-top:0"><div><div class="eyebrow">${BRAND.short} · gym-specific</div><div class="h1" style="font-size:28px;line-height:32px">${AI_NAME}</div></div><button class="btn-ic">${icon('info')}</button></div>
       <div class="ctx px" style="margin-top:4px"><span class="pill">${icon('building',13)}${BRAND.short}</span><span class="pill">${icon('clipboard',13)}${TODAY.title} · plan v${s.planVer}</span>${run ? `<span class="pill">${icon('pin',13)}${liveEx(s).station}</span>` : ''}</div>
-      ${s.aiCapped ? `<div class="offline" style="margin-top:12px">${icon('clock',18)}<span><b>Daily AI limit reached.</b> Quick answers still work, and so do your plan and trainer help.</span></div>` : ''}</div>
+      ${s.aiCapped ? `<div class="offline" style="margin-top:12px">${icon('clock',18)}<span><b>${AI_NAME} has reached today’s limit.</b> Quick answers still work, and so do your plan and trainer help.</span></div>` : ''}</div>
     <div class="qchips" style="bottom:${run ? 236 : 168}px">${[['next','What’s next?'],['breathe','Breathing'],['where','Where is cable stack 1?'],['sore','I feel sore'],['ravi','Talk to Ravi']].map(([k, l]) => `<button data-act="aiQuick" data-arg="${k}">${l}</button>`).join('')}</div>
-      <div class="inputbar" style="padding-left:18px;${run ? 'bottom:168px' : ''}"><input placeholder="${s.aiCapped ? 'New questions resume tomorrow' : 'Ask about your workout…'}" data-input ${s.aiCapped ? 'disabled' : ''}/><button class="ib send" data-act="aiSend">${icon('send',18)}</button></div>
+      <div class="inputbar" style="padding-left:18px;${run ? 'bottom:168px' : ''}"><input placeholder="${s.aiCapped ? 'New questions resume tomorrow' : `Ask ${AI_NAME}…`}" data-input ${s.aiCapped ? 'disabled' : ''}/><button class="ib send" data-act="aiSend">${icon('send',18)}</button></div>
       ${run ? C.miniBar(s) : ''}${C.tabBar('ai')}` };
 };
 
@@ -1958,10 +2140,27 @@ S.coach = (s) => {
 };
 
 /* ---------- Progress (MEM-17) ---------- */
+ICONS.minus = '<path d="M5 12h14"/>';
+// Weigh-ins: weekly from Sun 31 Aug (day 0). One per day: logging again today replaces today's. Today = Thu 19 Nov (day 80).
+const TODAY_DAY = 80, MON = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const dayLabel = d => { const t = new Date(2026, 7, 31 + d); return `${MON[t.getMonth()]} ${t.getDate()}`; };
+const weighIns = (s) => { const w = WEIGHTS.map((v, i) => ({ v, d:i * 7 })); if (s.weighToday != null) w.push({ v:s.weighToday, d:TODAY_DAY }); return w; };
+const lastWeigh = (s) => s.weighToday != null ? s.weighToday : WEIGHTS[WEIGHTS.length - 1];
+const weighSheet = (s) => C.sheet(`<div class="sheet-head"><div><div class="h2">Log weight</div><div class="t13 muted" style="margin-top:4px">Today</div></div>${C.closeBtn()}</div>
+  <div class="wlog">
+    <button class="wl-step" data-act="weighStep" data-arg="-0.1" aria-label="Minus 0.1 kg">${icon('minus',22,'stroke-width="2.2"')}</button>
+    <label class="wl-box"><input data-wlog inputmode="decimal" value="${s.weighVal}" aria-label="Weight in kg"/><span>kg</span></label>
+    <button class="wl-step" data-act="weighStep" data-arg="0.1" aria-label="Plus 0.1 kg">${icon('plus',22,'stroke-width="2.2"')}</button>
+  </div>
+  <button class="btn pri block mt24" data-act="weighSave">Save</button>`);
 S.profile = (s) => {
-  const W = 326, H = 120, mn = 79.5, mx = 89, st = W / (WEIGHTS.length - 1);
+  const wi = weighIns(s), cur = wi[wi.length - 1], vs = wi.map(p => p.v);
+  const W = 326, H = 120, mn = Math.min(79.5, Math.min(...vs) - 1), mx = Math.max(89, Math.max(...vs) + 1), st = W / cur.d;
   const y = (v) => 8 + (mx - v) / (mx - mn) * (H - 16);
-  const pts = WEIGHTS.map((v, i) => [i * st, y(v)]);
+  const pts = wi.map(p => [p.d * st, y(p.v)]);
+  const diff = Math.round((cur.v - WEIGHTS[0]) * 10) / 10;
+  const since = diff === 0 ? `<span class="pill" style="color:var(--text-2)">Same as Aug</span>`
+    : `<span class="pill" style="color:${diff < 0 ? 'var(--green)' : 'var(--text-2)'}">${icon(diff < 0 ? 'down' : 'up',14)}${diff < 0 ? '−' : '+'}${Math.abs(diff).toFixed(1)} kg since Aug</span>`;
   const line = pts.map(p => p.map(n => n.toFixed(1)).join(',')).join(' ');
   const gid = uid(), last = pts[pts.length - 1];
   const chart = `<svg width="100%" viewBox="-4 0 ${W + 8} ${H + 22}" style="display:block;overflow:visible">
@@ -1971,7 +2170,7 @@ S.profile = (s) => {
     <polyline points="${line}" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round"/>
     ${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="var(--accent)"/>`).join('')}
     <circle cx="${last[0]}" cy="${last[1]}" r="5" fill="var(--accent)" stroke="var(--card)" stroke-width="3"/>
-    ${[[0,'Aug 31'],[4,'Sep 28'],[8,'Oct 26'],[11,'Nov 16']].map(([i, t]) => `<text x="${i * st}" y="${H + 18}" text-anchor="${i === 0 ? 'start' : i === 11 ? 'end' : 'middle'}" font-size="11" fill="var(--text-2)">${t}</text>`).join('')}</svg>`;
+    ${[0, 28, 56, cur.d].map(d => `<text x="${d * st}" y="${H + 18}" text-anchor="${d === 0 ? 'start' : d === cur.d ? 'end' : 'middle'}" font-size="11" fill="var(--text-2)">${dayLabel(d)}</text>`).join('')}</svg>`;
   let cal = ['M','T','W','T','F','S','S'].map(d => `<span class="cl">${d}</span>`).join('') + '<span></span>'.repeat(6);
   for (let d = 1; d <= 30; d++) cal += `<span class="cd ${VISITS.includes(d) ? 'v' : ''} ${d === 19 ? 't' : ''} ${d > 19 ? 'f' : ''}">${d}</span>`;
   const photos = s.consent.photos ? `<div class="photos px mt8">
@@ -2000,9 +2199,9 @@ S.profile = (s) => {
     <div class="sec-title"><h3>Your weights</h3><a>Set by Coach ${COACH.first}</a></div>
     <div class="card" style="margin:0 16px;padding:4px 20px">${SET_WEIGHTS.map(l => `<div class="lift"><div style="flex:1"><div style="font-weight:600">${l.k}</div><div class="t12" style="color:var(--green);font-weight:600;margin-top:2px">${l.d}</div></div>${C.spark(l.data)}<div style="width:86px;text-align:right"><b style="font-size:18px;font-weight:700;letter-spacing:-.02em">${l.v}</b></div></div>`).join('')}</div>
 
-    <div class="sec-title"><h3>Body</h3><a>Optional · self-reported</a></div>
+    <div class="sec-title"><h3>Body</h3><button class="btn sec xs" data-act="weigh">${icon('plus',15,'stroke-width="2.2"')}Log weight</button></div>
     <div class="card" style="margin:0 16px">
-      <div class="row between"><div><div class="t13 muted">Body weight</div><div class="row gap4" style="align-items:baseline;margin-top:2px"><b style="font-size:30px;font-weight:700;letter-spacing:-.03em">85.0</b><span class="muted">kg</span></div></div><span class="pill" style="color:var(--green)">${icon('down',14)}−3.2 kg since Aug</span></div>
+      <div class="row between"><div><div class="t13 muted">Body weight</div><div class="row gap4" style="align-items:baseline;margin-top:2px"><b style="font-size:30px;font-weight:700;letter-spacing:-.03em" data-bw>${cur.v.toFixed(1)}</b><span class="muted">kg</span></div></div>${since}</div>
       <div class="mt16">${chart}</div></div>
     <div class="card" style="margin:8px 16px 0;padding:8px 20px">
       <table class="mtable"><tr><td class="muted">Chest</td><td>102.0 cm</td><td class="dn">−1.5</td></tr><tr><td class="muted">Waist</td><td>91.0 cm</td><td class="dn">−4.0</td></tr><tr><td class="muted">Arms</td><td>36.5 cm</td><td class="up">+0.8</td></tr></table></div>
@@ -2026,7 +2225,7 @@ S.evaluation = (s) => {
     <div class="card" style="margin:16px 16px 0">${C.vtl([
       ['ok','Check-in submitted', ev.weight ? `Weight ${kg(ev.weight)} kg · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }` : `No weight entered · progress: ${ {yes:'improving', some:'some', no:'not yet'}[ev.progress] }`],
       ['now',`${COACH.first} reviews it with your workouts`,'Workouts, how each exercise felt and anything you flagged'],
-      ['fut','New 4-week plan',`AI rebuilds it from your progress and feedback · ${COACH.first} approves it`]])}</div>
+      ['fut','New 4-week plan',`${AI_NAME} rebuilds it from your progress and feedback · ${COACH.first} approves it`]])}</div>
     ${ev.support === 'no' ? `<div class="px mt12">${C.info('users', `You said you need more help. ${BRAND.short} has been asked to follow up with you.`)}</div>` : ''}`,
     fixed:`<button class="cta" data-act="evEdit">Edit answers</button>` };
   const pick = (f, opts) => `<div class="choice three">${opts.map(([k, l]) => `<button class="${ev[f] === k ? 'on' : ''}" data-act="ev" data-arg="${f}:${k}"><b>${l}</b></button>`).join('')}</div>`;
@@ -2058,7 +2257,7 @@ const IDX_FEAT = {
   '05':'Pick one of four goals',
   '06':'Experience level, days per week, session length',
   '07':'Body-area limits and symptom check; severe symptoms hold the plan',
-  '08':'AI builds the first plan from the gym’s equipment; sent to the trainer',
+  '08':`${AI_NAME} builds the first plan from the gym’s equipment; sent to the trainer`,
   '09':'Review timeline, no workouts until the trainer approves',
   '10':'Today’s workout, Start, program progress, weekly muscle rings, trainer card',
   '11':'Collapsing sticky header with week strip',
@@ -2069,35 +2268,38 @@ const IDX_FEAT = {
   '16':'Plan version and what changed, trainer note, 4-week view',
   '17':'Target-muscle rings, exercises with sets × reps × weight, cardio with time',
   '18':'Countdown timer with pause and done; target speed or level',
-  '19':'Trainer’s sets, reps and weight in large type; tap each set when done; no typing, no rest timer',
-  '20':'Optional rating after each exercise: too easy, just right, hard, couldn’t finish; skip anytime',
-  '21':'Gym-filmed demo and technique cues',
-  '22':'Alternatives from the gym’s equipment; trainer approves first',
-  '23':'Call to station, equipment problem, message, swap, pain',
-  '24':'Shows Sent until a trainer accepts, with live status steps',
-  '25':'Accepted and on the way, with timestamps',
-  '26':'Exercise hold, automatic trainer request, medical guidance',
-  '27':'Held exercise stopped; the rest of the workout continues',
-  '28':'Progress and ratings saved on the phone and synced later',
-  '29':'Time, exercises done, cardio minutes, muscles worked, how each exercise felt (rate any you skipped)',
-  '30':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
-  '31':'Daily-limit banner; quick answers and trainer help still work',
-  '32':'Messages, voice notes, weekly summary from feedback, call to station',
-  '33':'Visit calendar, stats, weights set by the trainer over time, optional body data, photo opt-in',
-  '34':'4-week facts and how it’s going; AI restructures the plan, the trainer approves',
+  '19':`Current set’s reps and weight in large type (weights change per set); tap a set when done, small Undo; Couldn’t complete always visible; How to and Swap on the card; Report pain and Finish workout in the ••• menu; no timers`,
+  '20':`Asked only after a fully completed exercise: too easy, just right, hard; optional`,
+  '21':`Couldn’t complete: number scroller (selected number on a lens, neighbours fade; drag or tap; 0 = not done) and Save`,
+  '22':`Missed by 1–2 reps → same weight; missed by 3+ → remaining sets ~10% lighter (“was 40”); Undo restores the plan`,
+  '23':'Gym-filmed demo and technique cues',
+  '24':`Alternatives approved with the plan (weights included); picking one swaps instantly; Back to the original; only before the exercise starts`,
+  '25':'Call to station, equipment problem, message, swap, pain',
+  '26':'Shows Sent until a trainer accepts, with live status steps',
+  '27':'Accepted and on the way, with timestamps',
+  '28':'Exercise hold, automatic trainer request, medical guidance',
+  '29':'Held exercise stopped; the rest of the workout continues',
+  '30':'Progress and ratings saved on the phone and synced later',
+  '31':`Time, exercises done, cardio minutes, muscles worked; short exercises show reps and “Next time: same weights”; rate any completed exercise`,
+  '32':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
+  '33':'Daily-limit banner; quick answers and trainer help still work',
+  '34':'Messages, voice notes, weekly summary from feedback, call to station',
+  '35':'Visit calendar, stats, weights set by the trainer over time, body weight with Log weight, photo opt-in',
+  '36':'Log weight: prefilled with the last weigh-in; −/+ 0.1 kg or type; one a day (logging again replaces today’s); chart and change since Aug update',
+  '37':`4-week facts and how it’s going; ${AI_NAME} restructures the plan, the trainer approves`,
 };
 const MODULES = [
   ['M02','Onboarding & orientation','Gym-bound invite, consent, plan review before the first workout',['01','02','03','09']],
   ['M03','Fitness assessment','Goal, experience, schedule, limits and symptoms; weight is optional',['04','05','06','07']],
-  ['M04','AI plan + trainer approval','AI builds the plan on day one and restructures it every 4 weeks; the trainer approves and sets weights',['08','09','16','34']],
+  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks; the trainer approves and sets weights`,['08','09','16','37']],
   ['M05','Location-aware start','Location checked once at Start against the gym’s pin; prompt when the app opens at the gym; no QR, no background tracking',['12','13']],
   ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','14','15','17']],
-  ['M07','Guided workout','Trainer-set sets, reps and weights; tap sets done; timer only on cardio; works offline',['18','19','28','29']],
-  ['New','Exercise feedback','Optional rating after each exercise; the trainer uses it for weights, the AI for the 4-week plan',['20','29','32']],
-  ['M01','Equipment & technique','How-to videos and cues; swaps only to the gym’s equipment',['21','22']],
-  ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds',['23','24','25','26','27']],
-  ['M09','Progress & check-in','Visits, weights set by the trainer, 4-week check-in',['33','34']],
-  ['M12','AI coach & trainer chat','Answers with sources, hand-off to trainer, daily-limit fallback',['30','31','32']],
+  ['M07','Guided workout','Trainer-set sets, reps and weights; tap sets done; timer only on cardio; works offline',['18','19','30','31']],
+  ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); the trainer uses it for weights, ${AI_NAME} for the 4-week plan`,['20','21','31','34']],
+  ['M01','Equipment & technique','How-to videos and cues; instant swaps to pre-approved alternatives on the gym’s equipment',['23','24']],
+  ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds',['25','26','27','28','29']],
+  ['M09','Progress & check-in','Visits, weights set by the trainer, body weight log, 4-week check-in',['35','36','37']],
+  ['M12',`${AI_NAME} & trainer chat`,'Answers with sources, hand-off to trainer, daily-limit fallback',['32','33','34']],
 ];
 function renderIndex(){
   const link = (n) => `<a class="ix-link" href="#f${n}">${n}</a>`;
@@ -2129,7 +2331,7 @@ function openFrame(n){
 
 /* ---------- Router (member app only) ---------- */
 const ONB = [S.invite, S.consent, S.onbWeight, S.onbGoal, S.onbExp, S.onbLimits, S.onbBuild];
-const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, fb:fbSheet, pain:painSheet, demo:demoSheet, atgym:atGymSheet, where:whereSheet };
+const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, fb:fbSheet, pain:painSheet, demo:demoSheet, atgym:atGymSheet, where:whereSheet, short:shortSheet, menu:menuSheet, weigh:weighSheet };
 function build(s){
   let base;
   if (s.route === 'onb') base = ONB[s.onb](s);
@@ -2152,6 +2354,8 @@ const SPOT = { status:'sent', type:'spotting', station:'Leg press', ex:1 };
 const PAIN = { status:'sent', type:'discomfort', station:'Leg press', ex:1 };
 const cardioState = () => Object.assign(freshState(), { route:'active', running:true, elapsed:118, ex:0, where:'gym', readiness:'ready', cardio:{ left:182, total:300, paused:false } });
 const feedbackState = () => { const s = activeState({ sheet:'fb', fbFor:1 }); s.log[1].forEach(x => { x.done = true; }); return s; };
+const shortState = () => activeState({ sheet:'short', shortFor:1, shortVal:8 });
+const lighterState = () => { const s = activeState(); Object.assign(s.log[1][1], { done:true, got:8 }); replan(s.log[1]); return s; };
 const FRAMES = [
   { section:'Join & onboarding', items:[
     ['01','Invite & verify','MEM-01', ph({ route:'onb', onb:0 })],
@@ -2178,22 +2382,25 @@ const FRAMES = [
     ['18','Cardio · timer','MEM-10', cardioState, 'timer only on cardio'],
     ['19','Strength exercise','MEM-10', act(), 'tap a set'],
     ['20','How did it feel?','MEM-11', feedbackState, 'optional · after each exercise'],
-    ['21','How to','MEM-12', act({ sheet:'demo' })],
-    ['22','Swap exercise','MEM-12', act({ sheet:'swap', swapReq:{ ex:1, i:0 } }), 'trainer approves'],
-    ['23','Get help','MEM-13', act({ sheet:'help' })],
-    ['24','Help request · sent','MEM-13', act({ sheet:'called', req:SPOT })],
-    ['25','Help request · on the way','MEM-13', act({ sheet:'called', req:{ ...SPOT, status:'onway' } }), 'after trainer taps'],
-    ['26','Pain reported','MEM-10', act({ sheet:'pain', holds:{ 1:true }, req:PAIN })],
-    ['27','Exercise on hold','MEM-10', act({ holds:{ 1:true }, req:{ ...PAIN, status:'accepted' } }), 'others still open'],
-    ['28','No signal','MEM-10', act({ offline:true, pendingSync:2 }), 'offline'],
-    ['29','Workout complete','MEM-14', () => completedState(), 'scroll ↓'],
+    ['21','Couldn’t complete','MEM-11', shortState, 'drag or tap a number'],
+    ['22','Next set lighter','MEM-10', lighterState, 'missed 3+ reps → ~10% lighter'],
+    ['23','How to','MEM-12', act({ sheet:'demo' })],
+    ['24','Swap exercise','MEM-12', () => { const s = activeState({ sheet:'swap' }); s.log[1][0].done = false; return s; }, 'instant · alternatives approved with the plan'],
+    ['25','Get help','MEM-13', act({ sheet:'help' })],
+    ['26','Help request · sent','MEM-13', act({ sheet:'called', req:SPOT })],
+    ['27','Help request · on the way','MEM-13', act({ sheet:'called', req:{ ...SPOT, status:'onway' } }), 'after trainer taps'],
+    ['28','Pain reported','MEM-10', act({ sheet:'pain', holds:{ 1:true }, req:PAIN })],
+    ['29','Exercise on hold','MEM-10', act({ holds:{ 1:true }, req:{ ...PAIN, status:'accepted' } }), 'others still open'],
+    ['30','No signal','MEM-10', act({ offline:true, pendingSync:2 }), 'offline'],
+    ['31','Workout complete','MEM-14', () => completedState(), 'scroll ↓'],
   ]},
-  { section:'AI, trainer & progress', items:[
-    ['30','AI Coach','MEM-15', ph({ tab:'ai' })],
-    ['31','AI Coach · daily limit','MEM-15', ph({ tab:'ai', aiCapped:true, ai:AI_CAPPED.slice() }), 'fallback'],
-    ['32','Trainer chat','MEM-16', () => Object.assign(activeState(), { tab:'coach' }), 'live workout'],
-    ['33','Progress','MEM-17', ph({ tab:'profile' }), 'scroll ↓'],
-    ['34','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), 'AI restructures the plan'],
+  { section:`${AI_NAME}, trainer & progress`, items:[
+    ['32',AI_NAME,'MEM-15', ph({ tab:'ai' })],
+    ['33',`${AI_NAME} · daily limit`,'MEM-15', ph({ tab:'ai', aiCapped:true, ai:AI_CAPPED.slice() }), 'fallback'],
+    ['34','Trainer chat','MEM-16', () => Object.assign(activeState(), { tab:'coach' }), 'live workout'],
+    ['35','Progress','MEM-17', ph({ tab:'profile' }), 'scroll ↓'],
+    ['36','Log weight','MEM-17', ph({ tab:'profile', sheet:'weigh', weighVal:'85.0' }), 'one a day · prefilled'],
+    ['37','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), `${AI_NAME} restructures the plan`],
   ]},
 ];
 
@@ -2201,14 +2408,14 @@ function renderCanvas(){
   const n = FRAMES.reduce((a, s) => a + s.items.length, 0);
   let html = `
   <header class="cv-head"><div class="cv-title"><div class="lg">${BRAND.logo(24)}</div><div><h1>${BRAND.name} · ${APP}</h1><p>Member app for beginners · ${n} screens + interactive prototype</p></div></div></header>
-  <p class="cv-sub">Beginner version of the member app. The trainer sets weights and reps; members don’t log them. Timer only on cardio. Optional feedback after each exercise. AI builds the plan on day one and restructures it every 4 weeks. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
+  <p class="cv-sub">Beginner version of the member app. The trainer sets weights and reps; members don’t log them. Timer only on cardio. Optional feedback after each exercise. ${AI_NAME}, the AI coach, builds the plan on day one and restructures it every 4 weeks. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
   <section class="cv-section"><h2>00 · Prototype</h2>
     <div class="proto-wrap">
       <div class="frame is-proto"><div class="frame-label" style="justify-content:center;padding:0"><span class="n">00</span>Interactive prototype</div><div id="protoDevice"></div></div>
       <div class="panel left">
         <div class="panel-card"><h3>Jump to</h3><p class="sub">State carries over between screens.</p>
           <div class="jump-h">Member</div>
-          <div class="jump"><button data-jump="onb">Join</button><button data-jump="pending">Plan in review</button><button data-jump="home">Home</button><button data-jump="atgym">Open app at gym</button><button data-jump="active">Active workout</button><button data-jump="complete">Complete</button><button data-jump="ai">AI Coach</button><button data-jump="coach">Trainer chat</button><button data-jump="profile">Progress</button><button data-jump="evaluation">4-week check-in</button></div>
+          <div class="jump"><button data-jump="onb">Join</button><button data-jump="pending">Plan in review</button><button data-jump="home">Home</button><button data-jump="atgym">Open app at gym</button><button data-jump="active">Active workout</button><button data-jump="complete">Complete</button><button data-jump="ai">${AI_NAME}</button><button data-jump="coach">Trainer chat</button><button data-jump="profile">Progress</button><button data-jump="evaluation">4-week check-in</button></div>
           <div class="jump-h">Phone location</div>
           <div class="jump" id="locJump"><button data-jump="loc-in" class="on">At the gym</button><button data-jump="loc-out">Elsewhere</button><button data-jump="loc-off">Location off</button></div>
           <div class="jump" style="margin-top:14px"><button data-jump="reset" class="dark">Reset</button></div></div>
@@ -2216,9 +2423,9 @@ function renderCanvas(){
           <ul class="tips">
             <li><span>Tap <b>Start workout</b>. Switch the phone location below to see the at-gym and not-at-gym cases.</span></li>
             <li><span>The warm-up walk has a <b>timer</b>. Pause it, or tap Done to finish early.</span></li>
-            <li><span>On strength exercises, tap each <b>set</b> when it’s done. Weight and reps come from the trainer.</span></li>
-            <li><span>After each exercise, say <b>how it felt</b>, or skip.</span></li>
-            <li><span>Tap the <b>headset</b> to call a trainer, or report pain: only that exercise is held.</span></li>
+            <li><span>On strength exercises, tap each <b>set</b> when it’s done. Try <b>Couldn’t complete</b> on set 2 with 8 reps: set 3 gets lighter.</span></li>
+            <li><span>After a fully completed exercise, say <b>how it felt</b>, or skip.</span></li>
+            <li><span><b>Swap</b> before starting an exercise: it switches instantly. Tap <b>Trainer</b> to call a trainer.</span></li>
           </ul></div>
       </div>
       <div class="panel right">
@@ -2274,6 +2481,7 @@ function renderProto(){
   lastKey = key; lastSheet = sheetKey;
   P.log.forEach(l => l.forEach(x => delete x.pop));
   bindRuler(screen);
+  bindRepRuler(screen);
   if (sc) syncSticky(sc);
 }
 function toast(msg){ P.toast = msg; clearTimeout(toastTimer); toastTimer = setTimeout(() => { P.toast = null; renderProto(); }, 2200); }
@@ -2302,32 +2510,46 @@ const A = {
   begin(){ if (P.planStatus !== 'approved'){ P.route = 'home'; return; } if (!P.running){ Object.assign(P, { running:true, elapsed:0, ex:0, completed:false }); } P.tab = 'workout'; P.route = 'active'; P.sheet = null; },
   resume(){ P.tab = 'workout'; P.route = 'active'; },
   closeActive(){ P.route = 'home'; P.sheet = null; },
-  /* strength: tap each set when done; all done → optional feedback */
+  /* strength: tap a set (or the button) when done; "Couldn't complete" records that set's reps and the rule adjusts the rest */
   setDone(i){ i = +i; if (P.route !== 'active') return; if (P.holds[P.ex]){ P.sheet = 'pain'; return; }
-    const set = P.log[P.ex][i]; if (!set) return;
-    set.done = !set.done; if (set.done && P.offline) P.pendingSync++;
-    if (set.done && P.log[P.ex].every(x => x.done)){ P.sheet = 'fb'; P.fbFor = P.ex; } },
-  finishEx(){ P.sheet = 'fb'; P.fbFor = P.ex; },
+    const log = P.log[P.ex], set = log[i]; if (!set || set.done) return;
+    Object.assign(set, { done:true, got:null, skip:false }); replan(log); if (P.offline) P.pendingSync++; },
+  undoSet(i){ const log = P.log[P.ex], set = log[+i]; if (!set) return; Object.assign(set, { done:false, got:null, skip:false }); replan(log); },
+  shortOpen(){ if (P.holds[P.ex]){ P.sheet = 'pain'; return; } const i = curSet(P), x = P.log[P.ex][i]; if (!x) return; P.shortFor = i; P.shortVal = x.r - 1; P.sheet = 'short'; },
+  shortPick(n){ P.shortVal = +n; },
+  shortSave(){ if (P.shortVal == null) return; const log = P.log[P.ex], i = P.shortFor, x = log[i];
+    Object.assign(x, P.shortVal > 0 ? { done:true, got:P.shortVal, skip:false } : { done:false, got:null, skip:true }); replan(log);
+    P.sheet = null; P.shortFor = null; P.shortVal = null; if (P.offline) P.pendingSync++; },
+  // Finish: ask how it felt only if every set was completed in full; otherwise the reps already tell us
+  finishEx(){ if (repsOf(P.log[P.ex]).short) return A._completeEx(); P.sheet = 'fb'; P.fbFor = P.ex; },
+  nextDone(){ A._completeEx(); },
+  menu(){ P.sheet = 'menu'; },
   /* cardio timer */
   cardioStart(){ const t = liveEx(P).mins * 60; P.cardio = { left:t, total:t, paused:false }; },
   cardioPause(){ P.cardio.paused = !P.cardio.paused; },
-  cardioDone(){ P.cardio.paused = true; P.sheet = 'fb'; P.fbFor = P.ex; },
+  cardioDone(){ const c = P.cardio; c.paused = true; if (c.left > 0){ P.cardioDone[P.ex] = Math.round((c.total - c.left) / 60); return A._completeEx(); } P.sheet = 'fb'; P.fbFor = P.ex; }, // stopped early → no question
   /* feedback: optional, per exercise */
-  fbAnswer(k){ const i = P.fbFor == null ? P.ex : P.fbFor; P.fb[i] = k; P.sheet = null; if (P.offline) P.pendingSync++;
+  fbAnswer(k){ const i = P.fbFor == null ? P.ex : P.fbFor;
+    P.fb[i] = k; P.sheet = null; if (P.offline) P.pendingSync++;
     if (P.route === 'complete'){ P.fbFor = null; toast('Saved'); return; } A._completeEx(); toast('Saved'); },
   fbSkip(){ P.sheet = null; if (P.route === 'complete'){ P.fbFor = null; return; } A._completeEx(); },
   rateEx(i){ P.fbFor = +i; P.sheet = 'fb'; },
   _completeEx(){ P.exDone[P.ex] = true; P.fbFor = null; A._advance(); },
   _advance(){ P.cardio = { left:null, total:0, paused:false }; const n = EX.findIndex((_, i) => i > P.ex && !P.exDone[i]); if (n > -1) P.ex = n; else A.finish(); },
   demo(){ P.sheet = 'demo'; }, swap(){ P.sheet = 'swap'; },
-  doSwap(i){ if (P.log[P.ex].some(x => x.done) || P.cardio.left != null){ toast('Finish this exercise first, or swap the next one'); return; } P.swapReq = { ex:P.ex, i:+i }; P.sheet = null; toast(`Swap sent to ${COACH.first}`); },
-  cancelSwap(){ P.swapReq = null; toast('Swap request cancelled'); },
+  // Instant: alternatives (and their weights) were approved with the plan. Allowed before the exercise is started.
+  doSwap(i){ const log = P.log[P.ex]; if (log.some(x => x.done || x.skip) || P.cardio.left != null){ toast('Swap before you start the exercise'); return; }
+    const base = EX[P.ex], o = SWAPS[P.ex][+i];
+    P.overrides[P.ex] = { ...base, name:o.name, station:o.station, kind:o.kind || base.kind, mins:o.mins, target:o.target, reps:o.reps, load:o.load, unit:o.unit || base.unit, sets:o.plan ? o.plan.length : base.sets, plan:o.plan || [], note:null, cues:base.cues };
+    P.log[P.ex] = (o.plan || []).map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })); P.sheet = null; toast(`Swapped to ${o.name}`); },
+  swapBack(){ const base = EX[P.ex]; delete P.overrides[P.ex]; P.log[P.ex] = base.plan.map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })); P.sheet = null; toast(`Back to ${base.name}`); },
   nextEx(){ P.sheet = null; P.fbFor = null; A._advance(); },
   finish(){ Object.assign(P, { route:'complete', running:false, sheet:null, fbFor:null, tab:'workout', cardio:{ left:null, total:0, paused:false } }); },
   chip(k){ P.chips[k] = !P.chips[k]; },
   done(){ Object.assign(P, { route:'home', completed:true, running:false }); },
   /* help */
   help(){ P.sheet = 'help'; },
+  showReq(){ P.sheet = 'called'; },
   callCoach(type){ P.req = req(type || 'spotting', liveEx(P).station); P.sheet = 'called'; },
   cancelCall(){ P.req = null; P.sheet = null; toast('Request cancelled'); },
   reqFeedback(v){ P.sheet = null; P.req = null; toast(v === 'yes' ? 'Thanks · shared with the gym' : 'Thanks · the gym will follow up'); },
@@ -2361,6 +2583,9 @@ const A = {
     setTimeout(() => { P.chat.push({ who:'them', t:'Got it. I’ll come by your station after this client.', tm:'Now' }); renderProto(); scrollChat(); }, 1400);
     setTimeout(scrollChat, 0); },
   /* progress + check-in */
+  weigh(){ P.weighVal = lastWeigh(P).toFixed(1); P.sheet = 'weigh'; },
+  weighStep(d){ const v = parseFloat(String(P.weighVal).replace(',', '.')); P.weighVal = Math.max(30, (isNaN(v) ? lastWeigh(P) : v) + +d).toFixed(1); },
+  weighSave(){ const v = parseFloat(String(P.weighVal).replace(',', '.')); if (!(v >= 30 && v <= 300)){ toast('Enter a weight between 30 and 300 kg'); return; } P.weighToday = Math.round(v * 10) / 10; P.sheet = null; toast('Weight saved'); },
   photosOn(){ P.consent.photos = true; toast('Progress photos turned on'); },
   evAddW(){ P.ev.weight = 85; }, evW(d){ P.ev.weight = Math.round((P.ev.weight + +d) * 10) / 10; },
   ev(k){ const [f, v] = k.split(':'); P.ev[f] = v; },
@@ -2383,6 +2608,19 @@ function jump(r){
     default: P.tab = 'workout'; P.route = r;
   }
   renderProto();
+}
+
+/* rep scroller ("Couldn't complete"): drag, wheel or tap a number; snaps to whole reps; restyles in place */
+function bindRepRuler(screen){
+  const r = screen.querySelector('[data-repruler]'); if (!r) return;
+  const track = r.querySelector('.rp-track'), nums = [...r.querySelectorAll('.rp-n')], max = +r.dataset.max;
+  const show = v => { v = Math.max(0, Math.min(max, v)); if (v === P.shortVal) return; P.shortVal = v;
+    track.style.transform = `translateX(${-v * REP_STEP}px)`; nums.forEach(n => { n.className = `rp-n d${repDist(+n.dataset.n, v)}`; }); };
+  let sx = 0, sv = 0, drag = false, moved = false, acc = 0;
+  r.addEventListener('pointerdown', e => { drag = true; moved = false; sx = e.clientX; sv = P.shortVal; try { r.setPointerCapture(e.pointerId); } catch(_){} });
+  r.addEventListener('pointermove', e => { if (!drag) return; const dx = (e.clientX - sx) / DZ; if (Math.abs(dx) > 4) moved = true; if (moved) show(Math.round(sv - dx / REP_STEP)); });
+  r.addEventListener('pointerup', e => { drag = false; if (!moved){ const n = document.elementFromPoint(e.clientX, e.clientY)?.closest?.('.rp-n') || e.target.closest?.('.rp-n'); if (n) show(+n.dataset.n); } });
+  r.addEventListener('wheel', e => { e.preventDefault(); acc += e.deltaX || e.deltaY; if (Math.abs(acc) >= 30){ show(P.shortVal + Math.sign(acc)); acc = 0; } }, { passive:false });
 }
 
 /* ruler drag (onboarding) */
@@ -2423,6 +2661,8 @@ document.addEventListener('click', e => {
   if (fn(t.dataset.arg) === 'noRender') return;
   renderProto();
 });
+document.addEventListener('input', e => { if (e.target.matches('#protoDevice [data-wlog]')) P.weighVal = e.target.value; });
+document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('#protoDevice [data-wlog]')){ A.weighSave(); renderProto(); } });
 document.addEventListener('keydown', e => { if (e.key === 'Enter' && e.target.matches('#protoDevice [data-input]')){ if (P.tab === 'ai' && P.role === 'member') A.aiSend(); else A.send(); renderProto(); scrollChat(); } });
 
 /* live ticking: elapsed + cardio countdown without full re-render */
