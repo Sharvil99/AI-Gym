@@ -1209,6 +1209,82 @@ button.tag{border:0;font-family:inherit;cursor:pointer}
 .theme-light .hrow.danger .hi{background:#fff}
 .hrow.danger .ht{color:var(--text)}
 .badico{background:color-mix(in srgb,var(--red) 12%,transparent);box-shadow:none}
+
+/* Sign in */
+.signin-brand{display:flex;flex-direction:column;align-items:center;padding-top:28px}
+.appmark{width:64px;height:64px;border-radius:20px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center}
+.telfld{height:58px;border-radius:16px;background:var(--card);border:1.5px solid var(--accent);display:flex;align-items:center;gap:12px;padding:0 16px;font-size:20px;font-weight:600;font-variant-numeric:tabular-nums;box-shadow:var(--card-shadow)}
+.telfld .cc{color:var(--text-2);padding-right:12px;border-right:1px solid var(--line-2)}
+.telfld .caret{width:2px;height:24px;background:var(--accent);animation:blink 1s infinite;margin-left:-10px}
+.lnk{background:none;border:0;font:inherit;font-weight:600;color:var(--text);padding:0;cursor:pointer}
+.neutico{width:76px;height:76px;margin:0 auto;border-radius:50%;background:var(--raised);color:var(--text-2);display:grid;place-items:center}
+/* ===== Trainer app (j5) ===== */
+.tr-head{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:8px 20px 0}
+.tr-head .h1{margin-top:2px}
+.tr-chips{display:flex;gap:5px;padding:16px 16px 0;overflow-x:auto;scrollbar-width:none}
+.tr-chips::-webkit-scrollbar{display:none}
+.tr-fc{flex:none;height:34px;padding:0 6px 0 11px;border-radius:999px;border:1.5px solid var(--line-2);display:inline-flex;align-items:center;gap:5px;font-size:13px;font-weight:600;color:var(--text-2);white-space:nowrap}
+.tr-fc b{min-width:20px;height:20px;padding:0 5px;border-radius:10px;background:var(--raised);font-size:12px;font-weight:700;color:var(--text);display:inline-grid;place-items:center;font-variant-numeric:tabular-nums}
+.tr-fc.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.tr-fc.on b{background:color-mix(in srgb,var(--bg) 18%,transparent);color:var(--bg)}
+.tr-sort{display:flex;align-items:center;justify-content:flex-end;gap:4px;margin:14px 20px 8px;font-size:12px;font-weight:600;color:var(--text-2)}
+.tr-list{margin:0 16px;padding:2px 16px}
+.tr-list>*+*{border-top:1px solid var(--line)}
+.tr-empty{padding:18px 0;font-size:14px;color:var(--text-2);text-align:center}
+.tr-x{display:flex;align-items:center;gap:12px;width:100%;padding:12px 0;text-align:left}
+.tr-x .mn,.tr-cl .mn,.tr-dr .mn,.tr-file .mn,.tr-rt .mn{flex:1;min-width:0}
+.tr-x .t,.tr-cl .t,.tr-dr .t,.tr-rt .t{font-size:15px;font-weight:600}
+.tr-x .s,.tr-cl .s,.tr-dr .s,.tr-rt .s{font-size:12.5px;color:var(--text-2);margin-top:2px;line-height:17px}
+.tr-was{font-size:12px;color:var(--text-3);margin-top:2px;text-decoration:line-through;text-decoration-color:color-mix(in srgb,var(--text-3) 70%,transparent)}
+.tr-mcard{margin:8px 16px 0;padding:16px 18px 6px}
+.tr-mcard .kv b .ic,.card .kv b .ic{vertical-align:-2px;color:var(--text-2)}
+.tr-diff{margin:0 16px;padding:2px 16px}
+.tr-diff>*+*{border-top:1px solid var(--line)}
+.tr-dr,.tr-cl{display:flex;align-items:flex-start;gap:12px;padding:12px 0}
+.tr-dr .tag,.tr-cl .lnk{margin-top:2px;flex:none}
+.tr-q{font-size:13px;line-height:18px;color:var(--text);margin-top:6px;padding-left:10px;border-left:2px solid var(--line-2)}
+.tr-rebuild{margin:8px 16px 0;padding:16px 18px;display:flex;align-items:center;gap:14px}
+.tr-spin{width:28px;height:28px;flex:none;border-radius:50%;border:3px solid var(--raised);border-top-color:var(--accent);animation:trspin 0.9s linear infinite}
+@keyframes trspin{to{transform:rotate(360deg)}}
+.tr-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.tr-opts button{min-height:60px;padding:10px 14px;border-radius:16px;background:var(--card-2);border:1.5px solid var(--line);text-align:left;display:flex;flex-direction:column;justify-content:center;gap:2px}
+.tr-opts b{font-size:15px;font-weight:700}
+.tr-opts span{font-size:12px;color:var(--text-2);font-weight:500}
+.tr-opts button.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 10%,var(--card))}
+.tr-alt.on{border-color:var(--accent)}
+.tr-radio{width:22px;height:22px;flex:none;border-radius:50%;border:1.5px solid var(--line-2);display:grid;place-items:center;color:var(--accent-ink)}
+.tr-alt.on .tr-radio{background:var(--accent);border-color:var(--accent)}
+.tr-ta{width:100%;min-height:52px;resize:none;border-radius:16px;background:var(--card-2);border:1px solid var(--line-2);padding:14px 16px;font:inherit;font-size:14px;line-height:20px;color:var(--text);outline:none;display:block}
+.tr-ta::placeholder{color:var(--text-3)}
+.tr-ta:focus{border-color:var(--accent)}
+.tr-stack{display:flex;flex-direction:column;gap:8px;padding:0 16px}
+.tr-req{padding:14px 16px 16px}
+.tr-req.new{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),var(--card-shadow)}
+.tr-req.dim .tr-rt{opacity:.7}
+.tr-rt{display:flex;align-items:center;gap:12px;width:100%;text-align:left}
+.tr-rs{display:flex;align-items:center;gap:8px;margin-top:12px;font-size:13px;font-weight:600;color:var(--text-2)}
+.tr-rs i{width:7px;height:7px;border-radius:50%;background:var(--text-3)}
+.tr-rs i.on{background:var(--accent);animation:blink 1.4s infinite}
+.tr-req .btnrow .btn{height:46px}
+.tr-shift{height:28px;padding:0 10px;font-size:12px;margin-bottom:6px}
+.tr-shift i{width:6px;height:6px;border-radius:50%;background:currentColor;margin-right:6px}
+.tr-in{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:6px;vertical-align:1px}
+.tag .tr-in{margin-right:6px}
+.tr-search{color:var(--text-2)}
+.tr-search input{flex:1;min-width:0;height:100%;background:none;border:0;outline:none;font:inherit;font-size:15px;color:var(--text)}
+.tr-search input::placeholder{color:var(--text-3)}
+.tr-body{gap:12px}
+.tr-body span{display:block;font-size:12px;color:var(--text-2);font-weight:500}
+.tr-body b{display:block;font-size:20px;font-weight:700;letter-spacing:-.02em;margin-top:4px;font-variant-numeric:tabular-nums}
+.tr-body b small{font-size:12px;font-weight:500;color:var(--text-2)}
+.tr-body em{display:block;font-style:normal;font-size:12px;font-weight:600;color:var(--text-2);margin-top:2px}
+.tr-file{display:flex;align-items:center;gap:12px;width:100%;padding:10px 0;text-align:left;color:var(--text-2)}
+.tr-file .t{font-size:14px;font-weight:600;color:var(--text)}
+.tr-file .s{font-size:12px;color:var(--text-2);margin-top:1px}
+.tr-d{width:52px;flex:none;font-size:12px;font-weight:600;color:var(--text-2)}
+.tr-tabs .tbadge{background:var(--accent);color:var(--accent-ink)}
+.tr-hc{display:inline-flex;align-items:center;gap:6px;white-space:nowrap}
+.tr-hc .ic{color:var(--text-2)}
 </style>
 </head>
 <body class="theme-dark">
@@ -1246,7 +1322,7 @@ const BRAND = {
    ========================================================= */
 const APP = 'Gym Jodi';
 const AI_NAME = 'Jod.ai'; // the AI coach: builds the plan on day one, restructures it every 4 weeks, answers questions
-const ME = { name:'Arjun Reddy', first:'Arjun', age:28, since:'Aug 2026', heightCm:178, phone:'+91 98480 ••214' };
+const ME = { name:'Arjun Reddy', first:'Arjun', age:28, since:'Aug 2026', heightCm:178, phone:'+91 98480 ••214', diet:'veg' }; // diet: from his onboarding in Aug
 const COACH = { name:'Ravi Kumar', first:'Ravi', role:'Strength & Conditioning', rating:4.9, shift:'until 10 PM' };
 const BRANCH = 'Banjara Hills';
 const PROGRAM = { name:'Beginner — Full body', level:'Beginner', perWeek:3, week:2, weeks:4 };
@@ -1623,7 +1699,9 @@ const C = {
    STATE
    ========================================================= */
 const planLog = () => EX.map(e => (e.plan || []).map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })));
-const liveEx = (s, i = s.ex) => s.overrides[i] || EX[i];
+// the approved plan: EX, or the version the trainer approved in this session (planEx); swaps override it
+const baseEx = (s, i = s.ex) => (s.planEx && s.planEx[i]) || EX[i];
+const liveEx = (s, i = s.ex) => s.overrides[i] || baseEx(s, i);
 const isCardio = (s, i = s.ex) => liveEx(s, i).kind === 'cardio';
 const curSet = (s) => { const i = s.log[s.ex].findIndex(x => !x.done && !x.skip); return i < 0 ? s.log[s.ex].length : i; };
 // Beginner rule: missed by 1–2 reps → keep the weight; missed by 3+ (or 0 reps) → remaining sets ~10% lighter.
@@ -1650,11 +1728,14 @@ const setsFor = (s, m, doneOnly) => EX.reduce((a, _, i) => liveEx(s, i).mus.some
 const esc = (t) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;');
 function freshState(){
   return {
-    role:'member', tab:'workout', route:'home', onb:0,
+    role:'member', tab:'workout', route:'home', onb:0, signinStep:'phone', signinCase:'new',
     weight:85, unit:'kg', body:{ h:'', w:'', bf:'', lean:'', fat:'', vat:'' }, onbScan:null, goal:'lose', exp:'new', days:3, mins:45, diet:null,
     scanStage:null, scanDraft:null, scans:SCANS.map(x => ({ ...x })), areas:['shoulder'], symptom:'none',
     consent:{ terms:true, assess:true, location:false },
-    planStatus:'approved', planVer:2,
+    planStatus:'approved', planVer:2, planEx:null, approvedAt:null,
+    // trainer side: plan review (notes → Jod.ai rebuilds → approve), help, members
+    trn:'plans', trnSheet:null, trnFor:null, exPick:null, exNote:'', draftNotes:{}, trnNote:'', sent:null, drafts:null, verNotes:null,
+    planFilter:'review', memFilter:'all', resolveOutcome:null,
     loc:'in', where:null, locIssue:false, readiness:null,
     running:false, elapsed:0, ex:0, log:planLog(), exDone:{}, fb:{}, fbFor:null, shortFor:null, shortVal:null, cardioDone:{}, weighToday:null, weighVal:null,
     cardio:{ left:null, total:0, paused:false },
@@ -1689,6 +1770,27 @@ const reqWord = (s) => !s.req ? 'not sent' : { sent:'waiting for a trainer', acc
 const S = {};
 
 /* ---------- Join (MEM-01) ---------- */
+/* ---------- Sign in (MEM-01): phone number → 6-digit code.
+   A new number with a gym invite continues to Invite & verify; a member goes to Home; an unknown number gets a clear message. ---------- */
+S.signin = (s) => {
+  const head = back => `<div class="onb-head">${back ? `<button class="btn-ic" data-act="signinBack">${icon('chev-l')}</button>` : '<span style="width:44px"></span>'}<span class="t13 muted" style="font-weight:600">Sign in</span><span style="width:44px"></span></div>`;
+  if (s.signinStep === 'code') return { pb:130, body:`${head(true)}
+    <div class="px mt24"><div class="h2">Enter the code</div><p class="t13 muted" style="margin-top:6px">Sent to <span style="white-space:nowrap">+91 98480 ••214</span> · <button class="lnk" data-act="signinBack">Change</button></p>
+      <div class="otp mt16">${['3','1','7','','',''].map((d, i) => `<i class="${i === 3 ? 'on' : ''}">${d}</i>`).join('')}</div>
+      <div class="row between t13 mt16"><span class="muted">Didn’t get it?</span><span style="font-weight:600">Resend in 0:24</span></div></div>`,
+    fixed:`<button class="cta" data-act="signinVerify">Sign in</button>` };
+  if (s.signinStep === 'none') return { pb:130, body:`${head(true)}
+    <div style="text-align:center;padding:48px 28px 0"><div class="neutico">${icon('phone',30)}</div>
+      <div class="h1" style="margin-top:28px">This number isn’t linked to a gym</div>
+      <p class="muted" style="margin-top:12px;line-height:22px">Ask your gym’s front desk to add <span style="white-space:nowrap">+91 98480 ••214</span>, then sign in again.</p></div>`,
+    fixed:`<button class="cta" data-act="signinBack">Try another number</button>` };
+  return { pb:130, body:`${head(false)}
+    <div class="signin-brand"><div class="appmark">${icon('dumbbell', 30, 'stroke-width="2"')}</div><div class="h2" style="margin-top:14px">${APP}</div></div>
+    <div class="px mt32"><div class="h2">Your phone number</div><p class="t13 muted" style="margin-top:6px">The number your gym has on file.</p>
+      <div class="telfld mt16"><span class="cc">+91</span><span class="tv">98480 12214</span><i class="caret"></i></div></div>`,
+    fixed:`<button class="cta" data-act="signinGo">Get code</button>` };
+};
+
 S.invite = (s) => ({ pb:130, body:`
   <div class="onb-head"><span style="width:44px"></span><span class="t13 muted" style="font-weight:600">Gym invite</span><span style="width:44px"></span></div>
   <div class="px mt8"><div class="invite">
@@ -1793,19 +1895,22 @@ S.onbBuild = (s) => {
 };
 
 /* ---------- Plan in review (MEM-05) ---------- */
-S.pending = (s) => ({ body:`
+S.pending = (s) => {
+  const redo = s.planStatus === 'redo', v = redo ? s.planVer + 1 : s.planVer, review = ['now','Trainer review',`${COACH.first} checks exercises and weights against your limits`];
+  return { body:`
   <div class="home-head">
     <div class="row gap12"><div class="logo">${BRAND.logo(22)}</div><div><div class="eyebrow">${BRAND.name}</div><div class="greet">Hi, ${ME.first}</div></div></div>
     <button class="btn-ic">${icon('bell')}<span class="dot"></span></button></div>
   <div class="card" style="margin:20px 16px 0">
-    <div class="row between"><span class="pill"><i class="d" style="background:var(--orange)"></i>Plan in review</span><span class="t12 muted" style="font-weight:600">Draft v1</span></div>
-    <div class="h2" style="margin-top:14px">Coach ${COACH.first} is checking your plan</div>
-    <p class="t13 muted" style="margin-top:6px;line-height:19px">Workouts unlock once Coach ${COACH.first} approves it.</p>
+    <div class="row between"><span class="pill"><i class="d" style="background:var(--orange)"></i>${redo ? 'Being updated' : 'Plan in review'}</span><span class="t12 muted" style="font-weight:600">Draft v${v}</span></div>
+    <div class="h2" style="margin-top:14px">${redo ? `${AI_NAME} is updating your plan` : `Coach ${COACH.first} is checking your plan`}</div>
+    <p class="t13 muted" style="margin-top:6px;line-height:19px">${redo ? `Coach ${COACH.first} asked for changes. Workouts unlock once the new version is approved.` : `Workouts unlock once Coach ${COACH.first} approves it.`}</p>
     <div class="divider mt16"></div>
     <div class="mt16">${C.vtl([
       ['ok','Assessment submitted','Today, 9:12 AM'],
-      ['ok',`Draft built for ${BRAND.short}`,'Only equipment at your gym · 4 days a week'],
-      ['now','Trainer review',`${COACH.first} checks exercises and weights against your limits`],
+      ['ok',`Draft built for ${BRAND.short}`,`Only equipment at your gym · ${s.days} days a week`],
+      ...(redo ? [['ok','Trainer review',`${COACH.first} asked for changes · 9:40 AM`],['now',`${AI_NAME} is updating your plan`,`Draft v${v}`]]
+        : v > 1 ? [['ok',`Updated by ${AI_NAME}`,`Draft v${v} · from ${COACH.first}’s notes`], review] : [review]),
       ['fut','Plan approved','You’ll get a notification, then you can start']])}</div>
   </div>
   <div class="sec-title"><h3>While you wait</h3></div>
@@ -1815,11 +1920,12 @@ S.pending = (s) => ({ body:`
     <span class="tag good">Booked</span></div>
   <div class="card row gap12" style="margin:8px 16px 0;padding:14px 16px" data-act="tab" data-arg="coach">${C.avatarDot('coach', 44)}
     <div style="flex:1;min-width:0"><div style="font-weight:600">Coach ${COACH.name}</div><div class="t13 muted">Your trainer · on shift ${COACH.shift}</div></div><button class="btn-ic">${icon('chat',18)}</button></div>`,
-  fixed: C.tabBar('workout'), pb:128 });
+  fixed: C.tabBar('workout'), pb:128 };
+};
 
 /* ---------- Home / today (MEM-06) ---------- */
 S.home = (s) => {
-  if (s.planStatus === 'pending') return S.pending(s);
+  if (s.planStatus !== 'approved') return S.pending(s);
   const days = [['Mon',16,'dn'],['Tue',17,''],['Wed',18,''],['Thu',19,'today'],['Fri',20,''],['Sat',21,'tr'],['Sun',22,'']];
   const done = 1 + (s.completed ? 1 : 0), m = metrics(s);
   const status = s.completed ? `<span class="tag good">${icon('check',12,'stroke-width="2.6"')}Done</span>` : s.running ? `<span class="tag acc">In progress</span>` : '';
@@ -1934,7 +2040,7 @@ S.plan = (s) => {
       ${v1 ? '' : `<div class="divider mt16"></div><div class="t13 mt12"><span class="muted">What changed:</span> leg press up to 40 kg, after your feedback.</div>`}</div>
     <div class="px mt12"><div class="note">
       <div class="row gap12">${C.avatar('coach', 36)}<div style="flex:1"><div style="font-weight:600;font-size:14px">Note from Coach ${COACH.first}</div><div class="t12 muted">Mon, 16 Nov</div></div></div>
-      <q>“Tell me how each exercise felt. I raise your weights from that. Keep the shoulder press light until I’ve watched a set.”</q></div></div>
+      <q>“Rate each exercise after you do it. It goes into your next plan. Keep the shoulder press light until I’ve watched a set.”</q></div></div>
     <div class="px row between mt24"><div><div class="h3">4-week program</div><div class="t13 muted" style="margin-top:2px">Started 9 Nov · check-in on 6 Dec</div></div>${C.coachBadge('Approved')}</div>
     <div class="wchips mt16">${chips}</div>
     <div class="card" style="margin:12px 16px 0;padding:12px">
@@ -1951,7 +2057,7 @@ S.detail = (s) => ({ body:`${C.nav({ title:TODAY.title, sub:TODAY.sub })}
   <div class="stats3"><div><span>EXERCISES</span><b>${EX.length}</b></div><div><span>TARGET</span><b>${TODAY.mins} <small>min</small></b></div><div><span>PLAN</span><b>v${s.planVer}</b></div></div>
   <div class="sec-title" style="margin-top:28px"><h3>Target muscles</h3><a>Share of ${metrics(s).total} sets</a></div>
   <div class="rings px">${MUSCLES.map(m => { const n = setsFor(s, m); return C.muscleRing({ ...m, pct:n / metrics(s).total * 100, label:`${n} sets` }, 76); }).join('')}</div>
-  <div class="px mt24"><div class="ai-note"><span class="ico">${icon('building',17)}</span><div class="t13" style="line-height:19px"><b style="font-weight:600">Built for ${BRAND.short}.</b> <span class="muted">Every exercise uses equipment at your gym, and Coach ${COACH.first} set the weights and reps.</span></div></div></div>
+  <div class="px mt24"><div class="ai-note"><span class="ico">${icon('building',17)}</span><div class="t13" style="line-height:19px"><b style="font-weight:600">Built for ${BRAND.short}.</b> <span class="muted">Every exercise uses equipment at your gym. ${AI_NAME} set the weights and reps; Coach ${COACH.first} approved them.</span></div></div></div>
   <div class="sec-title"><h3>${EX.length} exercises</h3><a style="color:var(--green)">${icon('badge',15)}Approved</a></div>
   <div class="px">${EX.map((_, i) => { const e = liveEx(s, i); return `<div class="ex-card">${C.thumb(e.mus, e.view)}<div style="flex:1;min-width:0">
     <div class="row gap8" style="min-width:0"><span style="font-weight:600;font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${e.name}</span>${e.kind === 'cardio' ? `<span class="tag">${icon('timer',11)}${e.tags}</span>` : ''}</div>
@@ -2065,7 +2171,7 @@ const demoSheet = (s) => {
     <button class="btn pri block mt16" data-act="closeSheet">Got it</button>`);
 };
 const swapSheet = (s) => {
-  const base = EX[s.ex], cur = liveEx(s), opts = SWAPS[s.ex] || [], swapped = !!s.overrides[s.ex];
+  const base = baseEx(s), cur = liveEx(s), opts = (SWAPS[s.ex] || []).map((o, i) => [o, i]).filter(([o]) => o.name !== base.name), swapped = !!s.overrides[s.ex];
   const locked = s.log[s.ex].some(x => x.done || x.skip) || s.cardio.left != null;
   // station only when it says something the name doesn't ("Dumbbell rack", "Rower 1")
   const where = o => { const n = o.name.toLowerCase(); return o.station.toLowerCase().replace(/\s*\d+$/, '').split(/\s+/).every(w => n.includes(w)) ? '' : ` · ${o.station}`; };
@@ -2073,7 +2179,7 @@ const swapSheet = (s) => {
   const row = (o, title, act, arg, on) => `<button class="hrow" style="width:100%;text-align:left${locked && !on ? ';opacity:.45' : ''}" ${on ? '' : `data-act="${act}"`} ${arg != null ? `data-arg="${arg}"` : ''}>${C.thumb(base.mus, base.view, 44)}<span class="mid"><div class="ht">${title}</div><div class="hs">${meta(o)}</div></span>${on ? `<span style="color:var(--accent)">${icon('check',18,'stroke-width="2.6"')}</span>` : icon('chev-r',18)}</button>`;
   return C.sheet(`<div class="sheet-head"><div><div class="h2">Swap exercise</div><div class="t13 muted" style="margin-top:4px">${locked ? 'Available before your first set' : `Instead of ${base.name}`}</div></div>${C.closeBtn()}</div>
     ${swapped ? row(base, `Back to ${base.name}`, 'swapBack', null, false) : ''}
-    ${opts.map((o, i) => row(o, o.name, 'doSwap', i, swapped && cur.name === o.name)).join('')}
+    ${opts.map(([o, i]) => row(o, o.name, 'doSwap', i, swapped && cur.name === o.name)).join('')}
     <div class="row gap8 t12 muted" style="margin-top:14px;padding:0 4px">${icon('shield',13)}Approved by Coach ${COACH.first} with your plan</div>`);
 };
 const helpSheet = (s) => C.sheet(`
@@ -2316,61 +2422,432 @@ S.evaluation = (s) => {
 };
 
 /* =========================================================
+   TRAINER APP: Coach Ravi on the gym floor. Three jobs:
+   1. Plans: approve Jod.ai's plan, or send notes and instructions so Jod.ai rebuilds it.
+      The trainer never edits weights; every version comes from Jod.ai.
+   2. Help: requests from the floor (spotting, form, equipment, pain holds).
+   3. Members: everyone at the gym, with their profile, plan, body scans and history.
+   ========================================================= */
+const T = {};
+const GOAL_L = { strong:'Get stronger', muscle:'Build muscle', lose:'Lose weight', fit:'General fitness' };
+const EXP_L = { new:'New · under 3 months', some:'Some · 3–12 months', exp:'Experienced · 1 year +' };
+const AREA_L = { shoulder:'Shoulder', back:'Lower back', knee:'Knee', hip:'Hip', wrist:'Wrist', neck:'Neck' };
+const DIET_L = Object.fromEntries(DIETS);
+const unitS = (e) => e.unit === 'kg each' ? 'kg each' : 'kg';
+const wsOf = (e) => e.plan.map(p => kg(p[0])).join(' · ');
+const exMetaT = (e) => e.kind === 'cardio' ? `${e.mins} min · ${e.target}` : `${e.plan.length} × ${e.plan[0][1]} · ${wsOf(e)} ${unitS(e)}`;
+const dayLbl = (n) => n === 0 ? 'today' : n === 1 ? 'yesterday' : (d => `${d.getDate()} ${MON[d.getMonth()]}`)(new Date(2026, 10, 19 - n));
+
+/* ---------- plan versions ---------- */
+// Jod.ai's first draft for Arjun (v1). Leg press and shoulder press start heavier than the plan he trains on now.
+const DRAFT_V1 = EX.map((e, i) => i === 1 ? { ...e, plan:[[40,12],[45,12],[45,12]], load:'40–45 kg' }
+  : i === 5 ? { ...e, plan:[[5,10],[6,10]], load:'5–6 kg each' } : { ...e });
+const drafts = (s) => s.drafts || (s.drafts = [DRAFT_V1.map(e => ({ ...e }))]);
+const planShown = (s) => s.planStatus === 'approved' ? (s.planEx || EX) : drafts(s)[drafts(s).length - 1];
+// what a trainer can ask Jod.ai to change on one exercise
+const XOPTS = {
+  strength:[['lighter','Lighter','About 10%'],['heavier','Heavier','One step'],['fewer','Fewer reps','−2 a set'],['more','More reps','+2 a set']],
+  cardio:[['shorter','Shorter','−5 min'],['longer','Longer','+5 min']],
+};
+const XLBL = { lighter:'Lighter', heavier:'Heavier', fewer:'Fewer reps', more:'More reps', shorter:'Shorter', longer:'Longer' };
+const chLabel = (k, i) => !k ? 'Note' : k.startsWith('replace:') ? `Replace with ${SWAPS[i][+k.split(':')[1]].name}` : XLBL[k];
+const chShort = (k) => !k ? 'Note' : k.startsWith('replace:') ? 'Replace' : XLBL[k];
+const loadTxt = (plan, unit) => { const w = plan.map(p => p[0]), lo = Math.min(...w), hi = Math.max(...w); return `${lo === hi ? kg(lo) : `${kg(lo)}–${kg(hi)}`} ${unit === 'kg each' ? 'kg each' : 'kg'}`; };
+function applyChange(e, i, k){
+  if (!k) return { ...e };
+  if (k.startsWith('replace:')){ const o = SWAPS[i][+k.split(':')[1]];
+    return { ...e, name:o.name, station:o.station, kind:o.kind || e.kind, mins:o.mins ?? e.mins, target:o.target ?? e.target, reps:o.reps ?? e.reps, load:o.load ?? e.load, unit:o.unit || e.unit, plan:o.plan || [], sets:o.plan ? o.plan.length : e.sets, note:undefined }; }
+  if (e.kind === 'cardio') return { ...e, mins:k === 'shorter' ? Math.max(5, e.mins - 5) : e.mins + 5 };
+  const plan = e.plan.map(([w, r]) => [k === 'lighter' ? lighter(w) : k === 'heavier' ? w + stepOf(w) : w, k === 'fewer' ? Math.max(6, r - 2) : k === 'more' ? Math.min(15, r + 2) : r]);
+  return { ...e, plan, reps:String(plan[0][1]), load:loadTxt(plan, e.unit) };
+}
+// Jod.ai rebuilds from the notes that were sent (deterministic in the prototype)
+function rebuild(s){
+  const d = drafts(s), cur = d[d.length - 1], n = s.sent.notes;
+  d.push(cur.map((e, i) => n[i] ? applyChange(e, i, n[i].k) : { ...e }));
+  s.planVer = d.length; s.planStatus = 'pending'; s.verNotes = { ...(s.verNotes || {}), [s.planVer]:s.sent };
+}
+const SAMPLE_NOTES = { 1:{ k:'lighter', note:'' }, 5:{ k:'lighter', note:'I’ll watch his first set.' } };
+const SAMPLE_TEXT = 'First month in a gym. Keep everything light for two weeks.';
+
+/* ---------- sample data: other members (Arjun comes from the prototype state) ---------- */
+const PLAN_Q = [ // oldest first
+  { n:'Karthik Rao', c:'#3E7CB1', st:'review', t:'New member · plan v1', w:'5 h' },
+  { n:'Sneha Iyer', c:'#8E5BB5', st:'review', t:'4-week update · plan v3', w:'3 h' },
+  { n:'Farah Khan', c:'#B5654A', st:'redo', t:'Plan v2 · your notes at 9:20 AM' },
+  { n:'Priya Sharma', c:'#7A5BB5', st:'approved', t:'Plan v2 · approved today' },
+  { n:'Meera Nair', c:'#4F8A6B', st:'approved', t:'Plan v4 · approved yesterday' },
+];
+const ROSTER = [
+  { n:'Sneha Iyer', c:'#8E5BB5', coach:'Ravi', last:0, gym:'Cable stack 2', flag:'review' },
+  { n:'Priya Sharma', c:'#7A5BB5', coach:'Ravi', last:0, gym:'Smith machine' },
+  { n:'Rahul Verma', c:'#9C4F6B', coach:'Imran', last:0, gym:'Treadmill 2' },
+  { n:'Rohan Mehta', c:'#4F7A9C', coach:'Sana', last:0, gym:'Rower 1' },
+  { n:'Farah Khan', c:'#B5654A', coach:'Ravi', last:0, flag:'redo' },
+  { n:'Karthik Rao', c:'#3E7CB1', coach:'Ravi', last:1, flag:'review' },
+  { n:'Meera Nair', c:'#4F8A6B', coach:'Ravi', last:1 },
+  { n:'Divya Menon', c:'#A0577A', coach:'Sana', last:1 },
+  { n:'Arvind Pillai', c:'#4A5E8C', coach:'Imran', last:1 },
+  { n:'Vikram Singh', c:'#6B6F9C', coach:'Imran', last:2 },
+  { n:'Kavya Reddy', c:'#8C5E4A', coach:'Imran', last:2 },
+  { n:'Lakshmi Iyer', c:'#6E4A8C', coach:'Ravi', last:2 },
+  { n:'Ananya Das', c:'#9C7A4F', coach:'Ravi', last:3 },
+  { n:'Manoj Kumar', c:'#7E4A8C', coach:'Sana', last:3 },
+  { n:'Aditya Kulkarni', c:'#5E8C4A', coach:'Ravi', last:4 },
+  { n:'Pooja Patel', c:'#8C4A6E', coach:'Sana', last:5 },
+  { n:'Siddharth Rao', c:'#4A6E8C', coach:'Ravi', last:6 },
+  { n:'Neha Joshi', c:'#8C4A4A', coach:'Ravi', last:7 },
+  { n:'Harsh Gupta', c:'#6E8C4A', coach:'Imran', last:9 },
+  { n:'Ishita Bose', c:'#4A8C7E', coach:'Ravi', last:12 },
+  { n:'Tanvi Shah', c:'#8C7E4A', coach:'Ravi', last:15 },
+  { n:'Yash Thakur', c:'#4A8C5E', coach:'Sana', last:20 },
+];
+const OTHER_REQ = [{ n:'Sneha Iyer', c:'#8E5BB5', station:'Cable stack 2', type:'spotting', status:'accepted', by:'Imran', t:'6:18 PM' }];
+const RESOLVED_TODAY = [['Priya Sharma','#7A5BB5','Smith machine · spotting','5:48 PM · 3 min'],['Rahul Verma','#9C4F6B','Treadmill 2 · equipment','4:32 PM · 6 min']];
+const OUTS = {
+  discomfort:[['release','check','Cleared in person','Removes the hold'],['keep','ban','Keep on hold today','Skips this exercise today'],['refer','alert','Advised medical help','Hold stays']],
+  spotting:[['spot','hand','Spotted the set',''],['form','target','Corrected technique',''],['setup','wrench','Adjusted the machine',''],['other','pencil','Something else','']],
+  equipment:[['fixed','wrench','Fixed it',''],['out','ban','Marked out of order','Plans skip it'],['other','pencil','Something else','']],
+};
+const OUT_L = Object.fromEntries(Object.values(OUTS).flat().map(([k, , t]) => [k, t]));
+const WORKOUTS_PAST = [['Mon 16 Nov','Full Body B','7 of 7 exercises · 38 min · leg press too easy'],['Sat 14 Nov','Full Body B','7 of 7 exercises · 40 min'],['Thu 12 Nov','Full Body A','6 of 7 exercises · 35 min']];
+const HELP_PAST = [['12 Nov','Spotting · Leg press','Resolved · 3 min'],['3 Nov','Equipment · Cable stack 1','Resolved · 9 min']];
+
+/* ---------- derived state ---------- */
+const arjunPlan = (s) => s.planStatus === 'pending' ? { me:true, st:'review', t:s.planVer > 1 ? `Plan v${s.planVer} · rebuilt from your notes` : 'New member · plan v1', w:s.planVer > 1 ? 'now' : '25 min' }
+  : s.planStatus === 'redo' ? { me:true, st:'redo', t:`Plan v${s.planVer + 1} · your notes at 9:40 AM` }
+  : { me:true, st:'approved', t:`Plan v${s.planVer} · approved ${s.approvedAt || '9 Nov'}` };
+const planRows = (s) => { const a = arjunPlan(s), q = PLAN_Q.slice(); const at = a.st === 'review' ? q.filter(x => x.st === 'review').length : 0; const ap = q.findIndex(x => x.st === 'approved'); q.splice(a.st === 'approved' ? (s.approvedAt === 'today' ? ap : q.length) : at, 0, a); return q; };
+const planCount = (s, st) => planRows(s).filter(x => x.st === st).length;
+const reqOpen = (s) => s.req && s.req.status !== 'resolved' ? s.req : null;
+const helpOpen = (s) => [...(reqOpen(s) ? [{ me:true, ...s.req }] : []), ...OTHER_REQ];
+const holdOn = (s) => Object.keys(s.holds).find(k => s.holds[k]);
+const inGym = (s) => s.running && s.where === 'gym';
+const arjunRow = (s) => ({ me:true, n:ME.name, coach:'Ravi', last:inGym(s) || s.completed ? 0 : 3, gym:inGym(s) ? liveEx(s).station : null,
+  flag:s.planStatus === 'pending' ? 'review' : s.planStatus === 'redo' ? 'redo' : holdOn(s) ? 'hold' : reqOpen(s) ? 'help' : null });
+const roster = (s) => [arjunRow(s), ...ROSTER].sort((a, b) => (b.gym ? 1 : 0) - (a.gym ? 1 : 0) || a.last - b.last || (b.me ? 1 : 0) - (a.me ? 1 : 0));
+
+/* ---------- shared pieces ---------- */
+const trSheet = (content) => `<div class="backdrop" data-act="trnCloseSheet"></div><div class="sheet"><div class="grabber"></div>${content}</div>`;
+const trTabs = (active, s) => {
+  const t = (k, ic, lb, n) => `<button class="tab ${active === k ? 'on' : ''}" data-act="trnGo" data-arg="${k}">${icon(ic, 21)}${lb}${n ? `<i class="tbadge">${n}</i>` : ''}</button>`;
+  return `<nav class="tabbar tr-tabs">${t('plans','clipboard','Plans', planCount(s, 'review'))}${t('help','headset','Help', reqOpen(s) && s.req.status === 'sent' ? 1 : 0)}${t('members','users','Members')}</nav>`;
+};
+const trHead = (title, right) => `<div class="tr-head"><div><div class="eyebrow">${BRAND.short} · Trainer</div><div class="h1">${title}</div></div>${right || C.avatarDot('coach', 40)}</div>`;
+const fchips = (act, cur, list) => `<div class="tr-chips">${list.map(([k, lb, n]) => `<button class="tr-fc ${cur === k ? 'on' : ''}" data-act="${act}" data-arg="${k}">${lb}<b>${n}</b></button>`).join('')}</div>`;
+const flagTag = (f) => ({ review:'<span class="tag acc">Review</span>', redo:`<span class="tag">${icon('sparkles',11)}Rebuilding</span>`, help:`<span class="tag acc">${icon('headset',11)}Help</span>`, hold:'<span class="tag bad">On hold</span>' }[f] || '');
+
+/* ---------- 1 · Plans ---------- */
+T.plans = (s) => {
+  const f = s.planFilter || 'review', rows = planRows(s).filter(x => x.st === f);
+  const right = (x) => x.st === 'review' ? `<span class="t12 muted" style="font-weight:600">${x.w}</span>` : x.st === 'redo' ? `<span class="tag">${icon('sparkles',11)}Rebuilding</span>` : `<span class="tag good">${icon('check',11,'stroke-width="2.6"')}Active</span>`;
+  const row = (x) => `<button class="mrow2" ${x.me ? 'data-act="trnOpenPlan"' : ''}>${C.person(x, 44)}<div class="mn"><div class="t">${x.me ? ME.name : x.n}</div><div class="s">${x.t}</div></div>${right(x)}${icon('chev-r',18)}</button>`;
+  return { pb:128, body:`${trHead('Plans')}
+    ${fchips('planFilter', f, [['review','To review',planCount(s, 'review')],['redo','Rebuilding',planCount(s, 'redo')],['approved','Approved',planCount(s, 'approved')]])}
+    <div class="tr-sort">${f === 'review' ? 'Oldest first' : 'Latest first'}${icon('chev-d',14)}</div>
+    <div class="card tr-list">${rows.length ? rows.map(row).join('') : '<div class="tr-empty">Nothing here</div>'}</div>`,
+    fixed:trTabs('plans', s) };
+};
+
+T.review = (s) => {
+  const view = s.planStatus === 'approved', redo = s.planStatus === 'redo', ver = s.planVer;
+  const plan = planShown(s), d = drafts(s), prev = !view && d.length > 1 ? d[d.length - 2] : null, made = !view ? (s.verNotes || {})[ver] : null;
+  const notes = redo ? s.sent.notes : view ? {} : (s.draftNotes || {}), nN = Object.keys(notes).length;
+  const b = s.body.h ? s.body : SCANS[0], sc = s.onbScan || SCANS[0], lim = (s.areas || []).map(a => AREA_L[a]);
+  const changed = (i) => made && made.notes[i] && made.notes[i].k;
+  const wasTxt = (i) => { const p = prev[i], e = plan[i]; return p.name !== e.name ? p.name : e.kind === 'cardio' ? `${p.mins} min` : p.plan[0][1] !== e.plan[0][1] ? `${p.plan.length} × ${p.plan[0][1]}` : `${wsOf(p)} ${unitS(p)}`; };
+  const row = (e, i) => { const n = notes[i], tap = !view && !redo;
+    return `<button class="tr-x" ${tap ? `data-act="trnEx" data-arg="${i}"` : ''}>${C.thumb(e.mus, e.view, 44)}<div class="mn"><div class="t">${e.name}</div><div class="s">${exMetaT(e)}</div>${changed(i) ? `<div class="tr-was">was ${wasTxt(i)}</div>` : ''}</div>${n ? `<span class="tag acc">${chShort(n.k)}</span>` : ''}${tap ? icon('chev-r', 18) : ''}</button>`; };
+  const diffs = made ? Object.entries(made.notes).filter(([, n]) => n.k) : [];
+  const status = view ? `Approved ${s.approvedAt || '9 Nov'} · week ${PROGRAM.week} of ${PROGRAM.weeks}` : ver === 1 ? 'New member · today 9:13 AM' : 'Rebuilt today 9:41 AM';
+  const bar = view || redo ? '' : `<div class="fade-b"></div><div class="actbar">${nN
+    ? `<button class="btn pri" data-act="trnChanges">Request changes · ${nN}</button>`
+    : `<button class="btn sec" data-act="trnChanges">Request changes</button><button class="btn pri" data-act="trnApprove">${icon('check',18,'stroke-width="2.6"')}Approve v${ver}</button>`}</div>`;
+  return { pb:view || redo ? 48 : 130, body:`${C.nav({ leftAct:'trnBackPlans', title:view ? `Plan v${ver}` : 'Review plan', sub:`${ME.name} · v${redo ? ver + 1 : ver}`, right:null })}
+    ${redo ? `<div class="card tr-rebuild"><span class="tr-spin"></span><div style="min-width:0"><div style="font-weight:700">${AI_NAME} is rebuilding the plan</div><div class="t13 muted" style="margin-top:2px">Plan v${ver + 1} · from your notes at 9:40 AM</div></div></div>` : ''}
+    <div class="card tr-mcard">
+      <div class="row gap12">${C.avatar('me', 48)}<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:17px">${ME.name}</div><div class="t13 muted" style="margin-top:2px">${status}</div></div><button class="btn-ic" data-act="trnMember">${icon('user',18)}</button></div>
+      <div class="divider mt16"></div>
+      <div class="kv"><span>Goal</span><b>${GOAL_L[s.goal]}</b></div>
+      <div class="kv"><span>Experience</span><b>${EXP_L[s.exp]}</b></div>
+      <div class="kv"><span>Schedule</span><b>${s.days} days · ${s.mins} min</b></div>
+      <div class="kv"><span>Diet</span><b>${DIET_L[s.diet || ME.diet]}</b></div>
+      <div class="kv"><span>Body</span><b>${kg(b.h)} cm · ${kg(b.w)} kg · ${kg(sc.bf)}% fat</b></div>
+      <div class="kv"><span>Health check</span><b class="tr-hc">${lim.length ? `${icon('alert',14)}${lim.join(', ')} · tight` : 'Nothing reported'}</b></div></div>
+    ${diffs.length || (made && made.text) ? `<div class="sec-title"><h3>Changes from v${ver - 1}</h3><a>${diffs.length}</a></div>
+    <div class="card tr-diff">${diffs.map(([i, n]) => `<div class="tr-dr"><div class="mn"><div class="t">${prev[i].name}</div><div class="s">${prev[i].name !== plan[i].name ? `→ ${plan[i].name}` : plan[i].kind === 'cardio' ? `${prev[i].mins} → ${plan[i].mins} min` : prev[i].plan[0][1] !== plan[i].plan[0][1] ? `${prev[i].plan.length} × ${prev[i].plan[0][1]} → ${plan[i].plan.length} × ${plan[i].plan[0][1]}` : `${wsOf(prev[i])} → ${wsOf(plan[i])} ${unitS(plan[i])}`}</div>${n.note ? `<div class="tr-q">“${esc(n.note)}”</div>` : ''}</div><span class="tag acc">${chShort(n.k)}</span></div>`).join('')}
+      ${made.text ? `<div class="tr-dr"><div class="mn"><div class="t">Your instructions</div><div class="tr-q">“${esc(made.text)}”</div></div></div>` : ''}</div>` : ''}
+    <div class="sec-title"><h3>Checks</h3></div>
+    <div class="card" style="margin:0 16px;padding:4px 16px">
+      ${C.check('ok', `All ${plan.length} exercises use ${BRAND.short} equipment`, '')}
+      ${C.check('ok', `Fits ${s.mins} min`, `Day A about ${TODAY.mins} min`)}
+      ${lim.includes('Shoulder') ? C.check('warn', 'Shoulder tightness reported', `${plan[5].name} · you watch the first set`) : ''}</div>
+    <div class="sec-title"><h3>Day A · ${TODAY.title}</h3><a>${plan.length} exercises</a></div>
+    <div class="card tr-list">${plan.map(row).join('')}</div>
+    <div class="card tr-list" style="margin-top:8px"><div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">Day B · Full Body B</div><div class="s">Mon, Sat · 7 exercises</div></div></div></div>`,
+    fixed:bar };
+};
+
+const trnExSheet = (s) => {
+  const i = s.trnFor, e = planShown(s)[i], has = !!(s.draftNotes || {})[i];
+  const opts = XOPTS[e.kind === 'cardio' ? 'cardio' : 'strength'], alts = (SWAPS[i] || []).map((o, j) => [o, j]).filter(([o]) => o.name !== e.name);
+  return trSheet(`<div class="sheet-head"><div style="min-width:0"><div class="h2">${e.name}</div><div class="t13 muted" style="margin-top:4px">${exMetaT(e)}</div></div>${C.closeBtn('trnCloseSheet')}</div>
+    <div class="qlabel" style="margin-top:0">Change</div>
+    <div class="tr-opts ${opts.length === 2 ? 'two' : ''}">${opts.map(([k, l, sub]) => `<button class="${s.exPick === k ? 'on' : ''}" data-act="exPick" data-arg="${k}"><b>${l}</b><span>${sub}</span></button>`).join('')}</div>
+    ${alts.length ? `<div class="qlabel">Replace with</div>${alts.map(([o, j]) => { const k = `replace:${j}`, on = s.exPick === k;
+      return `<button class="hrow tr-alt ${on ? 'on' : ''}" style="width:100%;text-align:left" data-act="exPick" data-arg="${k}"><span class="mid"><div class="ht">${o.name}</div><div class="hs">${o.kind === 'cardio' ? `${o.mins} min · ${o.target}` : `${o.plan.length} × ${o.reps} · ${o.load}`}</div></span><span class="tr-radio">${on ? icon('check',13,'stroke-width="3"') : ''}</span></button>`; }).join('')}` : ''}
+    <div class="qlabel">Note for ${AI_NAME}</div>
+    <textarea class="tr-ta" rows="2" data-exnote placeholder="Optional">${esc(s.exNote || '')}</textarea>
+    <div class="btnrow mt16">${has ? '<button class="btn sec" data-act="exRemove">Remove</button>' : ''}<button class="btn pri" data-act="exSave">Save</button></div>`);
+};
+
+const trnChangesSheet = (s) => {
+  const plan = planShown(s), notes = s.draftNotes || {}, list = Object.entries(notes);
+  return trSheet(`<div class="sheet-head"><div><div class="h2">Request changes</div><div class="t13 muted" style="margin-top:4px">${ME.name} · plan v${s.planVer}</div></div>${C.closeBtn('trnCloseSheet')}</div>
+    <div class="qlabel" style="margin-top:0">Exercises</div>
+    <div class="card tr-list" style="margin:0">${list.length ? list.map(([i, n]) => `<div class="tr-cl"><div class="mn"><div class="t">${plan[i].name}</div><div class="s">${chLabel(n.k, i)}</div>${n.note ? `<div class="tr-q">“${esc(n.note)}”</div>` : ''}</div><button class="lnk t13" data-act="trnEx" data-arg="${i}">Edit</button></div>`).join('')
+      : '<div class="tr-empty" style="padding:14px 0">None · tap an exercise to change it</div>'}</div>
+    <div class="qlabel">Instructions for ${AI_NAME}</div>
+    <textarea class="tr-ta" rows="3" data-trnote placeholder="Anything else to change">${esc(s.trnNote || '')}</textarea>
+    <button class="btn pri block mt16" data-act="trnSend">${icon('sparkles',18)}Send to ${AI_NAME}</button>`);
+};
+
+/* ---------- 2 · Help ---------- */
+T.help = (s) => {
+  const open = helpOpen(s), r = reqOpen(s);
+  const resolved = (s.req && s.req.status === 'resolved' ? [[ME.name, null, `${s.req.station} · ${REQ_SHORT[s.req.type].toLowerCase()}`, `${REQ_T.resolved} · 6 min`]] : []).concat(RESOLVED_TODAY);
+  const mine = (x) => { const pain = x.type === 'discomfort';
+    const st = { sent:`New · ${REQ_T.sent}`, accepted:'Accepted by you', onway:'You’re on the way' }[x.status];
+    const btns = x.status === 'sent' ? `<button class="btn pri sm" data-act="trnAccept">${icon('check',16,'stroke-width="2.6"')}Accept</button>`
+      : x.status === 'accepted' ? `<button class="btn sec sm" data-act="trnOnway">${icon('footprints',16)}On my way</button><button class="btn pri sm" data-act="trnResolveOpen">Resolve</button>`
+      : `<button class="btn pri sm" data-act="trnResolveOpen">${icon('check',16,'stroke-width="2.6"')}Resolve</button>`;
+    return `<div class="card tr-req ${x.status === 'sent' ? 'new' : ''}">
+      <button class="tr-rt" data-act="trnGo" data-arg="request">${C.avatar('me', 44)}<div class="mn"><div class="t">${ME.name}</div><div class="s">${x.station}</div></div>${pain ? `<span class="tag bad">${icon('alert',11)}Pain</span>` : `<span class="tag">${REQ_SHORT[x.type]}</span>`}</button>
+      <div class="tr-rs"><i class="${x.status === 'sent' ? 'on' : ''}"></i>${st}</div>
+      <div class="btnrow mt12">${btns}</div></div>`; };
+  const other = (x) => `<div class="card tr-req dim"><div class="tr-rt">${C.ini(x.n, x.c, 44)}<div class="mn"><div class="t">${x.n}</div><div class="s">${x.station}</div></div><span class="tag">${REQ_SHORT[x.type]}</span></div><div class="tr-rs">Accepted by ${x.by} · ${x.t}</div></div>`;
+  return { pb:128, body:`${trHead('Help', `<span class="tag good tr-shift"><i></i>On shift · till 10 PM</span>`)}
+    <div class="sec-title" style="margin-top:12px"><h3>Open</h3><a>${open.length}</a></div>
+    <div class="tr-stack">${open.map(x => x.me ? mine(x) : other(x)).join('')}</div>
+    <div class="sec-title"><h3>Resolved today</h3><a>${resolved.length}</a></div>
+    <div class="card tr-list">${resolved.map(([n, c, t, tm]) => `<div class="mrow2">${c ? C.ini(n, c, 40) : C.avatar('me', 40)}<div class="mn"><div class="t">${n}</div><div class="s">${t}</div></div><span class="t12 muted">${tm}</span></div>`).join('')}</div>`,
+    fixed:trTabs('help', s) };
+};
+
+T.request = (s) => {
+  const r = s.req; if (!r) return T.help(s);
+  const pain = r.type === 'discomfort', order = ['sent','accepted','onway','resolved'], k = order.indexOf(r.status);
+  const st = (i) => i <= k ? 'ok' : i === k + 1 ? 'now' : 'fut';
+  const exI = r.ex ?? s.ex, ex = liveEx(s, exI), log = s.log[exI];
+  const set = ex.kind === 'cardio' ? `${ex.mins} min` : (() => { const i = Math.min(curSet({ ...s, ex:exI }), log.length - 1), x = log[i]; return `Set ${i + 1} of ${log.length} · ${kg(x.w)} ${unitS(ex)} × ${x.r}`; })();
+  const bar = r.status === 'sent' ? `<div class="fade-b"></div><div class="actbar"><button class="btn pri" data-act="trnAccept">${icon('check',18,'stroke-width="2.6"')}Accept</button></div>`
+    : r.status === 'accepted' ? `<div class="fade-b"></div><div class="actbar"><button class="btn sec" data-act="trnOnway">${icon('footprints',18)}On my way</button><button class="btn pri" data-act="trnResolveOpen">Resolve</button></div>`
+    : r.status === 'onway' ? `<div class="fade-b"></div><div class="actbar"><button class="btn pri" data-act="trnResolveOpen">${icon('check',18,'stroke-width="2.6"')}Resolve</button></div>` : '';
+  return { pb:r.status === 'resolved' ? 48 : 130, body:`${C.nav({ leftAct:'trnBackHelp', title:'Help request', sub:r.station, right:null })}
+    <div class="card" style="margin:8px 16px 0;padding:16px 18px">
+      <div class="row gap12">${C.avatar('me', 48)}<div style="flex:1;min-width:0"><div style="font-weight:700;font-size:16px">${ME.name}</div><div class="t13 muted" style="margin-top:2px">${TODAY.title} · exercise ${exI + 1} of ${EX.length}</div></div>${pain ? `<span class="tag bad">${icon('alert',11)}Pain</span>` : `<span class="tag">${REQ_SHORT[r.type]}</span>`}</div>
+      <div class="divider mt16"></div>
+      <div class="kv"><span>Station</span><b>${r.station}</b></div>
+      ${ex.name.toLowerCase() !== r.station.toLowerCase() ? `<div class="kv"><span>Exercise</span><b>${ex.name}</b></div>` : ''}
+      ${pain ? `<div class="kv"><span>Exercise status</span><b>${s.holds[exI] ? 'On hold' : 'Cleared'}</b></div>` : `<div class="kv"><span>Now</span><b>${set}</b></div>`}</div>
+    ${pain && s.holds[exI] ? `<div class="px mt12">${C.hold(`${ex.name} is on hold`, 'Check in person before you clear it. Refer severe or unusual pain for medical advice.')}</div>` : ''}
+    <div class="sec-title"><h3>Timeline</h3></div>
+    <div class="card" style="margin:0 16px">${C.vtl([
+      [st(0),'Sent',`${REQ_T.sent} · ${ME.first}`],
+      [st(1),'Accepted', k >= 1 ? `${REQ_T.accepted} · you` : ''],
+      [st(2),'On the way', k >= 2 ? REQ_T.onway : ''],
+      [st(3),'Resolved', k >= 3 ? `${REQ_T.resolved} · ${OUT_L[r.outcome] || ''}` : '']])}</div>`,
+    fixed:bar };
+};
+
+const trnResolveSheet = (s) => {
+  const r = s.req, outs = OUTS[r.type] || OUTS.spotting;
+  return trSheet(`<div class="sheet-head"><div><div class="h2">Resolve</div><div class="t13 muted" style="margin-top:4px">${ME.name} · ${r.station}</div></div>${C.closeBtn('trnCloseSheet')}</div>
+    <div class="stack gap8">${outs.map(([k, ic, t, sub]) => C.opt({ act:'trnOutcome', arg:k, on:s.resolveOutcome === k, ic, t, s:sub })).join('')}</div>
+    <textarea class="tr-ta mt12" rows="2" placeholder="Note (optional)"></textarea>
+    <button class="btn ${s.resolveOutcome ? 'pri' : 'off'} block mt16" data-act="trnResolve">Mark resolved</button>`);
+};
+
+/* ---------- 3 · Members ---------- */
+T.members = (s) => {
+  const f = s.memFilter || 'all', list = roster(s);
+  const cnt = { all:list.length, mine:list.filter(m => m.coach === 'Ravi').length, gym:list.filter(m => m.gym).length, review:list.filter(m => m.flag === 'review').length };
+  const rows = list.filter(m => f === 'all' || (f === 'mine' ? m.coach === 'Ravi' : f === 'gym' ? m.gym : m.flag === 'review'));
+  const row = (m) => `<button class="mrow2" data-name="${m.n.toLowerCase()}" ${m.me ? 'data-act="trnMember"' : ''}>${C.person(m, 44)}<div class="mn"><div class="t">${m.n}</div><div class="s">${m.gym ? `<i class="tr-in"></i>In the gym · ${m.gym}` : `Last visit ${dayLbl(m.last)}${m.coach !== 'Ravi' ? ` · Coach ${m.coach}` : ''}`}</div></div>${flagTag(m.flag)}${icon('chev-r',18)}</button>`;
+  return { pb:128, body:`${trHead('Members')}
+    <div class="px" style="margin-top:14px"><label class="field tr-search">${icon('search',18)}<input data-msearch placeholder="Search ${list.length} members" autocomplete="off"></label></div>
+    ${fchips('memFilter', f, [['all','All',cnt.all],['mine','Mine',cnt.mine],['gym','In the gym',cnt.gym],['review','Review',cnt.review]])}
+    <div class="tr-sort">${f === 'gym' ? 'Name' : 'Last visit'}${icon('chev-d',14)}</div>
+    <div class="card tr-list">${rows.map(row).join('')}</div>`,
+    fixed:trTabs('members', s) };
+};
+
+T.member = (s) => {
+  const g = inGym(s), ex = liveEx(s), sc = s.scans, last = sc[sc.length - 1], first = sc.find(x => x.type === last.type), hold = holdOn(s), r = reqOpen(s);
+  const lim = (s.areas || []).map(a => AREA_L[a]), wk = 1 + (s.completed ? 1 : 0);
+  const delta = (k, u) => { const v = last[k] - first[k]; return `${v > 0 ? '+' : v < 0 ? '−' : ''}${kg(Math.abs(v))}${u}`; };
+  const plan = s.planStatus === 'approved'
+    ? `<div class="row gap12"><span class="tile-ic">${icon('clipboard',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:700">Plan v${s.planVer} · ${PROGRAM.name}</div><div class="t13 muted" style="margin-top:2px">Approved ${s.approvedAt || '9 Nov'} · week ${PROGRAM.week} of ${PROGRAM.weeks}</div></div></div>
+       <div class="kv mt12"><span>Next ${AI_NAME} update</span><b>6 Dec</b></div>
+       <button class="btn sec block mt12" data-act="trnOpenPlan">View plan</button>`
+    : `<div class="row gap12"><span class="tile-ic">${icon('clipboard',18)}</span><div style="flex:1;min-width:0"><div style="font-weight:700">Plan v${s.planStatus === 'redo' ? s.planVer + 1 : s.planVer}</div><div class="t13 muted" style="margin-top:2px">${s.planStatus === 'redo' ? `${AI_NAME} is rebuilding it` : 'Waiting for your review'}</div></div></div>
+       ${s.planStatus === 'pending' ? '<button class="btn pri block mt12" data-act="trnOpenPlan">Review</button>' : ''}`;
+  const today = g ? `In progress · exercise ${s.ex + 1} of ${EX.length}` : s.completed ? `Done · ${fmt(s.elapsed || 2480).replace(/:\d\d$/, '')} min` : 'Not started';
+  return { pb:48, body:`${C.nav({ leftAct:'trnBackMembers', title:'Member', right:null })}
+    <div style="text-align:center;margin-top:4px"><div style="display:inline-block">${C.avatar('me', 72)}</div>
+      <div class="h2" style="margin-top:10px">${ME.name}</div><div class="t13 muted" style="margin-top:2px">Member since ${ME.since} · Coach ${COACH.first}</div>
+      <div class="row gap8 mt12" style="justify-content:center;flex-wrap:wrap">${g ? `<span class="tag good"><i class="tr-in"></i>In the gym · ${ex.station}</span>` : ''}${r ? `<span class="tag acc">${icon('headset',11)}Help request</span>` : ''}${hold ? '<span class="tag bad">Exercise on hold</span>' : ''}</div></div>
+    <div class="grid3 px mt16"><div class="stat sm"><span>Visits · Nov</span><b>${VISITS.length}</b></div><div class="stat sm"><span>This week</span><b>${wk}<small>/${PROGRAM.perWeek}</small></b></div><div class="stat sm"><span>Last visit</span><b style="font-size:18px">${g || s.completed ? 'Today' : '16 Nov'}</b></div></div>
+    <div class="sec-title"><h3>Plan</h3></div>
+    <div class="card" style="margin:0 16px;padding:16px 18px">${plan}</div>
+    <div class="sec-title"><h3>Profile</h3><a>From onboarding</a></div>
+    <div class="card" style="margin:0 16px;padding:4px 18px">
+      <div class="kv"><span>Goal</span><b>${GOAL_L[s.goal]}</b></div>
+      <div class="kv"><span>Experience</span><b>${EXP_L[s.exp]}</b></div>
+      <div class="kv"><span>Schedule</span><b>${s.days} days · ${s.mins} min</b></div>
+      <div class="kv"><span>Diet</span><b>${DIET_L[s.diet || ME.diet]}</b></div>
+      <div class="kv"><span>Health check</span><b class="tr-hc">${lim.length ? `${icon('alert',14)}${lim.join(', ')} · tight` : 'Nothing reported'}</b></div>
+      <div class="kv"><span>Height</span><b>${ME.heightCm} cm</b></div></div>
+    <div class="sec-title"><h3>Body</h3><a>${last.type} · ${last.d}</a></div>
+    <div class="card" style="margin:0 16px;padding:16px 18px">
+      <div class="grid3 tr-body">${[['w','Weight',' kg',' kg'],['bf','Body fat','%',' pts'],['lean','Lean mass',' kg',' kg']].map(([k, l, u, du]) => `<div><span>${l}</span><b>${kg(last[k])}<small>${u}</small></b><em>${delta(k, du)}</em></div>`).join('')}</div>
+      <div class="t12 muted" style="margin-top:10px">Change since ${first.d}</div>
+      <div class="divider mt12"></div>
+      ${sc.slice().reverse().map(x => `<button class="tr-file" data-act="scanOpen" data-arg="${x.file}">${icon('file',18)}<div class="mn"><div class="t">${x.type} · ${x.d}</div><div class="s">${x.file} · ${x.size}</div></div>${icon('chev-r',16)}</button>`).join('')}</div>
+    <div class="sec-title"><h3>Workouts</h3><a>${wk} of ${PROGRAM.perWeek} this week</a></div>
+    <div class="card tr-list">
+      <div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">Today · ${TODAY.title}</div><div class="s">${today}</div></div></div>
+      ${WORKOUTS_PAST.map(([d, t, sub]) => `<div class="lrow2"><div class="mn"><div class="t" style="font-size:14px">${d} · ${t}</div><div class="s">${sub}</div></div></div>`).join('')}</div>
+    <div class="sec-title"><h3>Help requests</h3></div>
+    <div class="card tr-list">
+      ${s.req ? `<div class="lrow2"><span class="tr-d">Today</span><div class="mn"><div class="t" style="font-size:14px">${REQ_SHORT[s.req.type]} · ${s.req.station}</div><div class="s">${s.req.status === 'resolved' ? `Resolved · ${OUT_L[s.req.outcome] || ''}` : reqWord(s)}</div></div></div>` : ''}
+      ${HELP_PAST.map(([d, t, o]) => `<div class="lrow2"><span class="tr-d">${d}</span><div class="mn"><div class="t" style="font-size:14px">${t}</div><div class="s">${o}</div></div></div>`).join('')}</div>` };
+};
+
+function buildTrainer(s){
+  const scr = { plans:T.plans, review:T.review, help:T.help, request:T.request, members:T.members, member:T.member }[s.trn] || T.plans;
+  const base = scr(s);
+  if (s.trnSheet === 'ex') base.fixed += trnExSheet(s);
+  if (s.trnSheet === 'changes') base.fixed += trnChangesSheet(s);
+  if (s.trnSheet === 'resolve' && s.req) base.fixed += trnResolveSheet(s);
+  if (s.toast) base.fixed += `<div class="toast">${icon('check',16,'stroke-width="2.4"')}${s.toast}</div>`;
+  return base;
+}
+
+/* ---------- trainer actions (merged into A) ---------- */
+let rebuildT;
+const TRN_ACTIONS = {
+  trnGo(k){ P.role = 'trainer'; P.trn = k; P.trnSheet = null; },
+  trnBackPlans(){ P.trn = 'plans'; P.trnSheet = null; },
+  trnBackHelp(){ P.trn = 'help'; P.trnSheet = null; },
+  trnBackMembers(){ P.trn = 'members'; P.trnSheet = null; },
+  trnCloseSheet(){ P.trnSheet = null; },
+  planFilter(k){ P.planFilter = k; }, memFilter(k){ P.memFilter = k; },
+  trnOpenPlan(){ P.trn = 'review'; P.trnSheet = null; },
+  trnMember(){ P.trn = 'member'; P.trnSheet = null; },
+  trnEx(i){ i = +i; const n = (P.draftNotes || {})[i]; P.trnFor = i; P.exPick = n ? n.k : null; P.exNote = n ? n.note : ''; P.trnSheet = 'ex'; },
+  exPick(k){ P.exPick = P.exPick === k ? null : k; },
+  exSave(){ const note = (P.exNote || '').trim(); if (!P.exPick && !note){ toast('Pick a change or add a note'); return; }
+    P.draftNotes = { ...(P.draftNotes || {}), [P.trnFor]:{ k:P.exPick, note } }; P.trnSheet = null; },
+  exRemove(){ const d = { ...(P.draftNotes || {}) }; delete d[P.trnFor]; P.draftNotes = d; P.trnSheet = null; },
+  trnChanges(){ P.trnSheet = 'changes'; },
+  trnSend(){ const notes = P.draftNotes || {}, text = (P.trnNote || '').trim();
+    if (!Object.keys(notes).length && !text){ toast('Add a change or an instruction'); return; }
+    P.sent = { notes:{ ...notes }, text }; P.draftNotes = {}; P.trnNote = ''; P.trnSheet = null; P.planStatus = 'redo';
+    toast(`Sent to ${AI_NAME}`); clearTimeout(rebuildT); rebuildT = setTimeout(() => { if (P.planStatus !== 'redo') return; rebuild(P); if (P.role === 'trainer') toast(`Plan v${P.planVer} ready`); renderProto(); }, 2600); },
+  trnApprove(){ if (P.planStatus !== 'pending') return; if (Object.keys(P.draftNotes || {}).length){ P.trnSheet = 'changes'; return; }
+    const d = drafts(P); P.planEx = d[d.length - 1].map(e => ({ ...e }));
+    P.log = P.planEx.map(e => (e.plan || []).map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })));
+    Object.assign(P, { planStatus:'approved', approvedAt:'today', trn:'plans', planFilter:'approved', trnSheet:null }); toast(`Plan v${P.planVer} approved · ${ME.first} can start`); },
+  trnAccept(){ if (P.req) P.req.status = 'accepted'; toast(`Accepted · ${ME.first} can see it`); },
+  trnOnway(){ if (P.req) P.req.status = 'onway'; },
+  trnResolveOpen(){ P.trnSheet = 'resolve'; P.resolveOutcome = null; },
+  trnOutcome(k){ P.resolveOutcome = k; },
+  trnResolve(){ if (!P.resolveOutcome || !P.req) return; const r = P.req; r.status = 'resolved'; r.outcome = P.resolveOutcome;
+    if (r.type === 'discomfort' && r.outcome === 'release') delete P.holds[r.ex];
+    P.trnSheet = null; P.trn = 'help'; toast('Resolved'); },
+};
+// typing: notes and instructions are kept as you type (no re-render); member search filters rows in place
+document.addEventListener('input', e => { const t = e.target; if (!t.closest || !t.closest('#protoDevice')) return;
+  if (t.hasAttribute('data-exnote')) P.exNote = t.value;
+  if (t.hasAttribute('data-trnote')) P.trnNote = t.value;
+  if (t.hasAttribute('data-msearch')){ const q = t.value.trim().toLowerCase(); t.closest('.scroll').querySelectorAll('.tr-list .mrow2[data-name]').forEach(r => { r.style.display = !q || r.dataset.name.includes(q) ? '' : 'none'; }); }
+});
+
+/* =========================================================
    GYM JODI · SCREEN & FEATURE INDEX
    ========================================================= */
 const IDX_FEAT = {
-  '01':'Gym-bound invite, 6-digit code, data kept separate per gym',
-  '02':'Required vs optional consent (location), changeable later',
-  '03':'Error state with front-desk contact',
-  '04':'One screen: Upload body scan (DEXA or InBody, PDF or photo) or type height and weight; body composition optional',
-  '05':'The report fills height, weight, body fat, lean mass, fat mass and visceral fat; every value editable; file kept encrypted, visible to the member and their trainer',
-  '06':'One screen: goal, training so far, days per week, session length, diet (Veg / Eggetarian / Non-veg / Vegan)',
-  '07':'Body-area limits and symptom check; severe symptoms hold the plan',
-  '08':`${AI_NAME} builds the first plan from the gym’s equipment; sent to the trainer`,
-  '09':'Review timeline, no workouts until the trainer approves',
-  '10':'Today’s workout, Start, program progress, weekly muscle rings, trainer card',
-  '11':'Collapsing sticky header with week strip',
-  '12':'Opening the app inside the gym (location matches) offers today’s workout',
-  '13':'Start tapped but location doesn’t match: Yes → visit counted, mismatch logged for review; No → not counted, trainer help hidden',
-  '14':'Body check right after Start',
-  '15':'Pain or symptoms block the session and call a trainer',
-  '16':'Plan version and what changed, trainer note, 4-week view',
-  '17':'Target-muscle rings, exercises with sets × reps × weight, cardio with time',
-  '18':'Countdown timer with pause and done; target speed or level',
-  '19':`Current set’s reps and weight in large type (weights change per set); tap a set when done, small Undo; Couldn’t complete always visible; How to and Swap on the card; Report pain and Finish workout in the ••• menu; no timers`,
-  '20':`Asked only after a fully completed exercise: too easy, just right, hard; optional`,
-  '21':`Couldn’t complete: number scroller (selected number on a lens, neighbours fade; drag or tap; 0 = not done) and Save`,
-  '22':`Missed by 1–2 reps → same weight; missed by 3+ → remaining sets ~10% lighter (“was 40”); Undo restores the plan`,
-  '23':'Gym-filmed demo and technique cues',
-  '24':`Alternatives approved with the plan (weights included); picking one swaps instantly; Back to the original; only before the exercise starts`,
-  '25':'Call to station, equipment problem, message, swap, pain',
-  '26':'Shows Sent until a trainer accepts, with live status steps',
-  '27':'Accepted and on the way, with timestamps',
-  '28':'Exercise hold, automatic trainer request, medical guidance',
-  '29':'Held exercise stopped; the rest of the workout continues',
-  '30':'Progress and ratings saved on the phone and synced later',
-  '31':`Time, exercises done, cardio minutes, muscles worked; short exercises show reps and “Next time: same weights”; rate any completed exercise`,
-  '32':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
-  '33':'Daily-limit banner; quick answers and trainer help still work',
-  '34':'Messages, voice notes, weekly summary from feedback, call to station',
-  '35':'Visit calendar, stats, weights over time, body weight with Log weight, latest body scan with change since the first scan of the same type',
-  '36':'Log weight: prefilled with the last weigh-in; −/+ 0.1 kg or type; one a day (logging again replaces today’s); chart and change since Aug update',
-  '37':'Every scan with date, type and key values; each opens its encrypted report; Upload new scan',
-  '38':'After the system file picker: report read, values editable, Save adds it to Progress',
-  '39':`4-week facts and how it’s going; ${AI_NAME} restructures the plan, the trainer approves; optional body scan upload`,
+  '01':'Signed out: +91 phone number (the one the gym has on file) and Get code',
+  '02':'Returning member: 6-digit code, Change number, resend timer; goes to Home',
+  '03':'No gym has added this number: ask the front desk, try another number',
+  '04':'After Get code for a new number with a gym invite: gym-bound invite, 6-digit code, data kept separate per gym',
+  '05':'Required vs optional consent (location), changeable later',
+  '06':'Error state with front-desk contact',
+  '07':'One screen: Upload body scan (DEXA or InBody, PDF or photo) or type height and weight; body composition optional',
+  '08':'The report fills height, weight, body fat, lean mass, fat mass and visceral fat; every value editable; file kept encrypted, visible to the member and their trainer',
+  '09':'One screen: goal, training so far, days per week, session length, diet (Veg / Eggetarian / Non-veg / Vegan)',
+  '10':'Body-area limits and symptom check; severe symptoms hold the plan',
+  '11':`${AI_NAME} builds the first plan from the gym’s equipment; sent to the trainer`,
+  '12':'Review timeline, no workouts until the trainer approves',
+  '13':'Today’s workout, Start, program progress, weekly muscle rings, trainer card',
+  '14':'Collapsing sticky header with week strip',
+  '15':'Opening the app inside the gym (location matches) offers today’s workout',
+  '16':'Start tapped but location doesn’t match: Yes → visit counted, mismatch logged for review; No → not counted, trainer help hidden',
+  '17':'Body check right after Start',
+  '18':'Pain or symptoms block the session and call a trainer',
+  '19':'Plan version and what changed, trainer note, 4-week view',
+  '20':'Target-muscle rings, exercises with sets × reps × weight, cardio with time',
+  '21':'Countdown timer with pause and done; target speed or level',
+  '22':`Current set’s reps and weight in large type (weights change per set); tap a set when done, small Undo; Couldn’t complete always visible; How to and Swap on the card; Report pain and Finish workout in the ••• menu; no timers`,
+  '23':`Asked only after a fully completed exercise: too easy, just right, hard; optional`,
+  '24':`Couldn’t complete: number scroller (selected number on a lens, neighbours fade; drag or tap; 0 = not done) and Save`,
+  '25':`Missed by 1–2 reps → same weight; missed by 3+ → remaining sets ~10% lighter (“was 40”); Undo restores the plan`,
+  '26':'Gym-filmed demo and technique cues',
+  '27':`Alternatives approved with the plan (weights included); picking one swaps instantly; Back to the original; only before the exercise starts`,
+  '28':'Call to station, equipment problem, message, swap, pain',
+  '29':'Shows Sent until a trainer accepts, with live status steps',
+  '30':'Accepted and on the way, with timestamps',
+  '31':'Exercise hold, automatic trainer request, medical guidance',
+  '32':'Held exercise stopped; the rest of the workout continues',
+  '33':'Progress and ratings saved on the phone and synced later',
+  '34':`Time, exercises done, cardio minutes, muscles worked; short exercises show reps and “Next time: same weights”; rate any completed exercise`,
+  '35':'Gym-specific answers with source labels, quick questions, hand-off to trainer',
+  '36':'Daily-limit banner; quick answers and trainer help still work',
+  '37':'Messages, voice notes, weekly summary from feedback, call to station',
+  '38':'Visit calendar, stats, weights over time, body weight with Log weight, latest body scan with change since the first scan of the same type',
+  '39':'Log weight: prefilled with the last weigh-in; −/+ 0.1 kg or type; one a day (logging again replaces today’s); chart and change since Aug update',
+  '40':'Every scan with date, type and key values; each opens its encrypted report; Upload new scan',
+  '41':'After the system file picker: report read, values editable, Save adds it to Progress',
+  '42':`4-week facts and how it’s going; ${AI_NAME} restructures the plan, the trainer approves; optional body scan upload`,
+  '43':`Plans to review, rebuilding and approved, with counts; oldest first; Arjun's row follows the prototype`,
+  '44':`Member facts from onboarding (goal, experience, schedule, diet, body, health check), automatic checks, every exercise with sets, reps and weights per set; Approve or Request changes`,
+  '45':`Tap an exercise: Lighter, Heavier, Fewer or More reps (or Shorter/Longer for cardio), or replace it with an approved alternative; optional note for ${AI_NAME}. The trainer never types weights`,
+  '46':`All exercise changes plus free-text instructions, sent to ${AI_NAME} in one go`,
+  '47':`${AI_NAME} rebuilds the plan from the notes; nothing to approve until v2 arrives`,
+  '48':`Member side while ${AI_NAME} rebuilds: "Being updated", workouts still locked`,
+  '49':`Changes from v1 with the trainer's notes and instructions; changed exercises show "was"; approving applies the new weights to the member's workout`,
+  '50':`Open requests (yours and those another trainer accepted), Accept / On my way / Resolve inline; resolved today`,
+  '51':`Member, station, exercise and current set; timeline sent → accepted → on the way → resolved`,
+  '52':`Pain: the exercise is on hold until a trainer checks in person`,
+  '53':`Outcomes per request type; "Checked in person · cleared" lifts the hold on the member's phone`,
+  '54':`Every member at the gym: search, filters with counts (All, Mine, In the gym, Plan to review), last visit, who trains them, flags`,
+  '55':`Member record: status, visits, plan and next ${AI_NAME} update, onboarding profile`,
+  '56':`Body scans (reports open for the member's trainer), workouts this week and before, help requests`,
 };
 const MODULES = [
-  ['M02','Onboarding & orientation','Gym-bound invite, consent, plan review before the first workout',['01','02','03','09']],
-  ['M03','Fitness assessment','Body on one screen (a DEXA or InBody report fills it, or type height and weight); goal, experience, schedule and diet on one screen; limits and symptoms',['04','05','06','07']],
-  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks, weights included; the trainer approves each version`,['08','09','16','39']],
-  ['M05','Location-aware start','Location checked once at Start against the gym’s pin; prompt when the app opens at the gym; no QR, no background tracking',['12','13']],
-  ['M06','Today’s workout','Only approved plans start; readiness check and holds',['10','11','14','15','17']],
-  ['M07','Guided workout','Sets, reps and weights from the approved plan; tap sets done; timer only on cardio; works offline',['18','19','30','31']],
-  ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); ${AI_NAME} uses it for the next 4-week plan; the trainer sees it`,['20','21','31','34']],
-  ['M01','Equipment & technique','How-to videos and cues; instant swaps to pre-approved alternatives on the gym’s equipment',['23','24']],
-  ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds',['25','26','27','28','29']],
-  ['M09','Progress & check-in','Visits, weights over time, body weight log, body scans, 4-week check-in',['35','36','37','38','39']],
-  ['M12',`${AI_NAME} & trainer chat`,'Answers with sources, hand-off to trainer, daily-limit fallback',['32','33','34']],
+  ['M02','Sign in & onboarding','Phone sign-in with a 6-digit code, gym-bound invite, consent, plan review before the first workout',['01','02','03','04','05','06','12']],
+  ['M03','Fitness assessment','Body on one screen (a DEXA or InBody report fills it, or type height and weight); goal, experience, schedule and diet on one screen; limits and symptoms',['07','08','09','10']],
+  ['M04',`${AI_NAME} plan + trainer approval`,`${AI_NAME} builds the plan on day one and restructures it every 4 weeks, weights included; the trainer approves each version or sends notes and ${AI_NAME} rebuilds it`,['11','12','19','42','43','44','45','46','47','48','49']],
+  ['M05','Location-aware start','Location checked once at Start against the gym’s pin; prompt when the app opens at the gym; no QR, no background tracking',['15','16']],
+  ['M06','Today’s workout','Only approved plans start; readiness check and holds',['13','14','17','18','20']],
+  ['M07','Guided workout','Sets, reps and weights from the approved plan; tap sets done; timer only on cardio; works offline',['21','22','33','34']],
+  ['New','Exercise feedback',`Optional rating after each exercise, reps per set when a set can’t be completed (the next sets adjust); ${AI_NAME} uses it for the next 4-week plan; the trainer sees it`,['23','24','34','37']],
+  ['M01','Equipment & technique','How-to videos and cues; instant swaps to pre-approved alternatives on the gym’s equipment',['26','27']],
+  ['M08','Trainer help requests','Sent → accepted → on the way → resolved, pain holds; the trainer accepts, goes over and records the outcome',['28','29','30','31','32','50','51','52','53']],
+  ['M10','Trainer tools','All members with search and filters; member record with profile, plan, body scans, workouts and help history',['54','55','56']],
+  ['M09','Progress & check-in','Visits, weights over time, body weight log, body scans, 4-week check-in',['38','39','40','41','42']],
+  ['M12',`${AI_NAME} & trainer chat`,'Answers with sources, hand-off to trainer, daily-limit fallback',['35','36','37']],
 ];
 function renderIndex(){
   const link = (n) => `<a class="ix-link" href="#f${n}">${n}</a>`;
@@ -2388,7 +2865,7 @@ function renderIndex(){
     <div class="idx-wrap">
       <div class="idx"><div class="idx-h"><h3>Features</h3><span>${MODULES.length} feature areas</span></div>
         <table><tr><th style="width:70px">Module</th><th style="width:220px">Feature</th><th>What it does</th><th style="width:300px">Screens</th></tr>${feat}</table></div>
-      <div class="idx"><div class="idx-h"><h3>All screens</h3><span>${total} screens · member app</span></div>
+      <div class="idx"><div class="idx-h"><h3>All screens</h3><span>${total} screens · member and trainer app</span></div>
         <table><tr><th style="width:50px">#</th><th style="width:240px">Screen</th><th style="width:90px">PRD</th><th>Key features</th><th style="width:120px"></th></tr>${rows}</table></div>
     </div><a class="ix-top" href="#canvas">↑ Back to top</a></section>`;
 }
@@ -2400,12 +2877,14 @@ function openFrame(n){
   }
 }
 
-/* ---------- Router (member app only) ---------- */
+/* ---------- Router: member app, or the trainer app (j5) ---------- */
 const ONB = [S.invite, S.consent, S.onbBody, S.onbGoal, S.onbLimits, S.onbBuild];
 const SHEETS = { help:helpSheet, called:calledSheet, swap:swapSheet, fb:fbSheet, pain:painSheet, demo:demoSheet, atgym:atGymSheet, where:whereSheet, short:shortSheet, menu:menuSheet, weigh:weighSheet, scan:scanSheet, scanUp:scanUpSheet };
 function build(s){
+  if (s.role === 'trainer') return buildTrainer(s);
   let base;
-  if (s.route === 'onb') base = ONB[s.onb](s);
+  if (s.route === 'signin') base = S.signin(s);
+  else if (s.route === 'onb') base = ONB[s.onb](s);
   else if (s.route === 'inviteBad') base = S.inviteBad(s);
   else if (s.tab === 'ai') base = S.ai(s);
   else if (s.tab === 'coach') base = S.coach(s);
@@ -2426,79 +2905,110 @@ const PAIN = { status:'sent', type:'discomfort', station:'Leg press', ex:1 };
 const cardioState = () => Object.assign(freshState(), { route:'active', running:true, elapsed:118, ex:0, where:'gym', readiness:'ready', cardio:{ left:182, total:300, paused:false } });
 const feedbackState = () => { const s = activeState({ sheet:'fb', fbFor:1 }); s.log[1].forEach(x => { x.done = true; }); return s; };
 const shortState = () => activeState({ sheet:'short', shortFor:1, shortVal:8 });
+// trainer frames: same prototype state, seen from Coach Ravi's phone
+const tr = (o = {}) => () => Object.assign(freshState(), { role:'trainer', trn:'plans' }, o);
+const trA = (o = {}) => () => Object.assign(activeState(), { role:'trainer' }, o);
+const sentState = (o = {}) => Object.assign(freshState(), { planStatus:'redo', planVer:1, sent:{ notes:{ ...SAMPLE_NOTES }, text:SAMPLE_TEXT } }, o);
+const v2State = () => { const s = sentState({ role:'trainer', trn:'review' }); rebuild(s); return s; };
 const lighterState = () => { const s = activeState(); Object.assign(s.log[1][1], { done:true, got:8 }); replan(s.log[1]); return s; };
 const FRAMES = [
-  { section:'Join & onboarding', items:[
-    ['01','Invite & verify','MEM-01', ph({ route:'onb', onb:0 })],
-    ['02','Consent','MEM-01', ph({ route:'onb', onb:1 })],
-    ['03','Invite expired','MEM-01', ph({ route:'inviteBad' }), 'error state'],
-    ['04','Your body','MEM-02', ph({ route:'onb', onb:2 }), 'upload or type'],
-    ['05','Your body · from a scan','MEM-02', ph({ route:'onb', onb:2, onbScan:{ ...SCANS[0] }, scanStage:'done', body:{ h:178, w:88, bf:28.9, lean:59.6, fat:25.4, vat:1.31 } }), 'after the file picker · editable'],
-    ['06','Goal & schedule','MEM-02', ph({ route:'onb', onb:3, diet:'veg' }), 'scroll ↓'],
-    ['07','Health check','MEM-03', ph({ route:'onb', onb:4, symptom:'severe' }), 'severe → hold', 150],
-    ['08','Plan being built','MEM-05', ph({ route:'onb', onb:5 }), 'AI · day one'],
+  { section:'Sign in & onboarding', items:[
+    ['01','Sign in · phone number','MEM-01', ph({ route:'signin', signinStep:'phone' }), 'signed out'],
+    ['02','Sign in · code','MEM-01', ph({ route:'signin', signinStep:'code' }), 'returning member'],
+    ['03','Number not linked','MEM-01', ph({ route:'signin', signinStep:'none' }), 'no gym has added this number'],
+    ['04','Invite & verify','MEM-01', ph({ route:'onb', onb:0 }), 'new number with a gym invite'],
+    ['05','Consent','MEM-01', ph({ route:'onb', onb:1 })],
+    ['06','Invite expired','MEM-01', ph({ route:'inviteBad' }), 'error state'],
+    ['07','Your body','MEM-02', ph({ route:'onb', onb:2 }), 'upload or type'],
+    ['08','Your body · from a scan','MEM-02', ph({ route:'onb', onb:2, onbScan:{ ...SCANS[0] }, scanStage:'done', body:{ h:178, w:88, bf:28.9, lean:59.6, fat:25.4, vat:1.31 } }), 'after the file picker · editable'],
+    ['09','Goal & schedule','MEM-02', ph({ route:'onb', onb:3, diet:'veg' }), 'scroll ↓'],
+    ['10','Health check','MEM-03', ph({ route:'onb', onb:4, symptom:'severe' }), 'severe → hold', 150],
+    ['11','Plan being built','MEM-05', ph({ route:'onb', onb:5 }), 'AI · day one'],
   ]},
   { section:'Before the workout', items:[
-    ['09','Plan in review','MEM-05', ph({ planStatus:'pending', planVer:1 }), 'no workouts yet'],
-    ['10','Home / today','MEM-06', ph(), 'scroll ↓'],
-    ['11','Home · scrolled','MEM-06', ph(), 'sticky header', 560],
-    ['12','At the gym','MEM-07', ph({ sheet:'atgym' }), 'app opened inside the gym'],
-    ['13','Are you at the gym?','MEM-07', ph({ sheet:'where', loc:'out' }), 'location doesn’t match'],
-    ['14','Before you start','MEM-04', ph({ route:'ready', where:'gym', readiness:'ready' })],
-    ['15','Before you start · on hold','MEM-04', ph({ route:'ready', where:'gym', readiness:'pain' }), 'start blocked'],
-    ['16','Weekly plan','MEM-08', ph({ route:'plan' }), 'scroll ↓'],
-    ['17','Workout preview','MEM-09', ph({ route:'detail' }), 'scroll ↓'],
+    ['12','Plan in review','MEM-05', ph({ planStatus:'pending', planVer:1 }), 'no workouts yet'],
+    ['13','Home / today','MEM-06', ph(), 'scroll ↓'],
+    ['14','Home · scrolled','MEM-06', ph(), 'sticky header', 560],
+    ['15','At the gym','MEM-07', ph({ sheet:'atgym' }), 'app opened inside the gym'],
+    ['16','Are you at the gym?','MEM-07', ph({ sheet:'where', loc:'out' }), 'location doesn’t match'],
+    ['17','Before you start','MEM-04', ph({ route:'ready', where:'gym', readiness:'ready' })],
+    ['18','Before you start · on hold','MEM-04', ph({ route:'ready', where:'gym', readiness:'pain' }), 'start blocked'],
+    ['19','Weekly plan','MEM-08', ph({ route:'plan' }), 'scroll ↓'],
+    ['20','Workout preview','MEM-09', ph({ route:'detail' }), 'scroll ↓'],
   ]},
   { section:'In the gym', items:[
-    ['18','Cardio · timer','MEM-10', cardioState, 'timer only on cardio'],
-    ['19','Strength exercise','MEM-10', act(), 'tap a set'],
-    ['20','How did it feel?','MEM-11', feedbackState, 'optional · after each exercise'],
-    ['21','Couldn’t complete','MEM-11', shortState, 'drag or tap a number'],
-    ['22','Next set lighter','MEM-10', lighterState, 'missed 3+ reps → ~10% lighter'],
-    ['23','How to','MEM-12', act({ sheet:'demo' })],
-    ['24','Swap exercise','MEM-12', () => { const s = activeState({ sheet:'swap' }); s.log[1][0].done = false; return s; }, 'instant · alternatives approved with the plan'],
-    ['25','Get help','MEM-13', act({ sheet:'help' })],
-    ['26','Help request · sent','MEM-13', act({ sheet:'called', req:SPOT })],
-    ['27','Help request · on the way','MEM-13', act({ sheet:'called', req:{ ...SPOT, status:'onway' } }), 'after trainer taps'],
-    ['28','Pain reported','MEM-10', act({ sheet:'pain', holds:{ 1:true }, req:PAIN })],
-    ['29','Exercise on hold','MEM-10', act({ holds:{ 1:true }, req:{ ...PAIN, status:'accepted' } }), 'others still open'],
-    ['30','No signal','MEM-10', act({ offline:true, pendingSync:2 }), 'offline'],
-    ['31','Workout complete','MEM-14', () => completedState(), 'scroll ↓'],
+    ['21','Cardio · timer','MEM-10', cardioState, 'timer only on cardio'],
+    ['22','Strength exercise','MEM-10', act(), 'tap a set'],
+    ['23','How did it feel?','MEM-11', feedbackState, 'optional · after each exercise'],
+    ['24','Couldn’t complete','MEM-11', shortState, 'drag or tap a number'],
+    ['25','Next set lighter','MEM-10', lighterState, 'missed 3+ reps → ~10% lighter'],
+    ['26','How to','MEM-12', act({ sheet:'demo' })],
+    ['27','Swap exercise','MEM-12', () => { const s = activeState({ sheet:'swap' }); s.log[1][0].done = false; return s; }, 'instant · alternatives approved with the plan'],
+    ['28','Get help','MEM-13', act({ sheet:'help' })],
+    ['29','Help request · sent','MEM-13', act({ sheet:'called', req:SPOT })],
+    ['30','Help request · on the way','MEM-13', act({ sheet:'called', req:{ ...SPOT, status:'onway' } }), 'after trainer taps'],
+    ['31','Pain reported','MEM-10', act({ sheet:'pain', holds:{ 1:true }, req:PAIN })],
+    ['32','Exercise on hold','MEM-10', act({ holds:{ 1:true }, req:{ ...PAIN, status:'accepted' } }), 'others still open'],
+    ['33','No signal','MEM-10', act({ offline:true, pendingSync:2 }), 'offline'],
+    ['34','Workout complete','MEM-14', () => completedState(), 'scroll ↓'],
   ]},
   { section:`${AI_NAME}, trainer & progress`, items:[
-    ['32',AI_NAME,'MEM-15', ph({ tab:'ai' })],
-    ['33',`${AI_NAME} · daily limit`,'MEM-15', ph({ tab:'ai', aiCapped:true, ai:AI_CAPPED.slice() }), 'fallback'],
-    ['34','Trainer chat','MEM-16', () => Object.assign(activeState(), { tab:'coach' }), 'live workout'],
-    ['35','Progress','MEM-17', ph({ tab:'profile' }), 'scroll ↓'],
-    ['36','Log weight','MEM-17', ph({ tab:'profile', sheet:'weigh', weighVal:'85.0' }), 'one a day · prefilled'],
-    ['37','Body scans','MEM-17', ph({ tab:'profile', sheet:'scan' }), 'each opens its report'],
-    ['38','New body scan','MEM-17', ph({ tab:'profile', sheet:'scanUp', scanStage:'done', scanDraft:{ ...SCAN_TODAY } }), 'after the file picker · editable'],
-    ['39','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), `${AI_NAME} restructures the plan`],
+    ['35',AI_NAME,'MEM-15', ph({ tab:'ai' })],
+    ['36',`${AI_NAME} · daily limit`,'MEM-15', ph({ tab:'ai', aiCapped:true, ai:AI_CAPPED.slice() }), 'fallback'],
+    ['37','Trainer chat','MEM-16', () => Object.assign(activeState(), { tab:'coach' }), 'live workout'],
+    ['38','Progress','MEM-17', ph({ tab:'profile' }), 'scroll ↓'],
+    ['39','Log weight','MEM-17', ph({ tab:'profile', sheet:'weigh', weighVal:'85.0' }), 'one a day · prefilled'],
+    ['40','Body scans','MEM-17', ph({ tab:'profile', sheet:'scan' }), 'each opens its report'],
+    ['41','New body scan','MEM-17', ph({ tab:'profile', sheet:'scanUp', scanStage:'done', scanDraft:{ ...SCAN_TODAY } }), 'after the file picker · editable'],
+    ['42','4-week check-in','MEM-18', ph({ route:'evaluation', ev:{ weight:85, progress:'yes', support:'some', sore:'none', saved:false } }), `${AI_NAME} restructures the plan`],
+  ]},
+  { section:'Trainer app', items:[
+    ['43','Plans','TRN-03', tr({ planStatus:'pending', planVer:1 }), 'oldest first'],
+    ['44','Review plan','TRN-03', tr({ trn:'review', planStatus:'pending', planVer:1 }), 'scroll ↓'],
+    ['45','Change an exercise','TRN-03', tr({ trn:'review', planStatus:'pending', planVer:1, trnSheet:'ex', trnFor:1, exPick:'lighter' }), `a note for ${AI_NAME}, not an edit`],
+    ['46','Request changes','TRN-03', tr({ trn:'review', planStatus:'pending', planVer:1, draftNotes:{ ...SAMPLE_NOTES }, trnNote:SAMPLE_TEXT, trnSheet:'changes' }), 'exercise notes + instructions'],
+    ['47',`${AI_NAME} rebuilding`,'TRN-03', () => sentState({ role:'trainer', trn:'review' }), 'v2 on its way'],
+    ['48','Plan being updated','MEM-05', () => sentState(), 'the member’s side'],
+    ['49','Review plan · v2','TRN-03', v2State, 'changes from v1', 360],
+    ['50','Help','TRN-04', trA({ trn:'help', req:{ ...SPOT } }), 'new request'],
+    ['51','Help request','TRN-04', trA({ trn:'request', req:{ ...SPOT, status:'accepted' } }), 'accepted'],
+    ['52','Help request · pain','TRN-04', trA({ trn:'request', holds:{ 1:true }, req:{ ...PAIN, status:'onway' } }), 'exercise on hold'],
+    ['53','Resolve · pain','TRN-04', trA({ trn:'request', holds:{ 1:true }, req:{ ...PAIN, status:'onway' }, trnSheet:'resolve', resolveOutcome:'release' }), 'clearing lifts the hold'],
+    ['54','Members','TRN-02', trA({ trn:'members' }), 'scroll ↓'],
+    ['55','Member','TRN-02', trA({ trn:'member' }), 'scroll ↓'],
+    ['56','Member · scrolled','TRN-02', trA({ trn:'member' }), 'body, workouts, help', 700],
   ]},
 ];
 
 function renderCanvas(){
   const n = FRAMES.reduce((a, s) => a + s.items.length, 0);
   let html = `
-  <header class="cv-head"><div class="cv-title"><div class="lg">${BRAND.logo(24)}</div><div><h1>${BRAND.name} · ${APP}</h1><p>Member app for beginners · ${n} screens + interactive prototype</p></div></div></header>
-  <p class="cv-sub">Beginner version of the member app. ${AI_NAME}, the AI coach, builds the plan (sets, reps and weights) on day one and restructures it every 4 weeks; the trainer approves each version. Members don’t log weights or reps. Timer only on cardio. Optional feedback after each exercise. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
+  <header class="cv-head"><div class="cv-title"><div class="lg">${BRAND.logo(24)}</div><div><h1>${BRAND.name} · ${APP}</h1><p>Beginner member app + trainer app · ${n} screens + interactive prototype</p></div></div></header>
+  <p class="cv-sub">Beginner version of the member app. ${AI_NAME}, the AI coach, builds the plan (sets, reps and weights) on day one and restructures it every 4 weeks; the trainer approves each version. Members don’t log weights or reps. Timer only on cardio. The trainer app approves plans (or sends notes so ${AI_NAME} rebuilds them), answers help requests and looks up members. Optional feedback after each exercise. Sample data. <a href="#index" class="ix-jump">See all screens and features ↓</a></p>
   <section class="cv-section"><h2>00 · Prototype</h2>
     <div class="proto-wrap">
       <div class="frame is-proto"><div class="frame-label" style="justify-content:center;padding:0"><span class="n">00</span>Interactive prototype</div><div id="protoDevice"></div></div>
       <div class="panel left">
         <div class="panel-card"><h3>Jump to</h3><p class="sub">State carries over between screens.</p>
           <div class="jump-h">Member</div>
-          <div class="jump"><button data-jump="onb">Join</button><button data-jump="pending">Plan in review</button><button data-jump="home">Home</button><button data-jump="atgym">Open app at gym</button><button data-jump="active">Active workout</button><button data-jump="complete">Complete</button><button data-jump="ai">${AI_NAME}</button><button data-jump="coach">Trainer chat</button><button data-jump="profile">Progress</button><button data-jump="evaluation">4-week check-in</button></div>
+          <div class="jump"><button data-jump="signin">Sign in</button><button data-jump="onb">Join</button><button data-jump="pending">Plan in review</button><button data-jump="home">Home</button><button data-jump="atgym">Open app at gym</button><button data-jump="active">Active workout</button><button data-jump="complete">Complete</button><button data-jump="ai">${AI_NAME}</button><button data-jump="coach">Trainer chat</button><button data-jump="profile">Progress</button><button data-jump="evaluation">4-week check-in</button></div>
+          <div class="jump-h">Trainer</div>
+          <div class="jump"><button data-jump="trn-plans">Plans</button><button data-jump="trn-help">Help</button><button data-jump="trn-members">Members</button></div>
+          <div class="jump-h">Phone number</div>
+          <div class="jump" id="numJump"><button data-jump="num-new" class="on">New, invited</button><button data-jump="num-member">Member</button><button data-jump="num-none">Not linked</button></div>
           <div class="jump-h">Phone location</div>
           <div class="jump" id="locJump"><button data-jump="loc-in" class="on">At the gym</button><button data-jump="loc-out">Elsewhere</button><button data-jump="loc-off">Location off</button></div>
           <div class="jump" style="margin-top:14px"><button data-jump="reset" class="dark">Reset</button></div></div>
         <div class="panel-card"><h3>Things to try</h3><p class="sub">Every tap below works in the prototype phone.</p>
           <ul class="tips">
+            <li><span>Tap <b>Sign in</b>, then <b>Get code</b>. Switch the phone number below to see a new member, a returning member and an unknown number.</span></li>
             <li><span>Tap <b>Start workout</b>. Switch the phone location below to see the at-gym and not-at-gym cases.</span></li>
             <li><span>The warm-up walk has a <b>timer</b>. Pause it, or tap Done to finish early.</span></li>
             <li><span>On strength exercises, tap each <b>set</b> when it’s done. Try <b>Couldn’t complete</b> on set 2 with 8 reps: set 3 gets lighter.</span></li>
             <li><span>After a fully completed exercise, say <b>how it felt</b>, or skip.</span></li>
             <li><span><b>Swap</b> before starting an exercise: it switches instantly. Tap <b>Trainer</b> to call a trainer.</span></li>
+            <li><span>Call a trainer, then jump to <b>Trainer · Help</b> and accept it. Jump back to the member: the request shows Accepted.</span></li>
+            <li><span>Jump to <b>Plan in review</b>, then <b>Trainer · Plans</b>. Tap an exercise to ask for a change, send it to ${AI_NAME}, then approve v2. The member’s workout uses the new weights.</span></li>
           </ul></div>
       </div>
       <div class="panel right">
@@ -2572,7 +3082,11 @@ const A = {
     if (P.onb === 2){ if (P.scanStage === 'reading') return;
       if (!(+P.body.h >= 100 && +P.body.w >= 30)){ toast('Enter your height and weight'); return; } }
     P.onb = Math.min(ONB.length - 1, P.onb + 1); },
-  onbBack(){ if (P.onb > 0) P.onb--; },
+  onbBack(){ if (P.onb > 0) P.onb--; else Object.assign(P, { route:'signin', signinStep:'phone' }); },
+  // Sign in: Get code routes by what the number is (prototype panel: Phone number)
+  signinGo(){ if (P.signinCase === 'new') Object.assign(P, { route:'onb', onb:0 }); else P.signinStep = P.signinCase === 'member' ? 'code' : 'none'; },
+  signinBack(){ P.signinStep = 'phone'; },
+  signinVerify(){ Object.assign(P, { route:'home', tab:'workout', signinStep:'phone' }); toast('Signed in'); },
   // Body: the system file picker (PDF or photo) opens first; the report then fills every tile, and each stays editable.
   bodyUpload(){ P.onbScan = { ...SCANS[0] }; P.scanStage = 'reading'; scanTimer(); },
   _scanRead(){ if (P.scanStage !== 'reading') return; P.scanStage = 'done';
@@ -2589,7 +3103,7 @@ const A = {
   unit(u){ P.unit = u; }, goal(g){ P.goal = g; }, exp(k){ P.exp = k; }, days(n){ P.days = +n; }, mins(n){ P.mins = +n; },
   area(k){ if (k === 'none'){ P.areas = []; return; } P.areas = P.areas.includes(k) ? P.areas.filter(a => a !== k) : [...P.areas, k]; },
   symptom(k){ P.symptom = k; },
-  finishOnb(){ Object.assign(P, { route:'home', tab:'workout', planStatus:'pending', planVer:1, where:null, readiness:null }); },
+  finishOnb(){ Object.assign(P, { route:'home', tab:'workout', planStatus:'pending', planVer:1, where:null, readiness:null, drafts:null, sent:null, verNotes:null, draftNotes:{}, planEx:null, approvedAt:null }); },
   /* start: location is checked once, here. In the gym → body check. Otherwise ask. */
   ready(k){ P.readiness = k; },
   whereGym(){ P.where = 'gym'; P.locIssue = true; P.sheet = null; P.tab = 'workout'; P.route = 'ready'; }, // mismatch logged for review; visit counted
@@ -2629,10 +3143,10 @@ const A = {
   demo(){ P.sheet = 'demo'; }, swap(){ P.sheet = 'swap'; },
   // Instant: alternatives (and their weights) were approved with the plan. Allowed before the exercise is started.
   doSwap(i){ const log = P.log[P.ex]; if (log.some(x => x.done || x.skip) || P.cardio.left != null){ toast('Swap before you start the exercise'); return; }
-    const base = EX[P.ex], o = SWAPS[P.ex][+i];
+    const base = baseEx(P), o = SWAPS[P.ex][+i];
     P.overrides[P.ex] = { ...base, name:o.name, station:o.station, kind:o.kind || base.kind, mins:o.mins, target:o.target, reps:o.reps, load:o.load, unit:o.unit || base.unit, sets:o.plan ? o.plan.length : base.sets, plan:o.plan || [], note:null, cues:base.cues };
     P.log[P.ex] = (o.plan || []).map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })); P.sheet = null; toast(`Swapped to ${o.name}`); },
-  swapBack(){ const base = EX[P.ex]; delete P.overrides[P.ex]; P.log[P.ex] = base.plan.map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })); P.sheet = null; toast(`Back to ${base.name}`); },
+  swapBack(){ const base = baseEx(P); delete P.overrides[P.ex]; P.log[P.ex] = base.plan.map(([w, r]) => ({ w, r, pw:w, pr:r, done:false })); P.sheet = null; toast(`Back to ${base.name}`); },
   nextEx(){ P.sheet = null; P.fbFor = null; A._advance(); },
   finish(){ Object.assign(P, { route:'complete', running:false, sheet:null, fbFor:null, tab:'workout', cardio:{ left:null, total:0, paused:false } }); },
   chip(k){ P.chips[k] = !P.chips[k]; },
@@ -2680,17 +3194,22 @@ const A = {
   ev(k){ const [f, v] = k.split(':'); P.ev[f] = v; },
   evSubmit(){ P.ev.saved = true; toast(`Sent to Coach ${COACH.first}`); }, evEdit(){ P.ev.saved = false; },
 };
+Object.assign(A, TRN_ACTIONS);
 function scrollChat(){ const sc = document.querySelector('#protoDevice .scroll'); if (sc) sc.scrollTop = sc.scrollHeight; }
 
 function jump(r){
   P.fbFor = null;
+  if (r.startsWith('trn-')){ Object.assign(P, { role:'trainer', trn:r.slice(4), trnSheet:null }); renderProto(); return; }
+  if (!r.startsWith('loc-') && !r.startsWith('num-')) P.role = 'member';
+  if (r.startsWith('num-')){ P.signinCase = r.slice(4); if (P.route === 'signin') P.signinStep = 'phone'; document.querySelectorAll('#numJump button').forEach(b => b.classList.toggle('on', b.dataset.jump === r)); renderProto(); return; }
   if (r.startsWith('loc-')){ P.loc = r.slice(4); document.querySelectorAll('#locJump button').forEach(b => b.classList.toggle('on', b.dataset.jump === r)); renderProto(); return; }
   P.sheet = null;
   switch (r){
-    case 'reset': { const loc = P.loc; P = freshState(); P.loc = loc; if (loc === 'in') P.sheet = 'atgym'; break; }
+    case 'reset': { const loc = P.loc, sc = P.signinCase; P = freshState(); P.loc = loc; P.signinCase = sc; if (loc === 'in') P.sheet = 'atgym'; break; }
     case 'atgym': Object.assign(P, { tab:'workout', route:'home' }); if (P.running) A.resume(); else if (P.loc === 'in' && !P.completed) P.sheet = 'atgym'; break;
+    case 'signin': Object.assign(P, { route:'signin', signinStep:'phone', tab:'workout', sheet:null }); break;
     case 'onb': Object.assign(P, { route:'onb', onb:0, tab:'workout' }); break;
-    case 'pending': Object.assign(P, { tab:'workout', route:'home', planStatus:'pending', planVer:1, running:false, where:null, readiness:null }); break;
+    case 'pending': Object.assign(P, { tab:'workout', route:'home', planStatus:'pending', planVer:1, running:false, where:null, readiness:null, drafts:null, sent:null, verNotes:null, draftNotes:{}, planEx:null, approvedAt:null }); break;
     case 'active': if (P.running) A.resume(); else { Object.assign(P, { planStatus:'approved', where:P.where || (P.loc === 'in' ? 'gym' : 'outside'), readiness:P.readiness && P.readiness !== 'pain' ? P.readiness : 'ready' }); A.begin(); } break;
     case 'complete': if (!Object.keys(P.exDone).length) P = completedState(); else A.finish(); break;
     case 'ai': case 'coach': case 'profile': P.tab = r; if (P.route === 'onb') P.route = 'home'; break;
