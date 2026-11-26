@@ -1234,6 +1234,30 @@ a.dbtn{text-decoration:none}
 .aotp i.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 .alog-row{display:flex;justify-content:space-between;font-size:13px}
 .alog-foot{font-size:12px;color:var(--text-3);text-align:center}
+/* ===== Brands & branches ===== */
+.bpick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.btile{display:flex;align-items:center;gap:10px;height:52px;padding:0 14px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--card-2);font:inherit;font-size:13px;font-weight:600;color:var(--text-2);text-align:left;cursor:pointer}
+.btile:hover{border-color:var(--text-3)}
+.btile .bico{width:30px;height:30px;border-radius:9px;background:var(--raised);display:grid;place-items:center;color:var(--text-2);flex:none}
+.btile .bdot{margin-left:auto;width:18px;height:18px;border-radius:50%;border:1.5px solid var(--text-3);flex:none}
+.btile.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 9%,var(--card));color:var(--text)}
+.btile.on .bico{color:var(--accent)}
+.btile.on .bdot{border:5px solid var(--accent)}
+.bchip{height:20px;padding:0 8px;border-radius:999px;border:0;background:var(--raised);font:inherit;font-size:11px;font-weight:700;color:var(--text-2);cursor:pointer;white-space:nowrap}
+.bchip:hover{color:var(--text);background:var(--line-2)}
+.bfixed{display:flex;align-items:center;gap:10px;font-size:13px}
+.dfld.dis > div:not(.fi){background:var(--raised);opacity:.6}
+.bmeta{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:500;color:var(--text-2);margin-top:8px}
+.bmeta:empty{display:none}
+.bwrap{position:relative}
+.bwrap .bdrop-host{position:absolute;left:0;right:0;top:68px;z-index:30}
+.bwrap .bdrop-host .tadrop{position:static;margin-top:0}
+span.bmeta{display:flex}
+.ptabs{display:flex;gap:26px;border-bottom:1px solid var(--line-2)}
+.ptabs button,.ptabs span{display:flex;align-items:center;gap:7px;padding:2px 2px 12px;margin-bottom:-1px;background:none;border:0;border-bottom:2px solid transparent;font:inherit;font-size:14px;font-weight:600;color:var(--text-2);cursor:pointer}
+.ptabs b{font-weight:700;color:var(--text-3)}
+.ptabs .on{color:var(--text);border-bottom-color:var(--accent)}
+.ptabs .on b{color:var(--text)}
 </style>
 </head>
 <body class="theme-dark">
@@ -1662,9 +1686,10 @@ function searchEquip(q, limit = 8){
    ========================================================= */
 const SETUP_STEPS = 3;
 const PILOT_GYMS = [
-  { n:'Iron Temple Gym', c:'#C0743A', city:'Hyderabad · Banjara Hills', live:true, date:'14 Nov', mem:23, owner:'Suresh Menon', open:[] },
-  { n:'Pulse Fitness Studio', c:'#2F8F83', city:'Hyderabad · Kondapur', live:true, date:'21 Nov', mem:18, owner:'Kavitha Rao', open:[] },
-  { n:'Muscle Factory', c:'#8E5BB5', city:'Vijayawada · Benz Circle', live:false, date:'1 Dec', steps:2, owner:'Prakash Varma', open:['Add equipment · 27 Nov','Owner not signed in'] },
+  { n:'Iron Temple Gym', branch:'Banjara Hills', ownerMob:'98490 ••• 220', branches:2, c:'#C0743A', city:'Hyderabad · Banjara Hills', live:true, date:'14 Nov', mem:23, owner:'Suresh Menon', poc:'Suresh Menon', open:[] },
+  { n:'Iron Temple Gym', branch:'Gachibowli', ownerMob:'98490 ••• 220', branches:2, c:'#C0743A', city:'Hyderabad · Gachibowli', live:false, date:'8 Dec', steps:1, owner:'Suresh Menon', poc:'Farhan Ali', open:['Add equipment · 2 Dec','Add trainers'] },
+  { n:'Pulse Fitness Studio', branch:'Kondapur', ownerMob:'98490 ••• 233', branches:1, c:'#2F8F83', city:'Hyderabad · Kondapur', live:true, date:'21 Nov', mem:18, owner:'Kavitha Rao', open:[] },
+  { n:'Muscle Factory', branch:'Benz Circle', ownerMob:'98490 ••• 512', branches:1, c:'#8E5BB5', city:'Vijayawada · Benz Circle', live:false, date:'1 Dec', steps:2, owner:'Prakash Varma', open:['Add equipment · 27 Nov','Owner not signed in'] },
 ];
 // Muscle Factory's list from the site visit (sample). Photos are optional.
 const PILOT_EQUIP = [
@@ -1693,54 +1718,78 @@ O.pLoginCode = () => loginShell('sign-in', `<div><div class="alog-h">Enter the c
   <div class="alog-row"><span class="muted">Didn’t get it?</span><b>Resend in 0:24</b></div>
   <span class="dbtn">Sign in</span>`);
 
-O.pShell = (active, title, sub, body, actions = '', tall = false) => {
+O.pShell = (active, title, sub, body, actions = '', tall = false, url = active, back = '') => {
   const nav = [['gyms','building','Gyms',PILOT_GYMS.length],['add','plus','Add a gym']];
   const locked = [['leads','Leads'],['billing','Plans & billing'],['usage','Usage & analytics'],['access','Support access'],['team','Ops team']];
-  return `<div class="desk${tall ? ' tall' : ''}"><div class="dchrome"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><div class="url">${icon('lock',11)}admin.gymcompanion.app/${active}</div><span style="width:60px"></span></div>
+  return `<div class="desk${tall ? ' tall' : ''}"><div class="dchrome"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><div class="url">${icon('lock',11)}admin.gymcompanion.app/${url}</div><span style="width:60px"></span></div>
     <div class="dbody"><aside class="dside"><div class="brand"><span class="opslogo">${icon('layers',17)}</span><div><div style="font-size:14px">Gym Companion</div><div class="t12 muted" style="font-weight:500">Platform admin</div></div></div>
       ${nav.map(([k, ic, lb, n]) => `<div class="ni ${k === active ? 'on' : ''}">${icon(ic, 18)}${lb}${n ? `<span class="cnt">${n}</span>` : ''}</div>`).join('')}
       <div class="nlab">After pilot</div>
       ${locked.map(([k, lb]) => `<div class="ni locked ${k === active ? 'on' : ''}">${icon('lock', 16)}${lb}</div>`).join('')}
       <div class="foot"><div class="row gap8" style="padding:14px 8px 0;border-top:1px solid var(--line-2)">${C.ini('Nikhil Reddy','#374151',32)}<div><div style="font-size:13px;font-weight:600">Nikhil Reddy</div><div class="t12 muted">Ops · onboarding</div></div></div></div></aside>
-      <main class="dmain">${title ? `<div class="dtop"><div><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ''}</div><div class="dfilt">${actions}</div></div>` : ''}${body}</main></div></div>`;
+      <main class="dmain">${back ? `<span class="fback" style="margin:-6px 0 -4px">${icon('chev-l', 14)}${back}</span>` : ''}${title ? `<div class="dtop"><div><h1>${title}</h1>${sub ? `<p>${sub}</p>` : ''}</div><div class="dfilt">${actions}</div></div>` : ''}${body}</main></div></div>`;
 };
 const lockedList = (items) => `<div class="dcard"><div class="dhead" style="margin-bottom:4px"><h3>After pilot</h3></div>
   <div class="alist">${items.map(t => `<div class="al lockrow" style="padding:10px 0"><span style="color:var(--text-3);display:inline-flex">${icon('lock',14)}</span><div class="at" style="flex:1">${t}</div></div>`).join('')}</div></div>`;
 
-O.pGyms = () => {
-  // Every number is derived from the list, so the page holds at any number of gyms.
-  const G = PILOT_GYMS, live = G.filter(g => g.live).length, setting = G.length - live;
-  const members = G.reduce((a, g) => a + (g.mem || 0), 0);
-  const needGyms = G.filter(g => g.open.length).length, openItems = G.reduce((a, g) => a + g.open.length, 0);
-  const plural = (n, w) => `${n} ${w}${n === 1 ? '' : 's'}`;
+// Gyms page: the list of every gym (unchanged), with a Brands tab next to it.
+const gymsTop = (tab) => {
+  const G = PILOT_GYMS, live = G.filter(g => g.live).length, members = G.reduce((a, g) => a + (g.mem || 0), 0);
+  const needGyms = G.filter(g => g.open.length).length, openItems = G.reduce((a, g) => a + g.open.length, 0), brands = new Set(G.map(g => g.n)).size;
   const k = (l, v, d, cls = '') => `<div class="dcard kpi" style="padding:14px 18px"><div class="kl">${l}</div><div class="kv2 ${cls}" style="font-size:26px">${v}</div><div class="kd">${d}</div></div>`;
+  return `<div class="dgrid" style="grid-template-columns:repeat(4,1fr)">${k('Gyms', G.length, `${G.length - live} setting up`)}${k('Live gyms', live, '+1 in the last 7 days')}${k('Members using the app', members, '+21 in the last 7 days')}${k('Gyms needing action', needGyms, `${openItems} open items`, needGyms ? 'warn' : '')}</div>
+    <div class="ptabs"><span class="${tab === 'gyms' ? 'on' : ''}">Gyms <b>${G.length}</b></span><span class="${tab === 'brands' ? 'on' : ''}">Brands <b>${brands}</b></span></div>`;
+};
+O.pGyms = () => {
+  const G = PILOT_GYMS, live = G.filter(g => g.live).length, needGyms = G.filter(g => g.open.length).length;
   const chev = icon('chev-l', 16, 'style="transform:rotate(180deg)"');
-  const setupCell = g => g.live
-    ? `<span class="row gap6 mut">${icon('check',14,'stroke-width="2.4"')}Complete</span>`
+  const setupCell = g => g.live ? `<span class="row gap6 mut">${icon('check',14,'stroke-width="2.4"')}Complete</span>`
     : `<div class="row gap8"><div class="meter warn" style="width:56px"><i style="width:${g.steps / SETUP_STEPS * 100}%"></i></div><span class="num t12" style="font-weight:700">${g.steps} of ${SETUP_STEPS}</span></div>`;
-  const nextCell = g => g.open.length
-    ? `<div class="nxtc"><i class="wdot"></i><span class="t">${g.open[0]}</span>${g.open.length > 1 ? `<span class="morec">+${g.open.length - 1}</span>` : ''}</div>`
-    : '<span class="mut">—</span>';
-  const body = `
-    <div class="dgrid" style="grid-template-columns:repeat(4,1fr)">
-      ${k('Gyms', G.length, `${setting} setting up`)}
-      ${k('Live gyms', live, '+1 in the last 7 days')}
-      ${k('Members using the app', members, '+21 in the last 7 days')}
-      ${k('Gyms needing action', needGyms, plural(openItems, 'open item'), needGyms ? 'warn' : '')}</div>
-    <div class="row between"><div class="fchips"><span class="on">All <b>${G.length}</b></span><span>Live <b>${live}</b></span><span>Setting up <b>${setting}</b></span><span>Needs action <b>${needGyms}</b></span></div>
-      <span class="dfilt" style="margin:0"><span style="width:240px;color:var(--text-3);font-weight:500">${icon('search',14)}Search gym, city or owner</span></span></div>
+  const nextCell = g => g.open.length ? `<div class="nxtc"><i class="wdot"></i><span class="t">${g.open[0]}</span>${g.open.length > 1 ? `<span class="morec">+${g.open.length - 1}</span>` : ''}</div>` : '<span class="mut">—</span>';
+  const body = `${gymsTop('gyms')}
+    <div class="row gap12"><span class="dfilt" style="margin:0"><span style="width:290px;color:var(--text-3);font-weight:500">${icon('search',14)}Search gym, branch, city or owner</span></span>
+      <div class="fchips"><span class="on">All <b>${G.length}</b></span><span>Live <b>${live}</b></span><span>Setting up <b>${G.length - live}</b></span><span>Needs action <b>${needGyms}</b></span></div></div>
     <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Gym</th><th>Status</th><th>Go-live <span class="sort">${icon('chev-l',12,'style="transform:rotate(-90deg)"')}</span></th><th>Members</th><th>Setup</th><th>Owner</th><th>Next step</th><th></th></tr>
       ${G.map(g => `<tr><td><div class="nm">${C.ini(g.n, g.c, 30)}<div><div>${g.n}</div><div class="t12 mut" style="font-weight:500">${g.city}</div></div></div></td>
         <td><span class="tag ${g.live ? 'good' : 'warn'}">${g.live ? 'Live' : 'Setting up'}</span></td><td class="mut">${g.date}</td><td class="num">${g.live ? g.mem : '<span class="mut">—</span>'}</td>
         <td>${setupCell(g)}</td><td>${g.owner}</td><td>${nextCell(g)}</td><td class="go">${chev}</td></tr>`).join('')}</table></div>`;
   return O.pShell('gyms', 'Gyms', '', body, `<span class="dbtn">${icon('plus',14)}Add a gym</span>`);
 };
+O.pBrands = () => {
+  const G = PILOT_GYMS, chev = icon('chev-l', 16, 'style="transform:rotate(180deg)"');
+  const brands = [...new Set(G.map(g => g.n))].map(n => { const B = G.filter(g => g.n === n); return { n, c:B[0].c, owner:B[0].owner, mob:B[0].ownerMob, B, mem:B.reduce((a, g) => a + (g.mem || 0), 0), cities:[...new Set(B.map(g => g.city.split(' · ')[0]))].join(', ') }; });
+  const body = `${gymsTop('brands')}
+    <div class="row"><span class="dfilt" style="margin:0"><span style="width:290px;color:var(--text-3);font-weight:500">${icon('search',14)}Search brand, branch or owner</span></span></div>
+    <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Brand</th><th>Branches</th><th>Members</th><th>Owner</th><th>Owner mobile</th><th></th></tr>
+      ${brands.map(b => `<tr><td><div class="nm">${C.ini(b.n, b.c, 30)}<div><div>${b.n}</div><div class="t12 mut" style="font-weight:500">${b.cities}</div></div></div></td>
+        <td class="num">${b.B.length}</td><td class="num">${b.mem || '<span class="mut">—</span>'}</td><td>${b.owner}</td><td class="mut">+91 ${b.mob}</td><td class="go">${chev}</td></tr>`).join('')}</table></div>`;
+  return O.pShell('gyms', 'Gyms', '', body, `<span class="dbtn">${icon('plus',14)}Add a gym</span>`, false, 'gyms?tab=brands');
+};
+
+/* Brand page: a brand's branches, with "Add a gym" opening the wizard with the brand already selected. */
+O.pBrand = () => {
+  const B = PILOT_GYMS.filter(g => g.n === 'Iron Temple Gym'), live = B.filter(g => g.live).length;
+  const k = (l, v, d, big = true) => `<div class="dcard kpi" style="padding:14px 18px"><div class="kl">${l}</div><div class="kv2" style="font-size:${big ? 26 : 17}px${big ? '' : ';margin-top:12px'}">${v}</div><div class="kd">${d}</div></div>`;
+  const chev = icon('chev-l', 16, 'style="transform:rotate(180deg)"');
+  const body = `<span class="fback" style="margin:-6px 0 -4px">${icon('chev-l', 14)}Gyms</span>
+    <div class="dtop"><div class="row gap12">${C.ini('Iron Temple Gym', '#C0743A', 44)}<div><h1>Iron Temple Gym</h1><p>2 branches · Hyderabad</p></div></div>
+      <div class="dfilt"><span class="dbtn sec">Edit brand</span><span class="dbtn">${icon('plus',14)}Add a gym</span></div></div>
+    <div class="dgrid" style="grid-template-columns:repeat(3,1fr)">${k('Branches', B.length, `${B.length - live} setting up`)}${k('Members using the app', 23, `${live} live`)}${k('Owner', 'Suresh Menon', '+91 98490 ••• 220', false)}</div>
+    <div class="row gap12"><span class="dfilt" style="margin:0"><span style="width:290px;color:var(--text-3);font-weight:500">${icon('search',14)}Search branch, city or contact</span></span>
+      <div class="fchips"><span class="on">All <b>${B.length}</b></span><span>Live <b>${live}</b></span><span>Setting up <b>${B.length - live}</b></span><span>Needs action <b>1</b></span></div></div>
+    <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Branch</th><th>Status</th><th>Go-live</th><th>Members</th><th>Setup</th><th>Point of contact</th><th>Next step</th><th></th></tr>
+      ${B.map(g => `<tr><td><div class="nm">${C.ini(g.n, g.c, 30)}<div><div>${g.branch}</div><div class="t12 mut" style="font-weight:500">Hyderabad</div></div></div></td>
+        <td><span class="tag ${g.live ? 'good' : 'warn'}">${g.live ? 'Live' : 'Setting up'}</span></td><td class="mut">${g.date}</td><td class="num">${g.live ? g.mem : '<span class="mut">—</span>'}</td>
+        <td>${g.live ? `<span class="row gap6 mut">${icon('check',14,'stroke-width="2.4"')}Complete</span>` : `<div class="row gap8"><div class="meter warn" style="width:56px"><i style="width:${g.steps / SETUP_STEPS * 100}%"></i></div><span class="num t12" style="font-weight:700">${g.steps} of ${SETUP_STEPS}</span></div>`}</td>
+        <td>${g.poc}</td><td>${g.open.length ? `<div class="nxtc"><i class="wdot"></i><span class="t">${g.open[0]}</span>${g.open.length > 1 ? `<span class="morec">+${g.open.length - 1}</span>` : ''}</div>` : '<span class="mut">—</span>'}</td><td class="go">${chev}</td></tr>`).join('')}</table></div>`;
+  return O.pShell('gyms', '', '', body, '', false, 'brands/iron-temple');
+};
 
 /* Add a gym: 3-step wizard. Step 3 (equipment) is optional with "Do later";
    the Gym setup page's "Add equipment" opens the same step for gyms that skipped it. */
 const ADD_STEPS = ['Gym details', 'Contacts', 'Equipment'];
 const caretDown = () => icon('chev-l', 14, 'style="transform:rotate(-90deg)"');
-const fField = (l, v, o = {}) => `<div class="dfld${o.full ? ' full' : ''}"><label>${l}${o.opt ? ' <span class="optl">optional</span>' : ''}</label><div class="${v ? '' : 'ph'}">${o.pre ? `<span class="pre">${o.pre}</span>` : ''}<span class="fv">${v || ''}</span>${o.suf ? `<span class="suf">${o.suf}</span>` : ''}</div></div>`;
+const fField = (l, v, o = {}) => `<div class="dfld${o.full ? ' full' : ''}${o.dis ? ' dis' : ''}"><label>${l}${o.opt ? ' <span class="optl">optional</span>' : ''}</label><div class="${v ? '' : 'ph'}">${o.pre ? `<span class="pre">${o.pre}</span>` : ''}<span class="fv">${v || ''}</span>${o.suf ? `<span class="suf">${o.suf}</span>` : ''}</div></div>`;
 const fCard = (title, inner, right = '') => `<div class="dcard fbox"><div class="fhead"><h3>${title}</h3>${right}</div>${inner}</div>`;
 const fGrid = x => `<div class="fgrid">${x}</div>`;
 // Gym location: the gym's Google Maps share link. The server resolves short links and reads the coordinates.
@@ -1750,12 +1799,27 @@ const wizPage = (cur, cards, foot) => O.pShell('add', '', '', `<div class="fcol"
 const wBack = () => `<span class="dbtn sec">${icon('chev-l', 14)}Back</span>`;
 const wNext = () => `<span class="dbtn">Next${icon('arrow', 14)}</span>`;
 
+const brandFld = (v, meta) => `<div class="dfld full"><label>Brand</label><div><span class="fv">${v}</span></div><span class="bmeta">${meta}</span></div>`;
 O.pAdd1 = () => wizPage(0,
-  fCard('Gym details', fGrid(`${fField('Gym name', 'Muscle Factory', { full:1 })}${fField('Phone', '98661 ••• 471', { pre:'+91' })}${fField('Email', 'frontdesk@musclefactory.in')}
+  fCard('Gym details', fGrid(`${brandFld('Muscle Factory', `${icon('plus', 13)}New brand`)}${fField('Branch', 'Benz Circle', { full:1 })}${fField('Phone', '98661 ••• 471', { pre:'+91' })}${fField('Email', 'frontdesk@musclefactory.in')}
     ${fField('Address line 1', '2nd floor, Sri Sai Complex, MG Road', { full:1 })}${fField('Address line 2', '', { full:1, opt:1 })}
     ${fField('Area / locality', 'Benz Circle')}${fField('City', 'Vijayawada')}${fField('State', 'Andhra Pradesh', { suf:caretDown() })}${fField('PIN code', '520010')}
     ${fField('Google Maps link', 'https://maps.app.goo.gl/Fz3kQ8vN2pLw', { full:1 })}<div class="full" style="margin-top:-8px">${mapsMeta('16.5062° N, 80.6480° E')}</div>`)),
   `<span class="dbtn sec">Cancel</span>${wNext()}`);
+O.pAdd1b = () => wizPage(0,
+  fCard('Gym details', fGrid(`${brandFld('Iron Temple Gym', `${icon('layers', 13)}Existing brand · 2 branches · owner Suresh Menon`)}${fField('Branch', 'Gachibowli', { full:1 })}${fField('Phone', '98661 ••• 877', { pre:'+91' })}${fField('Email', '')}
+    ${fField('Address line 1', 'Plot 41, Financial District Road', { full:1 })}${fField('Address line 2', '', { full:1, opt:1 })}
+    ${fField('Area / locality', 'Gachibowli')}${fField('City', 'Hyderabad')}${fField('State', 'Telangana', { suf:caretDown() })}${fField('PIN code', '500032')}
+    ${fField('Google Maps link', 'https://maps.app.goo.gl/Gc8bL2wQ7rTz', { full:1 })}<div class="full" style="margin-top:-8px">${mapsMeta('17.4401° N, 78.3489° E')}</div>`)),
+  `<span class="dbtn sec">Cancel</span>${wNext()}`);
+O.pAdd2b = () => {
+  const person = (name, email, mob, alt, dis) => fGrid(`${fField('Name', name, { dis })}${fField('Email', email, { opt:1, dis })}${fField('Mobile', mob, { pre:'+91', dis })}${fField('Alternate mobile', alt, { pre:'+91', opt:1, dis })}`);
+  return wizPage(1,
+    `${fCard('Owner', person('Suresh Menon', '', '98490 ••• 220', '', 1), `<span class="dcheck on"><span class="box">${icon('check', 12, 'stroke-width="3"')}</span>Same as brand owner</span>`)}
+     ${fCard('Point of contact', person('Farhan Ali', '', '99590 ••• 120', ''), '<span class="dcheck"><span class="box"></span>Same as owner</span>')}
+     ${fCard('Notes <span class="optl">optional</span>', fGrid('<div class="dfld full"><div class="ph notes"></div></div>'))}`,
+    `${wBack()}${wNext()}`);
+};
 
 O.pAdd2 = () => {
   const person = (name, email, mob, alt) => fGrid(`${fField('Name', name)}${fField('Email', email, { opt:1 })}${fField('Mobile', mob, { pre:'+91' })}${fField('Alternate mobile', alt, { pre:'+91', opt:1 })}`);
@@ -1796,7 +1860,7 @@ O.pAdd3 = () => wizPage(2, eqCards([...PILOT_EQUIP.slice(0, 5), PILOT_EQUIP[8]])
 
 /* Equipment page for an existing gym (Gym setup → Add equipment). Idle and searching states. */
 const equipPage = (items, opts) => O.pShell('gyms', '', '', `<div class="fcol">
-    <span class="fback">${icon('chev-l', 14)}Muscle Factory</span><h1 class="ftitle">Equipment</h1>
+    <span class="fback">${icon('chev-l', 14)}Muscle Factory · Benz Circle</span><h1 class="ftitle">Equipment</h1>
     ${eqCards(items, opts)}
     <div class="wfoot"><span class="dbtn sec">Cancel</span><span class="dbtn">${icon('check',14,'stroke-width="2.4"')}Save equipment</span></div></div>`, '', true);
 O.pEquipIdle = () => equipPage([...PILOT_EQUIP.slice(0, 6), PILOT_EQUIP[8]]);
@@ -1812,11 +1876,12 @@ O.pDetail = () => {
       ${step(1, 'Trainers', '5 added · 23 Nov', 'Edit')}</div></div>
     <div class="stack gap16">
       <div class="dcard"><div class="dhead"><h3>Gym</h3><span class="dbtn sec sm">Edit</span></div>
+        <div class="kv"><span>Brand</span><b><span class="dbtn sec sm">${icon('layers',13)}Muscle Factory · 1 branch</span></b></div>
         <div class="kv"><span>Owner</span><b>Prakash Varma · +91 98490 ••• 512</b></div><div class="kv"><span>Point of contact</span><b>Kiran Kumar · +91 99631 ••• 208</b></div><div class="kv"><span>Gym phone</span><b>+91 98661 ••• 471</b></div>
         <div class="kv"><span>Owner console</span><b class="row gap8"><span class="tag warn">Not signed in</span><span class="dbtn sec sm">Resend link</span></b></div>
         <div class="kv"><span>Location</span><b><span class="dbtn sec sm">${icon('pin',13)}Open in Maps</span></b></div><div class="kv"><span>Goes live</span><b>1 Dec 2026</b></div><div class="kv"><span>Gym QR</span><b><span class="dbtn sec sm">${icon('qr',13)}Download</span></b></div></div>
       ${lockedList(['Plan & billing','Support access log','AI spend'])}</div></div>`;
-  return O.pShell('gyms', 'Muscle Factory', 'Vijayawada · Benz Circle · added 22 Nov', body, `<span class="tag warn" style="height:30px;padding:0 10px">Setting up</span><span class="dbtn sec">${icon('phone',14)}Call contact</span>`);
+  return O.pShell('gyms', 'Muscle Factory', 'Benz Circle · Vijayawada · added 22 Nov', body, `<span class="tag warn" style="height:30px;padding:0 10px">Setting up</span><span class="dbtn sec">${icon('phone',14)}Call contact</span>`, false, 'gyms/muscle-factory-benz-circle');
 };
 
 O.pLocked = () => {
@@ -1882,6 +1947,19 @@ function renderSpec(){
        'Completed steps are clickable to go back. Upcoming steps are not.',
        'Step 3 (Equipment) is optional: Do later creates the gym without equipment.'],
       [['Bar', '4px · radius 4 · done and current accent · upcoming line-2'], ['Caption', '“Step n” 11px / 600 · current in accent'], ['Label', '13px / 600 · current text · done text-2 · upcoming text-3'], ['Optional', 'inline after the label · 12px / 500 · text-3']]),
+    card('Brands & branches',
+      spc('Brand · existing', `<div style="width:380px"><div class="dfld"><label>Brand</label><div class="fi"><span class="fv">Iron Temple Gym</span></div><span class="bmeta">${icon('layers', 13)}Existing brand · 2 branches · owner Suresh Menon</span></div></div>`) +
+      spc('Brand · new', `<div style="width:380px"><div class="dfld"><label>Brand</label><div class="fi"><span class="fv">FitZone Unisex Gym</span></div><span class="bmeta">${icon('plus', 13)}New brand</span></div></div>`),
+      ['Every gym is saved as Brand + Branch, from the first one. A single gym is a brand with one branch, so adding a second branch later needs no fix-up.',
+       'Brand: type a name. Suggestions are existing brands with their branch counts (↑ ↓, Enter, or click). Picking one, or typing its exact name, adds a branch to it, so the same brand is never created twice. Any other name creates a new brand.',
+       'Branch: required. It copies Area / locality as you type until it’s edited by hand.',
+       'Gyms page has two tabs. Gyms: every gym, one row each, with status, setup and next step per gym (unchanged). Brands: one row per brand with its branch count, members and owner. No combined status for a brand, since its gyms can be at different stages.',
+       'A brand row opens the brand page: its branches with the same filters and search as Gyms, Add a gym (the form opens with the brand filled in; Cancel returns here), and Edit brand (name and owner for every branch). Each gym page has a Brand row that links to it.',
+       'One logo per brand: uploading it on any of its gyms updates all of them.',
+       'Tables (Gyms, Brands, a brand’s branches): search first on the left, filter chips after it. The search filters only the table below it.',
+       'Owner: for a new brand, step 2’s owner becomes the brand owner. For an existing brand, Same as brand owner is on; untick it for a franchisee, whose sign-in link goes to them.',
+       'Members belong to one home branch: they join with that branch’s gym QR, their plan uses its equipment, and Start workout checks its location. Training at other branches comes after the pilot. Trainers belong to a branch.'],
+      [['Meta line', '12px / 500 · text-2 · 13px icon · 8px below the field'], ['Suggestions', 'same dropdown as equipment search · branch count on the right']]),
     card('Gym location',
       spc('Google Maps link', `<div class="wide" style="width:420px">${fld('Google Maps link', 'https://maps.app.goo.gl/Fz3kQ8vN2pLw')}${mapsMeta('16.5062° N, 80.6480° E')}</div>`),
       ['Ops pastes the gym’s Google Maps share link, ideally dropped at the entrance during the site visit.',
@@ -1901,8 +1979,8 @@ function renderSpec(){
       [['Dropdown', 'card background · 1px line-2 · radius 12 · 6px padding · max 320px, scrolls'], ['Row', '38px · radius 8 · active row raised'], ['Gap', '6px below the field']]),
   ];
   const rules = [
-    ['Gym name', 'Required'], ['Phone', 'Required · 10 digits'], ['Email', 'Optional · valid email if filled'], ['Address line 1, Area, City, State', 'Required'], ['Address line 2', 'Optional'], ['PIN code', 'Required · 6 digits'], ['Google Maps link', 'Required · google.com/maps or maps.app.goo.gl'],
-    ['Owner name, mobile', 'Required · mobile 10 digits'], ['Point of contact name, mobile', 'Required unless Same as owner'], ['Alternate mobile, Email (people)', 'Optional · validated if filled'],
+    ['Brand', 'Required · existing brand or a new one'], ['Branch', 'Required'], ['Phone', 'Required · 10 digits'], ['Email', 'Optional · valid email if filled'], ['Address line 1, Area, City, State', 'Required'], ['Address line 2', 'Optional'], ['PIN code', 'Required · 6 digits'], ['Google Maps link', 'Required · google.com/maps or maps.app.goo.gl'],
+    ['Owner name, mobile', 'Required unless Same as brand owner · mobile 10 digits'], ['Point of contact name, mobile', 'Required unless Same as owner'], ['Alternate mobile, Email (people)', 'Optional · validated if filled'],
     ['Trainers', 'Name and 10-digit mobile per row; empty rows are ignored'], ['Equipment quantity', 'Digits only, 1–999'],
   ];
   const tokens = [
@@ -1942,21 +2020,30 @@ const PT = (() => {
   const LOCKED = { leads:'Leads', billing:'Plans & billing', usage:'Usage & analytics', access:'Support access', team:'Ops team' };
 
   const seed = () => [
-    { id:'iron-temple', n:'Iron Temple Gym', c:'#C0743A', addr1:'Plot 12, Road No. 2', addr2:'', area:'Banjara Hills', city:'Hyderabad', state:'Telangana', pin:'500034', maps:'https://maps.app.goo.gl/Ir4nT3mpL3Bh', phone:'9866100231', email:'hello@irontemple.in',
+    { id:'iron-temple', brandId:'iron-temple', branch:'Banjara Hills', ownerBrand:true, n:'Iron Temple Gym', c:'#C0743A', addr1:'Plot 12, Road No. 2', addr2:'', area:'Banjara Hills', city:'Hyderabad', state:'Telangana', pin:'500034', maps:'https://maps.app.goo.gl/Ir4nT3mpL3Bh', phone:'9866100231', email:'hello@irontemple.in',
       owner:{ name:'Suresh Menon', email:'', mob:'9849011220', alt:'' }, poc:{ same:true, name:'', email:'', mob:'', alt:'' }, notes:'', logo:true,
       eq:{ items: pick(['Flat bench + Olympic bar', 'Adjustable bench', 'Lat pulldown', 'Seated row machine', 'Dumbbells', 'Chest press machine', 'Smith machine', 'Cable crossover', 'Leg press 45°', 'Treadmill']), bars:['Olympic · 20 kg', 'EZ curl · 10 kg'], plates:['1.25', '2.5', '5', '10', '15', '20', '25'] },
       trainers:[{ name:'Ravi Kumar', mob:'9000011111' }, { name:'Sneha Reddy', mob:'9000022222' }, { name:'Imran Khan', mob:'9000033333' }], signedIn:true, live:true, liveFrom:D(10, 14), golive:D(10, 14), mem:23, added:D(10, 6) },
-    { id:'pulse-fitness', n:'Pulse Fitness Studio', c:'#2F8F83', addr1:'3rd floor, Botanical Garden Road', addr2:'', area:'Kondapur', city:'Hyderabad', state:'Telangana', pin:'500084', maps:'https://maps.app.goo.gl/Pu1s3K0nd4pr', phone:'9866200417', email:'',
+    { id:'iron-temple-gachibowli', brandId:'iron-temple', branch:'Gachibowli', ownerBrand:true, n:'Iron Temple Gym', c:'#C0743A', addr1:'Plot 41, Financial District Road', addr2:'', area:'Gachibowli', city:'Hyderabad', state:'Telangana', pin:'500032', maps:'https://maps.app.goo.gl/Gc8bL2wQ7rTz', phone:'9866100877', email:'',
+      owner:{ name:'Suresh Menon', email:'', mob:'9849011220', alt:'' }, poc:{ same:false, name:'Farhan Ali', email:'', mob:'9959044120', alt:'' }, notes:'', logo:true,
+      eq:{ items:[], bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20', '25'] }, visit:'2 Dec', trainers:[], signedIn:true, live:false, golive:D(11, 8), mem:0, added:D(10, 23) },
+    { id:'pulse-fitness', brandId:'pulse-fitness', branch:'Kondapur', ownerBrand:true, n:'Pulse Fitness Studio', c:'#2F8F83', addr1:'3rd floor, Botanical Garden Road', addr2:'', area:'Kondapur', city:'Hyderabad', state:'Telangana', pin:'500084', maps:'https://maps.app.goo.gl/Pu1s3K0nd4pr', phone:'9866200417', email:'',
       owner:{ name:'Kavitha Rao', email:'', mob:'9849022331', alt:'' }, poc:{ same:false, name:'Deepak Varma', email:'', mob:'9959011223', alt:'' }, notes:'', logo:true,
       eq:{ items: pick(['Functional trainer', 'Dumbbells', 'Kettlebells', 'Adjustable bench', 'Power rack', 'Spin bike', 'Rowing machine', 'Air bike']), bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20'] },
       trainers:[{ name:'Arjun Das', mob:'9000044444' }, { name:'Meera Iyer', mob:'9000055555' }], signedIn:true, live:true, liveFrom:D(10, 21), golive:D(10, 21), mem:18, added:D(10, 12) },
-    { id:'muscle-factory', n:'Muscle Factory', c:'#8E5BB5', addr1:'2nd floor, Sri Sai Complex, MG Road', addr2:'', area:'Benz Circle', city:'Vijayawada', state:'Andhra Pradesh', pin:'520010', maps:'https://maps.app.goo.gl/Fz3kQ8vN2pLw', phone:'9866147102', email:'frontdesk@musclefactory.in',
+    { id:'muscle-factory', brandId:'muscle-factory', branch:'Benz Circle', ownerBrand:true, n:'Muscle Factory', c:'#8E5BB5', addr1:'2nd floor, Sri Sai Complex, MG Road', addr2:'', area:'Benz Circle', city:'Vijayawada', state:'Andhra Pradesh', pin:'520010', maps:'https://maps.app.goo.gl/Fz3kQ8vN2pLw', phone:'9866147102', email:'frontdesk@musclefactory.in',
       owner:{ name:'Prakash Varma', email:'', mob:'9849051200', alt:'' }, poc:{ same:false, name:'Kiran Kumar', email:'', mob:'9963120845', alt:'7032261900' }, notes:'', logo:true,
       eq:{ items:[], bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20', '25'] }, visit:'27 Nov',
       trainers:[{ name:'Vamsi K', mob:'9000066666' }, { name:'Sai Teja', mob:'9000077777' }, { name:'Lakshmi P', mob:'9000088888' }, { name:'Naveen R', mob:'9000099999' }, { name:'Harsha M', mob:'9000012121' }],
       signedIn:false, live:false, golive:D(11, 1), mem:0, added:D(10, 22) },
   ];
-  const fresh = () => ({ route:'gyms', gyms: seed(), filter:'all', q:'', gymId:null, lock:null, wiz:null, draft:null, modal:null, ta:{ q:'', i:0, open:false, res:[], n:0 } });
+  // Every gym is saved as Brand + Branch, from the first one. A single gym is a brand with one branch.
+  const seedBrands = () => [
+    { id:'iron-temple', n:'Iron Temple Gym', c:'#C0743A', logo:true, owner:{ name:'Suresh Menon', email:'', mob:'9849011220', alt:'' } },
+    { id:'pulse-fitness', n:'Pulse Fitness Studio', c:'#2F8F83', logo:true, owner:{ name:'Kavitha Rao', email:'', mob:'9849022331', alt:'' } },
+    { id:'muscle-factory', n:'Muscle Factory', c:'#8E5BB5', logo:true, owner:{ name:'Prakash Varma', email:'', mob:'9849051200', alt:'' } },
+  ];
+  const fresh = () => ({ route:'gyms', gyms: seed(), brands: seedBrands(), brandId:null, bq:'', bfilter:'all', bedit:null, bd:{ open:false, i:0, res:[], n:0 }, tab:'gyms', bsq:'', filter:'all', q:'', gymId:null, lock:null, wiz:null, draft:null, modal:null, ta:{ q:'', i:0, open:false, res:[], n:0 } });
   let S = fresh(), root = null, toastT = null;
 
   /* ---------- derived ---------- */
@@ -1968,7 +2055,14 @@ const PT = (() => {
     if (!g.signedIn) o.push('Owner not signed in');
     return o;
   };
-  const poc = g => g.poc.same ? g.owner : g.poc;
+  const brandOf = g => S.brands.find(b => b.id === g.brandId);
+  const branchesOf = id => S.gyms.filter(g => g.brandId === id);
+  const isChain = g => branchesOf(g.brandId).length > 1;
+  const branchLabel = g => g.branch;
+  const dispName = g => `${brandOf(g).n} · ${g.branch}`;
+  const ownerOf = g => g.ownerBrand ? brandOf(g).owner : g.owner;
+  const poc = g => g.poc.same ? ownerOf(g) : g.poc;
+  const plural = (n, w, ws = w + 's') => `${n} ${n === 1 ? w : ws}`;
   const checkLive = g => {
     if (!g.live && steps(g).every(Boolean) && (!g.golive || g.golive <= TODAY)){ g.live = true; g.liveFrom = TODAY; return true; }
     return false;
@@ -1987,31 +2081,63 @@ const PT = (() => {
   };
   const avatar = (g, s = 30) => typeof g.logo === 'string' ? `<span class="plogo" style="width:${s}px;height:${s}px;background-image:url(${g.logo})"></span>` : C.ini(g.n, g.c, s);
 
-  /* ---------- gyms list ---------- */
-  const listRows = () => {
-    const q = S.q.trim().toLowerCase();
-    const rows = S.gyms.filter(g => S.filter === 'all' || (S.filter === 'live' ? g.live : S.filter === 'setup' ? !g.live : openItems(g).length))
-      .filter(g => !q || [g.n, g.city, g.area, g.owner.name].some(v => v.toLowerCase().includes(q)));
+  /* ---------- gyms list: one row per gym, as before. The brand page reuses it for its branches. ---------- */
+  const listRows = (brandId = null) => {
+    const q = (brandId ? S.bq : S.q).trim().toLowerCase(), f = brandId ? S.bfilter : S.filter;
+    const rows = S.gyms.filter(g => !brandId || g.brandId === brandId).filter(g => f === 'all' || (f === 'live' ? g.live : f === 'setup' ? !g.live : openItems(g).length))
+      .filter(g => !q || [brandOf(g).n, g.branch, g.city, g.area, ownerOf(g).name, poc(g).name].some(v => String(v).toLowerCase().includes(q)));
     if (!rows.length) return `<tr><td colspan="8" class="mut" style="text-align:center;padding:28px 0">No gyms match</td></tr>`;
     return rows.map(g => {
       const st = steps(g).filter(Boolean).length, o = openItems(g);
       const setup = g.live ? `<span class="row gap8 mut">${icon('check', 14, 'stroke-width="2.4"')}Complete</span>` : `<div class="row gap8"><div class="meter warn" style="width:56px"><i style="width:${st / 3 * 100}%"></i></div><span class="num t12" style="font-weight:700">${st} of 3</span></div>`;
       const next = o.length ? `<div class="nxtc"><i class="wdot"></i><span class="t">${o[0]}</span>${o.length > 1 ? `<span class="morec">+${o.length - 1}</span>` : ''}</div>` : (!g.live && g.golive ? `<span class="mut">Goes live ${fmt(g.golive)}</span>` : '<span class="mut">—</span>');
-      return `<tr class="prow" data-a="open" data-id="${g.id}"><td><div class="nm">${avatar(g)}<div><div>${esc(g.n)}</div><div class="t12 mut" style="font-weight:500">${esc(g.city)} · ${esc(g.area)}</div></div></div></td>
+      const name = brandId ? `<div>${esc(g.branch)}</div><div class="t12 mut" style="font-weight:500">${esc(g.city)}</div>`
+        : `<div>${esc(brandOf(g).n)}</div><div class="t12 mut" style="font-weight:500">${esc(g.city)} · ${esc(g.branch)}</div>`;
+      return `<tr class="prow" data-a="open" data-id="${g.id}"><td><div class="nm">${avatar(g)}<div>${name}</div></div></td>
         <td><span class="tag ${g.live ? 'good' : 'warn'}">${g.live ? 'Live' : 'Setting up'}</span></td><td class="mut">${fmt(g.live ? g.liveFrom : g.golive)}</td><td class="num">${g.live ? g.mem : '<span class="mut">—</span>'}</td>
-        <td>${setup}</td><td>${esc(g.owner.name)}</td><td>${next}</td><td class="go">${icon('chev-l', 16, 'style="transform:rotate(180deg)"')}</td></tr>`;
+        <td>${setup}</td><td>${esc(brandId ? poc(g).name : ownerOf(g).name)}</td><td>${next}</td><td class="go">${icon('chev-l', 16, 'style="transform:rotate(180deg)"')}</td></tr>`;
     }).join('');
+  };
+  /* ---------- brands tab: one row per brand. Facts only; status stays per gym. ---------- */
+  const brandListRows = () => {
+    const q = S.bsq.trim().toLowerCase();
+    const rows = S.brands.filter(b => branchesOf(b.id).length)
+      .filter(b => !q || [b.n, b.owner.name, ...branchesOf(b.id).flatMap(g => [g.branch, g.city])].some(v => String(v).toLowerCase().includes(q)));
+    if (!rows.length) return `<tr><td colspan="6" class="mut" style="text-align:center;padding:28px 0">No brands match</td></tr>`;
+    return rows.map(b => { const B = branchesOf(b.id), mem = B.reduce((a, g) => a + g.mem, 0);
+      return `<tr class="prow" data-a="brand" data-id="${b.id}"><td><div class="nm">${avatar(b)}<div><div>${esc(b.n)}</div><div class="t12 mut" style="font-weight:500">${esc([...new Set(B.map(g => g.city))].join(', '))}</div></div></div></td>
+        <td class="num">${B.length}</td><td class="num">${mem || '<span class="mut">—</span>'}</td><td>${esc(b.owner.name)}</td><td class="mut">+91 ${tel(b.owner.mob)}</td><td class="go">${icon('chev-l', 16, 'style="transform:rotate(180deg)"')}</td></tr>`; }).join('');
   };
   const vGyms = () => {
     const G = S.gyms, live = G.filter(g => g.live).length, need = G.filter(g => openItems(g).length).length, items = G.reduce((a, g) => a + openItems(g).length, 0);
-    const wk = G.filter(g => g.live && (TODAY - g.liveFrom) / 864e5 <= 7).length;
+    const wk = G.filter(g => g.live && (TODAY - g.liveFrom) / 864e5 <= 7).length, B = S.brands.filter(b => branchesOf(b.id).length);
     const k = (l, v, d, cls = '') => `<div class="dcard kpi" style="padding:14px 18px"><div class="kl">${l}</div><div class="kv2 ${cls}" style="font-size:26px">${v}</div><div class="kd">${d}</div></div>`;
     const chip = (v, l, n) => `<button class="${S.filter === v ? 'on' : ''}" data-a="filter" data-v="${v}">${l} <b>${n}</b></button>`;
-    return `<div class="dtop"><div><h1>Gyms</h1></div><div class="dfilt"><button class="dbtn" data-a="nav" data-v="add">${icon('plus', 14)}Add a gym</button></div></div>
-      <div class="dgrid" style="grid-template-columns:repeat(4,1fr)">${k('Gyms', G.length, `${G.length - live} setting up`)}${k('Live gyms', live, `+${wk} in the last 7 days`)}${k('Members using the app', G.reduce((a, g) => a + g.mem, 0), '+21 in the last 7 days')}${k('Gyms needing action', need, `${items} open item${items === 1 ? '' : 's'}`, need ? 'warn' : '')}</div>
-      <div class="row between"><div class="fchips">${chip('all', 'All', G.length)}${chip('live', 'Live', live)}${chip('setup', 'Setting up', G.length - live)}${chip('action', 'Needs action', need)}</div>
-        <div class="fi tabox" style="width:260px">${icon('search', 15)}<input data-search placeholder="Search gym, city or owner" value="${esc(S.q)}" autocomplete="off"></div></div>
+    const tab = (v, l, n) => `<button class="${S.tab === v ? 'on' : ''}" data-a="tab" data-v="${v}" role="tab" aria-selected="${S.tab === v}">${l} <b>${n}</b></button>`;
+    const gymsTab = `<div class="row gap12"><div class="fi tabox" style="width:290px">${icon('search', 15)}<input data-search placeholder="Search gym, branch, city or owner" value="${esc(S.q)}" autocomplete="off"></div>
+        <div class="fchips">${chip('all', 'All', G.length)}${chip('live', 'Live', live)}${chip('setup', 'Setting up', G.length - live)}${chip('action', 'Needs action', need)}</div></div>
       <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Gym</th><th>Status</th><th>Go-live</th><th>Members</th><th>Setup</th><th>Owner</th><th>Next step</th><th></th></tr><tbody id="pt-rows">${listRows()}</tbody></table></div>`;
+    const brandsTab = `<div class="row"><div class="fi tabox" style="width:290px">${icon('search', 15)}<input data-bsq placeholder="Search brand, branch or owner" value="${esc(S.bsq)}" autocomplete="off"></div></div>
+      <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Brand</th><th>Branches</th><th>Members</th><th>Owner</th><th>Owner mobile</th><th></th></tr><tbody id="pt-brrows">${brandListRows()}</tbody></table></div>`;
+    return `<div class="dtop"><div><h1>Gyms</h1></div><div class="dfilt"><button class="dbtn" data-a="nav" data-v="add">${icon('plus', 14)}Add a gym</button></div></div>
+      <div class="dgrid" style="grid-template-columns:repeat(4,1fr)">${k('Gyms', G.length, `${G.length - live} setting up`)}${k('Live gyms', live, `+${wk} in the last 7 days`)}${k('Members using the app', G.reduce((a, g) => a + g.mem, 0), '+21 in the last 7 days')}${k('Gyms needing action', need, plural(items, 'open item'), need ? 'warn' : '')}</div>
+      <div class="ptabs" role="tablist">${tab('gyms', 'Gyms', G.length)}${tab('brands', 'Brands', B.length)}</div>
+      ${S.tab === 'brands' ? brandsTab : gymsTab}`;
+  };
+
+  /* ---------- brand page: its branches and "Add a gym" with the brand already selected ---------- */
+  const vBrand = () => {
+    const b = S.brands.find(x => x.id === S.brandId), G = branchesOf(b.id), live = G.filter(g => g.live).length, need = G.filter(g => openItems(g).length).length;
+    const k = (l, v, d, big = true) => `<div class="dcard kpi" style="padding:14px 18px"><div class="kl">${l}</div><div class="kv2" style="font-size:${big ? 26 : 17}px${big ? '' : ';margin-top:12px'}">${v}</div><div class="kd">${d}</div></div>`;
+    const chip = (v, l, n) => `<button class="${S.bfilter === v ? 'on' : ''}" data-a="bfilter" data-v="${v}">${l} <b>${n}</b></button>`;
+    const cities = [...new Set(G.map(g => g.city))].join(', ');
+    return `<button class="fback" data-a="nav" data-v="gyms">${icon('chev-l', 14)}Gyms</button>
+      <div class="dtop"><div class="row gap12">${avatar(b, 44)}<div><h1>${esc(b.n)}</h1><p>${plural(G.length, 'branch', 'branches')} · ${esc(cities)}</p></div></div>
+        <div class="dfilt"><button class="dbtn sec" data-a="editbrand">Edit brand</button><button class="dbtn" data-a="addbranch" data-id="${b.id}">${icon('plus', 14)}Add a gym</button></div></div>
+      <div class="dgrid" style="grid-template-columns:repeat(3,1fr)">${k('Branches', G.length, `${G.length - live} setting up`)}${k('Members using the app', G.reduce((a, g) => a + g.mem, 0), `${live} live`)}${k('Owner', esc(b.owner.name), `+91 ${tel(b.owner.mob)}`, false)}</div>
+      <div class="row gap12"><div class="fi tabox" style="width:290px">${icon('search', 15)}<input data-bsearch placeholder="Search branch, city or contact" value="${esc(S.bq)}" autocomplete="off"></div>
+        <div class="fchips">${chip('all', 'All', G.length)}${chip('live', 'Live', live)}${chip('setup', 'Setting up', G.length - live)}${chip('action', 'Needs action', need)}</div></div>
+      <div class="dcard" style="padding:14px 10px 6px"><table class="dtable"><tr><th>Branch</th><th>Status</th><th>Go-live</th><th>Members</th><th>Setup</th><th>Point of contact</th><th>Next step</th><th></th></tr><tbody id="pt-brows">${listRows(b.id)}</tbody></table></div>`;
   };
 
   /* ---------- form fields ---------- */
@@ -2032,7 +2158,7 @@ const PT = (() => {
 
   /* ---------- validation ---------- */
   const RULES = {
-    0: [['gym.name', 'req'], ['gym.phone', 'tel'], ['gym.email', 'email?'], ['gym.addr1', 'req'], ['gym.area', 'req'], ['gym.city', 'req'], ['gym.state', 'req'], ['gym.pin', 'pin'], ['gym.maps', 'maps']],
+    0: [['brand.name', 'req'], ['gym.branch', 'req'], ['gym.phone', 'tel'], ['gym.email', 'email?'], ['gym.addr1', 'req'], ['gym.area', 'req'], ['gym.city', 'req'], ['gym.state', 'req'], ['gym.pin', 'pin'], ['gym.maps', 'maps']],
     1: [['owner.name', 'req'], ['owner.mob', 'tel'], ['owner.alt', 'tel?'], ['owner.email', 'email?'], ['poc.name', 'req'], ['poc.mob', 'tel'], ['poc.alt', 'tel?'], ['poc.email', 'email?']],
   };
   const check = (v, r) => {
@@ -2046,29 +2172,61 @@ const PT = (() => {
   };
   const validate = step => {
     const W = S.wiz, e = {};
-    (RULES[step] || []).forEach(([p, r]) => { if (p.startsWith('poc.') && W.d.poc.same) return; const m = check(getP(W.d, p), r); if (m) e[p] = m; });
+    const existing = !!W.d.brand.id;
+    (RULES[step] || []).forEach(([p, r]) => { if (p.startsWith('poc.') && W.d.poc.same) return; if (p.startsWith('owner.') && existing && W.d.ownerSame) return; const m = check(getP(W.d, p), r); if (m) e[p] = m; });
     return e;
   };
 
   /* ---------- wizard ---------- */
-  const blankData = () => ({ gym:{ name:'', phone:'', email:'', addr1:'', addr2:'', area:'', city:'', state:'', pin:'', maps:'' }, owner:{ name:'', email:'', mob:'', alt:'' }, poc:{ same:false, name:'', email:'', mob:'', alt:'' }, notes:'',
+  const blankData = () => ({ brand:{ id:'', name:'' }, ownerSame:false, gym:{ branch:'', phone:'', email:'', addr1:'', addr2:'', area:'', city:'', state:'', pin:'', maps:'' }, owner:{ name:'', email:'', mob:'', alt:'' }, poc:{ same:false, name:'', email:'', mob:'', alt:'' }, notes:'',
     eq:{ items:[], bars:['Olympic · 20 kg'], plates:['2.5', '5', '10', '15', '20', '25'] } });
-  const newWiz = (mode = 'create', g = null) => ({ mode, step:0, err:{}, gymId: g ? g.id : null,
-    d: g ? { gym:{ name:g.n, phone:g.phone, email:g.email, addr1:g.addr1, addr2:g.addr2, area:g.area, city:g.city, state:g.state, pin:g.pin, maps:g.maps || '' }, owner:clone(g.owner), poc:clone(g.poc), notes:g.notes, eq:clone(g.eq) } : blankData() });
+  const newWiz = (mode = 'create', g = null, brandId = null) => { const w = { mode, step:0, err:{}, gymId: g ? g.id : null,
+    d: g ? { brand:{ id:g.brandId, name:brandOf(g).n }, ownerSame: g.ownerBrand, gym:{ branch:g.branch, phone:g.phone, email:g.email, addr1:g.addr1, addr2:g.addr2, area:g.area, city:g.city, state:g.state, pin:g.pin, maps:g.maps || '' }, owner:clone(ownerOf(g)), poc:clone(g.poc), notes:g.notes, eq:clone(g.eq) } : blankData() };
+    if (brandId){ const b = S.brands.find(x => x.id === brandId); Object.assign(w.d, { brand:{ id:brandId, name:b.n }, ownerSame:true, owner:clone(b.owner) }); }
+    return w; };
+  const wizBrand = () => S.wiz.d.brand.id ? S.brands.find(b => b.id === S.wiz.d.brand.id) : null;
+  // Brand: type a name. Suggestions are existing brands; picking one (or typing its exact name) adds a branch to it.
+  // Anything else creates a new brand. Every gym also gets a branch name, so a second branch never needs a fix-up.
+  const normB = t => String(t || '').trim().toLowerCase().replace(/\s+/g, ' ');
+  const brandMeta = () => { const d = S.wiz.d, b = wizBrand();
+    if (b) return `${icon('layers', 13)}Existing brand · ${plural(branchesOf(b.id).length, 'branch', 'branches')} · owner ${esc(b.owner.name)}`;
+    return d.brand.name.trim() ? `${icon('plus', 13)}New brand` : ''; };
+  const brandField = () => {
+    const W = S.wiz, d = W.d, b = wizBrand(), err = W.err['brand.name'];
+    if (W.mode === 'edit') return `<div class="dfld full dis"><label>Brand</label><div class="fi"><input value="${esc(b.n)}" disabled tabindex="-1"></div><span class="bmeta">${icon('layers', 13)}${plural(branchesOf(b.id).length, 'branch', 'branches')}</span></div>`;
+    return `<div class="full bwrap"><div class="dfld${err ? ' err' : ''}"><label>Brand</label><div class="fi"><input data-brand value="${esc(d.brand.name)}" placeholder="Type a brand name" autocomplete="off" role="combobox" aria-expanded="false"></div>${err ? `<span class="ferr">${err}</span>` : ''}<span class="bmeta" id="pt-bmeta">${brandMeta()}</span></div><div class="bdrop-host"></div></div>`;
+  };
+  const bdRender = () => {
+    const host = root.querySelector('.bdrop-host'), box = root.querySelector('[data-brand]'); if (!host) return;
+    const q = normB(S.wiz.d.brand.name);
+    if (!S.bd.open){ host.innerHTML = ''; box && box.setAttribute('aria-expanded', 'false'); return; }
+    const res = S.brands.filter(b => !q || normB(b.n).includes(q)).sort((a, b) => a.n.localeCompare(b.n)).slice(0, 6), exact = res.some(b => normB(b.n) === q);
+    S.bd.res = res; S.bd.n = res.length + (q && !exact ? 1 : 0); if (S.bd.i >= S.bd.n) S.bd.i = 0;
+    if (!S.bd.n){ host.innerHTML = ''; return; }
+    host.innerHTML = `<div class="tadrop" role="listbox">${res.map((b, i) => `<div class="taitem${i === S.bd.i ? ' on' : ''}" data-bi="${b.id}" role="option"><span class="tan">${q ? taHL(b.n, S.wiz.d.brand.name.trim()) : esc(b.n)}</span><span class="tat">${plural(branchesOf(b.id).length, 'branch', 'branches')}</span></div>`).join('')}
+      ${q && !exact ? `<div class="taitem add${S.bd.i === res.length ? ' on' : ''}" data-bnew>${icon('plus', 14)}New brand “${esc(S.wiz.d.brand.name.trim())}”</div>` : ''}</div>`;
+    box && box.setAttribute('aria-expanded', 'true');
+  };
+  const pickBrand = id => { const d = S.wiz.d, b = S.brands.find(x => x.id === id); Object.assign(d, { brand:{ id:b.id, name:b.n }, ownerSame:true, owner:clone(b.owner) }); delete S.wiz.err['brand.name']; S.bd = { open:false, i:0, res:[], n:0 }; render({ keep:true }); };
+  const ownerCard = () => {
+    const d = S.wiz.d;
+    if (!d.brand.id) return fCard('Owner', person('owner', false));
+    return fCard('Owner', person('owner', d.ownerSame), `<span class="dcheck${d.ownerSame ? ' on' : ''}" data-a="samebrand" role="checkbox" aria-checked="${d.ownerSame}" tabindex="0"><span class="box">${d.ownerSame ? icon('check', 12, 'stroke-width="3"') : ''}</span>Same as brand owner</span>`);
+  };
   const vWizard = () => {
     const W = S.wiz, d = W.d, names = W.mode === 'edit' ? ['Gym details', 'Contacts'] : STEPS_CREATE, last = W.step === names.length - 1;
     const stepper = `<div class="wsteps" style="grid-template-columns:repeat(${names.length},1fr)">${names.map((t, i) => `<div class="wstep ${i < W.step ? 'done' : i === W.step ? 'now' : ''}" ${i < W.step ? `data-a="wizgo" data-i="${i}" style="cursor:pointer"` : ''}><span class="wbar"></span><span class="wsk">Step ${i + 1}</span><span class="wsl">${t}${i === 2 ? '<span class="wso">optional</span>' : ''}</span></div>`).join('')}</div>`;
     let body = '';
-    if (W.step === 0) body = fCard('Gym details', fGrid(`${inp('Gym name', 'gym.name', { full:1 })}${inp('Phone', 'gym.phone', { pre:'+91', mask:'tel' })}${inp('Email', 'gym.email', { type:'email' })}
+    if (W.step === 0) body = fCard('Gym details', fGrid(`${brandField()}${inp('Branch', 'gym.branch', { full:1, ph:'Location, e.g. Banjara Hills' })}${inp('Phone', 'gym.phone', { pre:'+91', mask:'tel' })}${inp('Email', 'gym.email', { type:'email' })}
       ${inp('Address line 1', 'gym.addr1', { full:1, ph:'Building, street' })}${inp('Address line 2', 'gym.addr2', { full:1, opt:1, ph:'Floor, landmark' })}${inp('Area / locality', 'gym.area')}${inp('City', 'gym.city')}${selState()}${inp('PIN code', 'gym.pin', { mask:'pin' })}
       ${inp('Google Maps link', 'gym.maps', { full:1, type:'url', ph:'Paste the gym’s share link' })}<div class="full" id="pt-geo" style="margin-top:-8px">${geoMeta(d.gym.maps)}</div>`));
-    if (W.step === 1) body = `${fCard('Owner', person('owner', false))}${fCard('Point of contact', person('poc', d.poc.same), `<span class="dcheck${d.poc.same ? ' on' : ''}" data-a="same" role="checkbox" aria-checked="${d.poc.same}" tabindex="0"><span class="box">${d.poc.same ? icon('check', 12, 'stroke-width="3"') : ''}</span>Same as owner</span>`)}
+    if (W.step === 1) body = `${ownerCard()}${fCard('Point of contact', person('poc', d.poc.same), `<span class="dcheck${d.poc.same ? ' on' : ''}" data-a="same" role="checkbox" aria-checked="${d.poc.same}" tabindex="0"><span class="box">${d.poc.same ? icon('check', 12, 'stroke-width="3"') : ''}</span>Same as owner</span>`)}
       ${fCard('Notes <span class="optl">optional</span>', fGrid(`<div class="dfld full"><div class="fi ta"><textarea data-f="notes">${esc(d.notes)}</textarea></div></div>`))}`;
     if (W.step === 2) body = vEditor(d.eq);
     const back = W.step === 0 ? `<button class="dbtn sec" data-a="cancel">Cancel</button>` : `<button class="dbtn sec" data-a="back">${icon('chev-l', 14)}Back</button>`;
     let fwd = `<button class="dbtn" data-a="next">${last ? 'Save changes' : `Next${icon('arrow', 14)}`}</button>`;
     if (W.mode === 'create' && last) fwd = `<div class="row gap8"><button class="dbtn sec" data-a="later">Do later</button><button class="dbtn${d.eq.items.length ? '' : ' off'}" data-a="create" ${d.eq.items.length ? '' : 'disabled'}>${icon('check', 14, 'stroke-width="2.4"')}Create gym</button></div>`;
-    return `<div class="fcol">${W.mode === 'edit' ? `<button class="fback" data-a="open" data-id="${W.gymId}">${icon('chev-l', 14)}${esc(S.gyms.find(g => g.id === W.gymId).n)}</button>` : ''}<h1 class="ftitle">${W.mode === 'edit' ? 'Edit gym' : 'Add a gym'}</h1>${stepper}${body}<div class="wfoot">${back}${fwd}</div></div>`;
+    return `<div class="fcol">${W.mode === 'edit' ? `<button class="fback" data-a="open" data-id="${W.gymId}">${icon('chev-l', 14)}${esc(dispName(S.gyms.find(g => g.id === W.gymId)))}</button>` : ''}<h1 class="ftitle">${W.mode === 'edit' ? 'Edit gym' : 'Add a gym'}</h1>${stepper}${body}<div class="wfoot">${back}${fwd}</div></div>`;
   };
 
   /* ---------- equipment editor ---------- */
@@ -2117,7 +2275,7 @@ const PT = (() => {
 
   /* ---------- gym page ---------- */
   const vGym = () => {
-    const g = gym(), st = steps(g), done = st.filter(Boolean).length, first = st.indexOf(false), p = poc(g);
+    const g = gym(), st = steps(g), done = st.filter(Boolean).length, first = st.indexOf(false), p = poc(g), b = brandOf(g), o = ownerOf(g), chain = isChain(g);
     const row = (i, ok, t, sub, act, a) => `<div class="al" style="padding:14px 0"><span class="vi ${ok ? 'ok' : 'warn'}" style="width:28px;height:28px">${icon(ok ? 'check' : 'clock', 14, 'stroke-width="2.4"')}</span><div style="flex:1"><div class="at">${t}</div><div class="as">${sub}</div></div><button class="dbtn ${i === first ? '' : 'sec'} sm" data-a="${a}">${act}</button></div>`;
     const setup = g.live && done === 3 ? '' : `<div class="dcard"><div class="dhead"><div><h3>Setup</h3><div class="sub">${done === 3 ? 'Complete' : `${done} of 3 done`}</div></div></div>
       <div class="meter ${done === 3 ? 'good' : 'warn'}" style="margin-bottom:4px"><i style="width:${done / 3 * 100}%"></i></div><div class="alist">
@@ -2127,11 +2285,12 @@ const PT = (() => {
     const liveCard = g.live && done === 3 ? `<div class="dcard"><div class="dhead"><h3>Gym</h3></div><div class="alist">
       ${[['Equipment', `${g.eq.items.length} items`, 'equip'], ['Trainers', `${g.trainers.length} added`, 'trainers'], ['Logo', 'Added', 'logo']].map(([t, s, a]) => `<div class="al"><div style="flex:1"><div class="at">${t}</div><div class="as">${s}</div></div><button class="dbtn sec sm" data-a="${a}">Edit</button></div>`).join('')}</div></div>` : '';
     const golive = g.live ? `<b>${fmt(g.liveFrom)}</b>` : `<input type="date" class="dinput" data-golive value="${iso(g.golive)}">`;
-    return `<div class="dtop"><div class="row gap12">${avatar(g, 44)}<div><h1>${esc(g.n)}</h1><p>${esc(g.area)} · ${esc(g.city)} · added ${fmt(g.added)}</p></div></div>
+    return `<div class="dtop"><div class="row gap12">${avatar(g, 44)}<div><h1>${esc(b.n)}</h1><p>${esc(g.branch)} · ${esc(g.city)} · added ${fmt(g.added)}</p></div></div>
         <div class="dfilt"><span class="tag ${g.live ? 'good' : 'warn'}" style="height:30px;padding:0 10px">${g.live ? 'Live' : 'Setting up'}</span><button class="dbtn sec" data-a="call">${icon('phone', 14)}Call contact</button></div></div>
       <div class="dgrid" style="grid-template-columns:1.25fr 1fr;flex:1;align-items:start">${setup || liveCard}
       <div class="stack gap16"><div class="dcard"><div class="dhead"><h3>Gym</h3><button class="dbtn sec sm" data-a="edit">Edit</button></div>
-        <div class="kv"><span>Owner</span><b>${esc(g.owner.name)} · +91 ${tel(g.owner.mob)}</b></div>
+        <div class="kv"><span>Brand</span><b><button class="dbtn sec sm" data-a="brand" data-id="${b.id}">${icon('layers', 13)}${esc(b.n)} · ${plural(branchesOf(b.id).length, 'branch', 'branches')}</button></b></div>
+        <div class="kv"><span>Owner</span><b>${esc(o.name)} · +91 ${tel(o.mob)}</b></div>
         <div class="kv"><span>Point of contact</span><b>${g.poc.same ? 'Same as owner' : `${esc(p.name)} · +91 ${tel(p.mob)}`}</b></div>
         <div class="kv"><span>Gym phone</span><b>+91 ${tel(g.phone)}</b></div>
         <div class="kv"><span>Location</span><b>${g.maps ? `<a class="dbtn sec sm" href="${esc(g.maps)}" target="_blank" rel="noopener">${icon('pin', 13)}Open in Maps</a>` : '<span class="mut">Not set</span>'}</b></div>
@@ -2140,7 +2299,7 @@ const PT = (() => {
         <div class="kv"><span>Gym QR</span><b><button class="dbtn sec sm" data-a="qr">${icon('qr', 13)}Download</button></b></div></div>
       ${lockedList(['Plan & billing', 'Support access log', 'AI spend'])}</div></div><input type="file" accept="image/*" hidden data-file="logo">`;
   };
-  const vEquip = () => `<div class="fcol"><button class="fback" data-a="open" data-id="${S.gymId}">${icon('chev-l', 14)}${esc(gym().n)}</button><h1 class="ftitle">Equipment</h1>${vEditor(S.draft)}
+  const vEquip = () => `<div class="fcol"><button class="fback" data-a="open" data-id="${S.gymId}">${icon('chev-l', 14)}${esc(dispName(gym()))}</button><h1 class="ftitle">Equipment</h1>${vEditor(S.draft)}
     <div class="wfoot"><button class="dbtn sec" data-a="open" data-id="${S.gymId}">Cancel</button><button class="dbtn${S.draft.items.length ? '' : ' off'}" data-a="saveeq" ${S.draft.items.length ? '' : 'disabled'}>${icon('check', 14, 'stroke-width="2.4"')}Save equipment</button></div></div>`;
   const vLocked = () => {
     const card = (t, s) => `<div class="ocard"><b>${t}</b><div class="t12 muted" style="margin-top:6px;line-height:17px">${s}</div></div>`;
@@ -2172,6 +2331,11 @@ const PT = (() => {
         <button class="dbtn sec sm" data-a="tadd" style="margin-top:4px">${icon('plus', 13)}Add another</button>
         <div class="mfoot"><button class="dbtn sec" data-a="close">Cancel</button><button class="dbtn" data-a="tsave">Save & send invites</button></div></div></div>`;
     }
+    if (S.modal === 'brand'){
+      const B = S.bedit, f = (l, k, o = {}) => `<div class="dfld${B.err[k] ? ' err' : ''}"><label>${l}${o.opt ? ' <span class="optl">optional</span>' : ''}</label><div class="fi">${o.pre ? `<span class="pre">${o.pre}</span>` : ''}<input data-be="${k}" ${o.mask ? `data-mask="${o.mask}" inputmode="numeric"` : ''} value="${esc(o.mask === 'tel' ? tel(B[k]) : B[k])}" autocomplete="off"></div>${B.err[k] ? `<span class="ferr">${B.err[k]}</span>` : ''}</div>`;
+      return `<div class="pmodal" data-a="close-bg"><div class="mcard"><h3>Edit brand</h3><div class="stack gap12">${f('Brand name', 'n')}<div class="fgrid">${f('Owner', 'oname')}${f('Owner mobile', 'omob', { pre:'+91', mask:'tel' })}</div>${f('Owner email', 'oemail', { opt:1 })}</div>
+        <div class="mfoot"><button class="dbtn sec" data-a="close">Cancel</button><button class="dbtn" data-a="bsave">Save</button></div></div></div>`;
+    }
     return '';
   };
   const pvRows = lines => lines.map(x => `<div class="pvrow"><span class="pvl">${x.qty} × ${esc(x.raw)}</span><span class="pvr${x.it ? '' : ' cust'}">${x.it ? `${esc(x.it.n)} · ${x.it.t}` : 'Custom'}</span></div>`).join('');
@@ -2180,6 +2344,7 @@ const PT = (() => {
   const view = () => {
     if (S.route === 'add') return shell(S.wiz.mode === 'edit' ? 'gyms' : 'add', S.wiz.mode === 'edit' ? `gyms/${S.wiz.gymId}/edit` : 'gyms/new', vWizard());
     if (S.route === 'gym') return shell('gyms', `gyms/${S.gymId}`, vGym());
+    if (S.route === 'brand') return shell('gyms', `brands/${S.brandId}`, vBrand());
     if (S.route === 'equip') return shell('gyms', `gyms/${S.gymId}/equipment`, vEquip());
     if (S.route === 'locked') return shell(S.lock, S.lock, vLocked());
     return shell('gyms', 'gyms', vGyms());
@@ -2207,18 +2372,30 @@ const PT = (() => {
     return { lat: m ? +m[1] : 17.9784, lng: m ? +m[2] : 79.5941, url:u };
   };
   const geoMeta = u => { const g = parseMaps(u); return g && !g.bad ? mapsMeta(`${g.lat.toFixed(4)}° N, ${g.lng.toFixed(4)}° E`, esc(g.url)) : ''; };
-  const saveGymFrom = (d, g) => Object.assign(g, { maps:d.gym.maps.trim(), n:d.gym.name.trim(), phone:digits(d.gym.phone), email:d.gym.email.trim(), addr1:d.gym.addr1.trim(), addr2:d.gym.addr2.trim(), area:d.gym.area.trim(), city:d.gym.city.trim(), state:d.gym.state, pin:digits(d.gym.pin),
-    owner:Object.assign(clone(d.owner), { mob:digits(d.owner.mob), alt:digits(d.owner.alt) }), poc: d.poc.same ? { same:true, name:'', email:'', mob:'', alt:'' } : Object.assign(clone(d.poc), { mob:digits(d.poc.mob), alt:digits(d.poc.alt) }), notes:d.notes });
+  const cleanOwner = o => Object.assign(clone(o), { name:o.name.trim(), mob:digits(o.mob), alt:digits(o.alt), email:(o.email || '').trim() });
+  // A single gym's name and owner live on its brand. A branch takes the brand's name; its owner is the brand owner unless unticked (franchisee).
+  const saveGymFrom = (d, g) => {
+    const b = S.brands.find(x => x.id === g.brandId);
+    g.branch = d.gym.branch.trim();
+    if (!d.brand.id || d.ownerSame) g.ownerBrand = true;            // a new brand's owner is the brand owner
+    else { g.ownerBrand = false; g.owner = cleanOwner(d.owner); }   // franchisee owns this branch
+    return Object.assign(g, { maps:d.gym.maps.trim(), n:b.n, phone:digits(d.gym.phone), email:d.gym.email.trim(), addr1:d.gym.addr1.trim(), addr2:d.gym.addr2.trim(), area:d.gym.area.trim(), city:d.gym.city.trim(), state:d.gym.state, pin:digits(d.gym.pin),
+    owner: g.ownerBrand ? clone(b.owner) : g.owner, poc: d.poc.same ? { same:true, name:'', email:'', mob:'', alt:'' } : Object.assign(clone(d.poc), { mob:digits(d.poc.mob), alt:digits(d.poc.alt) }), notes:d.notes }); };
+  const slugOf = t => t.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'gym';
+  const uniq = (id, list) => list.some(x => x.id === id) ? id + '-' + list.length : id;
   const createGym = withEquip => {
-    const d = S.wiz.d, slug = d.gym.name.trim().toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'gym';
-    const g = saveGymFrom(d, { id: S.gyms.some(x => x.id === slug) ? slug + '-' + S.gyms.length : slug, c: COLORS[S.gyms.length % COLORS.length], logo:false,
-      eq: withEquip ? clone(d.eq) : { items:[], bars:d.eq.bars.slice(), plates:d.eq.plates.slice() }, trainers:[], signedIn:false, live:false, golive:null, mem:0, added:TODAY });
-    S.gyms.unshift(g); go('gym', { gymId:g.id, wiz:null }); toast('Gym created · sign-in link sent to the owner');
+    const d = S.wiz.d;
+    let b = d.brand.id ? S.brands.find(x => x.id === d.brand.id) : null;
+    if (!b){ b = { id: uniq(slugOf(d.brand.name), S.brands), n:d.brand.name.trim(), c: COLORS[S.brands.length % COLORS.length], logo:false, owner:cleanOwner(d.owner) }; S.brands.unshift(b); }
+    const ownerIn = !!d.brand.id && d.ownerSame && branchesOf(b.id).some(x => x.ownerBrand && x.signedIn);
+    const g = saveGymFrom(d, { id: uniq(slugOf(b.n + ' ' + d.gym.branch), S.gyms), brandId:b.id, c:b.c, logo:b.logo,
+      eq: withEquip ? clone(d.eq) : { items:[], bars:d.eq.bars.slice(), plates:d.eq.plates.slice() }, trainers:[], signedIn:ownerIn, live:false, golive:null, mem:0, added:TODAY });
+    S.gyms.unshift(g); go('gym', { gymId:g.id, wiz:null }); toast(ownerIn ? 'Gym created' : 'Gym created · sign-in link sent to the owner');
   };
   const fillSample = () => {
     if (S.route !== 'add' || S.wiz.mode !== 'create') S.wiz = newWiz();
     S.route = 'add';
-    Object.assign(S.wiz.d, { gym:{ name:'FitZone Unisex Gym', phone:'9876543210', email:'fitzone.hnk@gmail.com', addr1:'1st floor, Sai Plaza, Hanamkonda Main Road', addr2:'', area:'Hanamkonda', city:'Warangal', state:'Telangana', pin:'506001', maps:'https://maps.app.goo.gl/Wg9HnKd3Fz1t' },
+    Object.assign(S.wiz.d, { brand:{ id:'', name:'FitZone Unisex Gym' }, ownerSame:false, gym:{ branch:'Hanamkonda', phone:'9876543210', email:'fitzone.hnk@gmail.com', addr1:'1st floor, Sai Plaza, Hanamkonda Main Road', addr2:'', area:'Hanamkonda', city:'Warangal', state:'Telangana', pin:'506001', maps:'https://maps.app.goo.gl/Wg9HnKd3Fz1t' },
       owner:{ name:'Ramesh Goud', email:'', mob:'9848022338', alt:'' }, poc:{ same:false, name:'Anil Kumar', email:'', mob:'9959012345', alt:'' }, notes:'Prefers calls after 2 PM' });
     S.wiz.err = {}; render();
   };
@@ -2234,8 +2411,21 @@ const PT = (() => {
       case 'nav': if (v === 'add') go('add', { wiz:newWiz() }); else go('gyms'); break;
       case 'lock': go('locked', { lock:v }); break;
       case 'filter': S.filter = v; render(); break;
+      case 'tab': S.tab = v; render({ keep:true }); break;
       case 'open': go('gym', { gymId:el.dataset.id, wiz:null, draft:null }); break;
-      case 'cancel': go('gyms', { wiz:null }); break;
+      case 'brand': go('brand', { brandId:el.dataset.id, bq:'', bfilter:'all', wiz:null }); break;
+      case 'bfilter': S.bfilter = v; render({ keep:true }); break;
+      case 'addbranch': { const w = newWiz('create', null, el.dataset.id); w.back = { route:'brand', brandId:el.dataset.id }; go('add', { wiz:w }); break; }
+      case 'samebrand': { const d = W.d; d.ownerSame = !d.ownerSame; if (d.ownerSame){ const b = wizBrand(); if (b) d.owner = clone(b.owner); } ['owner.name', 'owner.mob', 'owner.alt', 'owner.email'].forEach(k => delete W.err[k]); render({ keep:true }); break; }
+      case 'editbrand': { const b = S.brands.find(x => x.id === S.brandId); S.bedit = { n:b.n, oname:b.owner.name, omob:b.owner.mob, oemail:b.owner.email || '', err:{} }; S.modal = 'brand'; render({ keep:true, focus:'[data-be="n"]' }); break; }
+      case 'bsave': { const B = S.bedit, b = S.brands.find(x => x.id === S.brandId); B.err = {};
+        if (!B.n.trim()) B.err.n = 'Required'; if (!B.oname.trim()) B.err.oname = 'Required'; if (digits(B.omob).length !== 10) B.err.omob = 'Enter a 10-digit number';
+        if (B.oemail.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(B.oemail.trim())) B.err.oemail = 'Enter a valid email';
+        if (Object.keys(B.err).length){ render({ keep:true }); return; }
+        b.n = B.n.trim(); Object.assign(b.owner, { name:B.oname.trim(), mob:digits(B.omob), email:B.oemail.trim() });
+        branchesOf(b.id).forEach(x => { x.n = b.n; if (x.ownerBrand) x.owner = clone(b.owner); });
+        S.modal = null; render({ keep:true }); toast('Brand saved'); break; }
+      case 'cancel': { const bk = W && W.back; bk ? go(bk.route, Object.assign({ wiz:null }, bk)) : go('gyms', { wiz:null }); break; }
       case 'back': W.step--; W.err = {}; render(); break;
       case 'wizgo': W.step = i; W.err = {}; render(); break;
       case 'next': {
@@ -2264,7 +2454,7 @@ const PT = (() => {
       case 'close': S.modal = null; render({ keep:true }); break;
       case 'close-bg': S.modal = null; render({ keep:true }); break;
       case 'equip': go('equip', { draft:clone(g.eq) }); break;
-      case 'saveeq': { g.eq = clone(S.draft); const wentLive = checkLive(g); go('gym', { draft:null }); toast(wentLive ? `${g.n} is live` : `Equipment saved · ${g.eq.items.length} items`); break; }
+      case 'saveeq': { g.eq = clone(S.draft); const wentLive = checkLive(g); go('gym', { draft:null }); toast(wentLive ? `${dispName(g)} is live` : `Equipment saved · ${g.eq.items.length} items`); break; }
       case 'logo': root.querySelector('[data-file="logo"]').click(); break;
       case 'trainers': S.trn = g.trainers.length ? clone(g.trainers) : [{ name:'', mob:'' }]; S.modal = 'trainers'; render({ keep:true, focus:'[data-tr="0"][data-k="name"]' }); break;
       case 'tadd': S.trn.push({ name:'', mob:'' }); render({ keep:true, focus:`[data-tr="${S.trn.length - 1}"][data-k="name"]` }); break;
@@ -2275,8 +2465,8 @@ const PT = (() => {
         if (bad){ render({ keep:true }); return; }
         const list = S.trn.filter(t => t.name.trim()).map(t => ({ name:t.name.trim(), mob:digits(t.mob) }));
         g.trainers = list; const wentLive = checkLive(g); S.modal = null; render({ keep:true });
-        toast(wentLive ? `${g.n} is live` : list.length ? `Invites sent to ${list.length} trainer${list.length === 1 ? '' : 's'}` : 'Trainers removed'); break; }
-      case 'resend': toast(`Sign-in link sent to +91 ${tel(g.owner.mob)}`); break;
+        toast(wentLive ? `${dispName(g)} is live` : list.length ? `Invites sent to ${list.length} trainer${list.length === 1 ? '' : 's'}` : 'Trainers removed'); break; }
+      case 'resend': toast(`Sign-in link sent to +91 ${tel(ownerOf(g).mob)}`); break;
       case 'qr': toast('Gym QR downloaded'); break;
       case 'call': { const p = poc(g); toast(`${p.name} · +91 ${tel(p.mob)}`); break; }
       case 'edit': go('add', { wiz:newWiz('edit', g) }); break;
@@ -2288,6 +2478,16 @@ const PT = (() => {
     if (t.dataset.mask === 'pin') t.value = digits(t.value).slice(0, 6);
     if (t.dataset.mask === 'qty') t.value = digits(t.value).slice(0, 3);
     if (t.hasAttribute('data-search')){ S.q = t.value; root.querySelector('#pt-rows').innerHTML = listRows(); return; }
+    if (t.hasAttribute('data-bsq')){ S.bsq = t.value; root.querySelector('#pt-brrows').innerHTML = brandListRows(); return; }
+    if (t.hasAttribute('data-brand')){
+      const d = S.wiz.d, had = d.brand.id, hit = S.brands.find(b => normB(b.n) === normB(t.value));
+      d.brand.name = t.value; d.brand.id = hit ? hit.id : '';
+      if (hit && hit.id !== had){ d.ownerSame = true; d.owner = clone(hit.owner); }
+      if (!hit && had){ d.ownerSame = false; d.owner = { name:'', email:'', mob:'', alt:'' }; }
+      if (S.wiz.err['brand.name']){ delete S.wiz.err['brand.name']; const f = t.closest('.dfld'); f.classList.remove('err'); const m = f.querySelector('.ferr'); m && m.remove(); }
+      root.querySelector('#pt-bmeta').innerHTML = brandMeta(); S.bd.open = true; S.bd.i = 0; bdRender(); return; }
+    if (t.hasAttribute('data-bsearch')){ S.bq = t.value; root.querySelector('#pt-brows').innerHTML = listRows(S.brandId); return; }
+    if (t.dataset.be){ S.bedit[t.dataset.be] = t.value; return; }
     if (t.hasAttribute('data-ta')){ S.ta.q = t.value; S.ta.i = 0; S.ta.open = true; taRender(); return; }
     if (t.hasAttribute('data-paste')){ S.paste = t.value; const lines = t.value.split('\n').map(parseLine).filter(Boolean); root.querySelector('#pt-pv').innerHTML = pvRows(lines);
       const b = root.querySelector('#pt-pvbtn'); b.textContent = `Add ${lines.length || ''} item${lines.length === 1 ? '' : 's'}`; b.disabled = !lines.length; b.classList.toggle('off', !lines.length); return; }
@@ -2298,6 +2498,8 @@ const PT = (() => {
       setP(W.d, p, t.value);
       if (W.err[p]){ delete W.err[p]; const f = t.closest('.dfld'); f.classList.remove('err'); const m = f.querySelector('.ferr'); m && m.remove(); }
       if (p === 'gym.maps'){ const h = root.querySelector('#pt-geo'); if (h) h.innerHTML = geoMeta(t.value); }
+      if (p === 'gym.branch') W.branchEdited = !!t.value.trim();
+      if (p === 'gym.area' && !W.branchEdited && W.mode !== 'edit'){ W.d.gym.branch = t.value; const bi = root.querySelector('[data-f="gym.branch"]'); if (bi){ bi.value = t.value; if (W.err['gym.branch'] && t.value.trim()){ delete W.err['gym.branch']; const f = bi.closest('.dfld'); f.classList.remove('err'); const m = f.querySelector('.ferr'); m && m.remove(); } } }
       if (p.startsWith('owner.') && W.d.poc.same){ const m = root.querySelector(`[data-f="poc.${p.slice(6)}"]`); if (m) m.value = t.value; }
     }
   }
@@ -2305,16 +2507,24 @@ const PT = (() => {
     const t = e.target;
     if (t.tagName === 'SELECT' && t.dataset.f){ onInput(e); t.classList.toggle('empty', !t.value); return; }
     if (t.tagName === 'SELECT' && t.dataset.row != null){ ed().items[+t.dataset.row].type = t.value; return; }
-    if (t.hasAttribute('data-golive')){ const g = gym(); g.golive = t.value ? new Date(t.value + 'T00:00') : null; const wentLive = checkLive(g); render({ keep:true }); if (wentLive) toast(`${g.n} is live`); return; }
+    if (t.hasAttribute('data-golive')){ const g = gym(); g.golive = t.value ? new Date(t.value + 'T00:00') : null; const wentLive = checkLive(g); render({ keep:true }); if (wentLive) toast(`${dispName(g)} is live`); return; }
     if (t.dataset.file === 'row' && t.files[0]){ ed().items[photoRow].photo = URL.createObjectURL(t.files[0]); render({ keep:true }); return; }
     if (t.dataset.file === 'bulk' && t.files.length){
       const free = ed().items.filter(x => !x.photo); let n = 0;
       [...t.files].forEach((f, k) => { if (free[k]) { free[k].photo = URL.createObjectURL(f); n++; } });
       render({ keep:true }); toast(`${n} photo${n === 1 ? '' : 's'} added`); return; }
-    if (t.dataset.file === 'logo' && t.files[0]){ const g = gym(); g.logo = URL.createObjectURL(t.files[0]); const wentLive = checkLive(g); render({ keep:true }); toast(wentLive ? `${g.n} is live` : 'Logo added'); }
+    if (t.dataset.file === 'logo' && t.files[0]){ const g = gym(), b = brandOf(g), url = URL.createObjectURL(t.files[0]); b.logo = url; branchesOf(b.id).forEach(x => { x.logo = url; }); const wentLive = checkLive(g); render({ keep:true });
+      toast(wentLive ? `${dispName(g)} is live` : isChain(g) ? `Logo added · all ${branchesOf(b.id).length} branches` : 'Logo added'); }
   }
   function onKey(e){
     const t = e.target;
+    if (t.hasAttribute && t.hasAttribute('data-brand')){
+      if (e.key === 'ArrowDown' && S.bd.n){ e.preventDefault(); S.bd.i = (S.bd.i + 1) % S.bd.n; bdRender(); }
+      else if (e.key === 'ArrowUp' && S.bd.n){ e.preventDefault(); S.bd.i = (S.bd.i - 1 + S.bd.n) % S.bd.n; bdRender(); }
+      else if (e.key === 'Enter'){ e.preventDefault(); if (S.bd.open && S.bd.i < S.bd.res.length) pickBrand(S.bd.res[S.bd.i].id); else { S.bd.open = false; bdRender(); } }
+      else if (e.key === 'Escape'){ S.bd.open = false; bdRender(); }
+      return;
+    }
     if (t.hasAttribute && t.hasAttribute('data-ta')){
       if (e.key === 'ArrowDown' && S.ta.n){ e.preventDefault(); S.ta.i = (S.ta.i + 1) % S.ta.n; taRender(); }
       else if (e.key === 'ArrowUp' && S.ta.n){ e.preventDefault(); S.ta.i = (S.ta.i - 1 + S.ta.n) % S.ta.n; taRender(); }
@@ -2322,10 +2532,12 @@ const PT = (() => {
       else if (e.key === 'Escape'){ S.ta.open = false; taRender(); }
       return;
     }
-    if ((e.key === ' ' || e.key === 'Enter') && t.dataset && t.dataset.a === 'same'){ e.preventDefault(); t.click(); return; }
+    if ((e.key === ' ' || e.key === 'Enter') && t.dataset && (t.dataset.a === 'same' || t.dataset.a === 'samebrand')){ e.preventDefault(); t.click(); return; }
     if (e.key === 'Escape' && S.modal){ S.modal = null; render({ keep:true }); }
   }
   function onMouseDown(e){
+    const bi = e.target.closest('[data-bi]'); if (bi && root.contains(bi)){ e.preventDefault(); pickBrand(bi.dataset.bi); return; }
+    const bn = e.target.closest('[data-bnew]'); if (bn && root.contains(bn)){ e.preventDefault(); S.bd.open = false; bdRender(); return; }
     const it = e.target.closest('.taitem'); if (!it || !root.contains(it)) return;
     e.preventDefault(); chooseTa(+it.dataset.ti);
   }
@@ -2335,7 +2547,8 @@ const PT = (() => {
       root = el; render();
       el.addEventListener('click', onClick); el.addEventListener('input', onInput); el.addEventListener('change', onChange);
       el.addEventListener('keydown', onKey); el.addEventListener('mousedown', onMouseDown);
-      el.addEventListener('focusin', e => { if (e.target.hasAttribute('data-ta')) { S.ta.open = true; taRender(); } });
+      el.addEventListener('focusin', e => { if (e.target.hasAttribute('data-ta')) { S.ta.open = true; taRender(); } if (e.target.hasAttribute('data-brand')) { S.bd.open = true; bdRender(); } });
+      el.addEventListener('focusout', e => { if (e.target.hasAttribute('data-brand')) setTimeout(() => { const f = document.activeElement; if (f && f.hasAttribute && f.hasAttribute('data-brand')) return; S.bd.open = false; bdRender(); }, 120); });
       el.addEventListener('focusout', e => { if (e.target.hasAttribute('data-ta')) setTimeout(() => { const f = document.activeElement; if (f && f.hasAttribute && f.hasAttribute('data-ta')) return; S.ta.open = false; taRender(); }, 120); });
     },
     reset(){ S = fresh(); render(); },
@@ -2353,14 +2566,18 @@ const OPS_PAGE = {
   sections:[{ title:'Reference screens', note:'', items:[
     ['01','Sign in','OPS-00','pLogin','team email'],
     ['02','Sign in · code','OPS-00','pLoginCode','6-digit code'],
-    ['03','Gyms','OPS-01','pGyms'],
-    ['04','Add a gym · gym details','OPS-02.1','pAdd1','step 1 of 3'],
-    ['05','Add a gym · contacts','OPS-02.2','pAdd2','step 2 of 3'],
-    ['06','Add a gym · equipment','OPS-02.3','pAdd3','step 3 of 3 · optional'],
-    ['07','Gym setup','OPS-03','pDetail','3 steps'],
-    ['08','Equipment','OPS-04','pEquipIdle','from Gym setup'],
-    ['09','Equipment · searching','OPS-04','pEquip','search open'],
-    ['10','Locked · plans & billing','OPS-05','pLocked'],
+    ['03','Gyms','OPS-01','pGyms','every gym'],
+    ['04','Gyms · Brands tab','OPS-01','pBrands','one row per brand'],
+    ['05','Brand','OPS-01.1','pBrand','its branches · Add a gym'],
+    ['06','Add a gym · gym details','OPS-02.1','pAdd1','step 1 of 3 · new brand'],
+    ['07','Add a gym · existing brand','OPS-02.1','pAdd1b','from the brand page'],
+    ['08','Add a gym · contacts','OPS-02.2','pAdd2','step 2 of 3'],
+    ['09','Add a gym · contacts · existing brand','OPS-02.2','pAdd2b','same as brand owner'],
+    ['10','Add a gym · equipment','OPS-02.3','pAdd3','step 3 of 3 · optional'],
+    ['11','Gym setup','OPS-03','pDetail','Brand row links to the brand'],
+    ['12','Equipment','OPS-04','pEquipIdle','from Gym setup'],
+    ['13','Equipment · searching','OPS-04','pEquip','search open'],
+    ['14','Locked · plans & billing','OPS-05','pLocked'],
   ]}],
   init: () => {
     PT.mount(document.getElementById('pt-root'));
