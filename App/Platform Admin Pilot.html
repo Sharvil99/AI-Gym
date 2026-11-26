@@ -1221,6 +1221,19 @@ button.ethumb.has{background-size:cover;background-position:center}
 .gopen:hover{text-decoration:underline}
 a.dbtn{text-decoration:none}
 .sspec .wide .dfld{width:100%}
+
+/* Admin sign in */
+.alog{align-items:center;justify-content:center;background:var(--bg)}
+.alog-card{width:400px;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:32px;box-shadow:var(--card-shadow);display:flex;flex-direction:column;gap:20px}
+.alog-brand{display:flex;align-items:center;gap:10px}
+.alog-h{font-size:22px;font-weight:700;letter-spacing:-.02em}
+.alog-sub{font-size:13px;color:var(--text-2);margin-top:6px}
+.alog .dbtn{justify-content:center;height:40px;width:100%}
+.aotp{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.aotp i{height:48px;border-radius:10px;border:1px solid var(--line-2);background:var(--card-2);display:grid;place-items:center;font-size:20px;font-weight:700;font-style:normal;font-variant-numeric:tabular-nums}
+.aotp i.on{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.alog-row{display:flex;justify-content:space-between;font-size:13px}
+.alog-foot{font-size:12px;color:var(--text-3);text-align:center}
 </style>
 </head>
 <body class="theme-dark">
@@ -1668,6 +1681,17 @@ const PILOT_EQUIP = [
   ['Leg extension','Machine','1','Stack 5–80 kg',1],
   ['Spin bike','Cardio','3','—',0],
 ];
+
+// Sign in: team email + 6-digit code (no passwords). No sidebar until signed in.
+const loginShell = (path, card) => `<div class="desk"><div class="dchrome"><span class="dots"><i style="background:#FF5F57"></i><i style="background:#FEBC2E"></i><i style="background:#28C840"></i></span><div class="url">${icon('lock',11)}admin.gymcompanion.app/${path}</div><span style="width:60px"></span></div>
+  <div class="dbody alog"><div class="alog-card"><div class="alog-brand"><span class="opslogo">${icon('layers',17)}</span><div><div style="font-size:14px;font-weight:700">Gym Companion</div><div class="t12 muted" style="font-weight:500">Platform admin</div></div></div>${card}</div></div></div>`;
+O.pLogin = () => loginShell('sign-in', `<div><div class="alog-h">Sign in</div></div>
+  <div class="dfld"><label>Work email</label><div class="fi is-focus"><span class="fv">nikhil@gymcompanion.app</span></div></div>
+  <span class="dbtn">Send code</span><div class="alog-foot">Team accounts only</div>`);
+O.pLoginCode = () => loginShell('sign-in', `<div><div class="alog-h">Enter the code</div><div class="alog-sub">Sent to nikhil@gymcompanion.app · <b style="color:var(--text)">Change</b></div></div>
+  <div class="aotp">${['5','2','8','','',''].map((d, i) => `<i class="${i === 3 ? 'on' : ''}">${d}</i>`).join('')}</div>
+  <div class="alog-row"><span class="muted">Didn’t get it?</span><b>Resend in 0:24</b></div>
+  <span class="dbtn">Sign in</span>`);
 
 O.pShell = (active, title, sub, body, actions = '', tall = false) => {
   const nav = [['gyms','building','Gyms',PILOT_GYMS.length],['add','plus','Add a gym']];
@@ -2327,14 +2351,16 @@ const OPS_PAGE = {
     <div class="ptbar"><button data-pt="sample">Fill sample data</button><button data-pt="reset">Reset</button></div>
     <div id="pt-root"></div></section>${renderSpec()}`,
   sections:[{ title:'Reference screens', note:'', items:[
-    ['01','Gyms','OPS-01','pGyms'],
-    ['02','Add a gym · gym details','OPS-02.1','pAdd1','step 1 of 3'],
-    ['03','Add a gym · contacts','OPS-02.2','pAdd2','step 2 of 3'],
-    ['04','Add a gym · equipment','OPS-02.3','pAdd3','step 3 of 3 · optional'],
-    ['05','Gym setup','OPS-03','pDetail','3 steps'],
-    ['06','Equipment','OPS-04','pEquipIdle','from Gym setup'],
-    ['07','Equipment · searching','OPS-04','pEquip','search open'],
-    ['08','Locked · plans & billing','OPS-05','pLocked'],
+    ['01','Sign in','OPS-00','pLogin','team email'],
+    ['02','Sign in · code','OPS-00','pLoginCode','6-digit code'],
+    ['03','Gyms','OPS-01','pGyms'],
+    ['04','Add a gym · gym details','OPS-02.1','pAdd1','step 1 of 3'],
+    ['05','Add a gym · contacts','OPS-02.2','pAdd2','step 2 of 3'],
+    ['06','Add a gym · equipment','OPS-02.3','pAdd3','step 3 of 3 · optional'],
+    ['07','Gym setup','OPS-03','pDetail','3 steps'],
+    ['08','Equipment','OPS-04','pEquipIdle','from Gym setup'],
+    ['09','Equipment · searching','OPS-04','pEquip','search open'],
+    ['10','Locked · plans & billing','OPS-05','pLocked'],
   ]}],
   init: () => {
     PT.mount(document.getElementById('pt-root'));
