@@ -116,14 +116,20 @@ Our dev, IT and ops team's console for onboarding gyms, in two files:
 
 - **`App/Platform Admin Pilot.html`, built now:**
   - **Sign in:** team email and a 6-digit code (no passwords), then the admin opens. No sidebar until signed in.
-  - **Gyms:** the gym list with filters and search.
+  - **Gyms:** two tabs. **Gyms** is the list of every gym, one row each, with filters and search (as before). **Brands** lists each brand once, with its branch count, members and owner; a row opens the brand page.
   - **Add a gym:** a 3-step wizard with Back / Next. Step 1, gym details: name, phone, email, full address (two lines, area, city, state, PIN) and the gym's Google Maps link. Coordinates are shown with "Open in Maps"; the member app uses them for its start check. Step 2, contacts: owner and point of contact (with a "Same as owner" option), each with a mobile and an optional alternate mobile, plus notes. Step 3, equipment (optional): the full list in one go, or **Do later**. The go-live date is set later on the gym's page.
+  - **Brands and branches:** every gym is saved as **Brand + Branch**, from the first one. A single gym is a brand with one branch, so adding a second branch later never needs a fix-up.
+    - Step 1 of Add a gym asks for the **Brand** (type to pick an existing brand, or a new name creates one; an exact name links to the existing brand) and the **Branch** (location; it copies Area / locality until edited).
+    - Step 2: when adding to an existing brand, the owner is **Same as brand owner** by default. Untick it for a franchisee who owns that branch. For a new brand, the owner entered becomes the brand owner.
+    - **Brand page:** the brand's branches with the same filters and search, **Add a gym** (the form opens with the brand filled in) and **Edit brand** (name and owner for every branch).
+    - Each gym page has a Brand row that links to its brand page. One logo per brand.
+    - Members belong to one home branch: they join with its QR, their plan uses its equipment, and Start workout checks its location. Trainers belong to a branch.
   - **Gym setup:** 3 steps, all done by our team: gym details and logo, equipment, trainers. The gym opens to members on its go-live date once setup is done.
   - **Equipment:** a standalone page from Gym setup, using the same editor as wizard step 3. Search suggests equipment as you type, Paste a list matches each line, and photos are optional.
   - **Locked page:** an example of how later features appear.
 - **`App/Platform Admin.html`, after the pilot:** gym pipeline, a detailed onboarding wizard (legal and tax details, plans, agreements), and provisioning. Kept as a reference.
 
-Features that come after the pilot (leads, plans and billing, legal and tax details, agreement tracking, multiple branches, usage, support access, ops team) appear in the pilot file **locked** with an "After pilot" label. It's an internal tool, so showing them is fine, and unlocking one later is a state change rather than a redesign. Pricing stays out until PRD decision D-01 is signed off.
+Features that come after the pilot (leads, plans and billing, legal and tax details, agreement tracking, usage, support access, ops team) appear in the pilot file **locked** with an "After pilot" label. It's an internal tool, so showing them is fine, and unlocking one later is a state change rather than a redesign. Pricing stays out until PRD decision D-01 is signed off.
 
 It uses the neutral Gym Companion brand and never shows member health data.
 

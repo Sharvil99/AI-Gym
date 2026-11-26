@@ -208,14 +208,14 @@ They hadn't fully reviewed the Gym Companion trainer screens. Build on these thr
 - Coach/physio review of the rule tables before launch.
 - Figma sync for the sign-in screens:
   - 3 mobile screens; Jodi HTML frames are numbered 3 higher than Figma
-  - 2 admin screens; admin HTML is 2 higher
-  - The Gym Jodi trainer app (frames 43–56) isn't in Figma either
+  - 2 admin screens. Admin HTML frames were renumbered on 26 Nov for brands (now 01–13); Figma's 8 admin screens have neither the sign-in nor the brand screens
   - The user said "no need right away".
 - Icons: we use **Lucide** (open source, ISC licence, 24 px grid, 1.75 stroke), plus custom icons for the dumbbell and filled play/pause. The user will add the Lucide library to Figma by hand.
 
 **Maybe / later**
 - Equipment entry from the owner and trainer apps (typed on the gym floor, photos taken there).
-- After-pilot admin features: leads, plans and billing, legal and tax details, agreements, multiple branches, usage, support access, ops team. They are shown locked in the pilot file.
+- After-pilot admin features: leads, plans and billing, legal and tax details, agreements, usage, support access, ops team. They are shown locked in the pilot file. (Multiple branches moved into the pilot on 26 Nov.)
+- Members training at other branches of their brand (after the pilot).
 
 **Engineering notes**
 - Encrypt scan files at rest; build no admin or support view of them.
@@ -223,6 +223,17 @@ They hadn't fully reviewed the Gym Companion trainer screens. Build on these thr
 - Engineering supplies the equipment catalog (name, type, default weights, aliases). Don't build "all machines in the world" data.
 
 **Admin pilot rules**
+- **Brands and branches (user, 26 Nov):**
+  - The Gyms page has two tabs:
+    - **Gyms:** every gym, one row each, unchanged.
+    - **Brands:** one row per brand, showing branch count, members and owner. A row opens the brand page.
+  - Never merge gyms into brand rows, and never show a combined status for a brand. Its gyms can be live and setting up at the same time. The user was angry when I replaced the gyms list.
+  - Brand page: its branches, plus "Add a gym", which opens the form with the brand filled in.
+  - The form always asks for Brand and Branch:
+    - The Brand field suggests existing brands; an exact name links to the existing brand.
+    - The Branch field is required, so the first gym of a brand already has a branch name.
+  - Branch owner: "Same as brand owner" for existing brands; untick it for a franchisee.
+  - The on-screen word is "Brand". Members have one home branch; trainers belong to a branch.
 - Our team sets up gyms in one go after a site visit.
 - Trainers don't verify equipment.
 - There are no partial "3 of 12" states.
@@ -265,12 +276,12 @@ Figma file `Ymy4LJVsha2qGaSKvsyq3D` was built on 26 Nov 2026.
 | Page | Contents |
 |---|---|
 | Cover | Cover frame |
-| Read me | Notes for developers, including the open plan-weight question |
+| Read me | Notes for developers: pages, tokens, components, conventions, trainer app, open questions |
 | Foundations | Colour, type, spacing, radius and effects |
 | Icons | 71 icon components |
-| Components · Mobile | 48 components |
+| Components · Mobile | 55 components; the 7 trainer ones are in Docs · Trainer (Tab bar · Trainer, Filter chip, Member row, Plan exercise row, Check row, Detail row, Text area) |
 | Components · Desktop | 17 components |
-| Gym Jodi · Member app | 39 screens; Dark row on top, Light row below |
+| Gym Jodi · Member & trainer app | Sections 1–4: 39 member screens. Section 5: 14 trainer screens (43–56, same numbers as the HTML). Dark row on top, Light row below |
 | Platform Admin · Pilot | 8 screens, 1280 wide, Light mode |
 | Exploration · Gym Companion | Locked capture |
 | Exploration · Admin after pilot | Locked capture |
@@ -286,3 +297,7 @@ Figma file `Ymy4LJVsha2qGaSKvsyq3D` was built on 26 Nov 2026.
 - An instance swap renames the nested layer, so find icons by position.
 - `setFileThumbnailNodeAsync` isn't supported.
 - Calling `findAll` on a TEXT node throws.
+- Re-binding a paint to the variable it's already bound to leaves the raw colour (often white). Clear `fills` first, and give the base paint the variable's resolved colour.
+- `setBoundVariableForPaint` drops `opacity`; spread it back on (`{ ...paint, opacity }`). Instances may still ignore it, so prefer solid tokens.
+- A nested instance inside an instance can't be resized. Size it in the main component.
+- Radius variables are named `radius/card`, `radius/sheet`, `radius/lg` (no numbers).
