@@ -49,8 +49,9 @@ Phones scale to your window height; the owner console frames scale to its width.
 
 ## Gym Jodi (beginner member app)
 
-`App/Gym Jodi.html` is a separate, simpler version of the member app for beginners: 39 screens and an interactive prototype. It doesn't include the trainer app or the owner console.
+`App/Gym Jodi.html` is a separate, simpler version of the member app for beginners, plus its trainer app: 56 screens (42 member, 14 trainer) and one interactive prototype phone. Jump between the member and trainer sides and the state carries over. It doesn't include the owner console.
 
+- **Sign in with a phone number.** Enter the number the gym has on file, then a 6-digit code. A new number with a gym invite continues to Invite & verify; a returning member goes straight to Home; a number no gym has added gets "This number isn't linked to a gym" with Try another number. The prototype panel's Phone number switch shows all three.
 - **3-step onboarding:** Body → Goal & schedule → Health check.
   - **Body** is one screen: an "Upload body scan" row (DEXA or InBody, PDF or photo), then Height & weight, then Body composition (optional: body fat, lean mass, fat mass, visceral fat). A report fills every tile; without one, the member types height and weight. Every value stays editable.
   - **Goal & schedule** is one screen: goal, training so far, days per week, session length and diet (Veg / Eggetarian / Non-veg / Vegan).
@@ -60,6 +61,7 @@ Phones scale to your window height; the owner console frames scale to its width.
 - **No logging.** Jod.ai's plan sets sets, reps and weight (weights can differ per set), and the trainer approves the plan. The exercise screen shows the current set's reps and weight in large type and lists every set; members tap a set when it's done (with an explicit Undo).
 - **Couldn't complete, set by set.** "Couldn't complete" sits next to "Set N done" and opens a number scroller: the selected number sits large on a lens and its neighbours fade; drag or tap (0 = not done). The exercise carries on.
   - **Beginner rule:** missed by 1–2 reps keeps the weight; missed by 3 or more drops the remaining sets about 10% (shown as "35 kg · was 40"). Undo restores the plan.
+  - **Parked (26 Nov 2026).** Set-by-set tracking and adjustment will leave Gym Jodi in the next phase, because it asks too much of members. Its rules, reasoning, screens and a working prototype are kept in the [Feature Bank](FEATURE-BANK.md). So is the make-up set design: after 0 reps, an extra set at a lighter weight so the member still completes every planned set.
   - **Feedback:** "How did it feel?" (Too easy / Just right / Hard, optional) appears only after a fully completed exercise. If any set was short, the reps say it and the button goes straight to the next exercise.
   - **Colour:** reps are orange when short ("32/36") and green when complete ("36/36"). Weights and feelings stay neutral.
 - **Pain and stop states are calm.** Red (#E5534B dark, #CF222E light) is only an accent: the alert icon, the selected option's border and check. Hold and medical-guidance boxes are neutral cards; nothing is a filled red box.
@@ -71,11 +73,49 @@ Phones scale to your window height; the owner console frames scale to its width.
 - **Summary and progress** show time, exercises done, cardio minutes and how each exercise felt, plus the plan's weights over time. There's no volume or "best lifts", since members don't log weights.
 - **Log weight** sits in the Body section header on Progress. The sheet is prefilled with the last weigh-in, with −/+ 0.1 kg or typing. It's one entry a day (logging again replaces today's), and the number, change since Aug and chart update straight away.
 
+### Gym Jodi trainer app (frames 43–56)
+
+The trainer's three jobs, one tab each:
+
+- **Plans:** approve Jod.ai's plan, or ask for changes.
+  - The queue has filters with counts: To review (oldest first), Rebuilding and Approved.
+  - The review screen shows the member's onboarding facts (goal, experience, schedule, diet, body, health check), automatic checks, and every exercise with sets, reps and the weight for each set.
+  - **The trainer never types weights.** Tapping an exercise opens a sheet with these choices:
+    - Lighter, Heavier, Fewer reps or More reps (Shorter or Longer for cardio)
+    - Replace it with one of the approved alternatives at the gym
+    - An optional note for Jod.ai
+  - Once any exercise has a change, Approve is replaced by **Request changes · N**. That sheet collects every exercise change plus free-text instructions and sends them to Jod.ai.
+  - Jod.ai rebuilds the plan, and the next version comes back for review with **Changes from v1**: each change with its "was" value, and the trainer's notes quoted. The member sees "Being updated" in the meantime, and workouts stay locked.
+  - Approving applies the new version to the member's workouts.
+- **Help:** open requests and resolved ones.
+  - Open requests include the trainer's own and those another trainer on shift has accepted.
+  - Accept, On my way and Resolve are on the card and on the request screen. The member's phone shows each step.
+  - Resolving asks for an outcome. For pain, "Cleared in person" lifts the exercise hold; "Keep on hold today" and "Advised medical help" keep it.
+- **Members:** every member of the gym.
+  - Search, plus filters with counts: All, Mine, In the gym, Review.
+  - Each row shows the last visit, or the station if the member is in the gym, the trainer when it isn't you, and flags (Review, Rebuilding, Help, On hold).
+  - The member record shows:
+    - live status, visits and workouts this week
+    - the plan and the next Jod.ai update
+    - the onboarding profile
+    - the latest body scan with its change and the report files
+    - recent workouts
+    - help history
+
+Not carried over from the Gym Companion trainer app: the Today queue, logging check-ins (attention coverage), and transfer or escalate on requests. They're recorded in the [Feature Bank](FEATURE-BANK.md).
+
+## Feature Bank
+
+When a feature is cut or changed, usually after stakeholder feedback, it isn't thrown away:
+- [FEATURE-BANK.md](FEATURE-BANK.md) records why it was built, why it changed, the rules and the rejected variants.
+- `App/Feature Bank.html` keeps the screens and a working prototype of features that would otherwise be lost. The first entry is Gym Jodi's sets & reps tracking.
+
 ## Platform admin
 
 Our dev, IT and ops team's console for onboarding gyms, in two files:
 
 - **`App/Platform Admin Pilot.html`, built now:**
+  - **Sign in:** team email and a 6-digit code (no passwords), then the admin opens. No sidebar until signed in.
   - **Gyms:** the gym list with filters and search.
   - **Add a gym:** a 3-step wizard with Back / Next. Step 1, gym details: name, phone, email, full address (two lines, area, city, state, PIN) and the gym's Google Maps link. Coordinates are shown with "Open in Maps"; the member app uses them for its start check. Step 2, contacts: owner and point of contact (with a "Same as owner" option), each with a mobile and an optional alternate mobile, plus notes. Step 3, equipment (optional): the full list in one go, or **Do later**. The go-live date is set later on the gym's page.
   - **Gym setup:** 3 steps, all done by our team: gym details and logo, equipment, trainers. The gym opens to members on its go-live date once setup is done.
@@ -157,9 +197,12 @@ Everything is in one file: inline CSS, then inline JS.
 ```
 App/
   Gym Companion.html        # member app, trainer app, owner console (self-contained)
-  Gym Jodi.html             # beginner member app: no logging, cardio-only timer, optional feedback (self-contained)
+  Gym Jodi.html             # beginner member app + trainer app: no logging, cardio-only timer, Jod.ai plans the trainer approves (self-contained)
   Platform Admin Pilot.html # our team's console, pilot version we build now (self-contained)
   Platform Admin.html       # our team's console, full version for after the pilot (self-contained)
+  Feature Bank.html         # parked features: screens and working prototype, kept for later (self-contained)
+CLAUDE.md                   # shared context: decisions, working rules, open questions, plans (read first)
+FEATURE-BANK.md             # every feature we cut or changed, with the reasoning and where its screens live
 README.md
 ROADMAP.md                  # prioritised list of future features
 Roadmap Presentation.html   # the roadmap as a slide deck
